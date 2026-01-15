@@ -37,20 +37,21 @@ export function Sidebar() {
   const links = isAdmin ? adminLinks : studentLinks
 
   return (
-    <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r border-purple-500/20 bg-[#0d0619] hidden lg:block">
+    <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r border-white/[0.06] bg-[#0a0a0f] hidden lg:block">
       {/* Logo Section */}
-      <div className="flex h-16 items-center border-b border-purple-500/20 px-6">
-        <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity group">
-          <div className="relative">
-            <GraduationCap className="h-8 w-8 text-purple-400 group-hover:text-cyan-400 transition-colors" />
-            <div className="absolute inset-0 blur-lg bg-purple-500/30 group-hover:bg-cyan-500/30 transition-colors" />
+      <div className="flex h-16 items-center border-b border-white/[0.06] px-6">
+        <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity group">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center">
+            <GraduationCap className="h-5 w-5 text-white" />
           </div>
-          <span className="font-bold text-lg text-gradient">School of Members</span>
+          <span className="font-bold text-white">
+            school<span className="text-cyan-400">.</span>members
+          </span>
         </Link>
       </div>
 
       {/* Navigation Links */}
-      <nav className="p-4 space-y-2">
+      <nav className="p-4 space-y-1">
         {links.map((link) => {
           const Icon = link.icon
           const isActive = pathname === link.href
@@ -60,27 +61,32 @@ export function Sidebar() {
               key={link.href}
               href={link.href}
               className={cn(
-                'flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300',
+                'flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200',
                 isActive
-                  ? 'bg-gradient-to-r from-purple-500/20 to-cyan-500/10 text-white border border-purple-500/30 shadow-lg shadow-purple-500/10'
-                  : 'text-slate-400 hover:text-white hover:bg-purple-500/10 border border-transparent hover:border-purple-500/20'
+                  ? 'bg-white/[0.06] text-white border border-white/[0.08]'
+                  : 'text-zinc-400 hover:text-white hover:bg-white/[0.03] border border-transparent'
               )}
             >
               <Icon className={cn(
                 'h-5 w-5 transition-colors',
-                isActive ? 'text-cyan-400' : 'text-purple-400'
+                isActive ? 'text-cyan-400' : 'text-zinc-500'
               )} />
               {link.label}
               {isActive && (
-                <div className="ml-auto w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-lg shadow-cyan-400/50" />
+                <div className="ml-auto w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
               )}
             </Link>
           )
         })}
       </nav>
 
-      {/* Bottom Gradient Decoration */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-purple-900/20 to-transparent pointer-events-none" />
+      {/* Bottom Section */}
+      <div className="absolute bottom-6 left-0 right-0 px-4">
+        <div className="glass rounded-xl p-4">
+          <p className="text-xs text-zinc-500 mb-2">Need help?</p>
+          <p className="text-sm text-zinc-300">Contact support</p>
+        </div>
+      </div>
     </aside>
   )
 }
