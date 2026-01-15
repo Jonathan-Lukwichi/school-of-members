@@ -47,11 +47,12 @@
 }
 
 /* ================================
-   Bolt.new Inspired Dark Theme
+   Academic Dark Theme
+   Inspired by University of Pretoria
    ================================ */
 :root {
-  --radius: 0.75rem;
-  /* Deep dark background - almost black with slight blue tint */
+  --radius: 0.625rem;
+  /* Deep dark background */
   --background: #0a0a0f;
   --foreground: #ffffff;
   /* Card - slightly lighter dark */
@@ -60,39 +61,42 @@
   /* Popover matching cards */
   --popover: #13131a;
   --popover-foreground: #ffffff;
-  /* Primary - Cyan/Blue accent */
-  --primary: #3b82f6;
+  /* Primary - University Blue */
+  --primary: #0779bf;
   --primary-foreground: #ffffff;
-  /* Secondary - Muted dark */
-  --secondary: #1e1e2e;
-  --secondary-foreground: #e2e8f0;
+  /* Secondary - Navy */
+  --secondary: #0e56b9;
+  --secondary-foreground: #ffffff;
   /* Muted colors */
   --muted: #18181f;
-  --muted-foreground: #71717a;
-  /* Accent - Bright Cyan */
-  --accent: #22d3ee;
+  --muted-foreground: #94a3b8;
+  /* Accent - Academic Gold */
+  --accent: #b5985b;
   --accent-foreground: #0a0a0f;
+  /* Cyan for tech/modern feel */
+  --cyan: #22d3ee;
+  --cyan-foreground: #0a0a0f;
   /* Destructive - Red */
   --destructive: #ef4444;
   /* Border - Very subtle */
   --border: rgba(255, 255, 255, 0.08);
   --input: rgba(255, 255, 255, 0.06);
-  --ring: #3b82f6;
-  /* Chart colors - Cyan to Blue gradient */
-  --chart-1: #22d3ee;
-  --chart-2: #06b6d4;
-  --chart-3: #3b82f6;
-  --chart-4: #6366f1;
-  --chart-5: #8b5cf6;
+  --ring: #0779bf;
+  /* Chart colors */
+  --chart-1: #0779bf;
+  --chart-2: #0e56b9;
+  --chart-3: #b5985b;
+  --chart-4: #22d3ee;
+  --chart-5: #06b6d4;
   /* Sidebar */
   --sidebar: #0a0a0f;
   --sidebar-foreground: #ffffff;
-  --sidebar-primary: #3b82f6;
+  --sidebar-primary: #0779bf;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #1e1e2e;
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: rgba(255, 255, 255, 0.08);
-  --sidebar-ring: #3b82f6;
+  --sidebar-ring: #0779bf;
 }
 
 @layer base {
@@ -112,7 +116,7 @@
 }
 
 .bg-gradient-radial {
-  background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.15), transparent);
+  background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(7, 121, 191, 0.15), transparent);
 }
 
 .bg-grid {
@@ -571,5 +575,526 @@
 /* Divider with gradient */
 .divider-gradient {
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(34, 211, 238, 0.3) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(7, 121, 191, 0.4) 50%, transparent 100%);
+}
+
+/* ================================
+   University/Academic Styles
+   Inspired by UP clickUP
+   ================================ */
+
+/* Academic Hero Section */
+.hero-academic {
+  position: relative;
+  background: linear-gradient(135deg, #0a0a0f 0%, #0d1520 50%, #0a0a0f 100%);
+  overflow: hidden;
+}
+
+.hero-academic::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(7, 121, 191, 0.15), transparent);
+  pointer-events: none;
+}
+
+/* Statistics Card - UP Style */
+.stat-card {
+  background: linear-gradient(135deg, rgba(7, 121, 191, 0.1) 0%, rgba(14, 86, 185, 0.05) 100%);
+  border: 1px solid rgba(7, 121, 191, 0.2);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  border-color: rgba(7, 121, 191, 0.4);
+  box-shadow: 0 0 30px rgba(7, 121, 191, 0.15);
+  transform: translateY(-2px);
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #0779bf 0%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  color: #94a3b8;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 8px;
+}
+
+/* Course Card - Academic Style */
+.course-card {
+  background: #13131a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.course-card:hover {
+  border-color: rgba(7, 121, 191, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  transform: translateY(-4px);
+}
+
+.course-card-image {
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(135deg, #0779bf 0%, #0e56b9 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.course-card-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(19, 19, 26, 0.8) 0%, transparent 60%);
+}
+
+.course-card-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(181, 152, 91, 0.9);
+  color: #0a0a0f;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  z-index: 1;
+}
+
+/* Testimonial Card */
+.testimonial-card {
+  background: rgba(19, 19, 26, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 32px;
+  position: relative;
+}
+
+.testimonial-card::before {
+  content: '"';
+  position: absolute;
+  top: 16px;
+  left: 24px;
+  font-size: 4rem;
+  color: rgba(7, 121, 191, 0.3);
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+
+.testimonial-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid rgba(7, 121, 191, 0.5);
+  object-fit: cover;
+}
+
+.testimonial-name {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.testimonial-role {
+  color: #0779bf;
+  font-size: 0.875rem;
+}
+
+/* Program Card - Clickup Style */
+.program-card {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.program-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  transition: background 0.3s ease;
+}
+
+.program-card:hover .program-card-overlay {
+  background: linear-gradient(to top, rgba(7, 121, 191, 0.9) 0%, rgba(7, 121, 191, 0.4) 100%);
+}
+
+.program-card-title {
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: #ffffff;
+}
+
+/* Academic Navigation */
+.nav-academic {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.nav-academic-item {
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: #94a3b8;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.nav-academic-item:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-academic-item.active {
+  color: #ffffff;
+  background: #0779bf;
+}
+
+/* Info Banner - Announcement Style */
+.info-banner {
+  background: linear-gradient(90deg, rgba(7, 121, 191, 0.15) 0%, rgba(14, 86, 185, 0.1) 100%);
+  border-left: 4px solid #0779bf;
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+}
+
+.info-banner-gold {
+  background: linear-gradient(90deg, rgba(181, 152, 91, 0.15) 0%, rgba(181, 152, 91, 0.05) 100%);
+  border-left: 4px solid #b5985b;
+}
+
+/* Progress Bar - Academic */
+.progress-academic {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-academic-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0779bf 0%, #22d3ee 100%);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+/* Quick Access Cards */
+.quick-access-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: rgba(19, 19, 26, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.quick-access-card:hover {
+  background: rgba(7, 121, 191, 0.1);
+  border-color: rgba(7, 121, 191, 0.3);
+}
+
+.quick-access-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0779bf 0%, #0e56b9 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+/* Feature List with Icons */
+.feature-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.feature-list-item:last-child {
+  border-bottom: none;
+}
+
+.feature-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(7, 121, 191, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0779bf;
+  flex-shrink: 0;
+}
+
+/* Academic Form Styles */
+.form-academic-input {
+  width: 100%;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 0.9375rem;
+  transition: all 0.2s ease;
+}
+
+.form-academic-input::placeholder {
+  color: #64748b;
+}
+
+.form-academic-input:focus {
+  outline: none;
+  border-color: #0779bf;
+  box-shadow: 0 0 0 3px rgba(7, 121, 191, 0.15);
+}
+
+.form-academic-label {
+  display: block;
+  color: #94a3b8;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+/* Academic Button Variants */
+.btn-academic {
+  background: #0779bf;
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-academic:hover {
+  background: #0e56b9;
+  box-shadow: 0 4px 20px rgba(7, 121, 191, 0.3);
+}
+
+.btn-academic-outline {
+  background: transparent;
+  color: #0779bf;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: 1px solid #0779bf;
+  cursor: pointer;
+}
+
+.btn-academic-outline:hover {
+  background: rgba(7, 121, 191, 0.1);
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, #b5985b 0%, #d4b876 100%);
+  color: #0a0a0f;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-gold:hover {
+  box-shadow: 0 4px 20px rgba(181, 152, 91, 0.4);
+}
+
+/* Academic Data Table */
+.table-academic {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.table-academic thead {
+  background: rgba(7, 121, 191, 0.1);
+}
+
+.table-academic th {
+  padding: 14px 16px;
+  text-align: left;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid rgba(7, 121, 191, 0.3);
+}
+
+.table-academic td {
+  padding: 14px 16px;
+  color: #94a3b8;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.table-academic tbody tr {
+  transition: background 0.2s ease;
+}
+
+.table-academic tbody tr:hover {
+  background: rgba(7, 121, 191, 0.05);
+}
+
+/* Status Indicators */
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.status-dot-active {
+  background: #22c55e;
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+}
+
+.status-dot-pending {
+  background: #f59e0b;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+}
+
+.status-dot-inactive {
+  background: #64748b;
+}
+
+/* Calendar/Schedule Item */
+.schedule-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(19, 19, 26, 0.6);
+  border-radius: 10px;
+  border-left: 3px solid #0779bf;
+  transition: all 0.2s ease;
+}
+
+.schedule-item:hover {
+  background: rgba(7, 121, 191, 0.1);
+}
+
+.schedule-date {
+  text-align: center;
+  padding: 8px 16px;
+  background: rgba(7, 121, 191, 0.15);
+  border-radius: 8px;
+  min-width: 60px;
+}
+
+.schedule-day {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0779bf;
+}
+
+.schedule-month {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+/* Notification Badge */
+.notification-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+}
+
+/* Loading Skeleton */
+.skeleton {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.05) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 6px;
+}
+
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Academic Footer */
+.footer-academic {
+  background: #0a0a0f;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.footer-link {
+  color: #64748b;
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: #0779bf;
+}
+
+/* Welcome Banner */
+.welcome-banner {
+  background: linear-gradient(135deg, rgba(7, 121, 191, 0.2) 0%, rgba(14, 86, 185, 0.1) 50%, rgba(181, 152, 91, 0.1) 100%);
+  border: 1px solid rgba(7, 121, 191, 0.2);
+  border-radius: 16px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome-banner::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(181, 152, 91, 0.1) 0%, transparent 70%);
+  pointer-events: none;
 }
