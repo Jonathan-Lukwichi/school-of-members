@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabaseAdmin } from '@/lib/supabase/admin'
+import { getSupabaseAdmin } from '@/lib/supabase/admin'
 
 export async function GET() {
   try {
+    const supabaseAdmin = getSupabaseAdmin()
+
     // Check if any admins exist
     const { data: admins, error } = await supabaseAdmin
       .from('profiles')
@@ -27,6 +29,8 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    const supabaseAdmin = getSupabaseAdmin()
+
     const body = await request.json()
     const { setupKey, fullName, email, phone, password } = body
 

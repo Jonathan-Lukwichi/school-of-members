@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabaseAdmin } from '@/lib/supabase/admin'
+import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { generatePin, hashPin } from '@/lib/auth/pin'
 import { formatPhoneNumber, validatePhoneNumber } from '@/lib/auth/phone'
 import { createStudentSession, setStudentSessionCookie } from '@/lib/auth/session'
@@ -7,6 +7,8 @@ import { sendWelcomeMessage } from '@/lib/whatsapp/twilio'
 
 export async function POST(request: NextRequest) {
   try {
+    const supabaseAdmin = getSupabaseAdmin()
+
     const body = await request.json()
     const { phone, whatsappNumber, fullName } = body
 

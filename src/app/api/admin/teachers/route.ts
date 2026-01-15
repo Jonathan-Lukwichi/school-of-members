@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@/lib/supabase/server'
-import { supabaseAdmin } from '@/lib/supabase/admin'
+import { getSupabaseAdmin } from '@/lib/supabase/admin'
 
 // GET - List all teachers
 export async function GET() {
   try {
     const supabase = await createServerClient()
+    const supabaseAdmin = getSupabaseAdmin()
 
     // Check if current user is admin
     const { data: { user } } = await supabase.auth.getUser()
@@ -47,6 +48,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createServerClient()
+    const supabaseAdmin = getSupabaseAdmin()
 
     // Check if current user is admin
     const { data: { user } } = await supabase.auth.getUser()
@@ -146,6 +148,7 @@ export async function POST(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   try {
     const supabase = await createServerClient()
+    const supabaseAdmin = getSupabaseAdmin()
 
     // Check if current user is admin
     const { data: { user } } = await supabase.auth.getUser()
@@ -206,6 +209,7 @@ export async function DELETE(request: NextRequest) {
 export async function PATCH(request: NextRequest) {
   try {
     const supabase = await createServerClient()
+    const supabaseAdmin = getSupabaseAdmin()
 
     // Check if current user is admin
     const { data: { user } } = await supabase.auth.getUser()
