@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import {
   Home,
@@ -43,9 +44,13 @@ export function Sidebar() {
       {/* Logo Section */}
       <div className="flex h-16 items-center border-b border-white/10 px-6">
         <Link href="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity group">
-          <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
-            <GraduationCap className="h-5 w-5 text-white" />
-          </div>
+          <Image
+            src="/images/logo.png"
+            alt="School of Members Logo"
+            width={40}
+            height={40}
+            className="w-10 h-10 object-contain"
+          />
           <div>
             <span className="font-bold text-white text-sm block leading-tight">
               School of Members

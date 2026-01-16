@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import {
   GraduationCap,
   BookOpen,
@@ -171,9 +172,13 @@ export default function Home() {
           <div className="flex items-center justify-between py-4">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3">
-              <div className="w-14 h-14 rounded-lg bg-[#003366] flex items-center justify-center">
-                <GraduationCap className="h-8 w-8 text-white" />
-              </div>
+              <Image
+                src="/images/logo.png"
+                alt="School of Members Logo"
+                width={56}
+                height={56}
+                className="w-14 h-14 object-contain"
+              />
               <div>
                 <span className="text-xl font-bold text-[#003366] block leading-tight">
                   School of Members
@@ -579,9 +584,13 @@ export default function Home() {
             {/* Logo Column */}
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center">
-                  <GraduationCap className="h-7 w-7 text-white" />
-                </div>
+                <Image
+                  src="/images/logo.png"
+                  alt="School of Members Logo"
+                  width={48}
+                  height={48}
+                  className="w-12 h-12 object-contain"
+                />
                 <div>
                   <span className="font-bold text-white block">School of Members</span>
                   <span className="text-xs text-white/60">Ramah Full Gospel Church</span>

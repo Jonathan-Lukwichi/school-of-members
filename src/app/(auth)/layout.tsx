@@ -1,5 +1,5 @@
-import { GraduationCap } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function AuthLayout({
   children,
@@ -23,9 +23,13 @@ export default function AuthLayout({
       <div className="relative w-full max-w-md p-4 z-10">
         {/* Logo Section */}
         <Link href="/" className="flex items-center justify-center gap-3 mb-8 group">
-          <div className="w-14 h-14 rounded-lg bg-[#003366] flex items-center justify-center shadow-lg">
-            <GraduationCap className="h-8 w-8 text-white" />
-          </div>
+          <Image
+            src="/images/logo.png"
+            alt="School of Members Logo"
+            width={56}
+            height={56}
+            className="w-14 h-14 object-contain"
+          />
           <div className="text-center">
             <h1 className="text-2xl font-bold text-[#003366]">
               School of Members
