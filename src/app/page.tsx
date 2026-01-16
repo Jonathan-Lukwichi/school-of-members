@@ -140,47 +140,24 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Top Utility Bar */}
-      <div className="top-bar">
-        <div className="container mx-auto px-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-6">
-              <span className="flex items-center gap-2">
-                <Phone className="h-3.5 w-3.5" />
-                <span className="hidden sm:inline">+27 61 691 2540</span>
-              </span>
-              <span className="flex items-center gap-2">
-                <Mail className="h-3.5 w-3.5" />
-                <span className="hidden sm:inline">ramahfullgospelch@gmail.com</span>
-              </span>
-            </div>
-            <div className="flex items-center gap-4">
-              <Link href="/student/login" className="hover:underline">Student Portal</Link>
-              <span className="text-white/40">|</span>
-              <Link href="/login" className="hover:underline">Staff Portal</Link>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Main Header */}
       <header className="header-up">
-        <div className="container mx-auto px-6">
-          <div className="flex items-center justify-between py-4">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex items-center justify-between py-3 sm:py-4">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3">
+            <Link href="/" className="flex items-center gap-2 sm:gap-3">
               <Image
                 src="/images/logo.png"
                 alt="School of Members Logo"
                 width={56}
                 height={56}
-                className="w-14 h-14 object-contain"
+                className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 object-contain"
               />
               <div>
-                <span className="text-xl font-bold text-[#003366] block leading-tight">
+                <span className="text-base sm:text-lg md:text-xl font-bold text-[#003366] block leading-tight">
                   School of Members
                 </span>
-                <span className="text-xs text-gray-500">Ramah Full Gospel Church Pretoria</span>
+                <span className="hidden sm:block text-xs text-gray-500">Ramah Full Gospel Church Pretoria</span>
               </div>
             </Link>
 

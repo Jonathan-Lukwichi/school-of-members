@@ -908,49 +908,219 @@
 }
 
 /* ================================
-   Responsive Utilities
+   Responsive Utilities - Mobile First
    ================================ */
-@media (max-width: 768px) {
+
+/* Large Desktop (1280px and up) */
+@media (min-width: 1280px) {
+  .hero-carousel {
+    height: 600px;
+  }
+
   .hero-slide-title {
-    font-size: 2rem;
+    font-size: 3.5rem;
+  }
+
+  .hero-slide-content {
+    max-width: 900px;
+  }
+}
+
+/* Desktop (1024px - 1279px) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .hero-carousel {
+    height: 520px;
+  }
+
+  .hero-slide-title {
+    font-size: 3rem;
+  }
+}
+
+/* Tablet (768px - 1023px) */
+@media (max-width: 1023px) {
+  .hero-slide-title {
+    font-size: 2.25rem;
   }
 
   .hero-carousel {
-    height: 400px;
+    height: 450px;
   }
 
-  .search-bar-container {
-    flex-direction: column;
+  .hero-slide-content {
+    padding: 0 1.5rem;
   }
 
-  .search-bar-input {
-    width: 100%;
-  }
-
-  .mega-dropdown-content {
-    grid-template-columns: repeat(2, 1fr);
+  .hero-slide-description {
+    font-size: 1rem;
   }
 
   .stat-number {
     font-size: 2rem;
   }
-}
 
-@media (max-width: 480px) {
-  .hero-slide-title {
-    font-size: 1.5rem;
+  /* Programme cards - 2 columns on tablet */
+  .programme-card-image {
+    height: 180px;
   }
 
+  /* News cards - 2 columns on tablet */
+  .news-card-image {
+    height: 140px;
+  }
+}
+
+/* Mobile Landscape & Small Tablet (640px - 767px) */
+@media (max-width: 767px) {
+  .hero-carousel {
+    height: 400px;
+  }
+
+  .hero-slide-title {
+    font-size: 1.875rem;
+    line-height: 1.2;
+  }
+
+  .hero-slide-subtitle {
+    font-size: 0.875rem;
+  }
+
+  .hero-slide-description {
+    font-size: 0.9375rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .hero-arrow {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Header adjustments */
+  .header-up {
+    padding: 0.5rem 0;
+  }
+
+  /* About section */
+  .about-pillar {
+    padding: 1.5rem;
+  }
+
+  .about-pillar-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  /* Stats */
+  .stat-number {
+    font-size: 1.75rem;
+  }
+
+  /* Footer */
+  .footer-up {
+    padding: 2rem 0;
+  }
+}
+
+/* Mobile Portrait (480px - 639px) */
+@media (max-width: 639px) {
+  .hero-carousel {
+    height: 380px;
+  }
+
+  .hero-slide-title {
+    font-size: 1.625rem;
+  }
+
+  .hero-slide-content {
+    padding: 0 1rem;
+  }
+
+  .btn-up-primary,
+  .btn-up-secondary {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+  }
+
+  /* Programme cards */
+  .programme-card-image {
+    height: 160px;
+  }
+
+  .programme-card-label {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  /* News cards */
+  .news-card-content {
+    padding: 1rem;
+  }
+
+  .news-card-title {
+    font-size: 1rem;
+  }
+}
+
+/* Small Mobile (below 480px) */
+@media (max-width: 479px) {
   .hero-carousel {
     height: 350px;
   }
 
-  .hero-arrow {
-    width: 40px;
-    height: 40px;
+  .hero-slide-title {
+    font-size: 1.375rem;
   }
 
-  .mega-dropdown-content {
-    grid-template-columns: 1fr;
+  .hero-slide-subtitle {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+  }
+
+  .hero-slide-description {
+    font-size: 0.875rem;
+    -webkit-line-clamp: 2;
+  }
+
+  .hero-arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .hero-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  /* Logo in header */
+  .header-up .flex.items-center.gap-3 img {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  /* Stats bar */
+  .stat-number {
+    font-size: 1.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+  }
+
+  /* Programme cards */
+  .programme-card-image {
+    height: 140px;
+  }
+
+  /* Footer columns */
+  .footer-up-title {
+    font-size: 0.875rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-up-links li {
+    margin-bottom: 0.5rem;
   }
 }
