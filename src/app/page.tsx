@@ -23,88 +23,99 @@ import {
   X
 } from 'lucide-react'
 
-// Hero slides data
+// Hero slides data - Using uploaded church photos
 const heroSlides = [
   {
     id: 1,
-    gradient: 'linear-gradient(135deg, #003366 0%, #004080 50%, #002244 100%)',
+    image: '/images/hero/603893843_863136529756625_3601433323555904839_n.jpg',
+    overlay: 'linear-gradient(135deg, rgba(0,51,102,0.65) 0%, rgba(0,64,128,0.7) 100%)',
     title: 'Welcome to the School of Members',
     subtitle: 'A Year of Growing Faith',
     description: 'Join our spiritual community and grow in your faith with Ramah Full Gospel Church Pretoria',
   },
   {
     id: 2,
-    gradient: 'linear-gradient(135deg, #C8102E 0%, #a00d25 100%)',
+    image: '/images/hero/605616953_863675026369442_6652154226306859322_n.jpg',
+    overlay: 'linear-gradient(135deg, rgba(200,16,46,0.65) 0%, rgba(160,13,37,0.7) 100%)',
     title: 'Grow • Serve • Belong',
     subtitle: 'Our Three Foundational Pillars',
     description: 'Develop your faith, use your talents in service to the community, and become part of the spiritual family',
   },
   {
     id: 3,
-    gradient: 'linear-gradient(135deg, #b5985b 0%, #8a7344 100%)',
+    image: '/images/hero/608702732_865582319512046_5812417327465441922_n.jpg',
+    overlay: 'linear-gradient(135deg, rgba(181,152,91,0.65) 0%, rgba(138,115,68,0.7) 100%)',
     title: 'Complete Training Program',
     subtitle: '12 Chapters of Spiritual Growth',
     description: 'A structured program to understand the foundations of our community under the direction of Apostle Narcisse Majila',
   },
 ]
 
-// Programme cards data - Based on Syllabus Chapters
+// Programme cards data - Based on Syllabus Chapters with church photos
 const programmes = [
   {
     id: 1,
     title: 'Foundations of Membership',
-    gradient: 'linear-gradient(135deg, #003366 0%, #004080 100%)',
+    image: '/images/hero/603907220_863136993089912_1924723922976510063_n.jpg',
+    overlay: 'linear-gradient(to top, rgba(0,51,102,0.9) 0%, rgba(0,51,102,0.3) 100%)',
     icon: BookOpen,
   },
   {
     id: 2,
     title: 'Pastor-Member Relationship',
-    gradient: 'linear-gradient(135deg, #C8102E 0%, #a00d25 100%)',
+    image: '/images/hero/605209775_863138459756432_5544717009163373141_n.jpg',
+    overlay: 'linear-gradient(to top, rgba(200,16,46,0.9) 0%, rgba(200,16,46,0.3) 100%)',
     icon: GraduationCap,
   },
   {
     id: 3,
     title: 'Certification & Graduation',
-    gradient: 'linear-gradient(135deg, #b5985b 0%, #8a7344 100%)',
+    image: '/images/hero/605633574_863139219756356_2557880040851016723_n.jpg',
+    overlay: 'linear-gradient(to top, rgba(181,152,91,0.9) 0%, rgba(181,152,91,0.3) 100%)',
     icon: Award,
   },
   {
     id: 4,
     title: 'Community Life & Service',
-    gradient: 'linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)',
+    image: '/images/hero/606051694_863676573035954_803516800744340136_n.jpg',
+    overlay: 'linear-gradient(to top, rgba(14,165,233,0.9) 0%, rgba(14,165,233,0.3) 100%)',
     icon: UsersRound,
   },
 ]
 
-// News articles data
+// News articles data - with church photos
 const newsArticles = [
   {
     id: 1,
     date: 'January 15, 2026',
     title: 'Registration Open for 2026 Session',
     excerpt: 'Registration for the new School of Members session is now open. Join us for a year of spiritual growth and development.',
-    gradient: 'linear-gradient(135deg, #003366 0%, #004080 100%)',
+    image: '/images/hero/615069170_870723538997924_4168573880654188734_n.jpg',
+    overlay: 'linear-gradient(to top, rgba(0,51,102,0.85) 0%, rgba(0,51,102,0.4) 100%)',
   },
   {
     id: 2,
     date: 'January 10, 2026',
     title: 'Annual Spiritual Retreat',
     excerpt: 'Our annual spiritual retreat will take place next month. A unique opportunity to strengthen your faith and connection with God.',
-    gradient: 'linear-gradient(135deg, #C8102E 0%, #a00d25 100%)',
+    image: '/images/hero/608702732_865582319512046_5812417327465441922_n.jpg',
+    overlay: 'linear-gradient(to top, rgba(200,16,46,0.85) 0%, rgba(200,16,46,0.4) 100%)',
   },
   {
     id: 3,
     date: 'January 5, 2026',
     title: 'Graduate Testimonies',
     excerpt: 'Discover inspiring testimonies from our alumni and how the School of Members transformed their spiritual lives.',
-    gradient: 'linear-gradient(135deg, #b5985b 0%, #8a7344 100%)',
+    image: '/images/hero/605730001_863139043089707_7171139442108095605_n.jpg',
+    overlay: 'linear-gradient(to top, rgba(181,152,91,0.85) 0%, rgba(181,152,91,0.4) 100%)',
   },
   {
     id: 4,
     date: 'January 1, 2026',
     title: 'New Year Message',
     excerpt: 'Apostle Narcisse Majila shares his message of hope and blessing for this new year with the congregation.',
-    gradient: 'linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)',
+    image: '/images/hero/605913088_863138966423048_422744223419916850_n.jpg',
+    overlay: 'linear-gradient(to top, rgba(14,165,233,0.85) 0%, rgba(14,165,233,0.4) 100%)',
   },
 ]
 
@@ -291,7 +302,12 @@ export default function Home() {
             <div
               key={slide.id}
               className={`hero-slide ${index === currentSlide ? 'active' : ''}`}
-              style={{ background: slide.gradient }}
+              style={{
+                backgroundImage: `${slide.overlay}, url(${slide.image})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundColor: '#003366', // Fallback color while image loads
+              }}
             >
               <div className="hero-slide-content">
                 <p className="text-lg mb-2 opacity-90">{slide.subtitle}</p>
@@ -355,13 +371,16 @@ export default function Home() {
                   <Link key={programme.id} href="/student/courses" className="programme-card group">
                     <div
                       className="programme-card-image"
-                      style={{ background: programme.gradient }}
+                      style={{
+                        backgroundImage: `${programme.overlay}, url(${programme.image})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center'
+                      }}
                     >
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <Icon className="h-16 w-16 text-white/30" />
+                        <Icon className="h-16 w-16 text-white/30 group-hover:text-white/50 transition-all duration-300" />
                       </div>
                     </div>
-                    <div className="programme-card-overlay" />
                     <div className="programme-card-label">
                       {programme.title}
                     </div>
@@ -476,10 +495,14 @@ export default function Home() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {newsArticles.map((article) => (
-                <article key={article.id} className="news-card">
+                <article key={article.id} className="news-card group">
                   <div
                     className="news-card-image"
-                    style={{ background: article.gradient }}
+                    style={{
+                      backgroundImage: `${article.overlay}, url(${article.image})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center'
+                    }}
                   />
                   <div className="news-card-content">
                     <p className="news-card-date">{article.date}</p>
