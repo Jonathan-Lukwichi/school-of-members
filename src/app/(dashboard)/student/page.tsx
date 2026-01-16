@@ -122,11 +122,8 @@ export default function StudentDashboard() {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="flex flex-col items-center gap-4">
-          <div className="relative">
-            <Loader2 className="h-10 w-10 animate-spin text-purple-500" />
-            <div className="absolute inset-0 blur-xl bg-purple-500/30" />
-          </div>
-          <p className="text-slate-400 text-sm">Loading your dashboard...</p>
+          <Loader2 className="h-10 w-10 animate-spin text-[#003366]" />
+          <p className="text-[#64748b] text-sm">Loading your dashboard...</p>
         </div>
       </div>
     )
@@ -143,18 +140,17 @@ export default function StudentDashboard() {
 
       <div className="space-y-8">
         {/* Welcome Header */}
-        <div className="relative overflow-hidden rounded-2xl glass border-purple-500/20 p-8">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl" />
+        <div className="relative overflow-hidden rounded-2xl bg-white border border-[#e2e8f0] shadow-sm p-8">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#003366] to-[#C8102E]" />
           <div className="relative">
-            <div className="flex items-center gap-2 text-cyan-400 text-sm font-medium mb-2">
+            <div className="flex items-center gap-2 text-[#C8102E] text-sm font-medium mb-2">
               <Sparkles className="h-4 w-4" />
               Welcome back
             </div>
-            <h1 className="text-4xl font-bold text-white mb-2">
-              Hello, <span className="text-gradient">{profile?.full_name?.split(' ')[0] || 'Student'}!</span>
+            <h1 className="text-4xl font-bold text-[#1e293b] mb-2">
+              Hello, <span className="text-[#003366]">{profile?.full_name?.split(' ')[0] || 'Student'}!</span>
             </h1>
-            <p className="text-slate-400 max-w-md">
+            <p className="text-[#64748b] max-w-md">
               Continue your learning journey. You&apos;re making great progress!
             </p>
           </div>
@@ -163,84 +159,78 @@ export default function StudentDashboard() {
         {/* Quick Stats */}
         <div className="grid gap-6 md:grid-cols-3">
           {/* Enrolled Courses */}
-          <Card className="glass border-purple-500/20 hover-lift hover-glow-purple overflow-hidden group">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-colors" />
+          <Card className="bg-white border border-[#e2e8f0] shadow-sm hover:shadow-md transition-shadow overflow-hidden">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-slate-300">Enrolled Courses</CardTitle>
-              <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-500/30">
+              <CardTitle className="text-sm font-medium text-[#64748b]">Enrolled Courses</CardTitle>
+              <div className="h-10 w-10 rounded-xl bg-[#003366] flex items-center justify-center">
                 <BookOpen className="h-5 w-5 text-white" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-white">{stats.enrolledCourses}</div>
+              <div className="text-3xl font-bold text-[#1e293b]">{stats.enrolledCourses}</div>
               <div className="flex items-center gap-1 mt-1">
-                <TrendingUp className="h-3 w-3 text-purple-400" />
-                <p className="text-xs text-purple-400">Active courses</p>
+                <TrendingUp className="h-3 w-3 text-[#003366]" />
+                <p className="text-xs text-[#64748b]">Active courses</p>
               </div>
             </CardContent>
           </Card>
 
           {/* Completed Modules */}
-          <Card className="glass border-cyan-500/20 hover-lift hover-glow-cyan overflow-hidden group">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-colors" />
+          <Card className="bg-white border border-[#e2e8f0] shadow-sm hover:shadow-md transition-shadow overflow-hidden">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-slate-300">Completed Modules</CardTitle>
-              <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center shadow-lg shadow-cyan-500/30">
+              <CardTitle className="text-sm font-medium text-[#64748b]">Completed Modules</CardTitle>
+              <div className="h-10 w-10 rounded-xl bg-[#b5985b] flex items-center justify-center">
                 <CheckCircle className="h-5 w-5 text-white" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-white">{stats.completedModules}</div>
+              <div className="text-3xl font-bold text-[#1e293b]">{stats.completedModules}</div>
               <div className="flex items-center gap-1 mt-1">
-                <BookOpen className="h-3 w-3 text-cyan-400" />
-                <p className="text-xs text-cyan-400">Out of {stats.totalModules} total</p>
+                <BookOpen className="h-3 w-3 text-[#b5985b]" />
+                <p className="text-xs text-[#64748b]">Out of {stats.totalModules} total</p>
               </div>
             </CardContent>
           </Card>
 
           {/* Attendance Rate */}
-          <Card className="glass border-purple-500/20 hover-lift hover-glow-purple overflow-hidden group">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-colors" />
+          <Card className="bg-white border border-[#e2e8f0] shadow-sm hover:shadow-md transition-shadow overflow-hidden">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-slate-300">Attendance Rate</CardTitle>
-              <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-purple-500/30">
+              <CardTitle className="text-sm font-medium text-[#64748b]">Attendance Rate</CardTitle>
+              <div className="h-10 w-10 rounded-xl bg-[#C8102E] flex items-center justify-center">
                 <Calendar className="h-5 w-5 text-white" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-white">{stats.attendanceRate}%</div>
+              <div className="text-3xl font-bold text-[#1e293b]">{stats.attendanceRate}%</div>
               <div className="flex items-center gap-1 mt-1">
-                <Calendar className="h-3 w-3 text-emerald-400" />
-                <p className="text-xs text-emerald-400">Overall attendance</p>
+                <Calendar className="h-3 w-3 text-[#22c55e]" />
+                <p className="text-xs text-[#64748b]">Overall attendance</p>
               </div>
             </CardContent>
           </Card>
         </div>
 
         {/* Continue Learning */}
-        <Card className="glass border-purple-500/20 overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-cyan-500" />
+        <Card className="bg-white border border-[#e2e8f0] shadow-sm overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#003366] to-[#C8102E]" />
           <CardHeader>
-            <CardTitle className="text-white flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-cyan-500 animate-pulse" />
+            <CardTitle className="text-[#1e293b] flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-[#003366] animate-pulse" />
               Continue Learning
             </CardTitle>
           </CardHeader>
           <CardContent>
             {enrollments.length === 0 ? (
               <div className="text-center py-12">
-                <div className="relative inline-block mb-6">
-                  <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-purple-500/20 to-cyan-500/20 flex items-center justify-center">
-                    <BookOpen className="h-10 w-10 text-purple-400" />
-                  </div>
-                  <div className="absolute inset-0 blur-xl bg-purple-500/20" />
+                <div className="h-20 w-20 rounded-2xl bg-[#003366]/10 flex items-center justify-center mx-auto mb-6">
+                  <BookOpen className="h-10 w-10 text-[#003366]" />
                 </div>
-                <h3 className="text-lg font-medium text-white mb-2">No courses yet</h3>
-                <p className="text-slate-400 mb-6 max-w-sm mx-auto">
+                <h3 className="text-lg font-medium text-[#1e293b] mb-2">No courses yet</h3>
+                <p className="text-[#64748b] mb-6 max-w-sm mx-auto">
                   You haven&apos;t enrolled in any courses yet. Start your learning journey today!
                 </p>
                 <Link href="/student/courses">
-                  <Button className="btn-gradient px-8">
+                  <Button className="bg-[#003366] hover:bg-[#002244] text-white px-8">
                     Browse Courses
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
@@ -254,35 +244,35 @@ export default function StudentDashboard() {
                     href={`/student/courses/${enrollment.course?.id}`}
                     className="block group"
                   >
-                    <div className="flex items-center gap-4 p-4 rounded-xl border border-purple-500/20 bg-purple-500/5 hover:bg-purple-500/10 hover:border-purple-500/30 transition-all">
-                      <div className="h-14 w-14 rounded-xl bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-purple-500/20 group-hover:shadow-purple-500/40 transition-shadow">
+                    <div className="flex items-center gap-4 p-4 rounded-xl border border-[#e2e8f0] bg-[#f8fafc] hover:bg-white hover:shadow-md hover:border-[#003366]/30 transition-all">
+                      <div className="h-14 w-14 rounded-xl bg-[#003366] flex items-center justify-center">
                         <BookOpen className="h-7 w-7 text-white" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-medium text-white truncate group-hover:text-gradient transition-colors">
+                        <h3 className="font-medium text-[#1e293b] truncate group-hover:text-[#003366] transition-colors">
                           {enrollment.course?.title}
                         </h3>
                         <div className="flex items-center gap-3 mt-2">
-                          <div className="flex-1 h-2 bg-slate-800 rounded-full overflow-hidden">
+                          <div className="flex-1 h-2 bg-[#e2e8f0] rounded-full overflow-hidden">
                             <div
-                              className="h-full bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full transition-all duration-500"
+                              className="h-full bg-gradient-to-r from-[#003366] to-[#b5985b] rounded-full transition-all duration-500"
                               style={{ width: `${enrollment.progress_percent}%` }}
                             />
                           </div>
-                          <span className="text-sm font-medium text-cyan-400 min-w-[3rem] text-right">
+                          <span className="text-sm font-medium text-[#003366] min-w-[3rem] text-right">
                             {enrollment.progress_percent}%
                           </span>
                         </div>
                       </div>
-                      <div className="h-10 w-10 rounded-xl bg-cyan-500/10 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
-                        <Play className="h-5 w-5 text-cyan-400" />
+                      <div className="h-10 w-10 rounded-xl bg-[#003366]/10 flex items-center justify-center group-hover:bg-[#003366]/20 transition-colors">
+                        <Play className="h-5 w-5 text-[#003366]" />
                       </div>
                     </div>
                   </Link>
                 ))}
                 {enrollments.length > 3 && (
                   <Link href="/student/courses" className="block">
-                    <Button variant="outline" className="w-full border-purple-500/30 text-slate-300 hover:bg-purple-500/10 hover:text-white hover:border-purple-500/50">
+                    <Button variant="outline" className="w-full border-[#003366]/30 text-[#003366] hover:bg-[#003366]/5 hover:border-[#003366]/50">
                       View All Courses
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>

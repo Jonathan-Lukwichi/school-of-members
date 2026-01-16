@@ -176,8 +176,8 @@ export default function TeachersPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Teachers</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-3xl font-bold text-[#1e293b]">Teachers</h1>
+          <p className="text-[#64748b]">
             Manage teacher accounts and student assignments
           </p>
         </div>
@@ -277,33 +277,39 @@ export default function TeachersPage() {
 
       {/* Stats Cards */}
       <div className="grid gap-4 md:grid-cols-3">
-        <Card>
+        <Card className="bg-white border border-[#e2e8f0] shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Teachers</CardTitle>
-            <GraduationCap className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-[#64748b]">Total Teachers</CardTitle>
+            <div className="h-8 w-8 rounded-lg bg-[#003366] flex items-center justify-center">
+              <GraduationCap className="h-4 w-4 text-white" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{teachers.length}</div>
+            <div className="text-2xl font-bold text-[#1e293b]">{teachers.length}</div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-white border border-[#e2e8f0] shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Teachers</CardTitle>
-            <GraduationCap className="h-4 w-4 text-green-500" />
+            <CardTitle className="text-sm font-medium text-[#64748b]">Active Teachers</CardTitle>
+            <div className="h-8 w-8 rounded-lg bg-emerald-100 flex items-center justify-center">
+              <GraduationCap className="h-4 w-4 text-emerald-600" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">
+            <div className="text-2xl font-bold text-emerald-600">
               {teachers.filter(t => t.is_active).length}
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-white border border-[#e2e8f0] shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Assigned Students</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-[#64748b]">Total Assigned Students</CardTitle>
+            <div className="h-8 w-8 rounded-lg bg-[#b5985b]/20 flex items-center justify-center">
+              <Users className="h-4 w-4 text-[#b5985b]" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
+            <div className="text-2xl font-bold text-[#1e293b]">
               {teachers.reduce((sum, t) => sum + (t.current_student_count || 0), 0)}
             </div>
           </CardContent>
@@ -311,23 +317,25 @@ export default function TeachersPage() {
       </div>
 
       {/* Teachers Table */}
-      <Card>
+      <Card className="bg-white border border-[#e2e8f0] shadow-sm">
         <CardHeader>
-          <CardTitle>All Teachers</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-[#1e293b]">All Teachers</CardTitle>
+          <CardDescription className="text-[#64748b]">
             Teachers are automatically assigned students using round-robin
           </CardDescription>
         </CardHeader>
         <CardContent>
           {isLoading ? (
             <div className="flex items-center justify-center py-8">
-              <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+              <Loader2 className="h-8 w-8 animate-spin text-[#003366]" />
             </div>
           ) : teachers.length === 0 ? (
             <div className="text-center py-8">
-              <GraduationCap className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-              <h3 className="text-lg font-medium">No Teachers Yet</h3>
-              <p className="text-muted-foreground">
+              <div className="h-16 w-16 rounded-2xl bg-[#003366]/10 flex items-center justify-center mx-auto mb-4">
+                <GraduationCap className="h-8 w-8 text-[#003366]" />
+              </div>
+              <h3 className="text-lg font-medium text-[#1e293b]">No Teachers Yet</h3>
+              <p className="text-[#64748b]">
                 Add your first teacher to start assigning students.
               </p>
             </div>

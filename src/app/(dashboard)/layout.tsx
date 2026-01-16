@@ -7,10 +7,7 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="min-h-screen bg-[#0a0a0f]">
-      {/* Background grid */}
-      <div className="fixed inset-0 bg-grid opacity-20 pointer-events-none" />
-
+    <div className="min-h-screen bg-[#f8fafc]">
       <Sidebar />
       <div className="lg:pl-64">
         <Header />

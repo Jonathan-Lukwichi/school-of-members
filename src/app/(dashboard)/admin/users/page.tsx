@@ -132,8 +132,8 @@ export default function AdminUsersPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Admin Users</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-3xl font-bold text-[#1e293b]">Admin Users</h1>
+          <p className="text-[#64748b]">
             Manage administrator accounts for the platform
           </p>
         </div>
@@ -161,53 +161,61 @@ export default function AdminUsersPage() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">
-        <Card>
+        <Card className="bg-white border border-[#e2e8f0] shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Admins</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-[#64748b]">Total Admins</CardTitle>
+            <div className="h-8 w-8 rounded-lg bg-[#003366] flex items-center justify-center">
+              <Users className="h-4 w-4 text-white" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{admins.length}</div>
+            <div className="text-2xl font-bold text-[#1e293b]">{admins.length}</div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-white border border-[#e2e8f0] shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Platform Status</CardTitle>
-            <Shield className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-[#64748b]">Platform Status</CardTitle>
+            <div className="h-8 w-8 rounded-lg bg-emerald-100 flex items-center justify-center">
+              <Shield className="h-4 w-4 text-emerald-600" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">Active</div>
+            <div className="text-2xl font-bold text-emerald-600">Active</div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-white border border-[#e2e8f0] shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Recommended</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-[#64748b]">Recommended</CardTitle>
+            <div className="h-8 w-8 rounded-lg bg-[#b5985b]/20 flex items-center justify-center">
+              <Users className="h-4 w-4 text-[#b5985b]" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">3-5</div>
-            <p className="text-xs text-muted-foreground">Admin accounts</p>
+            <div className="text-2xl font-bold text-[#1e293b]">3-5</div>
+            <p className="text-xs text-[#64748b]">Admin accounts</p>
           </CardContent>
         </Card>
       </div>
 
-      <Card>
+      <Card className="bg-white border border-[#e2e8f0] shadow-sm">
         <CardHeader>
-          <CardTitle>Administrator Accounts</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-[#1e293b]">Administrator Accounts</CardTitle>
+          <CardDescription className="text-[#64748b]">
             All users with administrative privileges
           </CardDescription>
         </CardHeader>
         <CardContent>
           {isLoading ? (
             <div className="flex items-center justify-center py-8">
-              <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+              <Loader2 className="h-8 w-8 animate-spin text-[#003366]" />
             </div>
           ) : admins.length === 0 ? (
             <div className="text-center py-8">
-              <Shield className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-              <h3 className="text-lg font-medium">No Admins Found</h3>
-              <p className="text-muted-foreground">
+              <div className="h-16 w-16 rounded-2xl bg-[#003366]/10 flex items-center justify-center mx-auto mb-4">
+                <Shield className="h-8 w-8 text-[#003366]" />
+              </div>
+              <h3 className="text-lg font-medium text-[#1e293b]">No Admins Found</h3>
+              <p className="text-[#64748b]">
                 Click "Add Admin" to create the first administrator account.
               </p>
             </div>
@@ -224,34 +232,34 @@ export default function AdminUsersPage() {
               </TableHeader>
               <TableBody>
                 {admins.map((admin) => (
-                  <TableRow key={admin.id}>
+                  <TableRow key={admin.id} className="hover:bg-[#f8fafc]">
                     <TableCell className="font-medium">
                       <div className="flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-full bg-purple-100 flex items-center justify-center">
-                          <span className="text-purple-700 font-semibold text-sm">
+                        <div className="h-8 w-8 rounded-full bg-[#003366]/10 flex items-center justify-center">
+                          <span className="text-[#003366] font-semibold text-sm">
                             {admin.full_name?.charAt(0) || 'A'}
                           </span>
                         </div>
-                        {admin.full_name || 'Unknown'}
+                        <span className="text-[#1e293b]">{admin.full_name || 'Unknown'}</span>
                       </div>
                     </TableCell>
                     <TableCell>
-                      <div className="flex items-center gap-2 text-muted-foreground">
-                        <Mail className="h-4 w-4" />
+                      <div className="flex items-center gap-2 text-[#64748b]">
+                        <Mail className="h-4 w-4 text-[#003366]" />
                         {admin.email}
                       </div>
                     </TableCell>
                     <TableCell>
                       {admin.phone ? (
-                        <div className="flex items-center gap-2 text-muted-foreground">
-                          <Phone className="h-4 w-4" />
+                        <div className="flex items-center gap-2 text-[#64748b]">
+                          <Phone className="h-4 w-4 text-[#003366]" />
                           {admin.phone}
                         </div>
                       ) : (
-                        <span className="text-muted-foreground">-</span>
+                        <span className="text-[#94a3b8]">-</span>
                       )}
                     </TableCell>
-                    <TableCell>{formatDate(admin.created_at)}</TableCell>
+                    <TableCell className="text-[#64748b]">{formatDate(admin.created_at)}</TableCell>
                     <TableCell className="text-right">
                       <Button
                         variant="ghost"

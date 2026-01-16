@@ -6,31 +6,31 @@ export default function ProfilePage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">Profile</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-3xl font-bold text-[#1e293b]">Profile</h1>
+        <p className="text-[#64748b]">
           Manage your account settings.
         </p>
       </div>
 
-      <Card>
+      <Card className="bg-white border border-[#e2e8f0] shadow-sm">
         <CardHeader>
-          <CardTitle>Profile Information</CardTitle>
+          <CardTitle className="text-[#1e293b]">Profile Information</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="flex items-center gap-4">
-            <Avatar className="h-20 w-20">
+            <Avatar className="h-20 w-20 border-2 border-[#003366]">
               <AvatarImage src="" alt="Profile" />
-              <AvatarFallback>
-                <User className="h-10 w-10" />
+              <AvatarFallback className="bg-[#003366]/10">
+                <User className="h-10 w-10 text-[#003366]" />
               </AvatarFallback>
             </Avatar>
             <div>
-              <h3 className="text-lg font-medium">Your Name</h3>
-              <p className="text-sm text-muted-foreground">your.email@example.com</p>
+              <h3 className="text-lg font-medium text-[#1e293b]">Your Name</h3>
+              <p className="text-sm text-[#64748b]">your.email@example.com</p>
             </div>
           </div>
 
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-[#64748b]">
             Profile editing will be available after you sign in.
           </p>
         </CardContent>

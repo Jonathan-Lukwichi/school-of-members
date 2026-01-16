@@ -68,11 +68,11 @@ const STATUS_OPTIONS = [
 ]
 
 const STATUS_COLORS: Record<string, string> = {
-  pending: 'bg-amber-500/20 text-amber-400 border border-amber-500/30',
-  contacted: 'bg-blue-500/20 text-blue-400 border border-blue-500/30',
-  active: 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30',
-  completed: 'bg-purple-500/20 text-purple-400 border border-purple-500/30',
-  inactive: 'bg-slate-500/20 text-slate-400 border border-slate-500/30',
+  pending: 'bg-amber-100 text-amber-700 border border-amber-200',
+  contacted: 'bg-blue-100 text-blue-700 border border-blue-200',
+  active: 'bg-emerald-100 text-emerald-700 border border-emerald-200',
+  completed: 'bg-[#003366]/10 text-[#003366] border border-[#003366]/20',
+  inactive: 'bg-slate-100 text-slate-600 border border-slate-200',
 }
 
 const STATUS_ICONS: Record<string, React.ReactNode> = {
@@ -206,10 +206,9 @@ export default function StudentsPage() {
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
-        <div className="relative">
-          <div className="absolute -top-4 -left-4 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl" />
-          <h1 className="text-4xl font-bold text-white">Students</h1>
-          <p className="text-slate-400 mt-2">
+        <div>
+          <h1 className="text-4xl font-bold text-[#1e293b]">Students</h1>
+          <p className="text-[#64748b] mt-2">
             Manage student registrations and teacher assignments
           </p>
         </div>
@@ -217,70 +216,70 @@ export default function StudentsPage() {
 
       {/* Stats Cards */}
       <div className="grid gap-4 md:grid-cols-6">
-        <Card className="glass border-purple-500/20 hover-lift">
+        <Card className="bg-white border border-[#e2e8f0] shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-slate-300">Total</CardTitle>
-            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center">
+            <CardTitle className="text-sm font-medium text-[#64748b]">Total</CardTitle>
+            <div className="h-8 w-8 rounded-lg bg-[#003366] flex items-center justify-center">
               <Users className="h-4 w-4 text-white" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-white">{stats.total}</div>
+            <div className="text-2xl font-bold text-[#1e293b]">{stats.total}</div>
           </CardContent>
         </Card>
-        <Card className="glass border-amber-500/20 hover-lift">
+        <Card className="bg-white border border-[#e2e8f0] shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-slate-300">Pending</CardTitle>
-            <div className="h-8 w-8 rounded-lg bg-amber-500/20 flex items-center justify-center">
-              <Clock className="h-4 w-4 text-amber-400" />
+            <CardTitle className="text-sm font-medium text-[#64748b]">Pending</CardTitle>
+            <div className="h-8 w-8 rounded-lg bg-amber-100 flex items-center justify-center">
+              <Clock className="h-4 w-4 text-amber-600" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-amber-400">{stats.pending}</div>
+            <div className="text-2xl font-bold text-amber-600">{stats.pending}</div>
           </CardContent>
         </Card>
-        <Card className="glass border-blue-500/20 hover-lift">
+        <Card className="bg-white border border-[#e2e8f0] shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-slate-300">Contacted</CardTitle>
-            <div className="h-8 w-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
-              <MessageCircle className="h-4 w-4 text-blue-400" />
+            <CardTitle className="text-sm font-medium text-[#64748b]">Contacted</CardTitle>
+            <div className="h-8 w-8 rounded-lg bg-blue-100 flex items-center justify-center">
+              <MessageCircle className="h-4 w-4 text-blue-600" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-400">{stats.contacted}</div>
+            <div className="text-2xl font-bold text-blue-600">{stats.contacted}</div>
           </CardContent>
         </Card>
-        <Card className="glass border-emerald-500/20 hover-lift">
+        <Card className="bg-white border border-[#e2e8f0] shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-slate-300">Active</CardTitle>
-            <div className="h-8 w-8 rounded-lg bg-emerald-500/20 flex items-center justify-center">
-              <CheckCircle className="h-4 w-4 text-emerald-400" />
+            <CardTitle className="text-sm font-medium text-[#64748b]">Active</CardTitle>
+            <div className="h-8 w-8 rounded-lg bg-emerald-100 flex items-center justify-center">
+              <CheckCircle className="h-4 w-4 text-emerald-600" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-emerald-400">{stats.active}</div>
+            <div className="text-2xl font-bold text-emerald-600">{stats.active}</div>
           </CardContent>
         </Card>
-        <Card className="glass border-purple-500/20 hover-lift">
+        <Card className="bg-white border border-[#e2e8f0] shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-slate-300">Completed</CardTitle>
-            <div className="h-8 w-8 rounded-lg bg-purple-500/20 flex items-center justify-center">
-              <CheckCircle className="h-4 w-4 text-purple-400" />
+            <CardTitle className="text-sm font-medium text-[#64748b]">Completed</CardTitle>
+            <div className="h-8 w-8 rounded-lg bg-[#003366]/10 flex items-center justify-center">
+              <CheckCircle className="h-4 w-4 text-[#003366]" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-purple-400">{stats.completed}</div>
+            <div className="text-2xl font-bold text-[#003366]">{stats.completed}</div>
           </CardContent>
         </Card>
-        <Card className="glass border-slate-500/20 hover-lift">
+        <Card className="bg-white border border-[#e2e8f0] shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-slate-300">Inactive</CardTitle>
-            <div className="h-8 w-8 rounded-lg bg-slate-500/20 flex items-center justify-center">
-              <XCircle className="h-4 w-4 text-slate-400" />
+            <CardTitle className="text-sm font-medium text-[#64748b]">Inactive</CardTitle>
+            <div className="h-8 w-8 rounded-lg bg-slate-100 flex items-center justify-center">
+              <XCircle className="h-4 w-4 text-slate-500" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-slate-400">{stats.inactive}</div>
+            <div className="text-2xl font-bold text-slate-500">{stats.inactive}</div>
           </CardContent>
         </Card>
       </div>
@@ -316,14 +315,14 @@ export default function StudentsPage() {
       </div>
 
       {/* Students Table */}
-      <Card className="glass border-purple-500/20 overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-cyan-500" />
+      <Card className="bg-white border border-[#e2e8f0] shadow-sm overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#003366] to-[#b5985b]" />
         <CardHeader>
-          <CardTitle className="text-white flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-cyan-500 animate-pulse" />
+          <CardTitle className="text-[#1e293b] flex items-center gap-2">
+            <div className="h-2 w-2 rounded-full bg-[#003366] animate-pulse" />
             All Students
           </CardTitle>
-          <CardDescription className="text-slate-400">
+          <CardDescription className="text-[#64748b]">
             Click on a student to manage their status and teacher assignment
           </CardDescription>
         </CardHeader>
@@ -331,23 +330,17 @@ export default function StudentsPage() {
           {isLoading ? (
             <div className="flex items-center justify-center py-12">
               <div className="flex flex-col items-center gap-4">
-                <div className="relative">
-                  <Loader2 className="h-10 w-10 animate-spin text-purple-500" />
-                  <div className="absolute inset-0 blur-xl bg-purple-500/30" />
-                </div>
-                <p className="text-slate-400 text-sm">Loading students...</p>
+                <Loader2 className="h-10 w-10 animate-spin text-[#003366]" />
+                <p className="text-[#64748b] text-sm">Loading students...</p>
               </div>
             </div>
           ) : students.length === 0 ? (
             <div className="text-center py-12">
-              <div className="relative inline-block mb-6">
-                <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-purple-500/20 to-cyan-500/20 flex items-center justify-center">
-                  <Users className="h-10 w-10 text-purple-400" />
-                </div>
-                <div className="absolute inset-0 blur-xl bg-purple-500/20" />
+              <div className="h-20 w-20 rounded-2xl bg-[#003366]/10 flex items-center justify-center mx-auto mb-6">
+                <Users className="h-10 w-10 text-[#003366]" />
               </div>
-              <h3 className="text-lg font-medium text-white mb-2">No Students Found</h3>
-              <p className="text-slate-400">
+              <h3 className="text-lg font-medium text-[#1e293b] mb-2">No Students Found</h3>
+              <p className="text-[#64748b]">
                 {statusFilter !== 'all' || teacherFilter !== 'all'
                   ? 'No students match the current filters.'
                   : 'Students will appear here when they register.'}
@@ -368,15 +361,15 @@ export default function StudentsPage() {
               </TableHeader>
               <TableBody>
                 {students.map((student) => (
-                  <TableRow key={student.id} className="cursor-pointer">
+                  <TableRow key={student.id} className="cursor-pointer hover:bg-[#f8fafc]">
                     <TableCell onClick={() => setSelectedStudent(student)}>
                       <div className="flex items-center gap-2">
-                        <div className="h-8 w-8 bg-gradient-to-br from-purple-500/20 to-cyan-500/20 rounded-full flex items-center justify-center">
-                          <User className="h-4 w-4 text-purple-400" />
+                        <div className="h-8 w-8 bg-[#003366]/10 rounded-full flex items-center justify-center">
+                          <User className="h-4 w-4 text-[#003366]" />
                         </div>
                         <div>
-                          <p className="font-medium text-white">{student.full_name}</p>
-                          <p className="text-xs text-slate-500">
+                          <p className="font-medium text-[#1e293b]">{student.full_name}</p>
+                          <p className="text-xs text-[#94a3b8]">
                             {student.login_count} logins
                           </p>
                         </div>
@@ -384,13 +377,13 @@ export default function StudentsPage() {
                     </TableCell>
                     <TableCell onClick={() => setSelectedStudent(student)}>
                       <div className="space-y-1">
-                        <div className="flex items-center gap-1 text-sm text-slate-300">
-                          <Phone className="h-3 w-3 text-purple-400" />
+                        <div className="flex items-center gap-1 text-sm text-[#64748b]">
+                          <Phone className="h-3 w-3 text-[#003366]" />
                           {student.phone}
                         </div>
                         {student.whatsapp_number !== student.phone && (
-                          <div className="flex items-center gap-1 text-sm text-slate-400">
-                            <MessageCircle className="h-3 w-3 text-cyan-400" />
+                          <div className="flex items-center gap-1 text-sm text-[#94a3b8]">
+                            <MessageCircle className="h-3 w-3 text-[#b5985b]" />
                             {student.whatsapp_number}
                           </div>
                         )}
@@ -398,12 +391,12 @@ export default function StudentsPage() {
                     </TableCell>
                     <TableCell onClick={() => setSelectedStudent(student)}>
                       {student.assigned_teacher ? (
-                        <div className="flex items-center gap-1 text-slate-300">
-                          <UserPlus className="h-4 w-4 text-cyan-400" />
+                        <div className="flex items-center gap-1 text-[#64748b]">
+                          <UserPlus className="h-4 w-4 text-[#003366]" />
                           <span>{student.assigned_teacher.full_name}</span>
                         </div>
                       ) : (
-                        <span className="text-slate-500">Unassigned</span>
+                        <span className="text-[#94a3b8]">Unassigned</span>
                       )}
                     </TableCell>
                     <TableCell onClick={() => setSelectedStudent(student)}>
@@ -443,28 +436,28 @@ export default function StudentsPage() {
 
       {/* Edit Student Dialog */}
       <Dialog open={!!selectedStudent} onOpenChange={() => setSelectedStudent(null)}>
-        <DialogContent className="glass border-purple-500/20">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-cyan-500" />
+        <DialogContent className="bg-white border border-[#e2e8f0]">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#003366] to-[#b5985b]" />
           <DialogHeader>
-            <DialogTitle className="text-white">Manage Student</DialogTitle>
-            <DialogDescription className="text-slate-400">
+            <DialogTitle className="text-[#1e293b]">Manage Student</DialogTitle>
+            <DialogDescription className="text-[#64748b]">
               Update student status, assign teacher, or reset PIN
             </DialogDescription>
           </DialogHeader>
           {selectedStudent && (
             <div className="space-y-4 py-4">
-              <div className="flex items-center gap-4 p-4 bg-purple-500/10 border border-purple-500/20 rounded-xl">
-                <div className="h-12 w-12 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-full flex items-center justify-center">
+              <div className="flex items-center gap-4 p-4 bg-[#003366]/5 border border-[#003366]/20 rounded-xl">
+                <div className="h-12 w-12 bg-[#003366] rounded-full flex items-center justify-center">
                   <User className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-white">{selectedStudent.full_name}</h3>
-                  <p className="text-sm text-slate-400">{selectedStudent.phone}</p>
+                  <h3 className="font-medium text-[#1e293b]">{selectedStudent.full_name}</h3>
+                  <p className="text-sm text-[#64748b]">{selectedStudent.phone}</p>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-300">Status</label>
+                <label className="text-sm font-medium text-[#64748b]">Status</label>
                 <Select
                   value={selectedStudent.status}
                   onValueChange={(value) => handleUpdateStudent({ status: value })}
@@ -484,7 +477,7 @@ export default function StudentsPage() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-300">Assigned Teacher</label>
+                <label className="text-sm font-medium text-[#64748b]">Assigned Teacher</label>
                 <Select
                   value={selectedStudent.assigned_teacher_id || 'none'}
                   onValueChange={(value) => handleUpdateStudent({

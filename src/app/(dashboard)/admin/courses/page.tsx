@@ -142,31 +142,30 @@ export default function CoursesPage() {
     <div className="space-y-8">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <div className="relative">
-          <div className="absolute -top-4 -left-4 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl" />
-          <h1 className="text-4xl font-bold text-white">Courses</h1>
-          <p className="text-slate-400 mt-2">
+        <div>
+          <h1 className="text-4xl font-bold text-[#1e293b]">Courses</h1>
+          <p className="text-[#64748b] mt-2">
             Manage your courses and modules
           </p>
         </div>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="btn-gradient">
+            <Button className="bg-[#003366] hover:bg-[#002244] text-white">
               <Plus className="mr-2 h-4 w-4" />
               New Course
             </Button>
           </DialogTrigger>
-          <DialogContent className="glass border-purple-500/20">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-cyan-500" />
+          <DialogContent className="bg-white border border-[#e2e8f0]">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#003366] to-[#b5985b]" />
             <DialogHeader>
-              <DialogTitle className="text-white">Create New Course</DialogTitle>
-              <DialogDescription className="text-slate-400">
+              <DialogTitle className="text-[#1e293b]">Create New Course</DialogTitle>
+              <DialogDescription className="text-[#64748b]">
                 Add a new course to your learning platform.
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4 py-4">
               <div className="space-y-2">
-                <Label htmlFor="title" className="text-slate-300">Course Title *</Label>
+                <Label htmlFor="title" className="text-[#64748b]">Course Title *</Label>
                 <Input
                   id="title"
                   placeholder="Enter course title"
@@ -175,18 +174,18 @@ export default function CoursesPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="description" className="text-slate-300">Description</Label>
+                <Label htmlFor="description" className="text-[#64748b]">Description</Label>
                 <Textarea
                   id="description"
                   placeholder="Enter course description"
                   value={newCourse.description}
                   onChange={(e) => setNewCourse({ ...newCourse, description: e.target.value })}
                   rows={3}
-                  className="bg-slate-900/50 border-purple-500/20 text-white placeholder:text-slate-500"
+                  className="border-[#e2e8f0]"
                 />
               </div>
               <div className="flex items-center justify-between">
-                <Label htmlFor="is_active" className="text-slate-300">Active</Label>
+                <Label htmlFor="is_active" className="text-[#64748b]">Active</Label>
                 <Switch
                   id="is_active"
                   checked={newCourse.is_active}
@@ -198,7 +197,7 @@ export default function CoursesPage() {
               <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
                 Cancel
               </Button>
-              <Button onClick={handleCreateCourse} disabled={isCreating} className="btn-gradient">
+              <Button onClick={handleCreateCourse} disabled={isCreating} className="bg-[#003366] hover:bg-[#002244] text-white">
                 {isCreating ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -215,44 +214,41 @@ export default function CoursesPage() {
 
       {/* Stats Cards */}
       <div className="grid gap-6 md:grid-cols-3">
-        <Card className="glass border-purple-500/20 hover-lift hover-glow-purple overflow-hidden group">
-          <div className="absolute top-0 right-0 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-colors" />
+        <Card className="bg-white border border-[#e2e8f0] shadow-sm hover:shadow-md transition-shadow overflow-hidden">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-slate-300">Total Courses</CardTitle>
-            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-500/30">
+            <CardTitle className="text-sm font-medium text-[#64748b]">Total Courses</CardTitle>
+            <div className="h-10 w-10 rounded-xl bg-[#003366] flex items-center justify-center">
               <BookOpen className="h-5 w-5 text-white" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-white">{courses.length}</div>
+            <div className="text-3xl font-bold text-[#1e293b]">{courses.length}</div>
           </CardContent>
         </Card>
 
-        <Card className="glass border-cyan-500/20 hover-lift hover-glow-cyan overflow-hidden group">
-          <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-colors" />
+        <Card className="bg-white border border-[#e2e8f0] shadow-sm hover:shadow-md transition-shadow overflow-hidden">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-slate-300">Active Courses</CardTitle>
-            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/30">
-              <BookOpen className="h-5 w-5 text-white" />
+            <CardTitle className="text-sm font-medium text-[#64748b]">Active Courses</CardTitle>
+            <div className="h-10 w-10 rounded-xl bg-emerald-100 flex items-center justify-center">
+              <BookOpen className="h-5 w-5 text-emerald-600" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-emerald-400">
+            <div className="text-3xl font-bold text-emerald-600">
               {courses.filter(c => c.is_active).length}
             </div>
           </CardContent>
         </Card>
 
-        <Card className="glass border-purple-500/20 hover-lift hover-glow-purple overflow-hidden group">
-          <div className="absolute top-0 right-0 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-colors" />
+        <Card className="bg-white border border-[#e2e8f0] shadow-sm hover:shadow-md transition-shadow overflow-hidden">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-slate-300">Total Modules</CardTitle>
-            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-cyan-500 to-purple-500 flex items-center justify-center shadow-lg shadow-purple-500/30">
-              <FileText className="h-5 w-5 text-white" />
+            <CardTitle className="text-sm font-medium text-[#64748b]">Total Modules</CardTitle>
+            <div className="h-10 w-10 rounded-xl bg-[#b5985b]/20 flex items-center justify-center">
+              <FileText className="h-5 w-5 text-[#b5985b]" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-white">
+            <div className="text-3xl font-bold text-[#1e293b]">
               {courses.reduce((sum, c) => sum + (c.modules?.[0]?.count || 0), 0)}
             </div>
           </CardContent>
@@ -260,14 +256,14 @@ export default function CoursesPage() {
       </div>
 
       {/* Courses Table */}
-      <Card className="glass border-purple-500/20 overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-cyan-500" />
+      <Card className="bg-white border border-[#e2e8f0] shadow-sm overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#003366] to-[#b5985b]" />
         <CardHeader>
-          <CardTitle className="text-white flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-cyan-500 animate-pulse" />
+          <CardTitle className="text-[#1e293b] flex items-center gap-2">
+            <div className="h-2 w-2 rounded-full bg-[#003366] animate-pulse" />
             All Courses
           </CardTitle>
-          <CardDescription className="text-slate-400">
+          <CardDescription className="text-[#64748b]">
             Click on a course to manage its modules
           </CardDescription>
         </CardHeader>
@@ -275,23 +271,17 @@ export default function CoursesPage() {
           {isLoading ? (
             <div className="flex items-center justify-center py-12">
               <div className="flex flex-col items-center gap-4">
-                <div className="relative">
-                  <Loader2 className="h-10 w-10 animate-spin text-purple-500" />
-                  <div className="absolute inset-0 blur-xl bg-purple-500/30" />
-                </div>
-                <p className="text-slate-400 text-sm">Loading courses...</p>
+                <Loader2 className="h-10 w-10 animate-spin text-[#003366]" />
+                <p className="text-[#64748b] text-sm">Loading courses...</p>
               </div>
             </div>
           ) : courses.length === 0 ? (
             <div className="text-center py-12">
-              <div className="relative inline-block mb-6">
-                <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-purple-500/20 to-cyan-500/20 flex items-center justify-center">
-                  <BookOpen className="h-10 w-10 text-purple-400" />
-                </div>
-                <div className="absolute inset-0 blur-xl bg-purple-500/20" />
+              <div className="h-20 w-20 rounded-2xl bg-[#003366]/10 flex items-center justify-center mx-auto mb-6">
+                <BookOpen className="h-10 w-10 text-[#003366]" />
               </div>
-              <h3 className="text-lg font-medium text-white mb-2">No Courses Yet</h3>
-              <p className="text-slate-400 mb-6">
+              <h3 className="text-lg font-medium text-[#1e293b] mb-2">No Courses Yet</h3>
+              <p className="text-[#64748b] mb-6">
                 Click "New Course" to create your first course.
               </p>
             </div>
@@ -309,12 +299,12 @@ export default function CoursesPage() {
               </TableHeader>
               <TableBody>
                 {courses.map((course) => (
-                  <TableRow key={course.id}>
+                  <TableRow key={course.id} className="hover:bg-[#f8fafc]">
                     <TableCell>
                       <div>
-                        <p className="font-medium text-white">{course.title}</p>
+                        <p className="font-medium text-[#1e293b]">{course.title}</p>
                         {course.description && (
-                          <p className="text-sm text-slate-400 line-clamp-1">
+                          <p className="text-sm text-[#64748b] line-clamp-1">
                             {course.description}
                           </p>
                         )}
@@ -322,30 +312,30 @@ export default function CoursesPage() {
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-lg bg-purple-500/10 flex items-center justify-center">
-                          <FileText className="h-4 w-4 text-purple-400" />
+                        <div className="h-8 w-8 rounded-lg bg-[#003366]/10 flex items-center justify-center">
+                          <FileText className="h-4 w-4 text-[#003366]" />
                         </div>
-                        <span className="text-white">{course.modules?.[0]?.count || 0}</span>
+                        <span className="text-[#1e293b]">{course.modules?.[0]?.count || 0}</span>
                       </div>
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-lg bg-cyan-500/10 flex items-center justify-center">
-                          <Users className="h-4 w-4 text-cyan-400" />
+                        <div className="h-8 w-8 rounded-lg bg-[#b5985b]/10 flex items-center justify-center">
+                          <Users className="h-4 w-4 text-[#b5985b]" />
                         </div>
-                        <span className="text-white">{course.enrollments?.[0]?.count || 0}</span>
+                        <span className="text-[#1e293b]">{course.enrollments?.[0]?.count || 0}</span>
                       </div>
                     </TableCell>
                     <TableCell>
                       <Badge
                         className={course.is_active
-                          ? 'badge-success'
-                          : 'bg-slate-500/20 text-slate-400 border border-slate-500/30'}
+                          ? 'bg-emerald-100 text-emerald-700 border border-emerald-200'
+                          : 'bg-slate-100 text-slate-600 border border-slate-200'}
                       >
                         {course.is_active ? 'Active' : 'Inactive'}
                       </Badge>
                     </TableCell>
-                    <TableCell className="text-slate-400">{formatDate(course.created_at)}</TableCell>
+                    <TableCell className="text-[#64748b]">{formatDate(course.created_at)}</TableCell>
                     <TableCell className="text-right">
                       <div className="flex items-center justify-end gap-2">
                         <Link href={`/admin/courses/${course.id}/modules`}>
@@ -358,7 +348,7 @@ export default function CoursesPage() {
                           variant="ghost"
                           size="sm"
                           onClick={() => toggleCourseStatus(course.id, course.is_active)}
-                          className={course.is_active ? 'text-amber-400 hover:text-amber-300' : 'text-emerald-400 hover:text-emerald-300'}
+                          className={course.is_active ? 'text-amber-600 hover:text-amber-700' : 'text-emerald-600 hover:text-emerald-700'}
                         >
                           {course.is_active ? 'Deactivate' : 'Activate'}
                         </Button>
