@@ -18,19 +18,19 @@ import {
 import { cn } from '@/lib/utils'
 
 const adminLinks = [
-  { href: '/admin', label: 'Tableau de Bord', icon: Home },
-  { href: '/admin/students', label: 'Étudiants', icon: Users },
-  { href: '/admin/teachers', label: 'Enseignants', icon: UserCheck },
-  { href: '/admin/courses', label: 'Cours', icon: BookOpen },
-  { href: '/admin/attendance', label: 'Présence', icon: Calendar },
-  { href: '/admin/analytics', label: 'Analytiques', icon: BarChart3 },
-  { href: '/admin/users', label: 'Utilisateurs Admin', icon: Shield },
+  { href: '/admin', label: 'Dashboard', icon: Home },
+  { href: '/admin/students', label: 'Students', icon: Users },
+  { href: '/admin/teachers', label: 'Teachers', icon: UserCheck },
+  { href: '/admin/courses', label: 'Courses', icon: BookOpen },
+  { href: '/admin/attendance', label: 'Attendance', icon: Calendar },
+  { href: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
+  { href: '/admin/users', label: 'Admin Users', icon: Shield },
 ]
 
 const studentLinks = [
-  { href: '/student', label: 'Tableau de Bord', icon: Home },
-  { href: '/student/courses', label: 'Mes Cours', icon: GraduationCap },
-  { href: '/student/profile', label: 'Profil', icon: User },
+  { href: '/student', label: 'Dashboard', icon: Home },
+  { href: '/student/courses', label: 'My Courses', icon: GraduationCap },
+  { href: '/student/profile', label: 'Profile', icon: User },
 ]
 
 export function Sidebar() {
@@ -48,7 +48,7 @@ export function Sidebar() {
           </div>
           <div>
             <span className="font-bold text-white text-sm block leading-tight">
-              École des Membres
+              School of Members
             </span>
             <span className="text-[10px] text-white/60">Ramah Full Gospel Church</span>
           </div>
@@ -63,7 +63,7 @@ export function Sidebar() {
             ? "bg-[#C8102E]/20 text-white border border-[#C8102E]/30"
             : "bg-white/10 text-white border border-white/20"
         )}>
-          {isAdmin ? 'Portail Admin' : 'Portail Étudiant'}
+          {isAdmin ? 'Admin Portal' : 'Student Portal'}
         </div>
       </div>
 
@@ -112,8 +112,8 @@ export function Sidebar() {
               <HelpCircle className="h-4 w-4 text-white/70" />
             </div>
             <div>
-              <p className="text-sm font-medium text-white">Besoin d'aide?</p>
-              <p className="text-xs text-white/50">Contacter le support</p>
+              <p className="text-sm font-medium text-white">Need Help?</p>
+              <p className="text-xs text-white/50">Contact Support</p>
             </div>
           </div>
         </div>

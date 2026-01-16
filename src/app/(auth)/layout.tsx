@@ -28,9 +28,9 @@ export default function AuthLayout({
           </div>
           <div className="text-center">
             <h1 className="text-2xl font-bold text-[#003366]">
-              École des Membres
+              School of Members
             </h1>
-            <p className="text-[#64748b] text-xs mt-0.5">Église du Plein Évangile Ramah</p>
+            <p className="text-[#64748b] text-xs mt-0.5">Ramah Full Gospel Church Pretoria</p>
           </div>
         </Link>
 
@@ -42,7 +42,7 @@ export default function AuthLayout({
         {/* Bottom Link */}
         <p className="text-center text-[#64748b] text-sm mt-6">
           <Link href="/" className="hover:text-[#003366] transition-colors">
-            &larr; Retour à l'accueil
+            &larr; Back to Home
           </Link>
         </p>
       </div>

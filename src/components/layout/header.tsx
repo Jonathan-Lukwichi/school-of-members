@@ -46,7 +46,7 @@ export function Header() {
           <Search className="h-4 w-4 text-[#64748b]" />
           <input
             type="text"
-            placeholder="Rechercher..."
+            placeholder="Search..."
             className="bg-transparent text-sm text-[#1e293b] placeholder-[#94a3b8] outline-none flex-1"
           />
           <kbd className="hidden lg:inline-flex h-5 items-center gap-1 rounded border border-[#e2e8f0] bg-white px-1.5 text-[10px] font-medium text-[#64748b]">
@@ -81,28 +81,28 @@ export function Header() {
                 </AvatarFallback>
               </Avatar>
               <div className="hidden md:block text-left">
-                <p className="text-sm font-medium text-[#1e293b]">Utilisateur</p>
-                <p className="text-xs text-[#64748b]">Voir profil</p>
+                <p className="text-sm font-medium text-[#1e293b]">User</p>
+                <p className="text-xs text-[#64748b]">View profile</p>
               </div>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56 bg-white border-[#e2e8f0] text-[#1e293b]">
             <div className="px-3 py-2 border-b border-[#e2e8f0]">
-              <p className="text-sm font-medium text-[#1e293b]">Mon Compte</p>
-              <p className="text-xs text-[#64748b]">Gérer les paramètres du compte</p>
+              <p className="text-sm font-medium text-[#1e293b]">My Account</p>
+              <p className="text-xs text-[#64748b]">Manage account settings</p>
             </div>
             <DropdownMenuItem
               onClick={() => router.push('/student/profile')}
               className="hover:bg-[#f1f5f9] focus:bg-[#f1f5f9] cursor-pointer text-[#64748b] mt-1"
             >
               <User className="mr-2 h-4 w-4 text-[#003366]" />
-              Profil
+              Profile
             </DropdownMenuItem>
             <DropdownMenuItem
               className="hover:bg-[#f1f5f9] focus:bg-[#f1f5f9] cursor-pointer text-[#64748b]"
             >
               <Settings className="mr-2 h-4 w-4 text-[#003366]" />
-              Paramètres
+              Settings
             </DropdownMenuItem>
             <DropdownMenuSeparator className="bg-[#e2e8f0]" />
             <DropdownMenuItem
@@ -110,7 +110,7 @@ export function Header() {
               className="hover:bg-red-50 focus:bg-red-50 text-[#C8102E] cursor-pointer"
             >
               <LogOut className="mr-2 h-4 w-4" />
-              Déconnexion
+              Sign Out
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

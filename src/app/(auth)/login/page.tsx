@@ -10,19 +10,19 @@ export default function LoginPage() {
       <CardHeader className="space-y-1 pb-4 pt-6">
         <div className="flex items-center gap-2 text-[#C8102E] text-xs font-medium mb-2">
           <Shield className="h-3 w-3" />
-          Portail Administrateur
+          Administrator Portal
         </div>
-        <CardTitle className="text-2xl font-bold text-[#003366]">Connexion</CardTitle>
+        <CardTitle className="text-2xl font-bold text-[#003366]">Sign In</CardTitle>
         <CardDescription className="text-[#64748b]">
-          Entrez vos identifiants pour accéder à votre compte
+          Enter your credentials to access your account
         </CardDescription>
       </CardHeader>
       <CardContent className="pb-8">
         <LoginForm />
         <div className="mt-6 text-center text-sm text-[#64748b]">
-          Vous n'avez pas de compte?{' '}
+          Don't have an account?{' '}
           <Link href="/register" className="text-[#003366] hover:text-[#C8102E] transition-colors font-medium">
-            Inscrivez-vous
+            Register
           </Link>
         </div>
       </CardContent>

@@ -35,7 +35,7 @@ export default function StudentLoginPage() {
 
   const handlePhoneSubmit = () => {
     if (!phoneValid) {
-      setError('Veuillez entrer un numéro de téléphone valide')
+      setError('Please enter a valid phone number')
       return
     }
     setStep('pin')
@@ -47,13 +47,13 @@ export default function StudentLoginPage() {
 
   const handleLogin = async (pinValue: string = pin) => {
     if (!phoneValid) {
-      setError('Veuillez entrer un numéro de téléphone valide')
+      setError('Please enter a valid phone number')
       setStep('phone')
       return
     }
 
     if (pinValue.length !== 6) {
-      setError('Veuillez entrer votre code PIN à 6 chiffres')
+      setError('Please enter your 6-digit PIN code')
       return
     }
 
@@ -70,13 +70,13 @@ export default function StudentLoginPage() {
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.error || 'Échec de la connexion')
+        throw new Error(data.error || 'Login failed')
       }
 
-      toast.success('Bienvenue!')
+      toast.success('Welcome!')
       router.push('/student')
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'Échec de la connexion')
+      setError(error instanceof Error ? error.message : 'Login failed')
       setPin('')
     } finally {
       setIsLoading(false)
@@ -92,11 +92,11 @@ export default function StudentLoginPage() {
             <GraduationCap className="h-8 w-8 text-white" />
           </div>
         </div>
-        <CardTitle className="text-2xl font-bold text-[#003366]">Bienvenue</CardTitle>
+        <CardTitle className="text-2xl font-bold text-[#003366]">Welcome</CardTitle>
         <CardDescription className="text-[#64748b]">
           {step === 'phone'
-            ? 'Entrez votre numéro de téléphone pour continuer'
-            : 'Entrez votre code PIN à 6 chiffres'}
+            ? 'Enter your phone number to continue'
+            : 'Enter your 6-digit PIN code'}
         </CardDescription>
       </CardHeader>
 
@@ -121,13 +121,13 @@ export default function StudentLoginPage() {
             <div className="space-y-2">
               <Label className="flex items-center gap-2 text-[#1e293b]">
                 <Phone className="h-4 w-4 text-[#003366]" />
-                Numéro de Téléphone
+                Phone Number
               </Label>
               <PhoneInput
                 value={phone}
                 onChange={handlePhoneChange}
                 defaultCountry="ZA"
-                placeholder="Entrez votre numéro"
+                placeholder="Enter your number"
                 disabled={isLoading}
                 error={error}
               />
@@ -138,7 +138,7 @@ export default function StudentLoginPage() {
               className="w-full"
               disabled={isLoading || !phoneValid}
             >
-              Continuer
+              Continue
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
@@ -150,7 +150,7 @@ export default function StudentLoginPage() {
             <div className="space-y-4">
               <Label className="flex items-center justify-center gap-2 text-[#1e293b]">
                 <Lock className="h-4 w-4 text-[#003366]" />
-                Entrez le PIN
+                Enter PIN
               </Label>
               <PinInput
                 value={pin}
@@ -174,7 +174,7 @@ export default function StudentLoginPage() {
                 className="flex-1"
               >
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                Retour
+                Back
               </Button>
               <Button
                 onClick={() => handleLogin()}
@@ -184,10 +184,10 @@ export default function StudentLoginPage() {
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Connexion...
+                    Signing in...
                   </>
                 ) : (
-                  'Se Connecter'
+                  'Sign In'
                 )}
               </Button>
             </div>
@@ -198,7 +198,7 @@ export default function StudentLoginPage() {
                 href="/student/forgot-pin"
                 className="text-sm text-[#003366] hover:text-[#C8102E] hover:underline"
               >
-                PIN oublié?
+                Forgot PIN?
               </Link>
             </div>
           </div>
@@ -207,9 +207,9 @@ export default function StudentLoginPage() {
 
       <CardFooter className="flex flex-col gap-4 pb-6">
         <div className="text-center text-sm text-[#64748b]">
-          Vous n'avez pas de compte?{' '}
+          Don't have an account?{' '}
           <Link href="/student/register" className="text-[#003366] hover:text-[#C8102E] font-medium">
-            S'inscrire
+            Register
           </Link>
         </div>
 
@@ -218,7 +218,7 @@ export default function StudentLoginPage() {
             href="/login"
             className="text-sm text-[#64748b] hover:text-[#003366]"
           >
-            Connexion Admin / Enseignant
+            Admin / Teacher Login
           </Link>
         </div>
       </CardFooter>

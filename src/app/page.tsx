@@ -28,49 +28,49 @@ const heroSlides = [
   {
     id: 1,
     gradient: 'linear-gradient(135deg, #003366 0%, #004080 50%, #002244 100%)',
-    title: 'Bienvenue à l\'École des Membres',
-    subtitle: 'Une Année de Foi Grandissante',
-    description: 'Rejoignez notre communauté spirituelle et grandissez dans votre foi avec l\'Église du Plein Évangile Ramah',
+    title: 'Welcome to the School of Members',
+    subtitle: 'A Year of Growing Faith',
+    description: 'Join our spiritual community and grow in your faith with Ramah Full Gospel Church Pretoria',
   },
   {
     id: 2,
     gradient: 'linear-gradient(135deg, #C8102E 0%, #a00d25 100%)',
-    title: 'Grandir • Servir • Appartenir',
-    subtitle: 'Nos Trois Piliers Fondamentaux',
-    description: 'Développez votre foi, mettez vos talents au service de la communauté et intégrez-vous dans la famille spirituelle',
+    title: 'Grow • Serve • Belong',
+    subtitle: 'Our Three Foundational Pillars',
+    description: 'Develop your faith, use your talents in service to the community, and become part of the spiritual family',
   },
   {
     id: 3,
     gradient: 'linear-gradient(135deg, #b5985b 0%, #8a7344 100%)',
-    title: 'Formation Complète',
-    subtitle: '12 Chapitres de Croissance Spirituelle',
-    description: 'Un programme structuré pour comprendre les fondements de notre communauté sous la direction de l\'Apôtre Narcisse Majila',
+    title: 'Complete Training Program',
+    subtitle: '12 Chapters of Spiritual Growth',
+    description: 'A structured program to understand the foundations of our community under the direction of Apostle Narcisse Majila',
   },
 ]
 
-// Programme cards data
+// Programme cards data - Based on Syllabus Chapters
 const programmes = [
   {
     id: 1,
-    title: 'Fondements de la Membership',
+    title: 'Foundations of Membership',
     gradient: 'linear-gradient(135deg, #003366 0%, #004080 100%)',
     icon: BookOpen,
   },
   {
     id: 2,
-    title: 'Études Avancées',
+    title: 'Pastor-Member Relationship',
     gradient: 'linear-gradient(135deg, #C8102E 0%, #a00d25 100%)',
     icon: GraduationCap,
   },
   {
     id: 3,
-    title: 'Certification',
+    title: 'Certification & Graduation',
     gradient: 'linear-gradient(135deg, #b5985b 0%, #8a7344 100%)',
     icon: Award,
   },
   {
     id: 4,
-    title: 'Vie Communautaire',
+    title: 'Community Life & Service',
     gradient: 'linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)',
     icon: UsersRound,
   },
@@ -80,30 +80,30 @@ const programmes = [
 const newsArticles = [
   {
     id: 1,
-    date: '15 Janvier 2026',
-    title: 'Inscription Ouverte pour la Session 2026',
-    excerpt: 'Les inscriptions pour la nouvelle session de l\'École des Membres sont maintenant ouvertes. Rejoignez-nous pour une année de croissance spirituelle.',
+    date: 'January 15, 2026',
+    title: 'Registration Open for 2026 Session',
+    excerpt: 'Registration for the new School of Members session is now open. Join us for a year of spiritual growth and development.',
     gradient: 'linear-gradient(135deg, #003366 0%, #004080 100%)',
   },
   {
     id: 2,
-    date: '10 Janvier 2026',
-    title: 'Retraite Spirituelle Annuelle',
-    excerpt: 'Notre retraite spirituelle annuelle aura lieu le mois prochain. Une occasion unique de renforcer votre foi et votre connexion avec Dieu.',
+    date: 'January 10, 2026',
+    title: 'Annual Spiritual Retreat',
+    excerpt: 'Our annual spiritual retreat will take place next month. A unique opportunity to strengthen your faith and connection with God.',
     gradient: 'linear-gradient(135deg, #C8102E 0%, #a00d25 100%)',
   },
   {
     id: 3,
-    date: '5 Janvier 2026',
-    title: 'Témoignages des Diplômés',
-    excerpt: 'Découvrez les témoignages inspirants de nos anciens élèves et comment l\'École des Membres a transformé leur vie spirituelle.',
+    date: 'January 5, 2026',
+    title: 'Graduate Testimonies',
+    excerpt: 'Discover inspiring testimonies from our alumni and how the School of Members transformed their spiritual lives.',
     gradient: 'linear-gradient(135deg, #b5985b 0%, #8a7344 100%)',
   },
   {
     id: 4,
-    date: '1 Janvier 2026',
-    title: 'Message du Nouvel An',
-    excerpt: 'L\'Apôtre Narcisse Majila partage son message d\'espoir et de bénédiction pour cette nouvelle année.',
+    date: 'January 1, 2026',
+    title: 'New Year Message',
+    excerpt: 'Apostle Narcisse Majila shares his message of hope and blessing for this new year with the congregation.',
     gradient: 'linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)',
   },
 ]
@@ -138,17 +138,17 @@ export default function Home() {
             <div className="flex items-center gap-6">
               <span className="flex items-center gap-2">
                 <Phone className="h-3.5 w-3.5" />
-                <span className="hidden sm:inline">+27 12 000 0000</span>
+                <span className="hidden sm:inline">+27 61 691 2540</span>
               </span>
               <span className="flex items-center gap-2">
                 <Mail className="h-3.5 w-3.5" />
-                <span className="hidden sm:inline">info@ecoledemembres.com</span>
+                <span className="hidden sm:inline">ramahfullgospelch@gmail.com</span>
               </span>
             </div>
             <div className="flex items-center gap-4">
-              <Link href="/student/login" className="hover:underline">Portail Étudiant</Link>
+              <Link href="/student/login" className="hover:underline">Student Portal</Link>
               <span className="text-white/40">|</span>
-              <Link href="/login" className="hover:underline">Portail Staff</Link>
+              <Link href="/login" className="hover:underline">Staff Portal</Link>
             </div>
           </div>
         </div>
@@ -165,15 +165,15 @@ export default function Home() {
               </div>
               <div>
                 <span className="text-xl font-bold text-[#003366] block leading-tight">
-                  École des Membres
+                  School of Members
                 </span>
-                <span className="text-xs text-gray-500">Église du Plein Évangile Ramah</span>
+                <span className="text-xs text-gray-500">Ramah Full Gospel Church Pretoria</span>
               </div>
             </Link>
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-8">
-              <Link href="#" className="nav-up-item active">Accueil</Link>
+              <Link href="#" className="nav-up-item active">Home</Link>
               <div className="nav-item relative group">
                 <button className="nav-up-item flex items-center gap-1">
                   Programmes <ChevronDown className="h-4 w-4" />
@@ -181,37 +181,37 @@ export default function Home() {
                 <div className="mega-dropdown">
                   <div className="mega-dropdown-content">
                     <div className="mega-dropdown-section">
-                      <h4>Nos Cours</h4>
+                      <h4>Our Courses</h4>
                       <ul>
-                        <li><Link href="#">Fondements de la Membership</Link></li>
-                        <li><Link href="#">Attentes du Pasteur</Link></li>
-                        <li><Link href="#">Conduite de Culte</Link></li>
-                        <li><Link href="#">Vie Communautaire</Link></li>
+                        <li><Link href="#">Foundations of Membership</Link></li>
+                        <li><Link href="#">Pastor-Member Relationship</Link></li>
+                        <li><Link href="#">Church Service Conduct</Link></li>
+                        <li><Link href="#">Community Life</Link></li>
                       </ul>
                     </div>
                     <div className="mega-dropdown-section">
-                      <h4>Chapitres</h4>
+                      <h4>Chapters</h4>
                       <ul>
-                        <li><Link href="#">Chapitre 1-3: Introduction</Link></li>
-                        <li><Link href="#">Chapitre 4-6: Fondements</Link></li>
-                        <li><Link href="#">Chapitre 7-9: Croissance</Link></li>
-                        <li><Link href="#">Chapitre 10-12: Service</Link></li>
+                        <li><Link href="#">Chapter 1-3: Introduction</Link></li>
+                        <li><Link href="#">Chapter 4-6: Foundations</Link></li>
+                        <li><Link href="#">Chapter 7-9: Growth</Link></li>
+                        <li><Link href="#">Chapter 10-12: Service</Link></li>
                       </ul>
                     </div>
                     <div className="mega-dropdown-section">
-                      <h4>Ressources</h4>
+                      <h4>Resources</h4>
                       <ul>
-                        <li><Link href="#">Catalogue des Cours</Link></li>
-                        <li><Link href="#">Calendrier</Link></li>
-                        <li><Link href="#">Téléchargements</Link></li>
+                        <li><Link href="#">Course Catalog</Link></li>
+                        <li><Link href="#">Calendar</Link></li>
+                        <li><Link href="#">Downloads</Link></li>
                       </ul>
                     </div>
                     <div className="mega-dropdown-section">
                       <h4>Support</h4>
                       <ul>
                         <li><Link href="#">FAQ</Link></li>
-                        <li><Link href="#">Contactez-nous</Link></li>
-                        <li><Link href="#">Aide en Ligne</Link></li>
+                        <li><Link href="#">Contact Us</Link></li>
+                        <li><Link href="#">Online Help</Link></li>
                       </ul>
                     </div>
                   </div>
@@ -219,30 +219,30 @@ export default function Home() {
               </div>
               <div className="nav-item relative group">
                 <button className="nav-up-item flex items-center gap-1">
-                  À Propos <ChevronDown className="h-4 w-4" />
+                  About <ChevronDown className="h-4 w-4" />
                 </button>
                 <div className="mega-dropdown">
                   <div className="mega-dropdown-content">
                     <div className="mega-dropdown-section">
-                      <h4>Notre Histoire</h4>
+                      <h4>Our Story</h4>
                       <ul>
                         <li><Link href="#">Vision & Mission</Link></li>
                         <li><Link href="#">Leadership</Link></li>
-                        <li><Link href="#">Témoignages</Link></li>
+                        <li><Link href="#">Testimonies</Link></li>
                       </ul>
                     </div>
                     <div className="mega-dropdown-section">
-                      <h4>L'Église Ramah</h4>
+                      <h4>Ramah Church</h4>
                       <ul>
-                        <li><Link href="#">Apôtre Narcisse Majila</Link></li>
-                        <li><Link href="#">Notre Communauté</Link></li>
-                        <li><Link href="#">Ministères</Link></li>
+                        <li><Link href="#">Apostle Narcisse Majila</Link></li>
+                        <li><Link href="#">Our Community</Link></li>
+                        <li><Link href="#">Ministries</Link></li>
                       </ul>
                     </div>
                   </div>
                 </div>
               </div>
-              <Link href="#campus" className="nav-up-item">Vie du Campus</Link>
+              <Link href="#campus" className="nav-up-item">Campus Life</Link>
               <Link href="#contact" className="nav-up-item">Contact</Link>
             </nav>
 
@@ -255,7 +255,7 @@ export default function Home() {
                 href="/student/login"
                 className="hidden md:inline-flex btn-up-primary"
               >
-                Se Connecter
+                Sign In
               </Link>
 
               {/* Mobile Menu Button */}
@@ -273,12 +273,12 @@ export default function Home() {
         {mobileMenuOpen && (
           <div className="lg:hidden border-t border-gray-200 bg-white">
             <nav className="container mx-auto px-6 py-4 space-y-4">
-              <Link href="#" className="block text-[#003366] font-medium">Accueil</Link>
+              <Link href="#" className="block text-[#003366] font-medium">Home</Link>
               <Link href="#programmes" className="block text-gray-600">Programmes</Link>
-              <Link href="#about" className="block text-gray-600">À Propos</Link>
-              <Link href="#campus" className="block text-gray-600">Vie du Campus</Link>
+              <Link href="#about" className="block text-gray-600">About</Link>
+              <Link href="#campus" className="block text-gray-600">Campus Life</Link>
               <Link href="#contact" className="block text-gray-600">Contact</Link>
-              <Link href="/student/login" className="btn-up-primary inline-block">Se Connecter</Link>
+              <Link href="/student/login" className="btn-up-primary inline-block">Sign In</Link>
             </nav>
           </div>
         )}
@@ -298,7 +298,7 @@ export default function Home() {
                 <h1 className="hero-slide-title">{slide.title}</h1>
                 <p className="hero-slide-subtitle">{slide.description}</p>
                 <Link href="/student/register" className="btn-up-primary">
-                  En Savoir Plus <ArrowRight className="h-4 w-4 ml-2" />
+                  Learn More <ArrowRight className="h-4 w-4 ml-2" />
                 </Link>
               </div>
             </div>
@@ -327,20 +327,20 @@ export default function Home() {
         {/* Course Search Bar */}
         <section className="search-bar-up">
           <div className="search-bar-container">
-            <span className="search-bar-label">Trouver un cours</span>
+            <span className="search-bar-label">Find a Course</span>
             <input
               type="text"
-              placeholder="ex. Fondements de la Membership"
+              placeholder="e.g. Foundations of Membership"
               className="search-bar-input"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
             <button className="search-bar-btn">
               <Search className="h-4 w-4 mr-2" />
-              Rechercher
+              Search
             </button>
             <Link href="/student/courses" className="search-bar-btn-secondary">
-              Parcourir Tous les Cours
+              Browse All Courses
             </Link>
           </div>
         </section>
@@ -377,46 +377,46 @@ export default function Home() {
           <div className="container mx-auto px-6">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-[#003366] mb-4">
-                À Propos de l'École des Membres
+                About the School of Members
               </h2>
               <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
-                Bienvenue à vous tous qui avez choisi de faire de Ramah votre foyer spirituel.
-                L'École des Membres est votre guide pour comprendre les fondements de notre communauté
-                sous la direction de l'Apôtre Narcisse Majila.
+                Welcome to all who have chosen to make Ramah your spiritual home.
+                The School of Members is your guide to understanding the foundations of our community
+                under the direction of Apostle Narcisse Majila.
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              {/* Grandir */}
+              {/* Grow */}
               <div className="about-pillar">
                 <div className="about-pillar-icon">
                   <Heart className="h-10 w-10" />
                 </div>
-                <h3 className="about-pillar-title">Grandir</h3>
+                <h3 className="about-pillar-title">Grow</h3>
                 <p className="about-pillar-text">
-                  Développer votre foi à travers les enseignements et la pratique quotidienne de la Parole de Dieu.
+                  Develop your faith through teachings and the daily practice of the Word of God.
                 </p>
               </div>
 
-              {/* Servir */}
+              {/* Serve */}
               <div className="about-pillar">
                 <div className="about-pillar-icon" style={{ background: '#C8102E' }}>
                   <HandHelping className="h-10 w-10" />
                 </div>
-                <h3 className="about-pillar-title" style={{ color: '#C8102E' }}>Servir</h3>
+                <h3 className="about-pillar-title" style={{ color: '#C8102E' }}>Serve</h3>
                 <p className="about-pillar-text">
-                  Mettre vos talents au service de la communauté et de Dieu avec dévouement et humilité.
+                  Put your talents to work in service to the community and to God with dedication and humility.
                 </p>
               </div>
 
-              {/* Appartenir */}
+              {/* Belong */}
               <div className="about-pillar">
                 <div className="about-pillar-icon" style={{ background: '#b5985b' }}>
                   <UsersRound className="h-10 w-10" />
                 </div>
-                <h3 className="about-pillar-title" style={{ color: '#b5985b' }}>Appartenir</h3>
+                <h3 className="about-pillar-title" style={{ color: '#b5985b' }}>Belong</h3>
                 <p className="about-pillar-text">
-                  S'intégrer pleinement dans la famille spirituelle et construire des liens solides avec la communauté.
+                  Fully integrate into the spiritual family and build strong bonds with the community.
                 </p>
               </div>
             </div>
@@ -424,10 +424,10 @@ export default function Home() {
             {/* Quote */}
             <div className="mt-16 text-center">
               <blockquote className="text-xl italic text-gray-600 max-w-2xl mx-auto">
-                "La vraie foi marche toujours avec l'obéissance."
+                "True faith always walks hand in hand with obedience."
               </blockquote>
               <p className="mt-4 text-[#003366] font-semibold">
-                — Direction Pastorale, Église du Plein Évangile Ramah
+                — Pastoral Leadership, Ramah Full Gospel Church
               </p>
             </div>
           </div>
@@ -439,19 +439,19 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               <div className="stat-item">
                 <div className="stat-number">95%</div>
-                <div className="stat-label">Taux de Réussite</div>
+                <div className="stat-label">Success Rate</div>
               </div>
               <div className="stat-item">
                 <div className="stat-number">500+</div>
-                <div className="stat-label">Étudiants</div>
+                <div className="stat-label">Students</div>
               </div>
               <div className="stat-item">
                 <div className="stat-number">12</div>
-                <div className="stat-label">Chapitres</div>
+                <div className="stat-label">Chapters</div>
               </div>
               <div className="stat-item">
                 <div className="stat-number">25+</div>
-                <div className="stat-label">Enseignants</div>
+                <div className="stat-label">Teachers</div>
               </div>
             </div>
           </div>
@@ -463,14 +463,14 @@ export default function Home() {
             <div className="flex items-center justify-between mb-12">
               <div>
                 <h2 className="text-3xl font-bold text-[#003366]">
-                  Actualités & Événements
+                  News & Events
                 </h2>
                 <p className="text-gray-600 mt-2">
-                  Restez informé des dernières nouvelles de notre communauté
+                  Stay informed about the latest news from our community
                 </p>
               </div>
               <Link href="#" className="btn-up-outline hidden md:inline-flex">
-                Voir Toutes les Actualités
+                View All News
               </Link>
             </div>
 
@@ -492,7 +492,7 @@ export default function Home() {
 
             <div className="mt-8 text-center md:hidden">
               <Link href="#" className="btn-up-outline">
-                Voir Toutes les Actualités
+                View All News
               </Link>
             </div>
           </div>
@@ -505,19 +505,19 @@ export default function Home() {
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>
                   <h2 className="text-2xl md:text-3xl font-bold text-[#003366] mb-4">
-                    Prêt à Commencer Votre Parcours Spirituel?
+                    Ready to Start Your Spiritual Journey?
                   </h2>
                   <p className="text-gray-600 mb-6 leading-relaxed">
-                    Rejoignez notre communauté d'apprenants et faites le premier pas vers
-                    l'accomplissement de vos objectifs spirituels. L'inscription est rapide et facile.
+                    Join our learning community and take the first step towards
+                    achieving your spiritual goals. Registration is quick and easy.
                   </p>
                   <div className="flex flex-wrap gap-4">
                     <Link href="/student/register" className="btn-up-secondary">
-                      S'inscrire Maintenant
+                      Register Now
                       <ArrowRight className="h-4 w-4 ml-2" />
                     </Link>
                     <Link href="#contact" className="btn-up-outline">
-                      Nous Contacter
+                      Contact Us
                     </Link>
                   </div>
                 </div>
@@ -525,22 +525,22 @@ export default function Home() {
                   <div className="text-center p-4 bg-[#f8fafc] rounded-lg">
                     <Clock className="h-8 w-8 text-[#003366] mx-auto mb-2" />
                     <div className="text-2xl font-bold text-[#003366]">24/7</div>
-                    <div className="text-sm text-gray-600">Accès en Ligne</div>
+                    <div className="text-sm text-gray-600">Online Access</div>
                   </div>
                   <div className="text-center p-4 bg-[#f8fafc] rounded-lg">
                     <BookOpen className="h-8 w-8 text-[#C8102E] mx-auto mb-2" />
                     <div className="text-2xl font-bold text-[#C8102E]">100%</div>
-                    <div className="text-sm text-gray-600">Cours en Ligne</div>
+                    <div className="text-sm text-gray-600">Online Courses</div>
                   </div>
                   <div className="text-center p-4 bg-[#f8fafc] rounded-lg">
                     <Award className="h-8 w-8 text-[#b5985b] mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-[#b5985b]">Gratuit</div>
-                    <div className="text-sm text-gray-600">Inscription</div>
+                    <div className="text-2xl font-bold text-[#b5985b]">Free</div>
+                    <div className="text-sm text-gray-600">Registration</div>
                   </div>
                   <div className="text-center p-4 bg-[#f8fafc] rounded-lg">
                     <Users className="h-8 w-8 text-[#0ea5e9] mx-auto mb-2" />
                     <div className="text-2xl font-bold text-[#0ea5e9]">5+</div>
-                    <div className="text-sm text-gray-600">Années d'Expérience</div>
+                    <div className="text-sm text-gray-600">Years of Experience</div>
                   </div>
                 </div>
               </div>
@@ -560,31 +560,31 @@ export default function Home() {
                   <GraduationCap className="h-7 w-7 text-white" />
                 </div>
                 <div>
-                  <span className="font-bold text-white block">École des Membres</span>
+                  <span className="font-bold text-white block">School of Members</span>
                   <span className="text-xs text-white/60">Ramah Full Gospel Church</span>
                 </div>
               </div>
               <p className="text-white/70 text-sm leading-relaxed">
-                Faites d'aujourd'hui un jour qui compte. Grandissez dans votre foi avec notre communauté spirituelle.
+                Make today count. Grow in your faith with our spiritual community under the leadership of Apostle Narcisse Majila.
               </p>
             </div>
 
             {/* Core Functions */}
             <div>
-              <h4 className="footer-up-title">Fonctions Principales</h4>
+              <h4 className="footer-up-title">Core Functions</h4>
               <ul className="footer-up-links">
-                <li><Link href="/student/courses">Étudier</Link></li>
-                <li><Link href="#">Enseignement</Link></li>
-                <li><Link href="#">Communauté</Link></li>
-                <li><Link href="#">Ressources</Link></li>
+                <li><Link href="/student/courses">Study</Link></li>
+                <li><Link href="#">Teaching</Link></li>
+                <li><Link href="#">Community</Link></li>
+                <li><Link href="#">Resources</Link></li>
               </ul>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h4 className="footer-up-title">Liens Rapides</h4>
+              <h4 className="footer-up-title">Quick Links</h4>
               <ul className="footer-up-links">
-                <li><Link href="#">Conseils Spirituels</Link></li>
+                <li><Link href="#">Spiritual Guidance</Link></li>
                 <li><Link href="#contact">Contact</Link></li>
                 <li><Link href="#">Support</Link></li>
                 <li><Link href="#">FAQ</Link></li>
@@ -593,19 +593,19 @@ export default function Home() {
 
             {/* Contact Us */}
             <div id="contact">
-              <h4 className="footer-up-title">Contactez-Nous</h4>
+              <h4 className="footer-up-title">Contact Us</h4>
               <ul className="space-y-3">
                 <li className="flex items-center gap-3 text-white/70 text-sm">
                   <Phone className="h-4 w-4" />
-                  +27 12 000 0000
+                  +27 61 691 2540
                 </li>
                 <li className="flex items-center gap-3 text-white/70 text-sm">
                   <Mail className="h-4 w-4" />
-                  info@ecoledemembres.com
+                  ramahfullgospelch@gmail.com
                 </li>
                 <li className="flex items-start gap-3 text-white/70 text-sm">
                   <MapPin className="h-4 w-4 mt-0.5" />
-                  <span>123 Rue de l'Éducation<br />Pretoria, Afrique du Sud</span>
+                  <span>Pretoria, South Africa</span>
                 </li>
               </ul>
             </div>
@@ -617,12 +617,12 @@ export default function Home() {
           <div className="container mx-auto px-6">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <p className="text-white/60 text-sm">
-                &copy; {new Date().getFullYear()} École des Membres - Église du Plein Évangile Ramah. Tous droits réservés.
+                &copy; {new Date().getFullYear()} School of Members - Ramah Full Gospel Church Pretoria. All rights reserved.
               </p>
               <div className="flex items-center gap-6">
-                <Link href="#">Politique de Confidentialité</Link>
-                <Link href="#">Conditions d'Utilisation</Link>
-                <Link href="#">Mentions Légales</Link>
+                <Link href="#">Privacy Policy</Link>
+                <Link href="#">Terms of Use</Link>
+                <Link href="#">Legal Notice</Link>
               </div>
             </div>
           </div>
