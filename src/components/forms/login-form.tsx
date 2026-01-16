@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Loader2 } from 'lucide-react'
+import { Loader2, Mail, Lock, Info } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -65,54 +65,84 @@ export function LoginForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       {error && (
-        <div className="p-3 text-sm text-red-500 bg-red-50 border border-red-200 rounded-md">
+        <div className="p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2">
+          <Info className="h-4 w-4 flex-shrink-0" />
           {error}
         </div>
       )}
 
+      {/* Email Field */}
       <div className="space-y-2">
-        <Label htmlFor="email">Email</Label>
+        <Label htmlFor="email" className="flex items-center gap-2 text-[#64748b] text-sm">
+          <Mail className="h-4 w-4 text-[#003366]" />
+          Email Address
+        </Label>
         <Input
           id="email"
           type="email"
           placeholder="name@example.com"
+          className="border-[#e2e8f0] focus:border-[#003366] focus:ring-[#003366]/20 h-11"
           {...register('email')}
           disabled={isLoading}
         />
         {errors.email && (
-          <p className="text-sm text-red-500">{errors.email.message}</p>
+          <p className="text-xs text-red-500">{errors.email.message}</p>
         )}
       </div>
 
+      {/* Password Field */}
       <div className="space-y-2">
-        <Label htmlFor="password">Password</Label>
+        <Label htmlFor="password" className="flex items-center gap-2 text-[#64748b] text-sm">
+          <Lock className="h-4 w-4 text-[#003366]" />
+          Password
+        </Label>
         <Input
           id="password"
           type="password"
           placeholder="Enter your password"
+          className="border-[#e2e8f0] focus:border-[#003366] focus:ring-[#003366]/20 h-11"
           {...register('password')}
           disabled={isLoading}
         />
         {errors.password && (
-          <p className="text-sm text-red-500">{errors.password.message}</p>
+          <p className="text-xs text-red-500">{errors.password.message}</p>
         )}
       </div>
 
-      <div className="flex items-center space-x-2">
-        <Checkbox id="remember" />
-        <Label htmlFor="remember" className="text-sm font-normal">
+      {/* Remember Me Checkbox */}
+      <div className="flex items-center space-x-3 py-2">
+        <Checkbox
+          id="remember"
+          className="border-[#003366] data-[state=checked]:bg-[#003366] data-[state=checked]:border-[#003366]"
+        />
+        <Label htmlFor="remember" className="text-sm font-normal text-[#64748b]">
           Remember me
         </Label>
       </div>
 
-      <Button type="submit" className="w-full" disabled={isLoading}>
+      {/* Info Box */}
+      <div className="bg-gradient-to-r from-[#003366]/5 to-[#C8102E]/5 border border-[#003366]/20 rounded-lg p-4 flex items-start gap-3">
+        <div className="w-5 h-5 rounded-full border-2 border-[#003366] flex items-center justify-center flex-shrink-0 mt-0.5">
+          <div className="w-2 h-2 rounded-full bg-[#003366]" />
+        </div>
+        <p className="text-sm text-[#64748b]">
+          Your account gives you access to all School of Members courses and materials.
+        </p>
+      </div>
+
+      {/* Submit Button */}
+      <Button
+        type="submit"
+        className="w-full h-12 bg-[#003366] hover:bg-[#002244] text-white font-medium text-base shadow-lg shadow-[#003366]/30 transition-all duration-200"
+        disabled={isLoading}
+      >
         {isLoading ? (
           <>
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            <Loader2 className="mr-2 h-5 w-5 animate-spin" />
             Signing in...
           </>
         ) : (
-          'Sign in'
+          'Sign In'
         )}
       </Button>
     </form>
