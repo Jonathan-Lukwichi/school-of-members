@@ -168,23 +168,13 @@ export default function Home() {
               <Link href="#contact" className="nav-up-item">Contact</Link>
             </nav>
 
-            {/* Right Side */}
-            <div className="flex items-center gap-4">
-              <Link
-                href="/register"
-                className="hidden md:inline-flex btn-up-primary"
-              >
-                Register Here
-              </Link>
-
-              {/* Mobile Menu Button */}
-              <button
-                className="lg:hidden p-2 text-[#003366]"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              >
-                {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </button>
-            </div>
+            {/* Mobile Menu Button */}
+            <button
+              className="lg:hidden p-2 text-[#003366]"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
           </div>
         </div>
 
@@ -195,7 +185,6 @@ export default function Home() {
               <Link href="#" className="block text-[#003366] font-medium">Home</Link>
               <Link href="#about" className="block text-gray-600">About</Link>
               <Link href="#contact" className="block text-gray-600">Contact</Link>
-              <Link href="/register" className="btn-up-primary inline-block">Register Here</Link>
             </nav>
           </div>
         )}
