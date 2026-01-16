@@ -15,8 +15,6 @@ import {
   MapPin,
   ChevronRight,
   ChevronLeft,
-  ChevronDown,
-  Search,
   Heart,
   HandHelping,
   UsersRound,
@@ -123,7 +121,6 @@ const newsArticles = [
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('')
 
   // Auto-advance carousel
   useEffect(() => {
@@ -190,83 +187,12 @@ export default function Home() {
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-8">
               <Link href="#" className="nav-up-item active">Home</Link>
-              <div className="nav-item relative group">
-                <button className="nav-up-item flex items-center gap-1">
-                  Programmes <ChevronDown className="h-4 w-4" />
-                </button>
-                <div className="mega-dropdown">
-                  <div className="mega-dropdown-content">
-                    <div className="mega-dropdown-section">
-                      <h4>Our Courses</h4>
-                      <ul>
-                        <li><Link href="#">Foundations of Membership</Link></li>
-                        <li><Link href="#">Pastor-Member Relationship</Link></li>
-                        <li><Link href="#">Church Service Conduct</Link></li>
-                        <li><Link href="#">Community Life</Link></li>
-                      </ul>
-                    </div>
-                    <div className="mega-dropdown-section">
-                      <h4>Chapters</h4>
-                      <ul>
-                        <li><Link href="#">Chapter 1-3: Introduction</Link></li>
-                        <li><Link href="#">Chapter 4-6: Foundations</Link></li>
-                        <li><Link href="#">Chapter 7-9: Growth</Link></li>
-                        <li><Link href="#">Chapter 10-12: Service</Link></li>
-                      </ul>
-                    </div>
-                    <div className="mega-dropdown-section">
-                      <h4>Resources</h4>
-                      <ul>
-                        <li><Link href="#">Course Catalog</Link></li>
-                        <li><Link href="#">Calendar</Link></li>
-                        <li><Link href="#">Downloads</Link></li>
-                      </ul>
-                    </div>
-                    <div className="mega-dropdown-section">
-                      <h4>Support</h4>
-                      <ul>
-                        <li><Link href="#">FAQ</Link></li>
-                        <li><Link href="#">Contact Us</Link></li>
-                        <li><Link href="#">Online Help</Link></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="nav-item relative group">
-                <button className="nav-up-item flex items-center gap-1">
-                  About <ChevronDown className="h-4 w-4" />
-                </button>
-                <div className="mega-dropdown">
-                  <div className="mega-dropdown-content">
-                    <div className="mega-dropdown-section">
-                      <h4>Our Story</h4>
-                      <ul>
-                        <li><Link href="#">Vision & Mission</Link></li>
-                        <li><Link href="#">Leadership</Link></li>
-                        <li><Link href="#">Testimonies</Link></li>
-                      </ul>
-                    </div>
-                    <div className="mega-dropdown-section">
-                      <h4>Ramah Church</h4>
-                      <ul>
-                        <li><Link href="#">Apostle Narcisse Majila</Link></li>
-                        <li><Link href="#">Our Community</Link></li>
-                        <li><Link href="#">Ministries</Link></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <Link href="#campus" className="nav-up-item">Campus Life</Link>
+              <Link href="#about" className="nav-up-item">About</Link>
               <Link href="#contact" className="nav-up-item">Contact</Link>
             </nav>
 
             {/* Right Side */}
             <div className="flex items-center gap-4">
-              <button className="search-btn-up">
-                <Search className="h-5 w-5" />
-              </button>
               <Link
                 href="/student/login"
                 className="hidden md:inline-flex btn-up-primary"
@@ -290,9 +216,7 @@ export default function Home() {
           <div className="lg:hidden border-t border-gray-200 bg-white">
             <nav className="container mx-auto px-6 py-4 space-y-4">
               <Link href="#" className="block text-[#003366] font-medium">Home</Link>
-              <Link href="#programmes" className="block text-gray-600">Programmes</Link>
               <Link href="#about" className="block text-gray-600">About</Link>
-              <Link href="#campus" className="block text-gray-600">Campus Life</Link>
               <Link href="#contact" className="block text-gray-600">Contact</Link>
               <Link href="/student/login" className="btn-up-primary inline-block">Sign In</Link>
             </nav>
@@ -342,27 +266,6 @@ export default function Home() {
                 onClick={() => setCurrentSlide(index)}
               />
             ))}
-          </div>
-        </section>
-
-        {/* Course Search Bar */}
-        <section className="search-bar-up">
-          <div className="search-bar-container">
-            <span className="search-bar-label">Find a Course</span>
-            <input
-              type="text"
-              placeholder="e.g. Foundations of Membership"
-              className="search-bar-input"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <button className="search-bar-btn">
-              <Search className="h-4 w-4 mr-2" />
-              Search
-            </button>
-            <Link href="/student/courses" className="search-bar-btn-secondary">
-              Browse All Courses
-            </Link>
           </div>
         </section>
 
