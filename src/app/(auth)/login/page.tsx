@@ -1,17 +1,23 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Card, CardContent } from '@/components/ui/card'
 import { LoginForm } from '@/components/forms/login-form'
-import { Shield, Sparkles } from 'lucide-react'
+import { Sparkles } from 'lucide-react'
 
 export default function LoginPage() {
   return (
     <Card className="border-0 shadow-none">
-      <div className="h-1 bg-gradient-to-r from-[#8B5CF6] via-[#06B6D4] to-[#C8102E]" />
+      <div className="h-1 bg-gradient-to-r from-[#003366] via-[#b5985b] to-[#C8102E]" />
       <CardContent className="pt-8 pb-8">
-        {/* Icon */}
+        {/* Logo */}
         <div className="flex justify-center mb-4">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#003366] to-[#C8102E] flex items-center justify-center shadow-lg shadow-[#003366]/30">
-            <Shield className="h-8 w-8 text-white" />
+          <div className="relative w-20 h-20 rounded-full overflow-hidden border-3 border-[#003366]/20 shadow-lg">
+            <Image
+              src="/images/logo-fresco.png"
+              alt="School of Members Logo"
+              fill
+              className="object-cover"
+            />
           </div>
         </div>
 

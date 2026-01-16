@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -10,7 +11,7 @@ import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import { PhoneInput } from '@/components/ui/phone-input'
 import { toast } from 'sonner'
-import { Loader2, BookOpen, MessageCircle, Phone, User, Sparkles } from 'lucide-react'
+import { Loader2, MessageCircle, Phone, User, Sparkles } from 'lucide-react'
 
 export default function StudentRegisterPage() {
   const router = useRouter()
@@ -101,23 +102,25 @@ export default function StudentRegisterPage() {
   }
 
   return (
-    <Card className="glass border-purple-500/20 overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-purple-500" />
-      <CardHeader className="space-y-1 text-center pb-4">
+    <Card className="border-0 shadow-none overflow-hidden">
+      <div className="h-1 bg-gradient-to-r from-[#003366] via-[#b5985b] to-[#C8102E]" />
+      <CardHeader className="space-y-1 text-center pb-4 pt-6">
         <div className="flex justify-center mb-4">
-          <div className="relative">
-            <div className="h-16 w-16 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg shadow-purple-500/30">
-              <BookOpen className="h-8 w-8 text-white" />
-            </div>
-            <div className="absolute inset-0 blur-xl bg-purple-500/30" />
+          <div className="relative w-20 h-20 rounded-full overflow-hidden border-3 border-[#003366]/20 shadow-lg">
+            <Image
+              src="/images/logo-fresco.png"
+              alt="School of Members Logo"
+              fill
+              className="object-cover"
+            />
           </div>
         </div>
-        <div className="flex items-center justify-center gap-2 text-cyan-400 text-xs font-medium mb-2">
+        <div className="flex items-center justify-center gap-2 text-[#C8102E] text-xs font-medium mb-2">
           <Sparkles className="h-3 w-3" />
           Start your journey
         </div>
-        <CardTitle className="text-2xl font-bold text-white">Join School of Members</CardTitle>
-        <CardDescription className="text-slate-400">
+        <CardTitle className="text-2xl font-bold text-[#003366]">Join School of Members</CardTitle>
+        <CardDescription className="text-[#64748b]">
           Register with your phone number to start learning
         </CardDescription>
       </CardHeader>
@@ -126,8 +129,8 @@ export default function StudentRegisterPage() {
         <CardContent className="space-y-4">
           {/* Full Name */}
           <div className="space-y-2">
-            <Label htmlFor="fullName" className="flex items-center gap-2 text-slate-300">
-              <User className="h-4 w-4 text-purple-400" />
+            <Label htmlFor="fullName" className="flex items-center gap-2 text-[#1e293b]">
+              <User className="h-4 w-4 text-[#003366]" />
               Full Name
             </Label>
             <Input
@@ -141,8 +144,8 @@ export default function StudentRegisterPage() {
 
           {/* Phone Number */}
           <div className="space-y-2">
-            <Label className="flex items-center gap-2 text-slate-300">
-              <Phone className="h-4 w-4 text-purple-400" />
+            <Label className="flex items-center gap-2 text-[#1e293b]">
+              <Phone className="h-4 w-4 text-[#003366]" />
               Phone Number
             </Label>
             <PhoneInput
@@ -161,11 +164,11 @@ export default function StudentRegisterPage() {
               checked={formData.sameAsPhone}
               onCheckedChange={handleSameAsPhoneChange}
               disabled={isLoading}
-              className="border-purple-500/30 data-[state=checked]:bg-purple-500 data-[state=checked]:border-purple-500"
+              className="border-[#003366]/30 data-[state=checked]:bg-[#003366] data-[state=checked]:border-[#003366]"
             />
             <Label
               htmlFor="sameAsPhone"
-              className="text-sm font-normal cursor-pointer text-slate-400"
+              className="text-sm font-normal cursor-pointer text-[#64748b]"
             >
               My WhatsApp number is the same as my phone number
             </Label>
@@ -174,8 +177,8 @@ export default function StudentRegisterPage() {
           {/* WhatsApp Number (if different) */}
           {!formData.sameAsPhone && (
             <div className="space-y-2">
-              <Label className="flex items-center gap-2 text-slate-300">
-                <MessageCircle className="h-4 w-4 text-cyan-400" />
+              <Label className="flex items-center gap-2 text-[#1e293b]">
+                <MessageCircle className="h-4 w-4 text-[#b5985b]" />
                 WhatsApp Number
               </Label>
               <PhoneInput
@@ -189,9 +192,9 @@ export default function StudentRegisterPage() {
           )}
 
           {/* Info message */}
-          <div className="bg-purple-500/10 border border-purple-500/20 rounded-xl p-4">
-            <p className="text-sm text-slate-300 flex items-center gap-2">
-              <MessageCircle className="h-4 w-4 text-cyan-400" />
+          <div className="bg-[#003366]/5 border border-[#003366]/20 rounded-xl p-4">
+            <p className="text-sm text-[#64748b] flex items-center gap-2">
+              <MessageCircle className="h-4 w-4 text-[#b5985b]" />
               Your login PIN will be sent to your WhatsApp number.
             </p>
           </div>
@@ -200,7 +203,7 @@ export default function StudentRegisterPage() {
         <CardFooter className="flex flex-col gap-4 pb-8">
           <Button
             type="submit"
-            className="w-full btn-gradient"
+            className="w-full bg-[#003366] hover:bg-[#002244] text-white"
             disabled={isLoading}
           >
             {isLoading ? (
@@ -213,9 +216,9 @@ export default function StudentRegisterPage() {
             )}
           </Button>
 
-          <div className="text-center text-sm text-slate-400">
+          <div className="text-center text-sm text-[#64748b]">
             Already have an account?{' '}
-            <Link href="/student/login" className="text-purple-400 hover:text-cyan-400 transition-colors">
+            <Link href="/student/login" className="text-[#003366] hover:text-[#C8102E] transition-colors font-medium">
               Login
             </Link>
           </div>

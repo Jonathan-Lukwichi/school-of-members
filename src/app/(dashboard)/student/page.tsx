@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 import { BookOpen, CheckCircle, Calendar, ArrowRight, Loader2, Sparkles, TrendingUp, Play } from 'lucide-react'
 import { createBrowserClient } from '@/lib/supabase/client'
-import { WelcomeOverlay } from '@/components/shared/welcome-overlay'
 
 interface Profile {
   full_name: string
@@ -130,15 +129,7 @@ export default function StudentDashboard() {
   }
 
   return (
-    <>
-      {profile && (
-        <WelcomeOverlay
-          userName={profile.full_name || 'Student'}
-          storageKey="som_student_welcome"
-        />
-      )}
-
-      <div className="space-y-8">
+    <div className="space-y-8">
         {/* Welcome Header */}
         <div className="relative overflow-hidden rounded-2xl bg-white border border-[#e2e8f0] shadow-sm p-8">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#003366] to-[#C8102E]" />
@@ -283,6 +274,5 @@ export default function StudentDashboard() {
           </CardContent>
         </Card>
       </div>
-    </>
   )
 }

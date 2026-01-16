@@ -3,13 +3,14 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { PhoneInput } from '@/components/ui/phone-input'
 import { PinInput } from '@/components/ui/pin-input'
 import { Label } from '@/components/ui/label'
 import { toast } from 'sonner'
-import { Loader2, GraduationCap, Phone, Lock, ArrowLeft, ArrowRight } from 'lucide-react'
+import { Loader2, Phone, Lock, ArrowLeft, ArrowRight } from 'lucide-react'
 
 type Step = 'phone' | 'pin'
 
@@ -85,11 +86,16 @@ export default function StudentLoginPage() {
 
   return (
     <Card className="border-0 shadow-none">
-      <div className="h-1 bg-gradient-to-r from-[#003366] to-[#C8102E]" />
+      <div className="h-1 bg-gradient-to-r from-[#003366] via-[#b5985b] to-[#C8102E]" />
       <CardHeader className="space-y-1 text-center pt-6">
         <div className="flex justify-center mb-4">
-          <div className="h-16 w-16 bg-[#003366] rounded-lg flex items-center justify-center shadow-lg">
-            <GraduationCap className="h-8 w-8 text-white" />
+          <div className="relative w-20 h-20 rounded-full overflow-hidden border-3 border-[#003366]/20 shadow-lg">
+            <Image
+              src="/images/logo-fresco.png"
+              alt="School of Members Logo"
+              fill
+              className="object-cover"
+            />
           </div>
         </div>
         <CardTitle className="text-2xl font-bold text-[#003366]">Welcome</CardTitle>

@@ -42,15 +42,16 @@ export function Sidebar() {
   return (
     <aside className="fixed left-0 top-0 z-40 h-screen w-64 bg-[#003366] hidden lg:flex lg:flex-col">
       {/* Logo Section */}
-      <div className="flex h-16 items-center border-b border-white/10 px-6">
+      <div className="flex h-20 items-center border-b border-white/10 px-4">
         <Link href="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity group">
-          <Image
-            src="/images/logo.png"
-            alt="School of Members Logo"
-            width={40}
-            height={40}
-            className="w-10 h-10 object-contain"
-          />
+          <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-white/30 shadow-lg flex-shrink-0">
+            <Image
+              src="/images/logo-fresco.png"
+              alt="School of Members Logo"
+              fill
+              className="object-cover"
+            />
+          </div>
           <div>
             <span className="font-bold text-white text-sm block leading-tight">
               School of Members
