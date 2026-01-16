@@ -171,10 +171,10 @@ export default function Home() {
             {/* Right Side */}
             <div className="flex items-center gap-4">
               <Link
-                href="/student/login"
+                href="/register"
                 className="hidden md:inline-flex btn-up-primary"
               >
-                Sign In
+                Register Here
               </Link>
 
               {/* Mobile Menu Button */}
@@ -195,7 +195,7 @@ export default function Home() {
               <Link href="#" className="block text-[#003366] font-medium">Home</Link>
               <Link href="#about" className="block text-gray-600">About</Link>
               <Link href="#contact" className="block text-gray-600">Contact</Link>
-              <Link href="/student/login" className="btn-up-primary inline-block">Sign In</Link>
+              <Link href="/register" className="btn-up-primary inline-block">Register Here</Link>
             </nav>
           </div>
         )}
