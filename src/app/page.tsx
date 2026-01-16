@@ -1,20 +1,140 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { GraduationCap, BookOpen, Users, BarChart3, Award, Clock, CheckCircle, ArrowRight, Phone, Mail, MapPin, ChevronRight, Play, Star, Shield, Target, Zap } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import {
+  GraduationCap,
+  BookOpen,
+  Users,
+  Award,
+  Clock,
+  ArrowRight,
+  Phone,
+  Mail,
+  MapPin,
+  ChevronRight,
+  ChevronLeft,
+  ChevronDown,
+  Search,
+  Heart,
+  HandHelping,
+  UsersRound,
+  Menu,
+  X
+} from 'lucide-react'
+
+// Hero slides data
+const heroSlides = [
+  {
+    id: 1,
+    gradient: 'linear-gradient(135deg, #003366 0%, #004080 50%, #002244 100%)',
+    title: 'Bienvenue à l\'École des Membres',
+    subtitle: 'Une Année de Foi Grandissante',
+    description: 'Rejoignez notre communauté spirituelle et grandissez dans votre foi avec l\'Église du Plein Évangile Ramah',
+  },
+  {
+    id: 2,
+    gradient: 'linear-gradient(135deg, #C8102E 0%, #a00d25 100%)',
+    title: 'Grandir • Servir • Appartenir',
+    subtitle: 'Nos Trois Piliers Fondamentaux',
+    description: 'Développez votre foi, mettez vos talents au service de la communauté et intégrez-vous dans la famille spirituelle',
+  },
+  {
+    id: 3,
+    gradient: 'linear-gradient(135deg, #b5985b 0%, #8a7344 100%)',
+    title: 'Formation Complète',
+    subtitle: '12 Chapitres de Croissance Spirituelle',
+    description: 'Un programme structuré pour comprendre les fondements de notre communauté sous la direction de l\'Apôtre Narcisse Majila',
+  },
+]
+
+// Programme cards data
+const programmes = [
+  {
+    id: 1,
+    title: 'Fondements de la Membership',
+    gradient: 'linear-gradient(135deg, #003366 0%, #004080 100%)',
+    icon: BookOpen,
+  },
+  {
+    id: 2,
+    title: 'Études Avancées',
+    gradient: 'linear-gradient(135deg, #C8102E 0%, #a00d25 100%)',
+    icon: GraduationCap,
+  },
+  {
+    id: 3,
+    title: 'Certification',
+    gradient: 'linear-gradient(135deg, #b5985b 0%, #8a7344 100%)',
+    icon: Award,
+  },
+  {
+    id: 4,
+    title: 'Vie Communautaire',
+    gradient: 'linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)',
+    icon: UsersRound,
+  },
+]
+
+// News articles data
+const newsArticles = [
+  {
+    id: 1,
+    date: '15 Janvier 2026',
+    title: 'Inscription Ouverte pour la Session 2026',
+    excerpt: 'Les inscriptions pour la nouvelle session de l\'École des Membres sont maintenant ouvertes. Rejoignez-nous pour une année de croissance spirituelle.',
+    gradient: 'linear-gradient(135deg, #003366 0%, #004080 100%)',
+  },
+  {
+    id: 2,
+    date: '10 Janvier 2026',
+    title: 'Retraite Spirituelle Annuelle',
+    excerpt: 'Notre retraite spirituelle annuelle aura lieu le mois prochain. Une occasion unique de renforcer votre foi et votre connexion avec Dieu.',
+    gradient: 'linear-gradient(135deg, #C8102E 0%, #a00d25 100%)',
+  },
+  {
+    id: 3,
+    date: '5 Janvier 2026',
+    title: 'Témoignages des Diplômés',
+    excerpt: 'Découvrez les témoignages inspirants de nos anciens élèves et comment l\'École des Membres a transformé leur vie spirituelle.',
+    gradient: 'linear-gradient(135deg, #b5985b 0%, #8a7344 100%)',
+  },
+  {
+    id: 4,
+    date: '1 Janvier 2026',
+    title: 'Message du Nouvel An',
+    excerpt: 'L\'Apôtre Narcisse Majila partage son message d\'espoir et de bénédiction pour cette nouvelle année.',
+    gradient: 'linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)',
+  },
+]
 
 export default function Home() {
-  return (
-    <div className="min-h-screen bg-[#0a0a0f] overflow-hidden relative">
-      {/* Background Effects */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-gradient-radial" />
-        <div className="absolute inset-0 bg-grid opacity-20" />
-      </div>
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
 
-      {/* Top Bar - University Style */}
-      <div className="relative z-20 bg-[#0779bf] text-white py-2">
+  // Auto-advance carousel
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
+    }, 6000)
+    return () => clearInterval(timer)
+  }, [])
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
+  }
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
+  }
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Top Utility Bar */}
+      <div className="top-bar">
         <div className="container mx-auto px-6">
-          <div className="flex items-center justify-between text-sm">
+          <div className="flex items-center justify-between">
             <div className="flex items-center gap-6">
               <span className="flex items-center gap-2">
                 <Phone className="h-3.5 w-3.5" />
@@ -22,452 +142,407 @@ export default function Home() {
               </span>
               <span className="flex items-center gap-2">
                 <Mail className="h-3.5 w-3.5" />
-                <span className="hidden sm:inline">info@schoolofmembers.com</span>
+                <span className="hidden sm:inline">info@ecoledemembres.com</span>
               </span>
             </div>
             <div className="flex items-center gap-4">
-              <Link href="/student/login" className="hover:underline">Student Portal</Link>
+              <Link href="/student/login" className="hover:underline">Portail Étudiant</Link>
               <span className="text-white/40">|</span>
-              <Link href="/login" className="hover:underline">Staff Portal</Link>
+              <Link href="/login" className="hover:underline">Portail Staff</Link>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Header */}
-      <header className="relative z-10 border-b border-white/[0.06] bg-[#0a0a0f]/95 backdrop-blur-xl sticky top-0">
-        <nav className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
+      {/* Main Header */}
+      <header className="header-up">
+        <div className="container mx-auto px-6">
+          <div className="flex items-center justify-between py-4">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#0779bf] to-[#0e56b9] flex items-center justify-center shadow-lg shadow-[#0779bf]/20">
-                <GraduationCap className="h-7 w-7 text-white" />
+            <Link href="/" className="flex items-center gap-3">
+              <div className="w-14 h-14 rounded-lg bg-[#003366] flex items-center justify-center">
+                <GraduationCap className="h-8 w-8 text-white" />
               </div>
               <div>
-                <span className="text-xl font-bold text-white block leading-tight">
-                  School<span className="text-[#b5985b]">.</span>Members
+                <span className="text-xl font-bold text-[#003366] block leading-tight">
+                  École des Membres
                 </span>
-                <span className="text-xs text-zinc-500">Learning Management System</span>
+                <span className="text-xs text-gray-500">Église du Plein Évangile Ramah</span>
               </div>
             </Link>
 
-            {/* Navigation */}
-            <div className="hidden lg:flex items-center">
-              <div className="nav-academic">
-                <Link href="#programs" className="nav-academic-item">Programs</Link>
-                <Link href="#features" className="nav-academic-item">Features</Link>
-                <Link href="#about" className="nav-academic-item">About</Link>
-                <Link href="#contact" className="nav-academic-item">Contact</Link>
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-8">
+              <Link href="#" className="nav-up-item active">Accueil</Link>
+              <div className="nav-item relative group">
+                <button className="nav-up-item flex items-center gap-1">
+                  Programmes <ChevronDown className="h-4 w-4" />
+                </button>
+                <div className="mega-dropdown">
+                  <div className="mega-dropdown-content">
+                    <div className="mega-dropdown-section">
+                      <h4>Nos Cours</h4>
+                      <ul>
+                        <li><Link href="#">Fondements de la Membership</Link></li>
+                        <li><Link href="#">Attentes du Pasteur</Link></li>
+                        <li><Link href="#">Conduite de Culte</Link></li>
+                        <li><Link href="#">Vie Communautaire</Link></li>
+                      </ul>
+                    </div>
+                    <div className="mega-dropdown-section">
+                      <h4>Chapitres</h4>
+                      <ul>
+                        <li><Link href="#">Chapitre 1-3: Introduction</Link></li>
+                        <li><Link href="#">Chapitre 4-6: Fondements</Link></li>
+                        <li><Link href="#">Chapitre 7-9: Croissance</Link></li>
+                        <li><Link href="#">Chapitre 10-12: Service</Link></li>
+                      </ul>
+                    </div>
+                    <div className="mega-dropdown-section">
+                      <h4>Ressources</h4>
+                      <ul>
+                        <li><Link href="#">Catalogue des Cours</Link></li>
+                        <li><Link href="#">Calendrier</Link></li>
+                        <li><Link href="#">Téléchargements</Link></li>
+                      </ul>
+                    </div>
+                    <div className="mega-dropdown-section">
+                      <h4>Support</h4>
+                      <ul>
+                        <li><Link href="#">FAQ</Link></li>
+                        <li><Link href="#">Contactez-nous</Link></li>
+                        <li><Link href="#">Aide en Ligne</Link></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
+              <div className="nav-item relative group">
+                <button className="nav-up-item flex items-center gap-1">
+                  À Propos <ChevronDown className="h-4 w-4" />
+                </button>
+                <div className="mega-dropdown">
+                  <div className="mega-dropdown-content">
+                    <div className="mega-dropdown-section">
+                      <h4>Notre Histoire</h4>
+                      <ul>
+                        <li><Link href="#">Vision & Mission</Link></li>
+                        <li><Link href="#">Leadership</Link></li>
+                        <li><Link href="#">Témoignages</Link></li>
+                      </ul>
+                    </div>
+                    <div className="mega-dropdown-section">
+                      <h4>L'Église Ramah</h4>
+                      <ul>
+                        <li><Link href="#">Apôtre Narcisse Majila</Link></li>
+                        <li><Link href="#">Notre Communauté</Link></li>
+                        <li><Link href="#">Ministères</Link></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <Link href="#campus" className="nav-up-item">Vie du Campus</Link>
+              <Link href="#contact" className="nav-up-item">Contact</Link>
+            </nav>
 
             {/* Right Side */}
-            <div className="flex items-center gap-3">
-              <Link href="/login">
-                <Button variant="ghost" className="text-zinc-400 hover:text-white hover:bg-white/5 font-medium">
-                  Sign in
-                </Button>
+            <div className="flex items-center gap-4">
+              <button className="search-btn-up">
+                <Search className="h-5 w-5" />
+              </button>
+              <Link
+                href="/student/login"
+                className="hidden md:inline-flex btn-up-primary"
+              >
+                Se Connecter
               </Link>
-              <Link href="/student/register">
-                <Button className="btn-academic rounded-lg px-5 font-semibold">
-                  Apply Now
-                </Button>
-              </Link>
+
+              {/* Mobile Menu Button */}
+              <button
+                className="lg:hidden p-2 text-[#003366]"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </button>
             </div>
           </div>
-        </nav>
+        </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden border-t border-gray-200 bg-white">
+            <nav className="container mx-auto px-6 py-4 space-y-4">
+              <Link href="#" className="block text-[#003366] font-medium">Accueil</Link>
+              <Link href="#programmes" className="block text-gray-600">Programmes</Link>
+              <Link href="#about" className="block text-gray-600">À Propos</Link>
+              <Link href="#campus" className="block text-gray-600">Vie du Campus</Link>
+              <Link href="#contact" className="block text-gray-600">Contact</Link>
+              <Link href="/student/login" className="btn-up-primary inline-block">Se Connecter</Link>
+            </nav>
+          </div>
+        )}
       </header>
 
-      <main className="relative z-10">
-        {/* Hero Section - Academic Style */}
-        <section className="hero-academic py-20 lg:py-32">
+      <main>
+        {/* Hero Carousel */}
+        <section className="hero-carousel">
+          {heroSlides.map((slide, index) => (
+            <div
+              key={slide.id}
+              className={`hero-slide ${index === currentSlide ? 'active' : ''}`}
+              style={{ background: slide.gradient }}
+            >
+              <div className="hero-slide-content">
+                <p className="text-lg mb-2 opacity-90">{slide.subtitle}</p>
+                <h1 className="hero-slide-title">{slide.title}</h1>
+                <p className="hero-slide-subtitle">{slide.description}</p>
+                <Link href="/student/register" className="btn-up-primary">
+                  En Savoir Plus <ArrowRight className="h-4 w-4 ml-2" />
+                </Link>
+              </div>
+            </div>
+          ))}
+
+          {/* Navigation Arrows */}
+          <button onClick={prevSlide} className="hero-arrow hero-arrow-left">
+            <ChevronLeft className="h-6 w-6" />
+          </button>
+          <button onClick={nextSlide} className="hero-arrow hero-arrow-right">
+            <ChevronRight className="h-6 w-6" />
+          </button>
+
+          {/* Dots */}
+          <div className="hero-dots">
+            {heroSlides.map((_, index) => (
+              <button
+                key={index}
+                className={`hero-dot ${index === currentSlide ? 'active' : ''}`}
+                onClick={() => setCurrentSlide(index)}
+              />
+            ))}
+          </div>
+        </section>
+
+        {/* Course Search Bar */}
+        <section className="search-bar-up">
+          <div className="search-bar-container">
+            <span className="search-bar-label">Trouver un cours</span>
+            <input
+              type="text"
+              placeholder="ex. Fondements de la Membership"
+              className="search-bar-input"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button className="search-bar-btn">
+              <Search className="h-4 w-4 mr-2" />
+              Rechercher
+            </button>
+            <Link href="/student/courses" className="search-bar-btn-secondary">
+              Parcourir Tous les Cours
+            </Link>
+          </div>
+        </section>
+
+        {/* Programme Cards */}
+        <section id="programmes" className="py-16">
           <div className="container mx-auto px-6">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Left Content */}
-              <div>
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#b5985b]/10 border border-[#b5985b]/20 mb-6">
-                  <Award className="h-4 w-4 text-[#b5985b]" />
-                  <span className="text-sm text-[#b5985b] font-medium">Top Rated Learning Platform</span>
-                </div>
-
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[1.1]">
-                  <span className="text-white">Experience Learning.</span>
-                  <br />
-                  <span className="text-white">Anywhere. </span>
-                  <span className="bg-gradient-to-r from-[#0779bf] to-[#22d3ee] bg-clip-text text-transparent">Anytime.</span>
-                </h1>
-
-                <p className="text-lg text-zinc-400 mb-8 leading-relaxed max-w-lg">
-                  Join our community of dedicated learners. Access world-class courses, connect with expert instructors, and achieve your educational goals.
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-4 mb-10">
-                  <Link href="/student/register">
-                    <Button size="lg" className="btn-academic rounded-lg px-8 py-6 text-base font-semibold w-full sm:w-auto">
-                      Start Your Journey
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
-                  </Link>
-                  <Button size="lg" variant="outline" className="btn-academic-outline rounded-lg px-8 py-6 text-base font-semibold group">
-                    <Play className="mr-2 h-5 w-5 group-hover:text-[#0779bf]" />
-                    Watch Overview
-                  </Button>
-                </div>
-
-                {/* Trust Indicators */}
-                <div className="flex items-center gap-4 text-sm text-zinc-500">
-                  <div className="flex -space-x-2">
-                    {[1, 2, 3, 4].map((i) => (
-                      <div key={i} className="w-8 h-8 rounded-full bg-gradient-to-br from-[#0779bf] to-[#0e56b9] border-2 border-[#0a0a0f] flex items-center justify-center">
-                        <span className="text-xs text-white font-medium">{String.fromCharCode(64 + i)}</span>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {programmes.map((programme) => {
+                const Icon = programme.icon
+                return (
+                  <Link key={programme.id} href="/student/courses" className="programme-card group">
+                    <div
+                      className="programme-card-image"
+                      style={{ background: programme.gradient }}
+                    >
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <Icon className="h-16 w-16 text-white/30" />
                       </div>
-                    ))}
-                  </div>
-                  <span>Trusted by 500+ students</span>
-                  <div className="flex items-center gap-1">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <Star key={i} className="h-4 w-4 fill-[#b5985b] text-[#b5985b]" />
-                    ))}
-                    <span className="ml-1">4.9</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Content - Stats Cards */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="stat-card">
-                  <div className="stat-number">95%</div>
-                  <div className="stat-label">Pass Rate</div>
-                </div>
-                <div className="stat-card">
-                  <div className="stat-number">500+</div>
-                  <div className="stat-label">Active Students</div>
-                </div>
-                <div className="stat-card">
-                  <div className="stat-number">50+</div>
-                  <div className="stat-label">Courses</div>
-                </div>
-                <div className="stat-card">
-                  <div className="stat-number">25+</div>
-                  <div className="stat-label">Expert Teachers</div>
-                </div>
-              </div>
+                    </div>
+                    <div className="programme-card-overlay" />
+                    <div className="programme-card-label">
+                      {programme.title}
+                    </div>
+                  </Link>
+                )
+              })}
             </div>
           </div>
         </section>
 
-        {/* Programs Section */}
-        <section id="programs" className="py-20 relative">
+        {/* About Section - Three Pillars */}
+        <section id="about" className="about-section">
           <div className="container mx-auto px-6">
             <div className="text-center mb-12">
-              <span className="text-[#0779bf] text-sm font-semibold uppercase tracking-wider">Our Programs</span>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mt-2 mb-4">
-                Explore Our Courses
+              <h2 className="text-3xl md:text-4xl font-bold text-[#003366] mb-4">
+                À Propos de l'École des Membres
               </h2>
-              <p className="text-zinc-400 max-w-xl mx-auto">
-                Choose from a variety of programs designed to help you achieve your learning goals
+              <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
+                Bienvenue à vous tous qui avez choisi de faire de Ramah votre foyer spirituel.
+                L'École des Membres est votre guide pour comprendre les fondements de notre communauté
+                sous la direction de l'Apôtre Narcisse Majila.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
-              {/* Program Card 1 */}
-              <div className="course-card group">
-                <div className="course-card-image">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#0779bf] via-[#0e56b9] to-[#0a3d6e]" />
-                  <div className="course-card-badge">Featured</div>
-                  <div className="absolute bottom-4 left-4 z-10">
-                    <BookOpen className="h-10 w-10 text-white/80" />
-                  </div>
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* Grandir */}
+              <div className="about-pillar">
+                <div className="about-pillar-icon">
+                  <Heart className="h-10 w-10" />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#0779bf] transition-colors">
-                    Foundation Programs
-                  </h3>
-                  <p className="text-zinc-400 text-sm mb-4">
-                    Build strong fundamentals with our comprehensive foundation courses.
-                  </p>
-                  <Link href="/student/register" className="inline-flex items-center text-[#0779bf] text-sm font-medium hover:gap-2 transition-all">
-                    Learn more <ChevronRight className="h-4 w-4 ml-1" />
-                  </Link>
-                </div>
+                <h3 className="about-pillar-title">Grandir</h3>
+                <p className="about-pillar-text">
+                  Développer votre foi à travers les enseignements et la pratique quotidienne de la Parole de Dieu.
+                </p>
               </div>
 
-              {/* Program Card 2 */}
-              <div className="course-card group">
-                <div className="course-card-image">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#b5985b] via-[#a08548] to-[#7d6836]" />
-                  <div className="course-card-badge">Popular</div>
-                  <div className="absolute bottom-4 left-4 z-10">
-                    <Target className="h-10 w-10 text-white/80" />
-                  </div>
+              {/* Servir */}
+              <div className="about-pillar">
+                <div className="about-pillar-icon" style={{ background: '#C8102E' }}>
+                  <HandHelping className="h-10 w-10" />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#b5985b] transition-colors">
-                    Advanced Studies
-                  </h3>
-                  <p className="text-zinc-400 text-sm mb-4">
-                    Take your skills to the next level with advanced specialized courses.
-                  </p>
-                  <Link href="/student/register" className="inline-flex items-center text-[#b5985b] text-sm font-medium hover:gap-2 transition-all">
-                    Learn more <ChevronRight className="h-4 w-4 ml-1" />
-                  </Link>
-                </div>
+                <h3 className="about-pillar-title" style={{ color: '#C8102E' }}>Servir</h3>
+                <p className="about-pillar-text">
+                  Mettre vos talents au service de la communauté et de Dieu avec dévouement et humilité.
+                </p>
               </div>
 
-              {/* Program Card 3 */}
-              <div className="course-card group">
-                <div className="course-card-image">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#22d3ee] via-[#06b6d4] to-[#0891b2]" />
-                  <div className="course-card-badge">New</div>
-                  <div className="absolute bottom-4 left-4 z-10">
-                    <Zap className="h-10 w-10 text-white/80" />
-                  </div>
+              {/* Appartenir */}
+              <div className="about-pillar">
+                <div className="about-pillar-icon" style={{ background: '#b5985b' }}>
+                  <UsersRound className="h-10 w-10" />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#22d3ee] transition-colors">
-                    Professional Certification
-                  </h3>
-                  <p className="text-zinc-400 text-sm mb-4">
-                    Earn recognized certificates to boost your professional profile.
-                  </p>
-                  <Link href="/student/register" className="inline-flex items-center text-[#22d3ee] text-sm font-medium hover:gap-2 transition-all">
-                    Learn more <ChevronRight className="h-4 w-4 ml-1" />
-                  </Link>
-                </div>
+                <h3 className="about-pillar-title" style={{ color: '#b5985b' }}>Appartenir</h3>
+                <p className="about-pillar-text">
+                  S'intégrer pleinement dans la famille spirituelle et construire des liens solides avec la communauté.
+                </p>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* Features Section */}
-        <section id="features" className="py-20 bg-gradient-to-b from-transparent via-[#0779bf]/5 to-transparent">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-12">
-              <span className="text-[#0779bf] text-sm font-semibold uppercase tracking-wider">Platform Features</span>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mt-2 mb-4">
-                Everything You Need to Succeed
-              </h2>
-              <p className="text-zinc-400 max-w-xl mx-auto">
-                A comprehensive learning platform built for modern education
+            {/* Quote */}
+            <div className="mt-16 text-center">
+              <blockquote className="text-xl italic text-gray-600 max-w-2xl mx-auto">
+                "La vraie foi marche toujours avec l'obéissance."
+              </blockquote>
+              <p className="mt-4 text-[#003366] font-semibold">
+                — Direction Pastorale, Église du Plein Évangile Ramah
               </p>
             </div>
+          </div>
+        </section>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="quick-access-card">
-                <div className="quick-access-icon">
-                  <BookOpen className="h-6 w-6" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-white mb-1">Course Management</h3>
-                  <p className="text-sm text-zinc-400">Access organized courses with downloadable modules</p>
-                </div>
+        {/* Statistics Bar */}
+        <section className="stats-bar">
+          <div className="container mx-auto px-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              <div className="stat-item">
+                <div className="stat-number">95%</div>
+                <div className="stat-label">Taux de Réussite</div>
               </div>
-
-              <div className="quick-access-card">
-                <div className="quick-access-icon">
-                  <Users className="h-6 w-6" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-white mb-1">Expert Teachers</h3>
-                  <p className="text-sm text-zinc-400">Learn from dedicated instructors with personalized guidance</p>
-                </div>
+              <div className="stat-item">
+                <div className="stat-number">500+</div>
+                <div className="stat-label">Étudiants</div>
               </div>
-
-              <div className="quick-access-card">
-                <div className="quick-access-icon">
-                  <BarChart3 className="h-6 w-6" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-white mb-1">Progress Tracking</h3>
-                  <p className="text-sm text-zinc-400">Monitor your learning journey with detailed analytics</p>
-                </div>
+              <div className="stat-item">
+                <div className="stat-number">12</div>
+                <div className="stat-label">Chapitres</div>
               </div>
-
-              <div className="quick-access-card">
-                <div className="quick-access-icon">
-                  <Award className="h-6 w-6" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-white mb-1">Certificates</h3>
-                  <p className="text-sm text-zinc-400">Earn recognized certificates upon course completion</p>
-                </div>
-              </div>
-
-              <div className="quick-access-card">
-                <div className="quick-access-icon">
-                  <Clock className="h-6 w-6" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-white mb-1">Flexible Learning</h3>
-                  <p className="text-sm text-zinc-400">Study at your own pace, anytime and anywhere</p>
-                </div>
-              </div>
-
-              <div className="quick-access-card">
-                <div className="quick-access-icon">
-                  <Shield className="h-6 w-6" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-white mb-1">Secure Platform</h3>
-                  <p className="text-sm text-zinc-400">Your data is protected with enterprise-grade security</p>
-                </div>
+              <div className="stat-item">
+                <div className="stat-number">25+</div>
+                <div className="stat-label">Enseignants</div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Testimonials Section */}
-        <section className="py-20">
+        {/* News Section */}
+        <section id="campus" className="py-16 bg-white">
           <div className="container mx-auto px-6">
-            <div className="text-center mb-12">
-              <span className="text-[#b5985b] text-sm font-semibold uppercase tracking-wider">Testimonials</span>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mt-2 mb-4">
-                What Our Students Say
-              </h2>
+            <div className="flex items-center justify-between mb-12">
+              <div>
+                <h2 className="text-3xl font-bold text-[#003366]">
+                  Actualités & Événements
+                </h2>
+                <p className="text-gray-600 mt-2">
+                  Restez informé des dernières nouvelles de notre communauté
+                </p>
+              </div>
+              <Link href="#" className="btn-up-outline hidden md:inline-flex">
+                Voir Toutes les Actualités
+              </Link>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="testimonial-card">
-                <p className="text-zinc-300 mb-6 pt-8 leading-relaxed">
-                  The quality of instruction and the support from teachers has been exceptional. I highly recommend School of Members to anyone looking to advance their education.
-                </p>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#0779bf] to-[#0e56b9] flex items-center justify-center text-white font-semibold">
-                    TM
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {newsArticles.map((article) => (
+                <article key={article.id} className="news-card">
+                  <div
+                    className="news-card-image"
+                    style={{ background: article.gradient }}
+                  />
+                  <div className="news-card-content">
+                    <p className="news-card-date">{article.date}</p>
+                    <h3 className="news-card-title">{article.title}</h3>
+                    <p className="news-card-excerpt">{article.excerpt}</p>
                   </div>
-                  <div>
-                    <div className="testimonial-name">Thabo Mokoena</div>
-                    <div className="testimonial-role">Computer Science Student</div>
-                  </div>
-                </div>
-              </div>
+                </article>
+              ))}
+            </div>
 
-              <div className="testimonial-card">
-                <p className="text-zinc-300 mb-6 pt-8 leading-relaxed">
-                  The platform is intuitive and the course content is well-structured. Being able to learn at my own pace while working has been a game-changer.
-                </p>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#b5985b] to-[#a08548] flex items-center justify-center text-white font-semibold">
-                    NP
-                  </div>
-                  <div>
-                    <div className="testimonial-name">Naledi Phiri</div>
-                    <div className="testimonial-role">Business Administration</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="testimonial-card">
-                <p className="text-zinc-300 mb-6 pt-8 leading-relaxed">
-                  The certification I earned through School of Members helped me land my dream job. The practical skills I gained are invaluable in my career.
-                </p>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#22d3ee] to-[#06b6d4] flex items-center justify-center text-white font-semibold">
-                    JN
-                  </div>
-                  <div>
-                    <div className="testimonial-name">James Nkosi</div>
-                    <div className="testimonial-role">Data Analytics Graduate</div>
-                  </div>
-                </div>
-              </div>
+            <div className="mt-8 text-center md:hidden">
+              <Link href="#" className="btn-up-outline">
+                Voir Toutes les Actualités
+              </Link>
             </div>
           </div>
         </section>
 
-        {/* Info Banner */}
-        <section className="py-12">
+        {/* Call to Action */}
+        <section className="py-16 bg-[#f8fafc]">
           <div className="container mx-auto px-6">
-            <div className="welcome-banner">
+            <div className="bg-white rounded-lg shadow-lg p-8 md:p-12">
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">Ready to Start Your Learning Journey?</h3>
-                  <p className="text-zinc-400 mb-6">
-                    Join our community of learners and take the first step towards achieving your educational goals. Registration is quick and easy.
+                  <h2 className="text-2xl md:text-3xl font-bold text-[#003366] mb-4">
+                    Prêt à Commencer Votre Parcours Spirituel?
+                  </h2>
+                  <p className="text-gray-600 mb-6 leading-relaxed">
+                    Rejoignez notre communauté d'apprenants et faites le premier pas vers
+                    l'accomplissement de vos objectifs spirituels. L'inscription est rapide et facile.
                   </p>
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <Link href="/student/register">
-                      <Button className="btn-academic rounded-lg px-6 font-semibold">
-                        Apply Now
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
+                  <div className="flex flex-wrap gap-4">
+                    <Link href="/student/register" className="btn-up-secondary">
+                      S'inscrire Maintenant
+                      <ArrowRight className="h-4 w-4 ml-2" />
                     </Link>
-                    <Link href="#contact">
-                      <Button variant="outline" className="btn-academic-outline rounded-lg px-6 font-semibold">
-                        Contact Us
-                      </Button>
+                    <Link href="#contact" className="btn-up-outline">
+                      Nous Contacter
                     </Link>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-[#0779bf]">24/7</div>
-                    <div className="text-sm text-zinc-400">Learning Access</div>
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="text-center p-4 bg-[#f8fafc] rounded-lg">
+                    <Clock className="h-8 w-8 text-[#003366] mx-auto mb-2" />
+                    <div className="text-2xl font-bold text-[#003366]">24/7</div>
+                    <div className="text-sm text-gray-600">Accès en Ligne</div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-[#b5985b]">100%</div>
-                    <div className="text-sm text-zinc-400">Online Courses</div>
+                  <div className="text-center p-4 bg-[#f8fafc] rounded-lg">
+                    <BookOpen className="h-8 w-8 text-[#C8102E] mx-auto mb-2" />
+                    <div className="text-2xl font-bold text-[#C8102E]">100%</div>
+                    <div className="text-sm text-gray-600">Cours en Ligne</div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-[#22d3ee]">Free</div>
-                    <div className="text-sm text-zinc-400">Registration</div>
+                  <div className="text-center p-4 bg-[#f8fafc] rounded-lg">
+                    <Award className="h-8 w-8 text-[#b5985b] mx-auto mb-2" />
+                    <div className="text-2xl font-bold text-[#b5985b]">Gratuit</div>
+                    <div className="text-sm text-gray-600">Inscription</div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-white">5+</div>
-                    <div className="text-sm text-zinc-400">Years Experience</div>
+                  <div className="text-center p-4 bg-[#f8fafc] rounded-lg">
+                    <Users className="h-8 w-8 text-[#0ea5e9] mx-auto mb-2" />
+                    <div className="text-2xl font-bold text-[#0ea5e9]">5+</div>
+                    <div className="text-sm text-gray-600">Années d'Expérience</div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Quick Links Section */}
-        <section className="py-20 border-t border-white/[0.06]">
-          <div className="container mx-auto px-6">
-            <div className="grid md:grid-cols-4 gap-8">
-              <div>
-                <h4 className="text-white font-semibold mb-4">Quick Links</h4>
-                <ul className="space-y-2">
-                  <li><Link href="#programs" className="footer-link">Programs</Link></li>
-                  <li><Link href="#features" className="footer-link">Features</Link></li>
-                  <li><Link href="#about" className="footer-link">About Us</Link></li>
-                  <li><Link href="#contact" className="footer-link">Contact</Link></li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="text-white font-semibold mb-4">For Students</h4>
-                <ul className="space-y-2">
-                  <li><Link href="/student/register" className="footer-link">Apply Now</Link></li>
-                  <li><Link href="/student/login" className="footer-link">Student Portal</Link></li>
-                  <li><Link href="#" className="footer-link">Course Catalog</Link></li>
-                  <li><Link href="#" className="footer-link">FAQs</Link></li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="text-white font-semibold mb-4">For Staff</h4>
-                <ul className="space-y-2">
-                  <li><Link href="/login" className="footer-link">Staff Portal</Link></li>
-                  <li><Link href="#" className="footer-link">Resources</Link></li>
-                  <li><Link href="#" className="footer-link">Support</Link></li>
-                </ul>
-              </div>
-              <div id="contact">
-                <h4 className="text-white font-semibold mb-4">Contact Us</h4>
-                <ul className="space-y-3">
-                  <li className="flex items-center gap-3 text-zinc-400 text-sm">
-                    <Phone className="h-4 w-4 text-[#0779bf]" />
-                    +27 12 000 0000
-                  </li>
-                  <li className="flex items-center gap-3 text-zinc-400 text-sm">
-                    <Mail className="h-4 w-4 text-[#0779bf]" />
-                    info@schoolofmembers.com
-                  </li>
-                  <li className="flex items-start gap-3 text-zinc-400 text-sm">
-                    <MapPin className="h-4 w-4 text-[#0779bf] mt-0.5" />
-                    123 Education Street<br />Pretoria, South Africa
-                  </li>
-                </ul>
               </div>
             </div>
           </div>
@@ -475,25 +550,80 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="footer-academic py-6">
+      <footer className="footer-up">
         <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0779bf] to-[#0e56b9] flex items-center justify-center">
-                <GraduationCap className="h-5 w-5 text-white" />
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 pb-8">
+            {/* Logo Column */}
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center">
+                  <GraduationCap className="h-7 w-7 text-white" />
+                </div>
+                <div>
+                  <span className="font-bold text-white block">École des Membres</span>
+                  <span className="text-xs text-white/60">Ramah Full Gospel Church</span>
+                </div>
               </div>
-              <div>
-                <span className="font-bold text-white block">School<span className="text-[#b5985b]">.</span>Members</span>
-                <span className="text-xs text-zinc-500">Learning Management System</span>
-              </div>
+              <p className="text-white/70 text-sm leading-relaxed">
+                Faites d'aujourd'hui un jour qui compte. Grandissez dans votre foi avec notre communauté spirituelle.
+              </p>
             </div>
-            <p className="text-zinc-500 text-sm">
-              &copy; {new Date().getFullYear()} School of Members. All rights reserved.
-            </p>
-            <div className="flex items-center gap-6">
-              <Link href="#" className="footer-link">Privacy Policy</Link>
-              <Link href="#" className="footer-link">Terms of Use</Link>
-              <Link href="#" className="footer-link">Disclaimer</Link>
+
+            {/* Core Functions */}
+            <div>
+              <h4 className="footer-up-title">Fonctions Principales</h4>
+              <ul className="footer-up-links">
+                <li><Link href="/student/courses">Étudier</Link></li>
+                <li><Link href="#">Enseignement</Link></li>
+                <li><Link href="#">Communauté</Link></li>
+                <li><Link href="#">Ressources</Link></li>
+              </ul>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <h4 className="footer-up-title">Liens Rapides</h4>
+              <ul className="footer-up-links">
+                <li><Link href="#">Conseils Spirituels</Link></li>
+                <li><Link href="#contact">Contact</Link></li>
+                <li><Link href="#">Support</Link></li>
+                <li><Link href="#">FAQ</Link></li>
+              </ul>
+            </div>
+
+            {/* Contact Us */}
+            <div id="contact">
+              <h4 className="footer-up-title">Contactez-Nous</h4>
+              <ul className="space-y-3">
+                <li className="flex items-center gap-3 text-white/70 text-sm">
+                  <Phone className="h-4 w-4" />
+                  +27 12 000 0000
+                </li>
+                <li className="flex items-center gap-3 text-white/70 text-sm">
+                  <Mail className="h-4 w-4" />
+                  info@ecoledemembres.com
+                </li>
+                <li className="flex items-start gap-3 text-white/70 text-sm">
+                  <MapPin className="h-4 w-4 mt-0.5" />
+                  <span>123 Rue de l'Éducation<br />Pretoria, Afrique du Sud</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="footer-up-bottom">
+          <div className="container mx-auto px-6">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <p className="text-white/60 text-sm">
+                &copy; {new Date().getFullYear()} École des Membres - Église du Plein Évangile Ramah. Tous droits réservés.
+              </p>
+              <div className="flex items-center gap-6">
+                <Link href="#">Politique de Confidentialité</Link>
+                <Link href="#">Conditions d'Utilisation</Link>
+                <Link href="#">Mentions Légales</Link>
+              </div>
             </div>
           </div>
         </div>
