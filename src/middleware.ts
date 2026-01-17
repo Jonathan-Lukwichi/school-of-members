@@ -1,4 +1,5 @@
-import { type NextRequest } from 'next/server'
+// Import directly from internal paths as workaround for Node.js 24 compatibility
+import type { NextRequest } from 'next/dist/server/web/spec-extension/request'
 import { updateSession } from '@/lib/supabase/middleware'
 
 export async function middleware(request: NextRequest) {

@@ -1,5 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
-import { NextResponse, type NextRequest } from 'next/server'
+// Import directly from internal paths as workaround for Node.js 24 compatibility
+import { NextResponse } from 'next/dist/server/web/spec-extension/response'
+import type { NextRequest } from 'next/dist/server/web/spec-extension/request'
 import type { Database } from '@/types/database'
 
 export async function updateSession(request: NextRequest) {
