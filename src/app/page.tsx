@@ -10,32 +10,49 @@ import {
   Award,
   Clock,
   ArrowRight,
-  Phone,
-  Mail,
-  MapPin,
   ChevronRight,
   ChevronLeft,
   Heart,
   HandHelping,
   UsersRound,
   Menu,
-  X
+  X,
+  Handshake,
 } from 'lucide-react'
+import { usePathname } from 'next/navigation'
+import { cn } from '@/lib/utils'
+import { TestimonialCarousel, type Testimonial } from '@/components/public/testimonial-carousel'
+import { PublicFooter } from '@/components/layout/public-footer'
+import {
+  heroContent,
+  statistics,
+  welcomePreview,
+  featureCards,
+} from '@/data/content'
+import { createClient } from '@/lib/supabase/client'
+
+// Navigation links
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/story', label: 'Story' },
+  { href: '/vision', label: 'Vision' },
+  { href: '/faq', label: 'FAQ' },
+]
 
 // Hero slides data - Using uploaded church photos
 const heroSlides = [
   {
     id: 1,
     image: '/images/hero/603893843_863136529756625_3601433323555904839_n.jpg',
-    overlay: 'linear-gradient(135deg, rgba(0,51,102,0.65) 0%, rgba(0,64,128,0.7) 100%)',
-    title: 'Welcome to the School of Members',
+    overlay: 'linear-gradient(135deg, rgba(0,51,102,0.75) 0%, rgba(0,64,128,0.8) 100%)',
+    title: heroContent.headline,
     subtitle: 'A Year of Growing Faith',
-    description: 'Join our spiritual community and grow in your faith with Ramah Full Gospel Church Pretoria',
+    description: heroContent.subheadline,
   },
   {
     id: 2,
     image: '/images/hero/605616953_863675026369442_6652154226306859322_n.jpg',
-    overlay: 'linear-gradient(135deg, rgba(200,16,46,0.65) 0%, rgba(160,13,37,0.7) 100%)',
+    overlay: 'linear-gradient(135deg, rgba(200,16,46,0.75) 0%, rgba(160,13,37,0.8) 100%)',
     title: 'Grow • Serve • Belong',
     subtitle: 'Our Three Foundational Pillars',
     description: 'Develop your faith, use your talents in service to the community, and become part of the spiritual family',
@@ -43,46 +60,50 @@ const heroSlides = [
   {
     id: 3,
     image: '/images/hero/608702732_865582319512046_5812417327465441922_n.jpg',
-    overlay: 'linear-gradient(135deg, rgba(181,152,91,0.65) 0%, rgba(138,115,68,0.7) 100%)',
+    overlay: 'linear-gradient(135deg, rgba(181,152,91,0.75) 0%, rgba(138,115,68,0.8) 100%)',
     title: 'Complete Training Program',
     subtitle: '12 Chapters of Spiritual Growth',
     description: 'A structured program to understand the foundations of our community under the direction of Apostle Narcisse Majila',
   },
 ]
 
-// Programme cards data - Based on Syllabus Chapters with church photos
+// Programme cards data with icons
 const programmes = [
   {
     id: 1,
-    title: 'Foundations of Membership',
+    title: featureCards[0].title,
+    description: featureCards[0].description,
     image: '/images/hero/603907220_863136993089912_1924723922976510063_n.jpg',
     overlay: 'linear-gradient(to top, rgba(0,51,102,0.9) 0%, rgba(0,51,102,0.3) 100%)',
     icon: BookOpen,
   },
   {
     id: 2,
-    title: 'Pastor-Member Relationship',
+    title: featureCards[1].title,
+    description: featureCards[1].description,
     image: '/images/hero/605209775_863138459756432_5544717009163373141_n.jpg',
     overlay: 'linear-gradient(to top, rgba(200,16,46,0.9) 0%, rgba(200,16,46,0.3) 100%)',
-    icon: GraduationCap,
+    icon: Handshake,
   },
   {
     id: 3,
-    title: 'Certification & Graduation',
+    title: featureCards[2].title,
+    description: featureCards[2].description,
     image: '/images/hero/605633574_863139219756356_2557880040851016723_n.jpg',
     overlay: 'linear-gradient(to top, rgba(181,152,91,0.9) 0%, rgba(181,152,91,0.3) 100%)',
-    icon: Award,
+    icon: GraduationCap,
   },
   {
     id: 4,
-    title: 'Community Life & Service',
+    title: featureCards[3].title,
+    description: featureCards[3].description,
     image: '/images/hero/606051694_863676573035954_803516800744340136_n.jpg',
     overlay: 'linear-gradient(to top, rgba(14,165,233,0.9) 0%, rgba(14,165,233,0.3) 100%)',
     icon: UsersRound,
   },
 ]
 
-// News articles data - with church photos
+// News articles data
 const newsArticles = [
   {
     id: 1,
@@ -118,9 +139,57 @@ const newsArticles = [
   },
 ]
 
+// Fallback testimonials if database is empty
+const fallbackTestimonials: Testimonial[] = [
+  {
+    id: '1',
+    name: 'Grace M.',
+    role: 'New Member',
+    content: 'I gave my life to Christ recently, and the School of Members helped me understand what it truly means to be part of God\'s family. I now feel confident in my faith journey.',
+  },
+  {
+    id: '2',
+    name: 'Emmanuel K.',
+    role: 'Church Volunteer',
+    content: 'I\'ve been a Christian for over 15 years, but I never had a proper foundation in church membership. This program opened my eyes to things I\'d missed!',
+  },
+  {
+    id: '3',
+    name: 'Thandi S.',
+    role: 'Young Professional',
+    content: 'As a busy professional, I appreciated completing this at my own pace. The teachings challenged me to prioritize my church attendance.',
+  },
+]
+
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [testimonials, setTestimonials] = useState<Testimonial[]>(fallbackTestimonials)
+  const pathname = usePathname()
+
+  // Fetch testimonials from database
+  useEffect(() => {
+    async function fetchTestimonials() {
+      try {
+        const supabase = createClient()
+        const { data, error } = await supabase
+          .from('testimonials')
+          .select('id, name, role, content, photo_url')
+          .eq('is_active', true)
+          .order('display_order', { ascending: true })
+          .limit(6)
+
+        if (data && data.length > 0) {
+          setTestimonials(data)
+        }
+      } catch (error) {
+        // Use fallback testimonials if fetch fails
+        console.log('Using fallback testimonials')
+      }
+    }
+
+    fetchTestimonials()
+  }, [])
 
   // Auto-advance carousel
   useEffect(() => {
@@ -136,6 +205,11 @@ export default function Home() {
 
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
+  }
+
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/'
+    return pathname.startsWith(href)
   }
 
   return (
@@ -163,10 +237,36 @@ export default function Home() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-8">
-              <Link href="#" className="nav-up-item active">Home</Link>
-              <Link href="#about" className="nav-up-item">About</Link>
-              <Link href="#contact" className="nav-up-item">Contact</Link>
+            <nav className="hidden lg:flex items-center gap-6">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={cn(
+                    'nav-up-item',
+                    isActive(link.href) && 'active'
+                  )}
+                >
+                  {link.label}
+                </Link>
+              ))}
+
+              {/* CTA Buttons */}
+              <div className="flex items-center gap-3 ml-4">
+                <Link
+                  href="/student/login"
+                  className="text-[#003366] font-medium hover:text-[#C8102E] transition-colors"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/student/register"
+                  className="btn-up-secondary text-sm px-4 py-2"
+                >
+                  Join Now
+                  <ArrowRight className="h-4 w-4 ml-1" />
+                </Link>
+              </div>
             </nav>
 
             {/* Mobile Menu Button */}
@@ -183,9 +283,38 @@ export default function Home() {
         {mobileMenuOpen && (
           <div className="lg:hidden border-t border-gray-200 bg-white">
             <nav className="container mx-auto px-6 py-4 space-y-4">
-              <Link href="#" className="block text-[#003366] font-medium">Home</Link>
-              <Link href="#about" className="block text-gray-600">About</Link>
-              <Link href="#contact" className="block text-gray-600">Contact</Link>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={cn(
+                    'block font-medium transition-colors',
+                    isActive(link.href)
+                      ? 'text-[#003366]'
+                      : 'text-gray-600 hover:text-[#003366]'
+                  )}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <div className="pt-4 border-t border-gray-200 space-y-3">
+                <Link
+                  href="/student/login"
+                  className="block text-[#003366] font-medium"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/student/register"
+                  className="btn-up-secondary inline-flex items-center text-sm px-4 py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Join Now
+                  <ArrowRight className="h-4 w-4 ml-1" />
+                </Link>
+              </div>
             </nav>
           </div>
         )}
@@ -202,7 +331,7 @@ export default function Home() {
                 backgroundImage: `${slide.overlay}, url(${slide.image})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                backgroundColor: '#003366', // Fallback color while image loads
+                backgroundColor: '#003366',
               }}
             >
               <div className="hero-slide-content">
@@ -210,7 +339,7 @@ export default function Home() {
                 <h1 className="hero-slide-title">{slide.title}</h1>
                 <p className="hero-slide-subtitle">{slide.description}</p>
                 <Link href="/student/register" className="btn-up-primary">
-                  Learn More <ArrowRight className="h-4 w-4 ml-2" />
+                  {heroContent.cta} <ArrowRight className="h-4 w-4 ml-2" />
                 </Link>
               </div>
             </div>
@@ -266,17 +395,33 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Welcome Preview Section */}
+        <section className="py-16 bg-gradient-to-br from-[#003366]/5 to-[#b5985b]/5">
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#003366] mb-6">
+                Welcome to the School of Members
+              </h2>
+              <p className="text-gray-600 text-lg leading-relaxed">
+                {welcomePreview}
+              </p>
+              <Link href="/story" className="btn-up-outline mt-8 inline-flex items-center">
+                Read Our Story
+                <ArrowRight className="h-4 w-4 ml-2" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* About Section - Three Pillars */}
         <section id="about" className="about-section">
           <div className="container mx-auto px-6">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-[#003366] mb-4">
-                About the School of Members
+                Our Foundational Pillars
               </h2>
               <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
-                Welcome to all who have chosen to make Ramah your spiritual home.
-                The School of Members is your guide to understanding the foundations of our community
-                under the direction of Apostle Narcisse Majila.
+                Three core principles guide every aspect of our spiritual training program.
               </p>
             </div>
 
@@ -314,16 +459,6 @@ export default function Home() {
                 </p>
               </div>
             </div>
-
-            {/* Quote */}
-            <div className="mt-16 text-center">
-              <blockquote className="text-xl italic text-gray-600 max-w-2xl mx-auto">
-                "True faith always walks hand in hand with obedience."
-              </blockquote>
-              <p className="mt-4 text-[#003366] font-semibold">
-                — Pastoral Leadership, Ramah Full Gospel Church
-              </p>
-            </div>
           </div>
         </section>
 
@@ -331,28 +466,33 @@ export default function Home() {
         <section className="stats-bar">
           <div className="container mx-auto px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <div className="stat-item">
-                <div className="stat-number">95%</div>
-                <div className="stat-label">Success Rate</div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-number">500+</div>
-                <div className="stat-label">Students</div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-number">12</div>
-                <div className="stat-label">Chapters</div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-number">25+</div>
-                <div className="stat-label">Teachers</div>
-              </div>
+              {statistics.map((stat, index) => (
+                <div key={index} className="stat-item">
+                  <div className="stat-number">{stat.value}</div>
+                  <div className="stat-label">{stat.label}</div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
+        {/* Testimonials Section */}
+        <section className="py-16 md:py-20 bg-[#f8fafc]">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#003366] mb-4">
+                What Our Members Say
+              </h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Hear from those who have completed the School of Members program.
+              </p>
+            </div>
+            <TestimonialCarousel testimonials={testimonials} />
+          </div>
+        </section>
+
         {/* News Section */}
-        <section id="campus" className="py-16 bg-white">
+        <section id="news" className="py-16 bg-white">
           <div className="container mx-auto px-6">
             <div className="flex items-center justify-between mb-12">
               <div>
@@ -414,8 +554,8 @@ export default function Home() {
                       Register Now
                       <ArrowRight className="h-4 w-4 ml-2" />
                     </Link>
-                    <Link href="#contact" className="btn-up-outline">
-                      Contact Us
+                    <Link href="/faq" className="btn-up-outline">
+                      View FAQ
                     </Link>
                   </div>
                 </div>
@@ -428,7 +568,7 @@ export default function Home() {
                   <div className="text-center p-4 bg-[#f8fafc] rounded-lg">
                     <BookOpen className="h-8 w-8 text-[#C8102E] mx-auto mb-2" />
                     <div className="text-2xl font-bold text-[#C8102E]">100%</div>
-                    <div className="text-sm text-gray-600">Online Courses</div>
+                    <div className="text-sm text-gray-600">Biblical Foundation</div>
                   </div>
                   <div className="text-center p-4 bg-[#f8fafc] rounded-lg">
                     <Award className="h-8 w-8 text-[#b5985b] mx-auto mb-2" />
@@ -448,89 +588,7 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="footer-up">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 pb-8">
-            {/* Logo Column */}
-            <div>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-white/30 shadow-lg flex-shrink-0">
-                  <Image
-                    src="/images/logo-fresco.png"
-                    alt="School of Members Logo"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div>
-                  <span className="font-bold text-white block">School of Members</span>
-                  <span className="text-xs text-white/60">Ramah Full Gospel Church</span>
-                </div>
-              </div>
-              <p className="text-white/70 text-sm leading-relaxed">
-                Make today count. Grow in your faith with our spiritual community under the leadership of Apostle Narcisse Majila.
-              </p>
-            </div>
-
-            {/* Core Functions */}
-            <div>
-              <h4 className="footer-up-title">Core Functions</h4>
-              <ul className="footer-up-links">
-                <li><Link href="/student/courses">Study</Link></li>
-                <li><Link href="#">Teaching</Link></li>
-                <li><Link href="#">Community</Link></li>
-                <li><Link href="#">Resources</Link></li>
-              </ul>
-            </div>
-
-            {/* Quick Links */}
-            <div>
-              <h4 className="footer-up-title">Quick Links</h4>
-              <ul className="footer-up-links">
-                <li><Link href="#">Spiritual Guidance</Link></li>
-                <li><Link href="#contact">Contact</Link></li>
-                <li><Link href="#">Support</Link></li>
-                <li><Link href="#">FAQ</Link></li>
-              </ul>
-            </div>
-
-            {/* Contact Us */}
-            <div id="contact">
-              <h4 className="footer-up-title">Contact Us</h4>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-3 text-white/70 text-sm">
-                  <Phone className="h-4 w-4" />
-                  +27 61 691 2540
-                </li>
-                <li className="flex items-center gap-3 text-white/70 text-sm">
-                  <Mail className="h-4 w-4" />
-                  ramahfullgospelch@gmail.com
-                </li>
-                <li className="flex items-start gap-3 text-white/70 text-sm">
-                  <MapPin className="h-4 w-4 mt-0.5" />
-                  <span>Pretoria, South Africa</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="footer-up-bottom">
-          <div className="container mx-auto px-6">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              <p className="text-white/60 text-sm">
-                &copy; {new Date().getFullYear()} School of Members - Ramah Full Gospel Church Pretoria. All rights reserved.
-              </p>
-              <div className="flex items-center gap-6">
-                <Link href="#">Privacy Policy</Link>
-                <Link href="#">Terms of Use</Link>
-                <Link href="#">Legal Notice</Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <PublicFooter />
     </div>
   )
 }

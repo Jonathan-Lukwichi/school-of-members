@@ -1,0 +1,10 @@
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  // Provide a custom build ID generator that returns null to use default
+  generateBuildId: async () => {
+    return null;
+  },
+};
+
+export default nextConfig;
