@@ -24,8 +24,8 @@ export async function GET(request: NextRequest) {
     }
 
     // Get all testimonials
-    const { data: testimonials, error } = await supabase
-      .from('testimonials')
+    const { data: testimonials, error } = await (supabase
+      .from('testimonials') as any)
       .select('*')
       .order('display_order', { ascending: true })
 
@@ -68,8 +68,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Name, role, and content are required' }, { status: 400 })
     }
 
-    const { data: testimonial, error } = await supabase
-      .from('testimonials')
+    const { data: testimonial, error } = await (supabase
+      .from('testimonials') as any)
       .insert({
         name,
         role,
@@ -120,8 +120,8 @@ export async function PATCH(request: NextRequest) {
       return NextResponse.json({ error: 'Testimonial ID is required' }, { status: 400 })
     }
 
-    const { data: testimonial, error } = await supabase
-      .from('testimonials')
+    const { data: testimonial, error } = await (supabase
+      .from('testimonials') as any)
       .update(updates)
       .eq('id', id)
       .select()
@@ -166,8 +166,8 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Testimonial ID is required' }, { status: 400 })
     }
 
-    const { error } = await supabase
-      .from('testimonials')
+    const { error } = await (supabase
+      .from('testimonials') as any)
       .delete()
       .eq('id', id)
 
