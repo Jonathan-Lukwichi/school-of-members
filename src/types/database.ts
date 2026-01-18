@@ -196,6 +196,41 @@ export interface Database {
           created_at?: string
         }
       }
+      testimonials: {
+        Row: {
+          id: string
+          name: string
+          role: string
+          content: string
+          photo_url: string | null
+          is_active: boolean
+          display_order: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          role: string
+          content: string
+          photo_url?: string | null
+          is_active?: boolean
+          display_order?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          role?: string
+          content?: string
+          photo_url?: string | null
+          is_active?: boolean
+          display_order?: number
+          created_at?: string
+          updated_at?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never
@@ -218,6 +253,7 @@ export type Module = Database['public']['Tables']['modules']['Row']
 export type Enrollment = Database['public']['Tables']['enrollments']['Row']
 export type ModuleProgress = Database['public']['Tables']['module_progress']['Row']
 export type Attendance = Database['public']['Tables']['attendance']['Row']
+export type Testimonial = Database['public']['Tables']['testimonials']['Row']
 
 // Extended types with relations
 export type CourseWithModules = Course & {
