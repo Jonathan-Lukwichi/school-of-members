@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Check if user is admin
-    const { data: profile } = await supabase
+    const { data: profile } = await (supabase as any)
       .from('profiles')
       .select('role')
       .eq('id', user.id)
@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Get all testimonials
-    const { data: testimonials, error } = await supabase
+    const { data: testimonials, error } = await (supabase as any)
       .from('testimonials')
       .select('*')
       .order('display_order', { ascending: true })
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user is admin
-    const { data: profile } = await supabase
+    const { data: profile } = await (supabase as any)
       .from('profiles')
       .select('role')
       .eq('id', user.id)
@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Name, role, and content are required' }, { status: 400 })
     }
 
-    const { data: testimonial, error } = await supabase
+    const { data: testimonial, error } = await (supabase as any)
       .from('testimonials')
       .insert({
         name,
@@ -103,7 +103,7 @@ export async function PATCH(request: NextRequest) {
     }
 
     // Check if user is admin
-    const { data: profile } = await supabase
+    const { data: profile } = await (supabase as any)
       .from('profiles')
       .select('role')
       .eq('id', user.id)
@@ -120,7 +120,7 @@ export async function PATCH(request: NextRequest) {
       return NextResponse.json({ error: 'Testimonial ID is required' }, { status: 400 })
     }
 
-    const { data: testimonial, error } = await supabase
+    const { data: testimonial, error } = await (supabase as any)
       .from('testimonials')
       .update(updates)
       .eq('id', id)
@@ -149,7 +149,7 @@ export async function DELETE(request: NextRequest) {
     }
 
     // Check if user is admin
-    const { data: profile } = await supabase
+    const { data: profile } = await (supabase as any)
       .from('profiles')
       .select('role')
       .eq('id', user.id)
@@ -166,7 +166,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Testimonial ID is required' }, { status: 400 })
     }
 
-    const { error } = await supabase
+    const { error } = await (supabase as any)
       .from('testimonials')
       .delete()
       .eq('id', id)

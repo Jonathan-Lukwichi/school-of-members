@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import { Phone, Mail, Quote } from 'lucide-react'
 import { type Founder } from '@/data/founders'
