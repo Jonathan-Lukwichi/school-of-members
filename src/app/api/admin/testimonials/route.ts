@@ -13,8 +13,8 @@ export async function GET(request: NextRequest) {
     }
 
     // Check if user is admin
-    const { data: profile } = await (supabase
-      .from('profiles') as any)
+    const { data: profile } = await supabase
+      .from('profiles')
       .select('role')
       .eq('id', user.id)
       .single()
@@ -24,8 +24,8 @@ export async function GET(request: NextRequest) {
     }
 
     // Get all testimonials
-    const { data: testimonials, error } = await (supabase
-      .from('testimonials') as any)
+    const { data: testimonials, error } = await supabase
+      .from('testimonials')
       .select('*')
       .order('display_order', { ascending: true })
 
@@ -51,8 +51,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user is admin
-    const { data: profile } = await (supabase
-      .from('profiles') as any)
+    const { data: profile } = await supabase
+      .from('profiles')
       .select('role')
       .eq('id', user.id)
       .single()
@@ -68,8 +68,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Name, role, and content are required' }, { status: 400 })
     }
 
-    const { data: testimonial, error } = await (supabase
-      .from('testimonials') as any)
+    const { data: testimonial, error } = await supabase
+      .from('testimonials')
       .insert({
         name,
         role,
@@ -103,8 +103,8 @@ export async function PATCH(request: NextRequest) {
     }
 
     // Check if user is admin
-    const { data: profile } = await (supabase
-      .from('profiles') as any)
+    const { data: profile } = await supabase
+      .from('profiles')
       .select('role')
       .eq('id', user.id)
       .single()
@@ -120,8 +120,8 @@ export async function PATCH(request: NextRequest) {
       return NextResponse.json({ error: 'Testimonial ID is required' }, { status: 400 })
     }
 
-    const { data: testimonial, error } = await (supabase
-      .from('testimonials') as any)
+    const { data: testimonial, error } = await supabase
+      .from('testimonials')
       .update(updates)
       .eq('id', id)
       .select()
@@ -149,8 +149,8 @@ export async function DELETE(request: NextRequest) {
     }
 
     // Check if user is admin
-    const { data: profile } = await (supabase
-      .from('profiles') as any)
+    const { data: profile } = await supabase
+      .from('profiles')
       .select('role')
       .eq('id', user.id)
       .single()
@@ -166,8 +166,8 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Testimonial ID is required' }, { status: 400 })
     }
 
-    const { error } = await (supabase
-      .from('testimonials') as any)
+    const { error } = await supabase
+      .from('testimonials')
       .delete()
       .eq('id', id)
 
