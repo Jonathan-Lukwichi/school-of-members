@@ -52,9 +52,18 @@ export async function POST(request: NextRequest) {
     const pin = generatePin()
     const pinHash = await hashPin(pin)
 
-    // Get next available teacher (round-robin)
-    const { data: teacherData } = await supabaseAdmin.rpc('get_next_available_teacher')
-    const assignedTeacherId = teacherData || null
+    // Get next available teacher (round-robin) - non-blocking
+    let assignedTeacherId = null
+    try {
+      const { data: teacherData, error: teacherError } = await supabaseAdmin.rpc('get_next_available_teacher')
+      if (teacherError) {
+        console.warn('Teacher assignment warning:', teacherError.message)
+      } else {
+        assignedTeacherId = teacherData
+      }
+    } catch (teacherErr) {
+      console.warn('Teacher assignment failed, continuing without:', teacherErr)
+    }
 
     // Create student record
     const { data: student, error: studentError } = await (supabaseAdmin
@@ -72,8 +81,15 @@ export async function POST(request: NextRequest) {
 
     if (studentError) {
       console.error('Student creation error:', studentError)
+      // Return specific error message
+      if (studentError.code === '23505') {
+        return NextResponse.json(
+          { error: 'A student with this phone number already exists' },
+          { status: 409 }
+        )
+      }
       return NextResponse.json(
-        { error: studentError.message },
+        { error: `Database error: ${studentError.message}` },
         { status: 500 }
       )
     }
@@ -120,8 +136,9 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error('Registration error:', error)
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
     return NextResponse.json(
-      { error: 'Failed to register student' },
+      { error: `Registration failed: ${errorMessage}` },
       { status: 500 }
     )
   }
