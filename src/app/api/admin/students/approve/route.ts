@@ -15,13 +15,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify user is admin
-    const { data: profile } = await supabase
-      .from('profiles')
+    const { data: profile } = await (supabase
+      .from('profiles') as any)
       .select('role')
       .eq('id', user.id)
       .single()
 
-    if (!profile || profile.role !== 'admin') {
+    if (!profile || (profile as any).role !== 'admin') {
       return NextResponse.json({ error: 'Admin access required' }, { status: 403 })
     }
 
