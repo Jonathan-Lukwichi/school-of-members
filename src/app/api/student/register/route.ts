@@ -91,6 +91,7 @@ export async function POST(request: NextRequest) {
       .insert({
         phone: formattedPhone,
         email: normalizedEmail,
+        whatsapp_number: formattedPhone, // Use phone as fallback for whatsapp
         full_name: fullName,
         pin_hash: pinHash,
         status: 'pending',
