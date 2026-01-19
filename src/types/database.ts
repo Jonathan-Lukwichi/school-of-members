@@ -9,6 +9,8 @@ export type Json =
 export type UserRole = 'admin' | 'student'
 export type EnrollmentStatus = 'active' | 'completed' | 'dropped' | 'suspended'
 export type AttendanceStatus = 'present' | 'absent' | 'late' | 'excused'
+export type StudentStatus = 'pending' | 'active' | 'inactive'
+export type WhatsAppMessageStatus = 'sent' | 'failed' | 'pending'
 
 export interface Database {
   public: {
@@ -231,6 +233,85 @@ export interface Database {
           updated_at?: string
         }
       }
+      students: {
+        Row: {
+          id: string
+          phone: string
+          whatsapp_number: string
+          full_name: string
+          pin_hash: string
+          status: StudentStatus
+          assigned_teacher_id: string | null
+          last_login: string | null
+          login_count: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          phone: string
+          whatsapp_number: string
+          full_name: string
+          pin_hash: string
+          status?: StudentStatus
+          assigned_teacher_id?: string | null
+          last_login?: string | null
+          login_count?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          phone?: string
+          whatsapp_number?: string
+          full_name?: string
+          pin_hash?: string
+          status?: StudentStatus
+          assigned_teacher_id?: string | null
+          last_login?: string | null
+          login_count?: number
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      whatsapp_messages: {
+        Row: {
+          id: string
+          student_id: string
+          message_type: string
+          template_name: string
+          message_content: string
+          twilio_sid: string | null
+          status: WhatsAppMessageStatus
+          error_message: string | null
+          sent_at: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          student_id: string
+          message_type: string
+          template_name: string
+          message_content: string
+          twilio_sid?: string | null
+          status?: WhatsAppMessageStatus
+          error_message?: string | null
+          sent_at?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          student_id?: string
+          message_type?: string
+          template_name?: string
+          message_content?: string
+          twilio_sid?: string | null
+          status?: WhatsAppMessageStatus
+          error_message?: string | null
+          sent_at?: string | null
+          created_at?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never
@@ -254,6 +335,8 @@ export type Enrollment = Database['public']['Tables']['enrollments']['Row']
 export type ModuleProgress = Database['public']['Tables']['module_progress']['Row']
 export type Attendance = Database['public']['Tables']['attendance']['Row']
 export type Testimonial = Database['public']['Tables']['testimonials']['Row']
+export type Student = Database['public']['Tables']['students']['Row']
+export type WhatsAppMessage = Database['public']['Tables']['whatsapp_messages']['Row']
 
 // Extended types with relations
 export type CourseWithModules = Course & {
