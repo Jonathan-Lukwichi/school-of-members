@@ -94,8 +94,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Send welcome message with PIN via SMS
-    const smsResult = await sendWelcomeSms(formattedPhone, pin)
+    // Send welcome message with PIN via SMS (personalized with student name)
+    const smsResult = await sendWelcomeSms(formattedPhone, pin, fullName)
 
     // Log the SMS message (reusing whatsapp_messages table for now)
     try {

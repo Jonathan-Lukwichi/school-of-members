@@ -120,7 +120,7 @@ export async function sendSms(
 export const SMS_TEMPLATES: Record<string, MessageTemplate> = {
   welcome: {
     type: 'welcome',
-    content: `School of Members: Welcome! Your PIN is {pin}. Use this to login at the platform. God bless!`,
+    content: `School of Members: Welcome {fullName}! Your PIN is {pin}. Use this to login at the platform. God bless!`,
   },
 
   pin_reminder: {
@@ -175,13 +175,14 @@ export async function sendTemplatedSms(
 }
 
 /**
- * Send welcome SMS with PIN
+ * Send welcome SMS with PIN and student name
  */
 export async function sendWelcomeSms(
   to: string,
-  pin: string
+  pin: string,
+  fullName: string
 ): Promise<SendMessageResult> {
-  return sendTemplatedSms(to, 'welcome', { pin })
+  return sendTemplatedSms(to, 'welcome', { pin, fullName })
 }
 
 /**
