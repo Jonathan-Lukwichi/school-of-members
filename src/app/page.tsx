@@ -260,6 +260,12 @@ export default function Home() {
                   Login
                 </Link>
                 <Link
+                  href="/login"
+                  className="text-[#64748b] font-medium hover:text-[#003366] transition-colors text-sm"
+                >
+                  Admin
+                </Link>
+                <Link
                   href="/student/register"
                   className="btn-up-secondary text-sm px-4 py-2"
                 >
@@ -305,6 +311,13 @@ export default function Home() {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Login
+                </Link>
+                <Link
+                  href="/login"
+                  className="block text-[#64748b] font-medium text-sm"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Admin Login
                 </Link>
                 <Link
                   href="/student/register"
