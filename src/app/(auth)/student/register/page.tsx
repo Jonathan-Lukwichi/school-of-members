@@ -6,12 +6,11 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Checkbox } from '@/components/ui/checkbox'
 import { PhoneInput } from '@/components/ui/phone-input'
+import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
-import { Loader2, MessageCircle, Phone, User, Sparkles } from 'lucide-react'
+import { Loader2, Phone, User, Sparkles, MessageSquare } from 'lucide-react'
 
 export default function StudentRegisterPage() {
   const router = useRouter()
@@ -19,38 +18,15 @@ export default function StudentRegisterPage() {
   const [formData, setFormData] = useState({
     fullName: '',
     phone: '',
-    whatsappNumber: '',
-    sameAsPhone: true,
   })
   const [phoneValid, setPhoneValid] = useState(false)
-  const [whatsappValid, setWhatsappValid] = useState(true)
 
   const handlePhoneChange = (value: string, isValid: boolean) => {
     setFormData(prev => ({
       ...prev,
       phone: value,
-      ...(prev.sameAsPhone && { whatsappNumber: value }),
     }))
     setPhoneValid(isValid)
-    if (formData.sameAsPhone) {
-      setWhatsappValid(isValid)
-    }
-  }
-
-  const handleWhatsAppChange = (value: string, isValid: boolean) => {
-    setFormData(prev => ({ ...prev, whatsappNumber: value }))
-    setWhatsappValid(isValid)
-  }
-
-  const handleSameAsPhoneChange = (checked: boolean) => {
-    setFormData(prev => ({
-      ...prev,
-      sameAsPhone: checked,
-      whatsappNumber: checked ? prev.phone : prev.whatsappNumber,
-    }))
-    if (checked) {
-      setWhatsappValid(phoneValid)
-    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -66,11 +42,6 @@ export default function StudentRegisterPage() {
       return
     }
 
-    if (!formData.sameAsPhone && !whatsappValid) {
-      toast.error('Please enter a valid WhatsApp number')
-      return
-    }
-
     setIsLoading(true)
 
     try {
@@ -80,7 +51,7 @@ export default function StudentRegisterPage() {
         body: JSON.stringify({
           fullName: formData.fullName.trim(),
           phone: formData.phone,
-          whatsappNumber: formData.sameAsPhone ? formData.phone : formData.whatsappNumber,
+          whatsappNumber: formData.phone, // Keep for backwards compatibility
         }),
       })
 
@@ -90,7 +61,7 @@ export default function StudentRegisterPage() {
         throw new Error(data.error || 'Registration failed')
       }
 
-      toast.success('Registration successful! Check your WhatsApp for your PIN.')
+      toast.success('Registration successful! Check your SMS for your PIN.')
 
       // Redirect to student dashboard
       router.push('/student')
@@ -159,45 +130,11 @@ export default function StudentRegisterPage() {
             />
           </div>
 
-          {/* Same as phone checkbox */}
-          <div className="flex items-center space-x-2">
-            <Checkbox
-              id="sameAsPhone"
-              checked={formData.sameAsPhone}
-              onCheckedChange={handleSameAsPhoneChange}
-              disabled={isLoading}
-              className="border-[#003366]/30 data-[state=checked]:bg-[#003366] data-[state=checked]:border-[#003366]"
-            />
-            <Label
-              htmlFor="sameAsPhone"
-              className="text-sm font-normal cursor-pointer text-[#64748b]"
-            >
-              My WhatsApp number is the same as my phone number
-            </Label>
-          </div>
-
-          {/* WhatsApp Number (if different) */}
-          {!formData.sameAsPhone && (
-            <div className="space-y-2">
-              <Label className="flex items-center gap-2 text-[#1e293b]">
-                <MessageCircle className="h-4 w-4 text-[#b5985b]" />
-                WhatsApp Number
-              </Label>
-              <PhoneInput
-                value={formData.whatsappNumber}
-                onChange={handleWhatsAppChange}
-                defaultCountry="ZA"
-                placeholder="Enter WhatsApp number"
-                disabled={isLoading}
-              />
-            </div>
-          )}
-
           {/* Info message */}
           <div className="bg-[#003366]/5 border border-[#003366]/20 rounded-xl p-4">
             <p className="text-sm text-[#64748b] flex items-center gap-2">
-              <MessageCircle className="h-4 w-4 text-[#b5985b]" />
-              Your login PIN will be sent to your WhatsApp number.
+              <MessageSquare className="h-4 w-4 text-[#b5985b]" />
+              Your login PIN will be sent to your phone via SMS.
             </p>
           </div>
         </CardContent>

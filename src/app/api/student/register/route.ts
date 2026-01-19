@@ -3,7 +3,7 @@ import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { generatePin, hashPin } from '@/lib/auth/pin'
 import { formatPhoneNumber, validatePhoneNumber } from '@/lib/auth/phone'
 import { createStudentSession, setStudentSessionCookie } from '@/lib/auth/session'
-import { sendWelcomeMessage } from '@/lib/whatsapp/twilio'
+import { sendWelcomeSms } from '@/lib/sms/twilio'
 
 export async function POST(request: NextRequest) {
   try {
@@ -94,22 +94,26 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Send welcome message with PIN via WhatsApp
-    const whatsappResult = await sendWelcomeMessage(formattedWhatsApp, pin)
+    // Send welcome message with PIN via SMS
+    const smsResult = await sendWelcomeSms(formattedPhone, pin)
 
-    // Log the WhatsApp message
-    await (supabaseAdmin
-      .from('whatsapp_messages') as any)
-      .insert({
-        student_id: student.id,
-        message_type: 'welcome',
-        template_name: 'welcome',
-        message_content: `Welcome message with PIN sent`,
-        twilio_sid: whatsappResult.sid || null,
-        status: whatsappResult.success ? 'sent' : 'failed',
-        error_message: whatsappResult.error || null,
-        sent_at: whatsappResult.success ? new Date().toISOString() : null,
-      })
+    // Log the SMS message (reusing whatsapp_messages table for now)
+    try {
+      await (supabaseAdmin
+        .from('whatsapp_messages') as any)
+        .insert({
+          student_id: student.id,
+          message_type: 'sms',
+          template_name: 'welcome',
+          message_content: `Welcome SMS with PIN sent`,
+          twilio_sid: smsResult.sid || null,
+          status: smsResult.success ? 'sent' : 'failed',
+          error_message: smsResult.error || null,
+          sent_at: smsResult.success ? new Date().toISOString() : null,
+        })
+    } catch (logError) {
+      console.warn('Failed to log SMS message:', logError)
+    }
 
     // Create session
     const token = await createStudentSession({
@@ -123,14 +127,14 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: 'Registration successful! Your PIN has been sent via WhatsApp.',
+      message: 'Registration successful! Your PIN has been sent via SMS.',
       student: {
         id: student.id,
         phone: student.phone,
         fullName: student.full_name,
         status: student.status,
       },
-      whatsappSent: whatsappResult.success,
+      smsSent: smsResult.success,
       // Only return PIN in development for testing
       ...(process.env.NODE_ENV === 'development' && { pin }),
     })
