@@ -2,42 +2,47 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 import { Loader2, Mail, Lock, Info } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import { createClient } from '@/lib/supabase/client'
-
-const loginSchema = z.object({
-  email: z.string().email('Please enter a valid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
-})
-
-type LoginFormData = z.infer<typeof loginSchema>
 
 export function LoginForm() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>({})
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-  })
+  const validateForm = () => {
+    const newErrors: { email?: string; password?: string } = {}
 
-  const onSubmit = async (data: LoginFormData) => {
+    if (!email) {
+      newErrors.email = 'Email is required'
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      newErrors.email = 'Please enter a valid email address'
+    }
+
+    if (!password) {
+      newErrors.password = 'Password is required'
+    } else if (password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters'
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (!validateForm()) {
+      return
+    }
+
     setIsLoading(true)
     setError(null)
 
@@ -45,8 +50,8 @@ export function LoginForm() {
       const supabase = createClient()
 
       const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-        email: data.email,
-        password: data.password,
+        email,
+        password,
       })
 
       if (authError) {
@@ -67,7 +72,7 @@ export function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4">
       {error && (
         <div className="p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2">
           <Info className="h-4 w-4 flex-shrink-0" />
@@ -81,16 +86,17 @@ export function LoginForm() {
           <Mail className="h-4 w-4 text-[#003366]" />
           Email Address
         </Label>
-        <Input
+        <input
           id="email"
           type="email"
           placeholder="name@example.com"
-          className="border-[#e2e8f0] focus:border-[#003366] focus:ring-[#003366]/20 h-11"
-          {...register('email')}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="flex h-11 w-full rounded-lg border border-[#e2e8f0] bg-white px-4 py-2 text-base text-[#1e293b] shadow-sm transition-all duration-200 outline-none placeholder:text-[#9ca3af] hover:border-[#cbd5e1] focus:border-[#003366]/50 focus:ring-2 focus:ring-[#003366]/20 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
           disabled={isLoading}
         />
         {errors.email && (
-          <p className="text-xs text-red-500">{errors.email.message}</p>
+          <p className="text-xs text-red-500">{errors.email}</p>
         )}
       </div>
 
@@ -100,16 +106,17 @@ export function LoginForm() {
           <Lock className="h-4 w-4 text-[#003366]" />
           Password
         </Label>
-        <Input
+        <input
           id="password"
           type="password"
           placeholder="Enter your password"
-          className="border-[#e2e8f0] focus:border-[#003366] focus:ring-[#003366]/20 h-11"
-          {...register('password')}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="flex h-11 w-full rounded-lg border border-[#e2e8f0] bg-white px-4 py-2 text-base text-[#1e293b] shadow-sm transition-all duration-200 outline-none placeholder:text-[#9ca3af] hover:border-[#cbd5e1] focus:border-[#003366]/50 focus:ring-2 focus:ring-[#003366]/20 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
           disabled={isLoading}
         />
         {errors.password && (
-          <p className="text-xs text-red-500">{errors.password.message}</p>
+          <p className="text-xs text-red-500">{errors.password}</p>
         )}
       </div>
 
