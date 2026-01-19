@@ -60,8 +60,22 @@ export function LoginForm() {
       }
 
       if (authData.user) {
-        const role = authData.user.user_metadata?.role || 'student'
-        router.push(role === 'admin' ? '/admin' : '/student')
+        // Fetch role from profiles table
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', authData.user.id)
+          .single()
+
+        const role = profile?.role || authData.user.user_metadata?.role || 'teacher'
+
+        if (role === 'admin') {
+          router.push('/admin')
+        } else if (role === 'teacher') {
+          router.push('/teacher')
+        } else {
+          router.push('/student')
+        }
         router.refresh()
       }
     } catch {
