@@ -10,13 +10,12 @@ import { Label } from '@/components/ui/label'
 import { PhoneInput } from '@/components/ui/phone-input'
 import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
-import { Loader2, Phone, User, Sparkles, Mail, CheckCircle2, Copy, ArrowRight } from 'lucide-react'
+import { Loader2, Phone, User, Sparkles, Mail, Clock, ArrowRight, MessageCircle } from 'lucide-react'
 
 export default function StudentRegisterPage() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [registrationSuccess, setRegistrationSuccess] = useState(false)
-  const [studentPin, setStudentPin] = useState('')
   const [studentName, setStudentName] = useState('')
   const [formData, setFormData] = useState({
     fullName: '',
@@ -74,11 +73,10 @@ export default function StudentRegisterPage() {
         throw new Error(data.error || 'Registration failed')
       }
 
-      // Show success screen with PIN
-      setStudentPin(data.pin)
+      // Show success screen (awaiting approval)
       setStudentName(formData.fullName.trim())
       setRegistrationSuccess(true)
-      toast.success('Registration successful!')
+      toast.success('Registration submitted!')
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'Registration failed')
     } finally {
@@ -86,73 +84,55 @@ export default function StudentRegisterPage() {
     }
   }
 
-  const copyPin = () => {
-    navigator.clipboard.writeText(studentPin)
-    toast.success('PIN copied to clipboard!')
-  }
-
-  // Success screen after registration
+  // Success screen after registration (awaiting approval)
   if (registrationSuccess) {
     return (
       <Card className="border-0 shadow-none">
         <div className="h-1 bg-gradient-to-r from-[#003366] via-[#b5985b] to-[#C8102E]" />
         <CardHeader className="space-y-2 text-center pb-6 pt-8">
-          {/* Success Icon */}
+          {/* Pending Icon */}
           <div className="flex justify-center mb-4">
-            <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center">
-              <CheckCircle2 className="h-12 w-12 text-green-600" />
+            <div className="w-20 h-20 rounded-full bg-amber-100 flex items-center justify-center">
+              <Clock className="h-12 w-12 text-amber-600" />
             </div>
           </div>
           <CardTitle className="text-2xl font-bold text-[#003366]">
-            Welcome, {studentName}!
+            Registration Submitted!
           </CardTitle>
           <CardDescription className="text-[#64748b]">
-            Your registration is complete. Save your PIN below.
+            Thank you, {studentName}! Your application is being reviewed.
           </CardDescription>
         </CardHeader>
 
-        <CardContent className="space-y-6">
-          {/* PIN Display */}
-          <div className="bg-[#003366]/5 border-2 border-[#003366]/20 rounded-xl p-6 text-center">
-            <p className="text-sm text-[#64748b] mb-2">Your Login PIN</p>
-            <div className="flex items-center justify-center gap-3">
-              <span className="text-4xl font-mono font-bold text-[#003366] tracking-[0.3em]">
-                {studentPin}
-              </span>
-              <button
-                type="button"
-                onClick={copyPin}
-                className="p-2 hover:bg-[#003366]/10 rounded-lg transition-colors"
-                title="Copy PIN"
-              >
-                <Copy className="h-5 w-5 text-[#003366]" />
-              </button>
-            </div>
-          </div>
-
-          {/* Important Note */}
-          <div className="bg-[#C8102E]/5 border border-[#C8102E]/20 rounded-xl p-4">
-            <p className="text-sm text-[#C8102E] font-medium flex items-center gap-2">
+        <CardContent className="space-y-4">
+          {/* What happens next */}
+          <div className="bg-[#003366]/5 border border-[#003366]/20 rounded-xl p-4">
+            <h4 className="font-medium text-[#003366] mb-3 flex items-center gap-2">
               <Sparkles className="h-4 w-4" />
-              Important: Save this PIN! You&apos;ll need it to login.
-            </p>
+              What happens next?
+            </h4>
+            <ol className="text-sm text-[#64748b] space-y-2 list-decimal list-inside">
+              <li>Our team will review your registration</li>
+              <li>Once approved, you&apos;ll receive your PIN via WhatsApp</li>
+              <li>Use your phone number and PIN to login</li>
+            </ol>
           </div>
 
-          {/* Email confirmation note */}
-          <div className="bg-[#b5985b]/10 border border-[#b5985b]/30 rounded-xl p-4">
-            <p className="text-sm text-[#64748b] flex items-center gap-2">
-              <Mail className="h-4 w-4 text-[#b5985b]" />
-              A copy has also been sent to your email (check spam folder).
+          {/* WhatsApp Note */}
+          <div className="bg-green-50 border border-green-200 rounded-xl p-4">
+            <p className="text-sm text-green-700 flex items-center gap-2">
+              <MessageCircle className="h-4 w-4" />
+              Keep your WhatsApp notifications on to receive your login PIN.
             </p>
           </div>
         </CardContent>
 
         <CardFooter className="flex flex-col gap-4 pb-8">
           <Button
-            onClick={() => router.push('/student/login')}
+            onClick={() => router.push('/')}
             className="w-full bg-[#003366] hover:bg-[#002244] text-white"
           >
-            Continue to Login
+            Return to Home
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </CardFooter>
@@ -237,8 +217,8 @@ export default function StudentRegisterPage() {
           {/* Info message */}
           <div className="bg-[#003366]/5 border border-[#003366]/20 rounded-xl p-4">
             <p className="text-sm text-[#64748b] flex items-center gap-2">
-              <Mail className="h-4 w-4 text-[#b5985b]" />
-              Your login PIN will be sent to your email address.
+              <MessageCircle className="h-4 w-4 text-[#b5985b]" />
+              After approval, your login PIN will be sent via WhatsApp.
             </p>
           </div>
         </CardContent>

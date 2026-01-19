@@ -92,6 +92,7 @@ export default function StudentsPage() {
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null)
   const [deleteStudent, setDeleteStudent] = useState<Student | null>(null)
   const [isUpdating, setIsUpdating] = useState(false)
+  const [approvingId, setApprovingId] = useState<string | null>(null)
 
   useEffect(() => {
     fetchStudents()
@@ -176,6 +177,37 @@ export default function StudentsPage() {
       fetchStudents()
     } catch (error) {
       toast.error('Failed to delete student')
+    }
+  }
+
+  const handleApproveStudent = async (studentId: string, studentName: string) => {
+    setApprovingId(studentId)
+    try {
+      const response = await fetch('/api/admin/students/approve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ studentId }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Approval failed')
+      }
+
+      if (data.whatsappSent) {
+        toast.success(`${studentName} approved! PIN sent via WhatsApp.`)
+      } else {
+        toast.success(`${studentName} approved!`, {
+          description: data.whatsappError || 'WhatsApp message may not have been sent.',
+        })
+      }
+
+      fetchStudents()
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Failed to approve student')
+    } finally {
+      setApprovingId(null)
     }
   }
 
@@ -414,17 +446,39 @@ export default function StudentsPage() {
                       <span className="text-sm">{formatDate(student.created_at)}</span>
                     </TableCell>
                     <TableCell className="text-right">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          setDeleteStudent(student)
-                        }}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
+                      <div className="flex items-center justify-end gap-2">
+                        {student.status === 'pending' && (
+                          <Button
+                            size="sm"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              handleApproveStudent(student.id, student.full_name)
+                            }}
+                            disabled={approvingId === student.id}
+                            className="bg-green-600 hover:bg-green-700 text-white"
+                          >
+                            {approvingId === student.id ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              <>
+                                <CheckCircle className="h-4 w-4 mr-1" />
+                                Approve
+                              </>
+                            )}
+                          </Button>
+                        )}
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            setDeleteStudent(student)
+                          }}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}

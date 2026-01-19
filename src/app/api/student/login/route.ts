@@ -52,6 +52,14 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Check if student is pending approval
+    if (student.status === 'pending') {
+      return NextResponse.json(
+        { error: 'Your account is pending approval. You will receive your PIN via WhatsApp once approved.' },
+        { status: 403 }
+      )
+    }
+
     // Check if student is inactive
     if (student.status === 'inactive') {
       return NextResponse.json(
@@ -75,8 +83,6 @@ export async function POST(request: NextRequest) {
       .update({
         last_login: new Date().toISOString(),
         login_count: (student.login_count || 0) + 1,
-        // Auto-activate student on first login
-        ...(student.status === 'pending' && { status: 'active' }),
       })
       .eq('id', student.id)
 
@@ -97,7 +103,7 @@ export async function POST(request: NextRequest) {
         id: student.id,
         phone: student.phone,
         fullName: student.full_name,
-        status: student.status === 'pending' ? 'active' : student.status,
+        status: student.status,
       },
     })
   } catch (error) {

@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { generatePin, hashPin } from '@/lib/auth/pin'
 import { formatPhoneNumber, validatePhoneNumber } from '@/lib/auth/phone'
-import { createStudentSession, setStudentSessionCookie } from '@/lib/auth/session'
-import { sendWelcomeEmail } from '@/lib/email/resend'
 
 export async function POST(request: NextRequest) {
   try {
@@ -115,50 +113,31 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Send welcome email with PIN
-    const emailResult = await sendWelcomeEmail(normalizedEmail, fullName, pin)
-
-    // Log the email message
+    // Log the registration (no PIN sent yet - admin approval required)
     try {
       await (supabaseAdmin
         .from('whatsapp_messages') as any)
         .insert({
           student_id: student.id,
-          message_type: 'email',
-          template_name: 'welcome',
-          message_content: `Welcome email with PIN sent to ${normalizedEmail}`,
-          twilio_sid: emailResult.id || null,
-          status: emailResult.success ? 'sent' : 'failed',
-          error_message: emailResult.error || null,
-          sent_at: emailResult.success ? new Date().toISOString() : null,
+          message_type: 'notification',
+          template_name: 'registration',
+          message_content: `New student registration: ${fullName} - awaiting admin approval`,
+          status: 'pending',
+          sent_at: new Date().toISOString(),
         })
     } catch (logError) {
-      console.warn('Failed to log email message:', logError)
+      console.warn('Failed to log registration:', logError)
     }
 
-    // Create session
-    const token = await createStudentSession({
-      id: student.id,
-      phone: student.phone,
-      fullName: student.full_name,
-    })
-
-    // Set session cookie
-    await setStudentSessionCookie(token)
-
+    // Return success - NO PIN, NO session (requires admin approval)
     return NextResponse.json({
       success: true,
-      message: 'Registration successful!',
+      message: 'Registration submitted! Awaiting admin approval.',
+      requiresApproval: true,
       student: {
         id: student.id,
-        phone: student.phone,
-        email: student.email,
         fullName: student.full_name,
-        status: student.status,
       },
-      emailSent: emailResult.success,
-      // Always return PIN so it can be shown on success screen
-      pin,
     })
   } catch (error) {
     console.error('Registration error:', error)
