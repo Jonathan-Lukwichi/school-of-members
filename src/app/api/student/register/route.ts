@@ -148,7 +148,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: 'Registration successful! Your PIN has been sent to your email.',
+      message: 'Registration successful!',
       student: {
         id: student.id,
         phone: student.phone,
@@ -157,8 +157,8 @@ export async function POST(request: NextRequest) {
         status: student.status,
       },
       emailSent: emailResult.success,
-      // Only return PIN in development for testing
-      ...(process.env.NODE_ENV === 'development' && { pin }),
+      // Always return PIN so it can be shown on success screen
+      pin,
     })
   } catch (error) {
     console.error('Registration error:', error)
