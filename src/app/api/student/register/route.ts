@@ -3,19 +3,28 @@ import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { generatePin, hashPin } from '@/lib/auth/pin'
 import { formatPhoneNumber, validatePhoneNumber } from '@/lib/auth/phone'
 import { createStudentSession, setStudentSessionCookie } from '@/lib/auth/session'
-import { sendWelcomeSms } from '@/lib/sms/twilio'
+import { sendWelcomeEmail } from '@/lib/email/resend'
 
 export async function POST(request: NextRequest) {
   try {
     const supabaseAdmin = getSupabaseAdmin()
 
     const body = await request.json()
-    const { phone, whatsappNumber, fullName } = body
+    const { phone, email, fullName } = body
 
     // Validate required fields
-    if (!phone || !fullName) {
+    if (!phone || !fullName || !email) {
       return NextResponse.json(
-        { error: 'Phone number and full name are required' },
+        { error: 'Phone number, email, and full name are required' },
+        { status: 400 }
+      )
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { error: 'Invalid email format' },
         { status: 400 }
       )
     }
@@ -28,22 +37,33 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Format phone numbers
+    // Format phone number
     const formattedPhone = formatPhoneNumber(phone) || phone
-    const formattedWhatsApp = whatsappNumber
-      ? formatPhoneNumber(whatsappNumber) || whatsappNumber
-      : formattedPhone
+    const normalizedEmail = email.toLowerCase().trim()
 
-    // Check if phone already exists
-    const { data: existingStudent } = await (supabaseAdmin
+    // Check if phone or email already exists
+    const { data: existingByPhone } = await (supabaseAdmin
       .from('students') as any)
       .select('id')
       .eq('phone', formattedPhone)
       .single()
 
-    if (existingStudent) {
+    if (existingByPhone) {
       return NextResponse.json(
         { error: 'A student with this phone number already exists' },
+        { status: 409 }
+      )
+    }
+
+    const { data: existingByEmail } = await (supabaseAdmin
+      .from('students') as any)
+      .select('id')
+      .eq('email', normalizedEmail)
+      .single()
+
+    if (existingByEmail) {
+      return NextResponse.json(
+        { error: 'A student with this email already exists' },
         { status: 409 }
       )
     }
@@ -70,7 +90,7 @@ export async function POST(request: NextRequest) {
       .from('students') as any)
       .insert({
         phone: formattedPhone,
-        whatsapp_number: formattedWhatsApp,
+        email: normalizedEmail,
         full_name: fullName,
         pin_hash: pinHash,
         status: 'pending',
@@ -84,7 +104,7 @@ export async function POST(request: NextRequest) {
       // Return specific error message
       if (studentError.code === '23505') {
         return NextResponse.json(
-          { error: 'A student with this phone number already exists' },
+          { error: 'A student with this phone number or email already exists' },
           { status: 409 }
         )
       }
@@ -94,25 +114,25 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Send welcome message with PIN via SMS (personalized with student name)
-    const smsResult = await sendWelcomeSms(formattedPhone, pin, fullName)
+    // Send welcome email with PIN
+    const emailResult = await sendWelcomeEmail(normalizedEmail, fullName, pin)
 
-    // Log the SMS message (reusing whatsapp_messages table for now)
+    // Log the email message
     try {
       await (supabaseAdmin
         .from('whatsapp_messages') as any)
         .insert({
           student_id: student.id,
-          message_type: 'sms',
+          message_type: 'email',
           template_name: 'welcome',
-          message_content: `Welcome SMS with PIN sent`,
-          twilio_sid: smsResult.sid || null,
-          status: smsResult.success ? 'sent' : 'failed',
-          error_message: smsResult.error || null,
-          sent_at: smsResult.success ? new Date().toISOString() : null,
+          message_content: `Welcome email with PIN sent to ${normalizedEmail}`,
+          twilio_sid: emailResult.id || null,
+          status: emailResult.success ? 'sent' : 'failed',
+          error_message: emailResult.error || null,
+          sent_at: emailResult.success ? new Date().toISOString() : null,
         })
     } catch (logError) {
-      console.warn('Failed to log SMS message:', logError)
+      console.warn('Failed to log email message:', logError)
     }
 
     // Create session
@@ -127,14 +147,15 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: 'Registration successful! Your PIN has been sent via SMS.',
+      message: 'Registration successful! Your PIN has been sent to your email.',
       student: {
         id: student.id,
         phone: student.phone,
+        email: student.email,
         fullName: student.full_name,
         status: student.status,
       },
-      smsSent: smsResult.success,
+      emailSent: emailResult.success,
       // Only return PIN in development for testing
       ...(process.env.NODE_ENV === 'development' && { pin }),
     })

@@ -10,13 +10,14 @@ import { Label } from '@/components/ui/label'
 import { PhoneInput } from '@/components/ui/phone-input'
 import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
-import { Loader2, Phone, User, Sparkles, MessageSquare } from 'lucide-react'
+import { Loader2, Phone, User, Sparkles, Mail } from 'lucide-react'
 
 export default function StudentRegisterPage() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [formData, setFormData] = useState({
     fullName: '',
+    email: '',
     phone: '',
   })
   const [phoneValid, setPhoneValid] = useState(false)
@@ -29,11 +30,20 @@ export default function StudentRegisterPage() {
     setPhoneValid(isValid)
   }
 
+  const validateEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (!formData.fullName.trim()) {
       toast.error('Please enter your full name')
+      return
+    }
+
+    if (!formData.email.trim() || !validateEmail(formData.email)) {
+      toast.error('Please enter a valid email address')
       return
     }
 
@@ -50,8 +60,8 @@ export default function StudentRegisterPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           fullName: formData.fullName.trim(),
+          email: formData.email.trim().toLowerCase(),
           phone: formData.phone,
-          whatsappNumber: formData.phone, // Keep for backwards compatibility
         }),
       })
 
@@ -61,7 +71,7 @@ export default function StudentRegisterPage() {
         throw new Error(data.error || 'Registration failed')
       }
 
-      toast.success('Registration successful! Check your SMS for your PIN.')
+      toast.success('Registration successful! Check your email for your PIN.')
 
       // Redirect to student dashboard
       router.push('/student')
@@ -94,7 +104,7 @@ export default function StudentRegisterPage() {
         </div>
         <CardTitle className="text-2xl font-bold text-[#003366]">Join School of Members</CardTitle>
         <CardDescription className="text-[#64748b]">
-          Register with your phone number to start learning
+          Register with your email to start learning
         </CardDescription>
       </CardHeader>
 
@@ -111,6 +121,22 @@ export default function StudentRegisterPage() {
               placeholder="Enter your full name"
               value={formData.fullName}
               onChange={(e) => setFormData(prev => ({ ...prev, fullName: e.target.value }))}
+              disabled={isLoading}
+            />
+          </div>
+
+          {/* Email */}
+          <div className="space-y-2">
+            <Label htmlFor="email" className="flex items-center gap-2 text-[#1e293b]">
+              <Mail className="h-4 w-4 text-[#003366]" />
+              Email Address
+            </Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="Enter your email address"
+              value={formData.email}
+              onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
               disabled={isLoading}
             />
           </div>
@@ -133,8 +159,8 @@ export default function StudentRegisterPage() {
           {/* Info message */}
           <div className="bg-[#003366]/5 border border-[#003366]/20 rounded-xl p-4">
             <p className="text-sm text-[#64748b] flex items-center gap-2">
-              <MessageSquare className="h-4 w-4 text-[#b5985b]" />
-              Your login PIN will be sent to your phone via SMS.
+              <Mail className="h-4 w-4 text-[#b5985b]" />
+              Your login PIN will be sent to your email address.
             </p>
           </div>
         </CardContent>
