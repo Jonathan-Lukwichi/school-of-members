@@ -61,13 +61,13 @@ export function LoginForm() {
 
       if (authData.user) {
         // Fetch role from profiles table
-        const { data: profile } = await supabase
-          .from('profiles')
+        const { data: profile } = await (supabase
+          .from('profiles') as any)
           .select('role')
           .eq('id', authData.user.id)
           .single()
 
-        const role = profile?.role || authData.user.user_metadata?.role || 'teacher'
+        const role = (profile as any)?.role || authData.user.user_metadata?.role || 'teacher'
 
         if (role === 'admin') {
           router.push('/admin')
