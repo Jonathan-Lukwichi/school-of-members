@@ -2,7 +2,6 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, Compass, GraduationCap } from 'lucide-react'
 import {
-  ChapterJourney,
   PurposeGrid,
   ImageGallery,
   StaffShowcase,
@@ -118,21 +117,6 @@ export default function VisionPage() {
             </p>
           </div>
           <PurposeGrid />
-        </div>
-      </section>
-
-      {/* 12 Chapter Journey - Dark Theme */}
-      <section className="py-16 md:py-20 bg-[#0a1419]">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              The 12-Chapter Journey
-            </h2>
-            <p className="text-white/60 max-w-2xl mx-auto">
-              Your path to spiritual maturity through our comprehensive curriculum.
-            </p>
-          </div>
-          <ChapterJourney />
         </div>
       </section>
 
