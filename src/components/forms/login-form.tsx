@@ -72,14 +72,14 @@ export function LoginForm() {
 
         const role = (profile as any)?.role || authData.user.user_metadata?.role || 'teacher'
 
+        // Force full page reload to ensure session is properly established
         if (role === 'admin') {
-          router.push('/admin')
+          window.location.href = '/admin'
         } else if (role === 'teacher') {
-          router.push('/teacher')
+          window.location.href = '/teacher'
         } else {
-          router.push('/student')
+          window.location.href = '/student'
         }
-        router.refresh()
       }
     } catch {
       setError('An unexpected error occurred. Please try again.')
