@@ -10,12 +10,11 @@ import {
   Award,
   Clock,
   ArrowRight,
-  ChevronRight,
-  ChevronLeft,
+  CheckCircle,
   Heart,
   HandHelping,
   UsersRound,
-  Handshake,
+  Sparkles,
 } from 'lucide-react'
 import { PublicHeader } from '@/components/layout/public-header'
 import { TestimonialCarousel, type Testimonial } from '@/components/public/testimonial-carousel'
@@ -23,109 +22,46 @@ import { PublicFooter } from '@/components/layout/public-footer'
 import {
   heroContent,
   statistics,
-  welcomePreview,
   featureCards,
 } from '@/data/content'
 import { createClient } from '@/lib/supabase/client'
 
-// Hero slides data - Using uploaded church photos
-const heroSlides = [
+// Benefits data
+const benefits = [
   {
     id: 1,
-    image: '/images/hero/603893843_863136529756625_3601433323555904839_n.jpg',
-    overlay: 'linear-gradient(135deg, rgba(0,51,102,0.75) 0%, rgba(0,64,128,0.8) 100%)',
-    title: heroContent.headline,
-    subtitle: 'A Year of Growing Faith',
-    description: heroContent.subheadline,
-  },
-  {
-    id: 2,
-    image: '/images/hero/605616953_863675026369442_6652154226306859322_n.jpg',
-    overlay: 'linear-gradient(135deg, rgba(200,16,46,0.75) 0%, rgba(160,13,37,0.8) 100%)',
-    title: 'Grow • Serve • Belong',
-    subtitle: 'Our Three Foundational Pillars',
-    description: 'Develop your faith, use your talents in service to the community, and become part of the spiritual family',
-  },
-  {
-    id: 3,
-    image: '/images/hero/608702732_865582319512046_5812417327465441922_n.jpg',
-    overlay: 'linear-gradient(135deg, rgba(181,152,91,0.75) 0%, rgba(138,115,68,0.8) 100%)',
-    title: 'Complete Training Program',
-    subtitle: '12 Chapters of Spiritual Growth',
-    description: 'A structured program to understand the foundations of our community under the direction of Apostle Narcisse Majila',
-  },
-]
-
-// Programme cards data with icons
-const programmes = [
-  {
-    id: 1,
-    title: featureCards[0].title,
-    description: featureCards[0].description,
-    image: '/images/hero/603907220_863136993089912_1924723922976510063_n.jpg',
-    overlay: 'linear-gradient(to top, rgba(0,51,102,0.9) 0%, rgba(0,51,102,0.3) 100%)',
+    title: 'Biblical Foundation',
+    description: 'Learn the core principles of faith through comprehensive Bible-based teachings.',
     icon: BookOpen,
   },
   {
     id: 2,
-    title: featureCards[1].title,
-    description: featureCards[1].description,
-    image: '/images/hero/605209775_863138459756432_5544717009163373141_n.jpg',
-    overlay: 'linear-gradient(to top, rgba(200,16,46,0.9) 0%, rgba(200,16,46,0.3) 100%)',
-    icon: Handshake,
+    title: 'Community Connection',
+    description: 'Build lasting relationships with fellow believers and spiritual mentors.',
+    icon: Users,
   },
   {
     id: 3,
-    title: featureCards[2].title,
-    description: featureCards[2].description,
-    image: '/images/hero/605633574_863139219756356_2557880040851016723_n.jpg',
-    overlay: 'linear-gradient(to top, rgba(181,152,91,0.9) 0%, rgba(181,152,91,0.3) 100%)',
-    icon: GraduationCap,
+    title: 'Personal Growth',
+    description: 'Develop your spiritual gifts and discover your purpose in Gods kingdom.',
+    icon: Sparkles,
   },
   {
     id: 4,
-    title: featureCards[3].title,
-    description: featureCards[3].description,
-    image: '/images/hero/606051694_863676573035954_803516800744340136_n.jpg',
-    overlay: 'linear-gradient(to top, rgba(14,165,233,0.9) 0%, rgba(14,165,233,0.3) 100%)',
-    icon: UsersRound,
+    title: 'Certificate Program',
+    description: 'Complete 12 chapters and receive your official membership certificate.',
+    icon: GraduationCap,
   },
 ]
 
-// News articles data
-const newsArticles = [
-  {
-    id: 1,
-    date: 'January 15, 2026',
-    title: 'Registration Open for 2026 Session',
-    excerpt: 'Registration for the new School of Members session is now open. Join us for a year of spiritual growth and development.',
-    image: '/images/hero/615069170_870723538997924_4168573880654188734_n.jpg',
-    overlay: 'linear-gradient(to top, rgba(0,51,102,0.85) 0%, rgba(0,51,102,0.4) 100%)',
-  },
-  {
-    id: 2,
-    date: 'January 10, 2026',
-    title: 'Annual Spiritual Retreat',
-    excerpt: 'Our annual spiritual retreat will take place next month. A unique opportunity to strengthen your faith and connection with God.',
-    image: '/images/hero/608702732_865582319512046_5812417327465441922_n.jpg',
-    overlay: 'linear-gradient(to top, rgba(200,16,46,0.85) 0%, rgba(200,16,46,0.4) 100%)',
-  },
-  {
-    id: 3,
-    date: 'January 5, 2026',
-    title: 'Graduate Testimonies',
-    excerpt: 'Discover inspiring testimonies from our alumni and how the School of Members transformed their spiritual lives.',
-    image: '/images/hero/605730001_863139043089707_7171139442108095605_n.jpg',
-    overlay: 'linear-gradient(to top, rgba(181,152,91,0.85) 0%, rgba(181,152,91,0.4) 100%)',
-  },
-  {
-    id: 4,
-    date: 'January 1, 2026',
-    title: 'New Year Message',
-    excerpt: 'Apostle Narcisse Majila shares his message of hope and blessing for this new year with the congregation.',
-    image: '/images/hero/605913088_863138966423048_422744223419916850_n.jpg',
-    overlay: 'linear-gradient(to top, rgba(14,165,233,0.85) 0%, rgba(14,165,233,0.4) 100%)',
-  },
+// Journey features
+const journeyFeatures = [
+  '12 comprehensive chapters of spiritual training',
+  'Self-paced online learning with offline access',
+  'Interactive quizzes to track your progress',
+  'Direct guidance from experienced leaders',
+  'Community support and fellowship',
+  'Official certificate upon completion',
 ]
 
 // Fallback testimonials if database is empty
@@ -151,7 +87,6 @@ const fallbackTestimonials: Testimonial[] = [
 ]
 
 export default function Home() {
-  const [currentSlide, setCurrentSlide] = useState(0)
   const [testimonials, setTestimonials] = useState<Testimonial[]>(fallbackTestimonials)
 
   // Fetch testimonials from database
@@ -170,7 +105,6 @@ export default function Home() {
           setTestimonials(data)
         }
       } catch (error) {
-        // Use fallback testimonials if fetch fails
         console.log('Using fallback testimonials')
       }
     }
@@ -178,91 +112,131 @@ export default function Home() {
     fetchTestimonials()
   }, [])
 
-  // Auto-advance carousel
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
-    }, 6000)
-    return () => clearInterval(timer)
-  }, [])
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
-  }
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
-  }
-
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#0d1a0d]">
       <PublicHeader />
 
       <main>
-        {/* Hero Carousel */}
-        <section className="hero-carousel">
-          {heroSlides.map((slide, index) => (
-            <div
-              key={slide.id}
-              className={`hero-slide ${index === currentSlide ? 'active' : ''}`}
-              style={{
-                backgroundImage: `${slide.overlay}, url(${slide.image})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundColor: '#003366',
-              }}
-            >
-              <div className="hero-slide-content">
-                <p className="text-lg mb-2 opacity-90">{slide.subtitle}</p>
-                <h1 className="hero-slide-title">{slide.title}</h1>
-                <p className="hero-slide-subtitle">{slide.description}</p>
+        {/* Hero Section - Two Column */}
+        <section className="hero-forest relative min-h-[90vh] flex items-center">
+          {/* Background Glow Effects */}
+          <div className="hero-forest-glow hero-forest-glow-1" />
+          <div className="hero-forest-glow hero-forest-glow-2" />
+
+          <div className="container mx-auto px-6 py-16 lg:py-24 relative z-10">
+            <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 items-center">
+              {/* Left Column - Content (60%) */}
+              <div className="lg:col-span-3 space-y-8">
+                {/* Badge */}
+                <div className="badge-forest inline-flex">
+                  <Sparkles className="h-4 w-4 mr-2" />
+                  12 Chapters of Spiritual Growth
+                </div>
+
+                {/* Headline */}
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white leading-tight">
+                  Become a Committed Member in{' '}
+                  <span className="text-forest-400">12 Weeks</span> with Certificate
+                </h1>
+
+                {/* Subtitle */}
+                <p className="text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed">
+                  {heroContent.subheadline}
+                </p>
+
+                {/* CTA Button */}
+                <div className="flex flex-wrap gap-4">
+                  <Link href="/student/register" className="btn-forest-primary text-lg">
+                    Begin Your Journey
+                    <ArrowRight className="h-5 w-5" />
+                  </Link>
+                  <Link href="/story" className="btn-forest-secondary text-lg">
+                    Learn More
+                  </Link>
+                </div>
+
+                {/* Stats Row */}
+                <div className="flex flex-wrap items-center gap-6 pt-4">
+                  <div className="stat-forest">
+                    <div className="stat-forest-value">200+</div>
+                    <div className="stat-forest-label">Students Enrolled</div>
+                  </div>
+                  <div className="stat-forest-divider hidden sm:block" />
+                  <div className="stat-forest">
+                    <div className="stat-forest-value">12</div>
+                    <div className="stat-forest-label">Complete Chapters</div>
+                  </div>
+                  <div className="stat-forest-divider hidden sm:block" />
+                  <div className="stat-forest">
+                    <div className="stat-forest-value">95%</div>
+                    <div className="stat-forest-label">Completion Rate</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column - Image (40%) */}
+              <div className="lg:col-span-2 relative">
+                <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
+                  {/* Green Glow Behind Image */}
+                  <div className="absolute -inset-4 bg-forest-400/20 rounded-3xl blur-3xl" />
+
+                  {/* Church Image with Green Overlay */}
+                  <div className="relative h-full w-full rounded-2xl overflow-hidden border-2 border-forest-400/30">
+                    <Image
+                      src="/images/hero/603893843_863136529756625_3601433323555904839_n.jpg"
+                      alt="School of Members"
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0d1a0d] via-transparent to-transparent opacity-60" />
+                    <div className="absolute inset-0 bg-forest-400/10" />
+                  </div>
+
+                  {/* Floating Badge */}
+                  <div className="absolute -bottom-4 -left-4 bg-[#132814] border border-forest-400/30 rounded-xl p-4 shadow-2xl">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-full bg-forest-400/20 flex items-center justify-center">
+                        <GraduationCap className="h-6 w-6 text-forest-400" />
+                      </div>
+                      <div>
+                        <p className="text-white font-semibold">Certificate</p>
+                        <p className="text-white/50 text-sm">Upon Completion</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          ))}
-
-          {/* Navigation Arrows */}
-          <button onClick={prevSlide} className="hero-arrow hero-arrow-left">
-            <ChevronLeft className="h-6 w-6" />
-          </button>
-          <button onClick={nextSlide} className="hero-arrow hero-arrow-right">
-            <ChevronRight className="h-6 w-6" />
-          </button>
-
-          {/* Dots */}
-          <div className="hero-dots">
-            {heroSlides.map((_, index) => (
-              <button
-                key={index}
-                className={`hero-dot ${index === currentSlide ? 'active' : ''}`}
-                onClick={() => setCurrentSlide(index)}
-              />
-            ))}
           </div>
         </section>
 
-        {/* Programme Cards */}
-        <section id="programmes" className="py-16">
+        {/* Benefits Section */}
+        <section className="py-20 bg-[#0f2010]">
           <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
+                Benefits from this Program
+              </h2>
+              <p className="text-white/60 max-w-2xl mx-auto text-lg">
+                Everything you need to build a strong foundation in your faith journey
+              </p>
+            </div>
+
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {programmes.map((programme) => {
-                const Icon = programme.icon
+              {benefits.map((benefit) => {
+                const Icon = benefit.icon
                 return (
-                  <div key={programme.id} className="programme-card">
-                    <div
-                      className="programme-card-image"
-                      style={{
-                        backgroundImage: `${programme.overlay}, url(${programme.image})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center'
-                      }}
-                    >
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <Icon className="h-16 w-16 text-white/30" />
-                      </div>
+                  <div key={benefit.id} className="benefit-card">
+                    <div className="benefit-icon mb-4">
+                      <Icon className="h-6 w-6" />
                     </div>
-                    <div className="programme-card-label">
-                      {programme.title}
-                    </div>
+                    <h3 className="text-lg font-semibold text-white mb-2">
+                      {benefit.title}
+                    </h3>
+                    <p className="text-white/50 text-sm leading-relaxed">
+                      {benefit.description}
+                    </p>
                   </div>
                 )
               })}
@@ -270,66 +244,105 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Welcome Preview Section */}
-        <section className="py-16 bg-gradient-to-br from-[#003366]/5 to-[#b5985b]/5">
+        {/* Path/Journey Section */}
+        <section className="py-20 bg-[#0d1a0d]">
           <div className="container mx-auto px-6">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#003366] mb-6">
-                Welcome to the School of Members
-              </h2>
-              <p className="text-gray-600 text-lg leading-relaxed">
-                {welcomePreview}
-              </p>
-              <Link href="/story" className="btn-up-outline mt-8 inline-flex items-center">
-                Read Our Story
-                <ArrowRight className="h-4 w-4 ml-2" />
-              </Link>
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              {/* Image Column */}
+              <div className="relative order-2 lg:order-1">
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+                  <div className="absolute -inset-4 bg-forest-400/10 rounded-3xl blur-2xl" />
+                  <div className="relative h-full w-full rounded-2xl overflow-hidden border border-forest-400/20">
+                    <Image
+                      src="/images/hero/605616953_863675026369442_6652154226306859322_n.jpg"
+                      alt="Spiritual Journey"
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0d1a0d]/80 to-transparent" />
+                    <div className="absolute inset-0 bg-forest-400/10" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Content Column */}
+              <div className="order-1 lg:order-2 space-y-6">
+                <h2 className="text-3xl md:text-4xl font-heading font-bold text-white">
+                  Your Path to Spiritual Growth Starts Here
+                </h2>
+                <p className="text-white/60 text-lg leading-relaxed">
+                  The School of Members provides a structured program to understand the foundations
+                  of our community under the direction of Apostle Narcisse Majila. Join us on this
+                  transformative journey.
+                </p>
+
+                {/* Feature List */}
+                <ul className="space-y-4">
+                  {journeyFeatures.map((feature, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-forest-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-white/70">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <Link href="/student/register" className="btn-forest-primary inline-flex mt-4">
+                  Start Your Journey
+                  <ArrowRight className="h-5 w-5" />
+                </Link>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* About Section - Three Pillars */}
-        <section id="about" className="about-section">
+        {/* Three Pillars Section */}
+        <section className="py-20 bg-[#0f2010]">
           <div className="container mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#003366] mb-4">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
                 Our Foundational Pillars
               </h2>
-              <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
-                Three core principles guide every aspect of our spiritual training program.
+              <p className="text-white/60 max-w-2xl mx-auto text-lg">
+                Three core principles guide every aspect of our spiritual training program
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
               {/* Grow */}
-              <div className="about-pillar">
-                <div className="about-pillar-icon">
-                  <Heart className="h-10 w-10" />
+              <div className="dark-card text-center">
+                <div className="w-20 h-20 rounded-full bg-forest-400/20 flex items-center justify-center mx-auto mb-6">
+                  <Heart className="h-10 w-10 text-forest-400" />
                 </div>
-                <h3 className="about-pillar-title">Grow</h3>
-                <p className="about-pillar-text">
+                <h3 className="text-xl font-bold text-forest-400 mb-3 uppercase tracking-wide">
+                  Grow
+                </h3>
+                <p className="text-white/50 leading-relaxed">
                   Develop your faith through teachings and the daily practice of the Word of God.
                 </p>
               </div>
 
               {/* Serve */}
-              <div className="about-pillar">
-                <div className="about-pillar-icon" style={{ background: '#C8102E' }}>
-                  <HandHelping className="h-10 w-10" />
+              <div className="dark-card text-center">
+                <div className="w-20 h-20 rounded-full bg-forest-500/20 flex items-center justify-center mx-auto mb-6">
+                  <HandHelping className="h-10 w-10 text-forest-500" />
                 </div>
-                <h3 className="about-pillar-title" style={{ color: '#C8102E' }}>Serve</h3>
-                <p className="about-pillar-text">
-                  Put your talents to work in service to the community and to God with dedication and humility.
+                <h3 className="text-xl font-bold text-forest-500 mb-3 uppercase tracking-wide">
+                  Serve
+                </h3>
+                <p className="text-white/50 leading-relaxed">
+                  Put your talents to work in service to the community and to God with dedication.
                 </p>
               </div>
 
               {/* Belong */}
-              <div className="about-pillar">
-                <div className="about-pillar-icon" style={{ background: '#b5985b' }}>
-                  <UsersRound className="h-10 w-10" />
+              <div className="dark-card text-center">
+                <div className="w-20 h-20 rounded-full bg-forest-600/20 flex items-center justify-center mx-auto mb-6">
+                  <UsersRound className="h-10 w-10 text-forest-600" />
                 </div>
-                <h3 className="about-pillar-title" style={{ color: '#b5985b' }}>Belong</h3>
-                <p className="about-pillar-text">
+                <h3 className="text-xl font-bold text-forest-600 mb-3 uppercase tracking-wide">
+                  Belong
+                </h3>
+                <p className="text-white/50 leading-relaxed">
                   Fully integrate into the spiritual family and build strong bonds with the community.
                 </p>
               </div>
@@ -338,13 +351,17 @@ export default function Home() {
         </section>
 
         {/* Statistics Bar */}
-        <section className="stats-bar">
+        <section className="py-12 bg-gradient-to-r from-forest-300 via-forest-400 to-forest-500">
           <div className="container mx-auto px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {statistics.map((stat, index) => (
-                <div key={index} className="stat-item">
-                  <div className="stat-number">{stat.value}</div>
-                  <div className="stat-label">{stat.label}</div>
+                <div key={index} className="text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-white mb-1">
+                    {stat.value}
+                  </div>
+                  <div className="text-white/80 text-sm uppercase tracking-wide">
+                    {stat.label}
+                  </div>
                 </div>
               ))}
             </div>
@@ -352,13 +369,13 @@ export default function Home() {
         </section>
 
         {/* Testimonials Section */}
-        <section className="py-16 md:py-20 bg-[#f8fafc]">
+        <section className="py-20 bg-[#0d1a0d]">
           <div className="container mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#003366] mb-4">
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
                 What Our Members Say
               </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <p className="text-white/60 max-w-2xl mx-auto">
                 Hear from those who have completed the School of Members program.
               </p>
             </div>
@@ -366,97 +383,24 @@ export default function Home() {
           </div>
         </section>
 
-        {/* News Section */}
-        <section id="news" className="py-16 bg-white">
-          <div className="container mx-auto px-6">
-            <div className="flex items-center justify-between mb-12">
-              <div>
-                <h2 className="text-3xl font-bold text-[#003366]">
-                  News & Events
-                </h2>
-                <p className="text-gray-600 mt-2">
-                  Stay informed about the latest news from our community
-                </p>
-              </div>
-              <Link href="#" className="btn-up-outline hidden md:inline-flex">
-                View All News
+        {/* CTA Section */}
+        <section className="cta-forest">
+          <div className="container mx-auto px-6 text-center">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-6">
+              Ready to Start Your Spiritual Journey?
+            </h2>
+            <p className="text-white/80 max-w-2xl mx-auto mb-8 text-lg">
+              Join our learning community and take the first step towards achieving
+              your spiritual goals. Registration is quick, easy, and free.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link href="/student/register" className="btn-forest-white">
+                Register Now
+                <ArrowRight className="h-5 w-5" />
               </Link>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {newsArticles.map((article) => (
-                <article key={article.id} className="news-card group">
-                  <div
-                    className="news-card-image"
-                    style={{
-                      backgroundImage: `${article.overlay}, url(${article.image})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center'
-                    }}
-                  />
-                  <div className="news-card-content">
-                    <p className="news-card-date">{article.date}</p>
-                    <h3 className="news-card-title">{article.title}</h3>
-                    <p className="news-card-excerpt">{article.excerpt}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-
-            <div className="mt-8 text-center md:hidden">
-              <Link href="#" className="btn-up-outline">
-                View All News
+              <Link href="/story" className="btn-forest-secondary border-white/30 hover:bg-white/10">
+                Learn More
               </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Call to Action */}
-        <section className="py-16 bg-[#f8fafc]">
-          <div className="container mx-auto px-6">
-            <div className="bg-white rounded-lg shadow-lg p-8 md:p-12">
-              <div className="grid md:grid-cols-2 gap-8 items-center">
-                <div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-[#003366] mb-4">
-                    Ready to Start Your Spiritual Journey?
-                  </h2>
-                  <p className="text-gray-600 mb-6 leading-relaxed">
-                    Join our learning community and take the first step towards
-                    achieving your spiritual goals. Registration is quick and easy.
-                  </p>
-                  <div className="flex flex-wrap gap-4">
-                    <Link href="/student/register" className="btn-up-secondary">
-                      Register Now
-                      <ArrowRight className="h-4 w-4 ml-2" />
-                    </Link>
-                    <Link href="/story" className="btn-up-outline">
-                      Learn More
-                    </Link>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="text-center p-4 bg-[#f8fafc] rounded-lg">
-                    <Clock className="h-8 w-8 text-[#003366] mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-[#003366]">24/7</div>
-                    <div className="text-sm text-gray-600">Online Access</div>
-                  </div>
-                  <div className="text-center p-4 bg-[#f8fafc] rounded-lg">
-                    <BookOpen className="h-8 w-8 text-[#C8102E] mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-[#C8102E]">100%</div>
-                    <div className="text-sm text-gray-600">Biblical Foundation</div>
-                  </div>
-                  <div className="text-center p-4 bg-[#f8fafc] rounded-lg">
-                    <Award className="h-8 w-8 text-[#b5985b] mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-[#b5985b]">Free</div>
-                    <div className="text-sm text-gray-600">Registration</div>
-                  </div>
-                  <div className="text-center p-4 bg-[#f8fafc] rounded-lg">
-                    <Users className="h-8 w-8 text-[#0ea5e9] mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-[#0ea5e9]">5+</div>
-                    <div className="text-sm text-gray-600">Years of Experience</div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </section>

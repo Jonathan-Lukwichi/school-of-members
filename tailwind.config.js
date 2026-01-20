@@ -9,6 +9,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // Dark Forest Green Theme
+        'forest': {
+          DEFAULT: '#22c55e',
+          50: '#0d1a0d',       // Background primary (darkest)
+          100: '#0f2010',      // Background secondary
+          200: '#132814',      // Cards background
+          300: '#16a34a',      // Tertiary accent
+          400: '#22c55e',      // Primary accent
+          500: '#4ade80',      // Secondary accent (lighter)
+          600: '#86efac',      // Highlight
+        },
+        // Legacy church colors (keeping for compatibility)
         'church-blue': {
           DEFAULT: '#1e3a5f',
           dark: '#152a45',
@@ -103,7 +115,7 @@ module.exports = {
       fontFamily: {
         sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-geist-mono)", "monospace"],
-        heading: ["var(--font-heading)", "Crimson Pro", "serif"],
+        heading: ["var(--font-plus-jakarta)", "Plus Jakarta Sans", "sans-serif"],
         body: ["var(--font-body)", "DM Sans", "sans-serif"],
       },
       keyframes: {

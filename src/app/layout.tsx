@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Crimson_Pro, DM_Sans } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans, DM_Sans } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
@@ -9,9 +9,9 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const crimsonPro = Crimson_Pro({
+const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-heading",
+  variable: "--font-plus-jakarta",
   weight: ["400", "500", "600", "700"],
 });
 
@@ -36,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${crimsonPro.variable} ${dmSans.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${plusJakarta.variable} ${dmSans.variable} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

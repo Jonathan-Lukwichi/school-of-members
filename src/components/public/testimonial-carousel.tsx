@@ -50,17 +50,17 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) 
   return (
     <div className="relative max-w-4xl mx-auto">
       {/* Main testimonial card */}
-      <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 relative overflow-hidden">
+      <div className="dark-card p-8 md:p-12 relative overflow-hidden">
         {/* Background decoration */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-[#003366]/5 rounded-full -translate-y-1/2 translate-x-1/2" />
-        <div className="absolute bottom-0 left-0 w-24 h-24 bg-[#b5985b]/10 rounded-full translate-y-1/2 -translate-x-1/2" />
+        <div className="absolute top-0 right-0 w-32 h-32 bg-forest-400/10 rounded-full -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-forest-500/10 rounded-full translate-y-1/2 -translate-x-1/2" />
 
         {/* Quote icon */}
         <div className="relative z-10">
-          <Quote className="h-12 w-12 text-[#b5985b] mb-6" />
+          <Quote className="h-12 w-12 text-forest-400 mb-6" />
 
           {/* Content */}
-          <blockquote className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-8 italic">
+          <blockquote className="text-xl md:text-2xl text-white/80 leading-relaxed mb-8 italic">
             "{currentTestimonial.content}"
           </blockquote>
 
@@ -70,18 +70,18 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) 
               <img
                 src={currentTestimonial.photo_url}
                 alt={currentTestimonial.name}
-                className="w-14 h-14 rounded-full object-cover border-2 border-[#003366]/20"
+                className="w-14 h-14 rounded-full object-cover border-2 border-forest-400/30"
               />
             ) : (
-              <div className="w-14 h-14 rounded-full bg-[#003366] flex items-center justify-center text-white font-bold text-lg">
+              <div className="w-14 h-14 rounded-full bg-forest-400/20 flex items-center justify-center text-forest-400 font-bold text-lg">
                 {currentTestimonial.name.charAt(0)}
               </div>
             )}
             <div>
-              <p className="font-bold text-[#003366] text-lg">
+              <p className="font-bold text-white text-lg">
                 {currentTestimonial.name}
               </p>
-              <p className="text-gray-500">{currentTestimonial.role}</p>
+              <p className="text-white/50">{currentTestimonial.role}</p>
             </div>
           </div>
         </div>
@@ -93,14 +93,14 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) 
           {/* Arrows */}
           <button
             onClick={goToPrevious}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-6 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-[#003366] hover:bg-[#003366] hover:text-white transition-colors"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-6 w-12 h-12 bg-[#132814] border border-forest-400/30 rounded-full shadow-lg flex items-center justify-center text-forest-400 hover:bg-forest-400 hover:text-white transition-colors"
             aria-label="Previous testimonial"
           >
             <ChevronLeft className="h-6 w-6" />
           </button>
           <button
             onClick={goToNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-6 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-[#003366] hover:bg-[#003366] hover:text-white transition-colors"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-6 w-12 h-12 bg-[#132814] border border-forest-400/30 rounded-full shadow-lg flex items-center justify-center text-forest-400 hover:bg-forest-400 hover:text-white transition-colors"
             aria-label="Next testimonial"
           >
             <ChevronRight className="h-6 w-6" />
@@ -118,8 +118,8 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) 
                 className={cn(
                   'w-3 h-3 rounded-full transition-all',
                   index === currentIndex
-                    ? 'bg-[#003366] w-8'
-                    : 'bg-gray-300 hover:bg-gray-400'
+                    ? 'bg-forest-400 w-8'
+                    : 'bg-white/20 hover:bg-white/30'
                 )}
                 aria-label={`Go to testimonial ${index + 1}`}
               />
