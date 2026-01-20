@@ -15,12 +15,9 @@ import {
   Heart,
   HandHelping,
   UsersRound,
-  Menu,
-  X,
   Handshake,
 } from 'lucide-react'
-import { usePathname } from 'next/navigation'
-import { cn } from '@/lib/utils'
+import { PublicHeader } from '@/components/layout/public-header'
 import { TestimonialCarousel, type Testimonial } from '@/components/public/testimonial-carousel'
 import { PublicFooter } from '@/components/layout/public-footer'
 import {
@@ -30,13 +27,6 @@ import {
   featureCards,
 } from '@/data/content'
 import { createClient } from '@/lib/supabase/client'
-
-// Navigation links
-const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/story', label: 'Story' },
-  { href: '/vision', label: 'Vision' },
-]
 
 // Hero slides data - Using uploaded church photos
 const heroSlides = [
@@ -162,9 +152,7 @@ const fallbackTestimonials: Testimonial[] = [
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [testimonials, setTestimonials] = useState<Testimonial[]>(fallbackTestimonials)
-  const pathname = usePathname()
 
   // Fetch testimonials from database
   useEffect(() => {
@@ -206,134 +194,9 @@ export default function Home() {
     setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
   }
 
-  const isActive = (href: string) => {
-    if (href === '/') return pathname === '/'
-    return pathname.startsWith(href)
-  }
-
   return (
     <div className="min-h-screen bg-white">
-      {/* Main Header */}
-      <header className="header-up">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between py-3 sm:py-4">
-            {/* Logo and Admin Link */}
-            <div className="flex items-center gap-4 sm:gap-6">
-              <Link href="/" className="flex items-center gap-3">
-                <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-[#003366]/20 shadow-md flex-shrink-0">
-                  <Image
-                    src="/images/logo-fresco.png"
-                    alt="School of Members Logo"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div>
-                  <span className="text-base sm:text-lg md:text-xl font-bold text-[#003366] block leading-tight">
-                    School of Members
-                  </span>
-                  <span className="hidden sm:block text-xs text-gray-500">Ramah Full Gospel Church Pretoria</span>
-                </div>
-              </Link>
-              <Link
-                href="/login"
-                className="hidden sm:block text-sm text-[#64748b] hover:text-[#003366] font-medium transition-colors"
-              >
-                Admin
-              </Link>
-            </div>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-6">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={cn(
-                    'nav-up-item',
-                    isActive(link.href) && 'active'
-                  )}
-                >
-                  {link.label}
-                </Link>
-              ))}
-
-              {/* CTA Buttons */}
-              <div className="flex items-center gap-3 ml-4">
-                <Link
-                  href="/student/login"
-                  className="text-[#003366] font-medium hover:text-[#C8102E] transition-colors"
-                >
-                  Login
-                </Link>
-                <Link
-                  href="/student/register"
-                  className="btn-up-secondary text-sm px-4 py-2"
-                >
-                  Join Now
-                  <ArrowRight className="h-4 w-4 ml-1" />
-                </Link>
-              </div>
-            </nav>
-
-            {/* Mobile Menu Button */}
-            <button
-              className="lg:hidden p-2 text-[#003366]"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-gray-200 bg-white">
-            <nav className="container mx-auto px-6 py-4 space-y-4">
-              {/* Admin Link at top */}
-              <Link
-                href="/login"
-                className="block text-[#64748b] font-medium text-sm pb-2 border-b border-gray-100"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Admin
-              </Link>
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={cn(
-                    'block font-medium transition-colors',
-                    isActive(link.href)
-                      ? 'text-[#003366]'
-                      : 'text-gray-600 hover:text-[#003366]'
-                  )}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <div className="pt-4 border-t border-gray-200 space-y-3">
-                <Link
-                  href="/student/login"
-                  className="block text-[#003366] font-medium"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Login
-                </Link>
-                <Link
-                  href="/student/register"
-                  className="btn-up-secondary inline-flex items-center text-sm px-4 py-2"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Join Now
-                  <ArrowRight className="h-4 w-4 ml-1" />
-                </Link>
-              </div>
-            </nav>
-          </div>
-        )}
-      </header>
+      <PublicHeader />
 
       <main>
         {/* Hero Carousel */}
