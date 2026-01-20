@@ -60,13 +60,13 @@ export async function updateSession(request: NextRequest) {
 
     if (!role) {
       // Query profiles table for role
-      const { data: profile } = await supabase
-        .from('profiles')
+      const { data: profile } = await (supabase
+        .from('profiles') as any)
         .select('role')
         .eq('id', user.id)
         .single()
 
-      role = profile?.role || 'student'
+      role = (profile as any)?.role || 'student'
     }
 
     url.pathname = role === 'admin' ? '/admin' : (role === 'teacher' ? '/teacher' : '/student')
@@ -80,13 +80,13 @@ export async function updateSession(request: NextRequest) {
 
     if (!role || role !== 'admin') {
       // Query profiles table for role
-      const { data: profile } = await supabase
-        .from('profiles')
+      const { data: profile } = await (supabase
+        .from('profiles') as any)
         .select('role')
         .eq('id', user.id)
         .single()
 
-      role = profile?.role || role
+      role = (profile as any)?.role || role
     }
 
     if (role !== 'admin') {
