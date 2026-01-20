@@ -9,6 +9,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        'church-blue': {
+          DEFAULT: '#1e3a5f',
+          dark: '#152a45',
+        },
+        'church-red': {
+          DEFAULT: '#c41e3a',
+          dark: '#a01830',
+        },
+        'church-gold': '#d4a853',
         navy: {
           DEFAULT: "#003366",
           50: "#e6eef5",
@@ -94,6 +103,8 @@ module.exports = {
       fontFamily: {
         sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-geist-mono)", "monospace"],
+        heading: ["var(--font-heading)", "Crimson Pro", "serif"],
+        body: ["var(--font-body)", "DM Sans", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {
