@@ -18,6 +18,7 @@ import {
 } from 'lucide-react'
 import { PublicHeader } from '@/components/layout/public-header'
 import { TestimonialCarousel, type Testimonial } from '@/components/public/testimonial-carousel'
+import { ImageGallery } from '@/components/public/image-gallery'
 import { PublicFooter } from '@/components/layout/public-footer'
 import {
   heroContent,
@@ -84,6 +85,36 @@ const fallbackTestimonials: Testimonial[] = [
     role: 'Young Professional',
     content: 'As a busy professional, I appreciated completing this at my own pace. The teachings challenged me to prioritize my church attendance.',
   },
+]
+
+// Panoramic gallery images (service moments + teaching moments)
+const galleryImages = [
+  '/images/hero/service moments.jpg',
+  '/images/hero/service moments (2).jpg',
+  '/images/hero/service moments (3).jpg',
+  '/images/hero/service moments (4).jpg',
+  '/images/hero/service moments (5).jpg',
+  '/images/hero/service moments3.jpg',
+  '/images/hero/teaching moment.jpg',
+  '/images/hero/teaching moment2.jpg',
+]
+
+// Graduation photos
+const graduationPhotos = [
+  '/images/hero/graduation.jpg',
+  '/images/hero/graduation1.jpg',
+  '/images/hero/graduation3.jpg',
+  '/images/hero/graduation4.jpg',
+  '/images/hero/graduation5.jpg',
+  '/images/hero/graduation6.jpg',
+  '/images/hero/graduation7.jpg',
+  '/images/hero/graduation8.jpg',
+  '/images/hero/graduation9.jpg',
+  '/images/hero/graduation (2).jpg',
+  '/images/hero/graduation (3).jpg',
+  '/images/hero/graduation (4).jpg',
+  '/images/hero/graduation (5).jpg',
+  '/images/hero/graduation (6).jpg',
 ]
 
 export default function Home() {
@@ -183,7 +214,7 @@ export default function Home() {
                   {/* Church Image with Green Overlay */}
                   <div className="relative h-full w-full rounded-2xl overflow-hidden border-2 border-forest-400/30">
                     <Image
-                      src="/images/hero/603893843_863136529756625_3601433323555904839_n.jpg"
+                      src="/images/hero/service moments.jpg"
                       alt="School of Members"
                       fill
                       className="object-cover"
@@ -210,6 +241,16 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Panoramic Gallery Section */}
+        <ImageGallery
+          images={galleryImages}
+          title="Experience Our Community"
+          subtitle="Moments of worship, teaching, and fellowship that transform lives"
+          autoPlay={true}
+          interval={4000}
+          height="70vh"
+        />
 
         {/* Benefits Section */}
         <section className="py-20 bg-[#0c1a24]">
@@ -254,7 +295,7 @@ export default function Home() {
                   <div className="absolute -inset-4 bg-forest-400/10 rounded-3xl blur-2xl" />
                   <div className="relative h-full w-full rounded-2xl overflow-hidden border border-forest-400/20">
                     <Image
-                      src="/images/hero/605616953_863675026369442_6652154226306859322_n.jpg"
+                      src="/images/hero/teaching moment.jpg"
                       alt="Spiritual Journey"
                       fill
                       className="object-cover"
@@ -368,8 +409,55 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Testimonials Section */}
+        {/* Graduation Showcase Section */}
         <section className="py-20 bg-[#0a1419]">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 bg-forest-400/10 border border-forest-400/30 rounded-full px-4 py-2 mb-6">
+                <GraduationCap className="h-5 w-5 text-forest-400" />
+                <span className="text-forest-400 text-sm font-medium">Success Stories</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
+                Celebrating Our Graduates
+              </h2>
+              <p className="text-white/60 max-w-2xl mx-auto">
+                Witness the joy of completion as our members receive their certificates of achievement.
+              </p>
+            </div>
+
+            {/* Graduation Grid */}
+            <div className="graduation-grid">
+              {graduationPhotos.slice(0, 8).map((photo, index) => (
+                <div key={index} className="graduation-item group">
+                  <Image
+                    src={photo}
+                    alt={`Graduation moment ${index + 1}`}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a1419]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    <p className="text-white text-sm font-medium">Graduation Ceremony</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* View More Link */}
+            <div className="text-center mt-10">
+              <Link
+                href="/story"
+                className="inline-flex items-center gap-2 text-forest-400 hover:text-forest-500 transition-colors font-medium"
+              >
+                View More Moments
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section className="py-20 bg-[#0c1a24]">
           <div className="container mx-auto px-6">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">

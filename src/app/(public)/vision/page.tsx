@@ -1,16 +1,58 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, Target, Compass } from 'lucide-react'
+import { ArrowRight, Target, Compass, Users, GraduationCap } from 'lucide-react'
 import {
   SectionHeader,
   ChapterJourney,
   PurposeGrid,
+  StaffGrid,
+  type StaffMember,
 } from '@/components/public'
 import {
   seoContent,
   visionStatement,
   missionStatement,
 } from '@/data/content'
+
+// Staff members data
+const staffMembers: StaffMember[] = [
+  {
+    name: 'Mr Tresor',
+    role: 'Head of Department',
+    comment: 'Leading the School of Members with dedication and spiritual guidance.',
+    image: '/images/hero/staff.jpg',
+  },
+  {
+    name: 'Mr Nick',
+    role: 'Vice President',
+    comment: 'Supporting the vision and ensuring excellence in our training program.',
+    image: '/images/hero/staff (2).jpg',
+  },
+  {
+    name: 'Ms Eliana',
+    role: 'Secretary',
+    comment: 'Coordinating operations and keeping the department running smoothly.',
+    image: '/images/hero/staff (3).jpg',
+  },
+  {
+    name: 'Mr Jonathan',
+    role: 'Teacher',
+    comment: 'Passionate about biblical education and mentoring future leaders.',
+    image: '/images/hero/staff (4).jpg',
+  },
+  {
+    name: 'Mr Nico',
+    role: 'Teacher',
+    comment: 'Committed to helping students grow in their spiritual journey.',
+    image: '/images/hero/staff (5).jpg',
+  },
+  {
+    name: 'Ms Polelo',
+    role: 'Teacher',
+    comment: 'Dedicated to nurturing faith and building strong foundations.',
+    image: '/images/hero/staff (6).jpg',
+  },
+]
 
 export const metadata: Metadata = {
   title: seoContent.vision.title,
@@ -19,41 +61,40 @@ export const metadata: Metadata = {
 
 export default function VisionPage() {
   return (
-    <div>
+    <div className="bg-[#0a1419]">
       {/* Hero Section - Vision Statement */}
-      <section className="bg-gradient-to-br from-[#003366] via-[#004080] to-[#003366] text-white py-24 md:py-32 relative overflow-hidden">
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMtOS45NDEgMC0xOCA4LjA1OS0xOCAxOHM4LjA1OSAxOCAxOCAxOCAxOC04LjA1OSAxOC0xOC04LjA1OS0xOC0xOC0xOHptMCAzMmMtNy43MzIgMC0xNC02LjI2OC0xNC0xNHM2LjI2OC0xNCAxNC0xNCAxNCA2LjI2OCAxNCAxNC02LjI2OCAxNC0xNCAxNHoiIGZpbGw9IiNmZmYiLz48L2c+PC9zdmc+')]" />
-        </div>
+      <section className="relative py-24 md:py-32 overflow-hidden">
+        {/* Background Glow Effects */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-forest-400/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-forest-500/10 rounded-full blur-3xl" />
 
-        <div className="container mx-auto px-6 relative">
+        <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-2 mb-8">
-              <Target className="h-5 w-5" />
-              <span className="text-sm font-medium">Our Vision</span>
+            <div className="inline-flex items-center gap-2 bg-forest-400/10 border border-forest-400/30 rounded-full px-4 py-2 mb-8">
+              <Target className="h-5 w-5 text-forest-400" />
+              <span className="text-sm font-medium text-forest-400">Our Vision</span>
             </div>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-8">
-              "{visionStatement}"
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-white mb-8">
+              &quot;{visionStatement}&quot;
             </h1>
-            <div className="w-24 h-1 bg-[#b5985b] mx-auto rounded-full" />
+            <div className="w-24 h-1 bg-gradient-to-r from-forest-400 to-forest-500 mx-auto rounded-full" />
           </div>
         </div>
       </section>
 
-      {/* Mission Statement */}
-      <section className="py-16 md:py-20">
+      {/* Mission Statement - Dark Theme */}
+      <section className="py-16 md:py-20 bg-[#0c1a24]">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <div className="flex flex-col md:flex-row gap-8 items-start">
-              <div className="w-16 h-16 bg-[#C8102E] rounded-2xl flex items-center justify-center flex-shrink-0">
-                <Compass className="h-8 w-8 text-white" />
+              <div className="w-16 h-16 bg-forest-400/20 border border-forest-400/30 rounded-2xl flex items-center justify-center flex-shrink-0">
+                <Compass className="h-8 w-8 text-forest-400" />
               </div>
               <div>
-                <h2 className="text-2xl md:text-3xl font-bold text-[#003366] mb-4">
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
                   Our Mission
                 </h2>
-                <p className="text-gray-600 text-lg leading-relaxed">
+                <p className="text-white/70 text-lg leading-relaxed">
                   {missionStatement}
                 </p>
               </div>
@@ -62,35 +103,70 @@ export default function VisionPage() {
         </div>
       </section>
 
-      {/* Core Values / Purpose */}
-      <section className="py-16 bg-[#f8fafc]">
+      {/* Meet Our Staff Section */}
+      <section className="py-16 md:py-20 bg-[#0a1419]">
         <div className="container mx-auto px-6">
-          <SectionHeader
-            title="Our Core Values"
-            subtitle="The foundational principles that guide our teaching and community."
-          />
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 bg-forest-400/10 border border-forest-400/30 rounded-full px-4 py-2 mb-6">
+              <Users className="h-5 w-5 text-forest-400" />
+              <span className="text-sm font-medium text-forest-400">Our Team</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Meet Our Staff
+            </h2>
+            <p className="text-white/60 max-w-2xl mx-auto">
+              Dedicated servants leading the School of Members with passion and excellence.
+            </p>
+          </div>
+          <StaffGrid staff={staffMembers} />
+        </div>
+      </section>
+
+      {/* Core Values / Purpose - Dark Theme */}
+      <section className="py-16 bg-[#0c1a24]">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Our Core Values
+            </h2>
+            <p className="text-white/60 max-w-2xl mx-auto">
+              The foundational principles that guide our teaching and community.
+            </p>
+          </div>
           <PurposeGrid />
         </div>
       </section>
 
-      {/* 12 Chapter Journey */}
-      <section className="py-16 md:py-20">
+      {/* 12 Chapter Journey - Dark Theme */}
+      <section className="py-16 md:py-20 bg-[#0a1419]">
         <div className="container mx-auto px-6">
-          <SectionHeader
-            title="The 12-Chapter Journey"
-            subtitle="Your path to spiritual maturity through our comprehensive curriculum."
-          />
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              The 12-Chapter Journey
+            </h2>
+            <p className="text-white/60 max-w-2xl mx-auto">
+              Your path to spiritual maturity through our comprehensive curriculum.
+            </p>
+          </div>
           <ChapterJourney />
         </div>
       </section>
 
-      {/* What You'll Learn */}
-      <section className="py-16 bg-[#f8fafc]">
+      {/* What You'll Learn - Dark Theme */}
+      <section className="py-16 bg-[#0c1a24]">
         <div className="container mx-auto px-6">
-          <SectionHeader
-            title="What You'll Learn"
-            subtitle="A comprehensive foundation for your spiritual growth."
-          />
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 bg-forest-400/10 border border-forest-400/30 rounded-full px-4 py-2 mb-6">
+              <GraduationCap className="h-5 w-5 text-forest-400" />
+              <span className="text-sm font-medium text-forest-400">Curriculum</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              What You&apos;ll Learn
+            </h2>
+            <p className="text-white/60 max-w-2xl mx-auto">
+              A comprehensive foundation for your spiritual growth.
+            </p>
+          </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {[
               {
@@ -120,39 +196,39 @@ export default function VisionPage() {
             ].map((item, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl p-6 shadow-md border border-gray-100"
+                className="dark-card group"
               >
-                <div className="w-10 h-10 bg-[#003366]/10 rounded-lg flex items-center justify-center mb-4">
-                  <span className="text-[#003366] font-bold">{index + 1}</span>
+                <div className="w-12 h-12 bg-forest-400/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-forest-400/30 transition-colors">
+                  <span className="text-forest-400 font-bold text-lg">{index + 1}</span>
                 </div>
-                <h3 className="font-bold text-gray-900 mb-2">{item.title}</h3>
-                <p className="text-gray-600 text-sm">{item.description}</p>
+                <h3 className="font-bold text-white mb-2">{item.title}</h3>
+                <p className="text-white/60 text-sm">{item.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-r from-[#b5985b] to-[#a08548] text-white">
+      {/* CTA Section - Fluorescent */}
+      <section className="cta-forest">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Start Your Transformation Today
           </h2>
-          <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
+          <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
             Join hundreds of members who have completed the School of Members program.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/student/register"
-              className="bg-white text-[#b5985b] px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center justify-center"
+              className="btn-forest-white"
             >
               Register Now
-              <ArrowRight className="h-5 w-5 ml-2" />
+              <ArrowRight className="h-5 w-5" />
             </Link>
             <Link
               href="/faq"
-              className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-[#b5985b] transition-colors inline-flex items-center justify-center"
+              className="btn-forest-secondary border-white/30 hover:bg-white/10"
             >
               View FAQ
             </Link>

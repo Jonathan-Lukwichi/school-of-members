@@ -1,12 +1,14 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, BookOpen } from 'lucide-react'
+import Image from 'next/image'
+import { ArrowRight, BookOpen, Crown, Star } from 'lucide-react'
 import {
   SectionHeader,
   FounderCard,
   Timeline,
   PurposeGrid,
   AudienceCards,
+  LeaderGallery,
 } from '@/components/public'
 import {
   seoContent,
@@ -16,6 +18,25 @@ import {
 import { founders } from '@/data/founders'
 import { timeline } from '@/data/timeline'
 
+// Patriarch images
+const patriarchImages = [
+  '/images/hero/patriach.jpg',
+  '/images/hero/patriach (2).jpg',
+  '/images/hero/patriach (3).jpg',
+  '/images/hero/patriach (4).jpg',
+  '/images/hero/patriach (5).jpg',
+  '/images/hero/patriach (6).jpg',
+]
+
+// Apostle Narcisse images
+const apostleNarcisseImages = [
+  '/images/hero/ap narcisse.jpg',
+  '/images/hero/ap narcisse (2).jpg',
+  '/images/hero/ap narcisse (3).jpg',
+  '/images/hero/ap narcisse (4).jpg',
+  '/images/hero/ap naricisse.jpg',
+]
+
 export const metadata: Metadata = {
   title: seoContent.story.title,
   description: seoContent.story.description,
@@ -23,34 +44,38 @@ export const metadata: Metadata = {
 
 export default function StoryPage() {
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[#003366] to-[#004080] text-white py-20 md:py-28">
-        <div className="container mx-auto px-6">
+    <div className="bg-[#0a1419]">
+      {/* Hero Section - Dark Theme */}
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        {/* Background Glow Effects */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-forest-400/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-forest-500/10 rounded-full blur-3xl" />
+
+        <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-2 mb-6">
-              <BookOpen className="h-5 w-5" />
-              <span className="text-sm font-medium">Our Story</span>
+            <div className="inline-flex items-center gap-2 bg-forest-400/10 border border-forest-400/30 rounded-full px-4 py-2 mb-6">
+              <BookOpen className="h-5 w-5 text-forest-400" />
+              <span className="text-sm font-medium text-forest-400">Our Story</span>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              About the School of Members
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+              About the <span className="text-forest-400">School of Members</span>
             </h1>
-            <p className="text-xl text-white/80 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-xl text-white/70 leading-relaxed max-w-2xl mx-auto">
               Discover the vision, history, and heart behind our spiritual training program.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Welcome Message */}
-      <section className="py-16 md:py-20">
+      {/* Welcome Message - Dark Card */}
+      <section className="py-16 md:py-20 bg-[#0c1a24]">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-br from-[#003366]/5 to-[#b5985b]/5 rounded-2xl p-8 md:p-12 border border-[#003366]/10">
-              <h2 className="text-3xl font-bold text-[#003366] mb-6">
+            <div className="dark-card-story">
+              <h2 className="text-3xl font-bold text-white mb-6">
                 {welcomeMessage.title}
               </h2>
-              <div className="text-gray-600 leading-relaxed space-y-4">
+              <div className="text-white/70 leading-relaxed space-y-4">
                 {welcomeMessage.content.split('\n\n').map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>
                 ))}
@@ -60,15 +85,40 @@ export default function StoryPage() {
         </div>
       </section>
 
+      {/* Our Spiritual Father - Patriarch Gallery */}
+      <section className="py-16 md:py-20 bg-[#0a1419]">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 rounded-full px-4 py-2 mb-6">
+              <Crown className="h-5 w-5 text-amber-400" />
+              <span className="text-sm font-medium text-amber-400">Spiritual Leadership</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Our Spiritual Father
+            </h2>
+            <p className="text-white/60 max-w-2xl mx-auto">
+              Under the covering and direction of our beloved Patriarch
+            </p>
+          </div>
+
+          <div className="max-w-md mx-auto">
+            <LeaderGallery
+              images={patriarchImages}
+              name="Patriarch"
+              title="Spiritual Father"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* What is School of Members */}
-      <section className="py-16 bg-[#f8fafc]">
+      <section className="py-16 bg-[#0c1a24]">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
-              title={whatIsSchool.title}
-              centered={false}
-            />
-            <div className="text-gray-600 leading-relaxed space-y-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
+              {whatIsSchool.title}
+            </h2>
+            <div className="text-white/70 leading-relaxed space-y-4">
               {whatIsSchool.content.split('\n\n').map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
               ))}
@@ -77,70 +127,89 @@ export default function StoryPage() {
         </div>
       </section>
 
-      {/* Our Purpose */}
-      <section className="py-16 md:py-20">
+      {/* Apostle Narcisse Gallery */}
+      <section className="py-16 md:py-20 bg-[#0a1419]">
         <div className="container mx-auto px-6">
-          <SectionHeader
-            title="Our Purpose"
-            subtitle="The School of Members exists to accomplish these six goals in your spiritual journey."
-          />
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 bg-forest-400/10 border border-forest-400/30 rounded-full px-4 py-2 mb-6">
+              <Star className="h-5 w-5 text-forest-400" />
+              <span className="text-sm font-medium text-forest-400">Our Leader</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Apostle Narcisse Majila
+            </h2>
+            <p className="text-white/60 max-w-2xl mx-auto">
+              Lead Pastor of Ramah Full Gospel Church Pretoria, a powerful instrument used by God for deliverance, restoration, and healing.
+            </p>
+          </div>
+
+          <div className="max-w-md mx-auto">
+            <LeaderGallery
+              images={apostleNarcisseImages}
+              name="Apostle Narcisse Majila"
+              title="Lead Pastor"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Our Purpose - Dark Theme */}
+      <section className="py-16 md:py-20 bg-[#0c1a24]">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Our Purpose
+            </h2>
+            <p className="text-white/60 max-w-2xl mx-auto">
+              The School of Members exists to accomplish these six goals in your spiritual journey.
+            </p>
+          </div>
           <PurposeGrid />
         </div>
       </section>
 
-      {/* Who Should Join */}
-      <section className="py-16 bg-[#f8fafc]">
+      {/* Who Should Join - Dark Theme */}
+      <section className="py-16 bg-[#0a1419]">
         <div className="container mx-auto px-6">
-          <SectionHeader
-            title="Who Should Join?"
-            subtitle="The School of Members is designed for everyone seeking to grow in their faith."
-          />
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Who Should Join?
+            </h2>
+            <p className="text-white/60 max-w-2xl mx-auto">
+              The School of Members is designed for everyone seeking to grow in their faith.
+            </p>
+          </div>
           <AudienceCards />
-          <div className="mt-8 text-center">
-            <blockquote className="text-lg italic text-gray-600 max-w-2xl mx-auto">
+          <div className="mt-12 text-center">
+            <blockquote className="text-lg italic text-white/70 max-w-2xl mx-auto">
               "Not neglecting to meet together, as is the habit of some, but encouraging one another, and all the more as you see the Day drawing near."
             </blockquote>
-            <p className="mt-2 text-[#003366] font-semibold">— Hebrews 10:25</p>
+            <p className="mt-3 text-forest-400 font-semibold">— Hebrews 10:25</p>
           </div>
         </div>
       </section>
 
-      {/* Founders Section */}
-      <section className="py-16 md:py-20">
+      {/* Church History Timeline - Dark Theme */}
+      <section className="py-16 bg-[#0c1a24]">
         <div className="container mx-auto px-6">
-          <SectionHeader
-            title="Our Founders"
-            subtitle="Meet the spiritual leaders behind the Ramah movement."
-          />
-          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {founders.map((founder, index) => (
-              <FounderCard
-                key={founder.id}
-                founder={founder}
-                variant={index === 0 ? 'primary' : 'secondary'}
-              />
-            ))}
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Our Journey
+            </h2>
+            <p className="text-white/60 max-w-2xl mx-auto">
+              A timeline of God&apos;s faithfulness through the years.
+            </p>
           </div>
-        </div>
-      </section>
-
-      {/* Church History Timeline */}
-      <section className="py-16 bg-[#f8fafc]">
-        <div className="container mx-auto px-6">
-          <SectionHeader
-            title="Our Journey"
-            subtitle="A timeline of God's faithfulness through the years."
-          />
           <div className="max-w-4xl mx-auto">
             <Timeline events={timeline} />
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-[#003366] to-[#004080] text-white">
+      {/* CTA Section - Fluorescent */}
+      <section className="cta-forest">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Ready to Begin Your Journey?
           </h2>
           <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
@@ -149,14 +218,14 @@ export default function StoryPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/student/register"
-              className="btn-up-secondary inline-flex items-center justify-center"
+              className="btn-forest-white"
             >
               Register Now
-              <ArrowRight className="h-5 w-5 ml-2" />
+              <ArrowRight className="h-5 w-5" />
             </Link>
             <Link
               href="/vision"
-              className="btn-up-outline border-white text-white hover:bg-white hover:text-[#003366] inline-flex items-center justify-center"
+              className="btn-forest-secondary border-white/30 hover:bg-white/10"
             >
               View Our Vision
             </Link>
