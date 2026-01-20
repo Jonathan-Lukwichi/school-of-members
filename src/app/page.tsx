@@ -113,7 +113,7 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-[#0d1a0d]">
+    <div className="min-h-screen bg-[#0a1419]">
       <PublicHeader />
 
       <main>
@@ -189,12 +189,12 @@ export default function Home() {
                       className="object-cover"
                       priority
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0d1a0d] via-transparent to-transparent opacity-60" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a1419] via-transparent to-transparent opacity-60" />
                     <div className="absolute inset-0 bg-forest-400/10" />
                   </div>
 
                   {/* Floating Badge */}
-                  <div className="absolute -bottom-4 -left-4 bg-[#132814] border border-forest-400/30 rounded-xl p-4 shadow-2xl">
+                  <div className="absolute -bottom-4 -left-4 bg-[#0f2133] border border-forest-400/30 rounded-xl p-4 shadow-2xl">
                     <div className="flex items-center gap-3">
                       <div className="w-12 h-12 rounded-full bg-forest-400/20 flex items-center justify-center">
                         <GraduationCap className="h-6 w-6 text-forest-400" />
@@ -212,7 +212,7 @@ export default function Home() {
         </section>
 
         {/* Benefits Section */}
-        <section className="py-20 bg-[#0f2010]">
+        <section className="py-20 bg-[#0c1a24]">
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
@@ -245,7 +245,7 @@ export default function Home() {
         </section>
 
         {/* Path/Journey Section */}
-        <section className="py-20 bg-[#0d1a0d]">
+        <section className="py-20 bg-[#0a1419]">
           <div className="container mx-auto px-6">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               {/* Image Column */}
@@ -259,7 +259,7 @@ export default function Home() {
                       fill
                       className="object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#0d1a0d]/80 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0a1419]/80 to-transparent" />
                     <div className="absolute inset-0 bg-forest-400/10" />
                   </div>
                 </div>
@@ -296,7 +296,7 @@ export default function Home() {
         </section>
 
         {/* Three Pillars Section */}
-        <section className="py-20 bg-[#0f2010]">
+        <section className="py-20 bg-[#0c1a24]">
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
@@ -369,7 +369,7 @@ export default function Home() {
         </section>
 
         {/* Testimonials Section */}
-        <section className="py-20 bg-[#0d1a0d]">
+        <section className="py-20 bg-[#0a1419]">
           <div className="container mx-auto px-6">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">

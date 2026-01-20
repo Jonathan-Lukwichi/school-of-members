@@ -38,7 +38,7 @@ export function PublicHeader() {
   return (
     <header className="header-forest sticky top-0 z-50">
       {/* Main Header */}
-      <div className="bg-[#0d1a0d]/95 backdrop-blur-md border-b border-forest-400/20">
+      <div className="bg-[#0a1419]/95 backdrop-blur-md border-b border-forest-400/20">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between py-3 sm:py-4">
             {/* Logo Section */}
@@ -98,7 +98,7 @@ export function PublicHeader() {
                     ? "opacity-100 visible translate-y-0"
                     : "opacity-0 invisible -translate-y-2"
                 )}>
-                  <div className="bg-[#132814] rounded-xl shadow-2xl border border-forest-400/20 py-3 w-64 overflow-hidden">
+                  <div className="bg-[#0f2133] rounded-xl shadow-2xl border border-forest-400/20 py-3 w-64 overflow-hidden">
                     {/* Header */}
                     <p className="px-4 pb-2 text-xs font-semibold text-white/50 uppercase tracking-wider">
                       Sign in as
@@ -162,7 +162,7 @@ export function PublicHeader() {
       {/* Mobile Menu */}
       <div
         className={cn(
-          'lg:hidden bg-[#0f2010] border-t border-forest-400/20 overflow-hidden transition-all duration-300',
+          'lg:hidden bg-[#0c1a24] border-t border-forest-400/20 overflow-hidden transition-all duration-300',
           mobileMenuOpen ? 'max-h-[500px]' : 'max-h-0'
         )}
       >

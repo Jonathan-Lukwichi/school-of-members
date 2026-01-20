@@ -93,14 +93,14 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) 
           {/* Arrows */}
           <button
             onClick={goToPrevious}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-6 w-12 h-12 bg-[#132814] border border-forest-400/30 rounded-full shadow-lg flex items-center justify-center text-forest-400 hover:bg-forest-400 hover:text-white transition-colors"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-6 w-12 h-12 bg-[#0f2133] border border-forest-400/30 rounded-full shadow-lg flex items-center justify-center text-forest-400 hover:bg-forest-400 hover:text-white transition-colors"
             aria-label="Previous testimonial"
           >
             <ChevronLeft className="h-6 w-6" />
           </button>
           <button
             onClick={goToNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-6 w-12 h-12 bg-[#132814] border border-forest-400/30 rounded-full shadow-lg flex items-center justify-center text-forest-400 hover:bg-forest-400 hover:text-white transition-colors"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-6 w-12 h-12 bg-[#0f2133] border border-forest-400/30 rounded-full shadow-lg flex items-center justify-center text-forest-400 hover:bg-forest-400 hover:text-white transition-colors"
             aria-label="Next testimonial"
           >
             <ChevronRight className="h-6 w-6" />

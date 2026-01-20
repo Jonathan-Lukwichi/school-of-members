@@ -9,16 +9,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Dark Forest Green Theme
+        // Dark Forest Blue Fluorescent Theme
         'forest': {
-          DEFAULT: '#22c55e',
-          50: '#0d1a0d',       // Background primary (darkest)
-          100: '#0f2010',      // Background secondary
-          200: '#132814',      // Cards background
-          300: '#16a34a',      // Tertiary accent
-          400: '#22c55e',      // Primary accent
-          500: '#4ade80',      // Secondary accent (lighter)
-          600: '#86efac',      // Highlight
+          DEFAULT: '#0ea5e9',
+          50: '#0a1419',       // Background primary (darkest)
+          100: '#0c1a24',      // Background secondary
+          200: '#0f2133',      // Cards background
+          300: '#0284c7',      // Tertiary accent
+          400: '#0ea5e9',      // Primary accent (fluorescent blue)
+          500: '#38bdf8',      // Secondary accent (lighter)
+          600: '#7dd3fc',      // Highlight
         },
         // Legacy church colors (keeping for compatibility)
         'church-blue': {
