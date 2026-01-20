@@ -216,9 +216,6 @@ export default function Home() {
                 <p className="text-lg mb-2 opacity-90">{slide.subtitle}</p>
                 <h1 className="hero-slide-title">{slide.title}</h1>
                 <p className="hero-slide-subtitle">{slide.description}</p>
-                <Link href="/student/register" className="btn-up-primary">
-                  {heroContent.cta} <ArrowRight className="h-4 w-4 ml-2" />
-                </Link>
               </div>
             </div>
           ))}
