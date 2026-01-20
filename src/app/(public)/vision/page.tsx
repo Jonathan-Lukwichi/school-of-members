@@ -1,13 +1,12 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, Compass, Users, GraduationCap } from 'lucide-react'
+import { ArrowRight, Compass, GraduationCap } from 'lucide-react'
 import {
-  SectionHeader,
   ChapterJourney,
   PurposeGrid,
-  StaffGrid,
   ImageGallery,
-  type StaffMember,
+  StaffShowcase,
+  type StaffShowcaseMember,
 } from '@/components/public'
 import {
   seoContent,
@@ -25,42 +24,42 @@ const visionGalleryImages = [
   '/images/hero/staff (6).jpg',
 ]
 
-// Staff members data
-const staffMembers: StaffMember[] = [
+// Staff members data with enhanced descriptions
+const staffMembers: StaffShowcaseMember[] = [
   {
     name: 'Mr Tresor',
     role: 'Head of Department',
-    comment: 'Leading the School of Members with dedication and spiritual guidance.',
+    description: 'Leading the School of Members with dedication and spiritual guidance. Mr Tresor oversees the curriculum development and ensures every student receives quality biblical education that transforms lives.',
     image: '/images/hero/staff.jpg',
   },
   {
     name: 'Mr Nick',
     role: 'Vice President',
-    comment: 'Supporting the vision and ensuring excellence in our training program.',
+    description: 'Supporting the vision and ensuring excellence in our training program. Mr Nick brings strategic leadership and a heart for discipleship to help students reach their full potential in Christ.',
     image: '/images/hero/staff (2).jpg',
   },
   {
     name: 'Ms Eliana',
     role: 'Secretary',
-    comment: 'Coordinating operations and keeping the department running smoothly.',
+    description: 'Coordinating operations and keeping the department running smoothly. Ms Eliana ensures every administrative detail is handled with excellence, creating a seamless learning experience for all students.',
     image: '/images/hero/staff (3).jpg',
   },
   {
     name: 'Mr Jonathan',
     role: 'Teacher',
-    comment: 'Passionate about biblical education and mentoring future leaders.',
+    description: 'Passionate about biblical education and mentoring future leaders. Mr Jonathan brings years of ministry experience to help students understand and apply God\'s Word in their daily lives.',
     image: '/images/hero/staff (4).jpg',
   },
   {
     name: 'Mr Nico',
     role: 'Teacher',
-    comment: 'Committed to helping students grow in their spiritual journey.',
+    description: 'Committed to helping students grow in their spiritual journey. Mr Nico creates engaging lessons that connect scripture to real-life situations, making learning both practical and profound.',
     image: '/images/hero/staff (5).jpg',
   },
   {
     name: 'Ms Polelo',
     role: 'Teacher',
-    comment: 'Dedicated to nurturing faith and building strong foundations.',
+    description: 'Dedicated to nurturing faith and building strong foundations. Ms Polelo brings warmth and wisdom to every lesson, helping students develop a deep and personal relationship with God.',
     image: '/images/hero/staff (6).jpg',
   },
 ]
@@ -104,24 +103,8 @@ export default function VisionPage() {
         </div>
       </section>
 
-      {/* Meet Our Staff Section */}
-      <section className="py-16 md:py-20 bg-[#0a1419]">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-forest-400/10 border border-forest-400/30 rounded-full px-4 py-2 mb-6">
-              <Users className="h-5 w-5 text-forest-400" />
-              <span className="text-sm font-medium text-forest-400">Our Team</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Meet Our Staff
-            </h2>
-            <p className="text-white/60 max-w-2xl mx-auto">
-              Dedicated servants leading the School of Members with passion and excellence.
-            </p>
-          </div>
-          <StaffGrid staff={staffMembers} />
-        </div>
-      </section>
+      {/* Meet Our Staff - Panoramic Showcase */}
+      <StaffShowcase staff={staffMembers} autoPlay={true} interval={6000} />
 
       {/* Core Values / Purpose - Dark Theme */}
       <section className="py-16 bg-[#0c1a24]">

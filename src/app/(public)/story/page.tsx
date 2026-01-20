@@ -1,22 +1,19 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import Image from 'next/image'
-import { ArrowRight, BookOpen, Crown, Star } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import {
-  SectionHeader,
-  FounderCard,
   Timeline,
   PurposeGrid,
   AudienceCards,
-  LeaderGallery,
   ImageGallery,
+  LeaderShowcase,
+  type Leader,
 } from '@/components/public'
 import {
   seoContent,
   welcomeMessage,
   whatIsSchool,
 } from '@/data/content'
-import { founders } from '@/data/founders'
 import { timeline } from '@/data/timeline'
 
 // Hero gallery images (patriarch + apostle narcisse)
@@ -48,6 +45,28 @@ const apostleNarcisseImages = [
   '/images/hero/ap narcisse (3).jpg',
   '/images/hero/ap narcisse (4).jpg',
   '/images/hero/ap naricisse.jpg',
+]
+
+// Leaders data for panoramic showcase
+const leaders: Leader[] = [
+  {
+    name: 'Bishop Jonas Majila',
+    title: 'Patriarch',
+    role: 'Spiritual Father',
+    description: 'Under the covering and spiritual direction of our beloved Patriarch, the ministry continues to grow and flourish. His wisdom and guidance have been instrumental in shaping the vision of the School of Members and nurturing countless believers in their faith journey.',
+    images: patriarchImages,
+    badgeIcon: 'crown',
+    color: 'amber',
+  },
+  {
+    name: 'Apostle Narcisse Majila',
+    title: 'Lead Pastor',
+    role: 'Our Leader',
+    description: 'Lead Pastor of Ramah Full Gospel Church Pretoria, a powerful instrument used by God for deliverance, restoration, and healing. Under his leadership, the School of Members was established to build strong foundations in every believer and equip them for kingdom service.',
+    images: apostleNarcisseImages,
+    badgeIcon: 'star',
+    color: 'forest',
+  },
 ]
 
 export const metadata: Metadata = {
@@ -86,31 +105,8 @@ export default function StoryPage() {
         </div>
       </section>
 
-      {/* Our Spiritual Father - Patriarch Gallery */}
-      <section className="py-16 md:py-20 bg-[#0a1419]">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 rounded-full px-4 py-2 mb-6">
-              <Crown className="h-5 w-5 text-amber-400" />
-              <span className="text-sm font-medium text-amber-400">Spiritual Leadership</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Our Spiritual Father
-            </h2>
-            <p className="text-white/60 max-w-2xl mx-auto">
-              Under the covering and direction of our beloved Patriarch
-            </p>
-          </div>
-
-          <div className="max-w-md mx-auto">
-            <LeaderGallery
-              images={patriarchImages}
-              name="Patriarch"
-              title="Spiritual Father"
-            />
-          </div>
-        </div>
-      </section>
+      {/* Our Spiritual Leaders - Panoramic Showcase */}
+      <LeaderShowcase leaders={leaders} autoPlay={true} interval={8000} />
 
       {/* What is School of Members */}
       <section className="py-16 bg-[#0c1a24]">
@@ -124,32 +120,6 @@ export default function StoryPage() {
                 <p key={index}>{paragraph}</p>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Apostle Narcisse Gallery */}
-      <section className="py-16 md:py-20 bg-[#0a1419]">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-forest-400/10 border border-forest-400/30 rounded-full px-4 py-2 mb-6">
-              <Star className="h-5 w-5 text-forest-400" />
-              <span className="text-sm font-medium text-forest-400">Our Leader</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Apostle Narcisse Majila
-            </h2>
-            <p className="text-white/60 max-w-2xl mx-auto">
-              Lead Pastor of Ramah Full Gospel Church Pretoria, a powerful instrument used by God for deliverance, restoration, and healing.
-            </p>
-          </div>
-
-          <div className="max-w-md mx-auto">
-            <LeaderGallery
-              images={apostleNarcisseImages}
-              name="Apostle Narcisse Majila"
-              title="Lead Pastor"
-            />
           </div>
         </div>
       </section>
