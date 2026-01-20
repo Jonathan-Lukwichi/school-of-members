@@ -55,9 +55,21 @@ export async function updateSession(request: NextRequest) {
   // Redirect authenticated users away from auth pages
   if (user && isAuthPage) {
     const url = request.nextUrl.clone()
-    // Get user role from metadata or profile
-    const role = user.user_metadata?.role || 'student'
-    url.pathname = role === 'admin' ? '/admin' : '/student'
+    // Get user role from metadata first, then check profiles table
+    let role = user.user_metadata?.role
+
+    if (!role) {
+      // Query profiles table for role
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single()
+
+      role = profile?.role || 'student'
+    }
+
+    url.pathname = role === 'admin' ? '/admin' : (role === 'teacher' ? '/teacher' : '/student')
     return NextResponse.redirect(url)
   }
 
