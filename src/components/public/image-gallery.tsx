@@ -26,11 +26,6 @@ export function ImageGallery({
   overlay = true,
 }: ImageGalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [isLoaded, setIsLoaded] = useState(false)
-
-  useEffect(() => {
-    setIsLoaded(true)
-  }, [])
 
   useEffect(() => {
     if (!autoPlay || images.length <= 1) return
@@ -70,23 +65,23 @@ export function ImageGallery({
 
       {/* Gradient Overlay */}
       {overlay && (
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a1419]/30 via-transparent to-[#0a1419]/80 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/30 via-transparent to-slate-950/90 z-10" />
       )}
 
-      {/* Blue Glow Effect */}
-      <div className="absolute inset-0 bg-forest-400/5 z-10" />
+      {/* Brand Glow Effect */}
+      <div className="absolute inset-0 bg-brand-500/5 z-10 mix-blend-overlay" />
 
       {/* Content Overlay */}
       {(title || subtitle) && (
         <div className="gallery-overlay z-20">
           <div className="text-center px-6">
             {title && (
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-white mb-4 drop-shadow-lg">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-slate-50 mb-4 drop-shadow-xl tracking-tight">
                 {title}
               </h2>
             )}
             {subtitle && (
-              <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto">
+              <p className="text-lg md:text-xl text-slate-200/90 max-w-2xl mx-auto font-light leading-relaxed">
                 {subtitle}
               </p>
             )}
@@ -102,8 +97,10 @@ export function ImageGallery({
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={cn(
-                'gallery-dot',
-                index === currentIndex && 'active'
+                'gallery-dot h-2 w-2 rounded-full transition-all duration-300',
+                index === currentIndex 
+                  ? 'bg-brand-500 w-8' 
+                  : 'bg-white/40 hover:bg-white/60'
               )}
               aria-label={`Go to image ${index + 1}`}
             />
@@ -127,40 +124,42 @@ export function LeaderGallery({ images, name, title }: LeaderGalleryProps) {
   if (images.length === 0) return null
 
   return (
-    <div className="leader-gallery">
+    <div className="relative max-w-lg mx-auto">
       {/* Main Image */}
-      <div className="leader-image-container">
+      <div className="relative aspect-[3/4] rounded-2xl overflow-hidden border border-slate-700 shadow-2xl shadow-black/50">
         <Image
           src={images[currentIndex]}
           alt={name}
           fill
           className="object-cover"
         />
-        <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
-          <p className="text-forest-400 text-sm font-semibold uppercase tracking-wider">
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 p-8 z-10">
+          <p className="text-brand-500 text-sm font-bold uppercase tracking-widest mb-2">
             {title}
           </p>
-          <h3 className="text-2xl font-bold text-white">{name}</h3>
+          <h3 className="text-3xl font-heading font-bold text-white tracking-tight">{name}</h3>
         </div>
       </div>
 
       {/* Thumbnails */}
       {images.length > 1 && (
-        <div className="leader-thumbnails">
+        <div className="flex gap-3 justify-center mt-6">
           {images.map((image, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={cn(
-                'leader-thumbnail',
-                index === currentIndex && 'active'
+                'relative w-16 h-16 rounded-lg overflow-hidden border-2 transition-all duration-300',
+                index === currentIndex 
+                  ? 'border-brand-500 opacity-100 ring-2 ring-brand-500/30' 
+                  : 'border-transparent opacity-50 hover:opacity-80'
               )}
             >
               <Image
                 src={image}
                 alt={`${name} ${index + 1}`}
-                width={60}
-                height={60}
+                fill
                 className="object-cover"
               />
             </button>

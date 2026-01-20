@@ -8,7 +8,6 @@ import {
   BookOpen,
   Users,
   Award,
-  Clock,
   ArrowRight,
   CheckCircle,
   Heart,
@@ -21,9 +20,12 @@ import { ImageGallery } from '@/components/public/image-gallery'
 import { PublicFooter } from '@/components/layout/public-footer'
 import {
   statistics,
-  featureCards,
 } from '@/data/content'
 import { createClient } from '@/lib/supabase/client'
+import { Section } from '@/components/ui/section'
+import { Container } from '@/components/ui/container'
+import { Button } from '@/components/ui/button'
+import { Heading, Text } from '@/components/ui/typography'
 
 // Benefits data
 const benefits = [
@@ -142,7 +144,7 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-[#0a1419]">
+    <div className="min-h-screen bg-slate-950 text-slate-50 selection:bg-brand-500/30 selection:text-brand-400">
       <PublicHeader />
 
       <main>
@@ -153,193 +155,202 @@ export default function Home() {
           subtitle="Moments of worship, teaching, and fellowship that transform lives"
           autoPlay={true}
           interval={4000}
-          height="70vh"
+          height="80vh"
         />
 
         {/* Benefits Section */}
-        <section className="py-20 bg-[#0c1a24]">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
+        <Section variant="muted">
+          <Container>
+            <div className="text-center mb-16 max-w-3xl mx-auto">
+              <Heading size="h2" className="mb-6">
                 Benefits from this Program
-              </h2>
-              <p className="text-white/60 max-w-2xl mx-auto text-lg">
+              </Heading>
+              <Text size="lg" className="text-slate-400">
                 Everything you need to build a strong foundation in your faith journey
-              </p>
+              </Text>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {benefits.map((benefit) => {
                 const Icon = benefit.icon
                 return (
-                  <div key={benefit.id} className="benefit-card">
-                    <div className="benefit-icon mb-4">
-                      <Icon className="h-6 w-6" />
+                  <div key={benefit.id} className="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-brand-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-brand-500/5 group">
+                    <div className="w-12 h-12 rounded-lg bg-brand-500/10 flex items-center justify-center mb-6 group-hover:bg-brand-500/20 transition-colors">
+                      <Icon className="h-6 w-6 text-brand-500" />
                     </div>
-                    <h3 className="text-lg font-semibold text-white mb-2">
+                    <Heading as="h3" size="h4" className="mb-3 text-slate-100">
                       {benefit.title}
-                    </h3>
-                    <p className="text-white/50 text-sm leading-relaxed">
+                    </Heading>
+                    <Text className="text-sm">
                       {benefit.description}
-                    </p>
+                    </Text>
                   </div>
                 )
               })}
             </div>
-          </div>
-        </section>
+          </Container>
+        </Section>
 
         {/* Path/Journey Section */}
-        <section className="py-20 bg-[#0a1419]">
-          <div className="container mx-auto px-6">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <Section>
+          <Container>
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
               {/* Image Column */}
               <div className="relative order-2 lg:order-1">
-                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
-                  <div className="absolute -inset-4 bg-forest-400/10 rounded-3xl blur-2xl" />
-                  <div className="relative h-full w-full rounded-2xl overflow-hidden border border-forest-400/20">
-                    <Image
-                      src="/images/hero/teaching moment.jpg"
-                      alt="Spiritual Journey"
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#0a1419]/80 to-transparent" />
-                    <div className="absolute inset-0 bg-forest-400/10" />
-                  </div>
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-slate-800">
+                  <Image
+                    src="/images/hero/teaching moment.jpg"
+                    alt="Spiritual Journey"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-brand-500/10 to-transparent mix-blend-overlay" />
                 </div>
+                {/* Decorative Elements */}
+                <div className="absolute -z-10 -bottom-6 -left-6 w-24 h-24 bg-brand-500/10 rounded-full blur-2xl" />
+                <div className="absolute -z-10 -top-6 -right-6 w-32 h-32 bg-slate-700/10 rounded-full blur-2xl" />
               </div>
 
               {/* Content Column */}
-              <div className="order-1 lg:order-2 space-y-6">
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-white">
-                  Your Path to Spiritual Growth Starts Here
-                </h2>
-                <p className="text-white/60 text-lg leading-relaxed">
-                  The School of Members provides a structured program to understand the foundations
-                  of our community under the direction of Apostle Narcisse Majila. Join us on this
-                  transformative journey.
-                </p>
+              <div className="order-1 lg:order-2 space-y-8">
+                <div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-500 text-xs font-bold uppercase tracking-wider mb-6">
+                    Start Your Journey
+                  </div>
+                  <Heading size="h2" className="mb-6">
+                    Your Path to Spiritual Growth Starts Here
+                  </Heading>
+                  <Text size="lg">
+                    The School of Members provides a structured program to understand the foundations
+                    of our community under the direction of Apostle Narcisse Majila. Join us on this
+                    transformative journey.
+                  </Text>
+                </div>
 
                 {/* Feature List */}
                 <ul className="space-y-4">
                   {journeyFeatures.map((feature, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <CheckCircle className="h-5 w-5 text-forest-400 mt-0.5 flex-shrink-0" />
-                      <span className="text-white/70">{feature}</span>
+                    <li key={index} className="flex items-start gap-4 group">
+                      <CheckCircle className="h-6 w-6 text-brand-500 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                      <Text className="text-slate-300 group-hover:text-slate-200 transition-colors">{feature}</Text>
                     </li>
                   ))}
                 </ul>
 
-                <Link href="/student/register" className="btn-forest-primary inline-flex mt-4">
-                  Start Your Journey
-                  <ArrowRight className="h-5 w-5" />
+                <Link href="/student/register">
+                  <Button size="lg" className="mt-4">
+                    Start Your Journey
+                    <ArrowRight className="h-4 w-4 ml-2" />
+                  </Button>
                 </Link>
               </div>
             </div>
-          </div>
-        </section>
+          </Container>
+        </Section>
 
         {/* Three Pillars Section */}
-        <section className="py-20 bg-[#0c1a24]">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
+        <Section variant="highlight">
+          <Container>
+            <div className="text-center mb-16 max-w-3xl mx-auto">
+              <Heading size="h2" className="mb-6">
                 Our Foundational Pillars
-              </h2>
-              <p className="text-white/60 max-w-2xl mx-auto text-lg">
+              </Heading>
+              <Text size="lg">
                 Three core principles guide every aspect of our spiritual training program
-              </p>
+              </Text>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
               {/* Grow */}
-              <div className="dark-card text-center">
-                <div className="w-20 h-20 rounded-full bg-forest-400/20 flex items-center justify-center mx-auto mb-6">
-                  <Heart className="h-10 w-10 text-forest-400" />
+              <div className="bg-slate-900 border border-slate-800 rounded-xl p-8 text-center hover:border-brand-500/30 transition-all duration-300">
+                <div className="w-20 h-20 rounded-full bg-brand-500/10 flex items-center justify-center mx-auto mb-6 ring-1 ring-brand-500/20">
+                  <Heart className="h-10 w-10 text-brand-500" />
                 </div>
-                <h3 className="text-xl font-bold text-forest-400 mb-3 uppercase tracking-wide">
+                <Heading as="h3" size="h4" className="mb-4 text-brand-500 uppercase tracking-widest">
                   Grow
-                </h3>
-                <p className="text-white/50 leading-relaxed">
+                </Heading>
+                <Text>
                   Develop your faith through teachings and the daily practice of the Word of God.
-                </p>
+                </Text>
               </div>
 
               {/* Serve */}
-              <div className="dark-card text-center">
-                <div className="w-20 h-20 rounded-full bg-forest-500/20 flex items-center justify-center mx-auto mb-6">
-                  <HandHelping className="h-10 w-10 text-forest-500" />
+              <div className="bg-slate-900 border border-slate-800 rounded-xl p-8 text-center hover:border-brand-500/30 transition-all duration-300">
+                <div className="w-20 h-20 rounded-full bg-slate-800 flex items-center justify-center mx-auto mb-6 ring-1 ring-slate-700">
+                  <HandHelping className="h-10 w-10 text-slate-400" />
                 </div>
-                <h3 className="text-xl font-bold text-forest-500 mb-3 uppercase tracking-wide">
+                <Heading as="h3" size="h4" className="mb-4 text-slate-300 uppercase tracking-widest">
                   Serve
-                </h3>
-                <p className="text-white/50 leading-relaxed">
+                </Heading>
+                <Text>
                   Put your talents to work in service to the community and to God with dedication.
-                </p>
+                </Text>
               </div>
 
               {/* Belong */}
-              <div className="dark-card text-center">
-                <div className="w-20 h-20 rounded-full bg-forest-600/20 flex items-center justify-center mx-auto mb-6">
-                  <UsersRound className="h-10 w-10 text-forest-600" />
+              <div className="bg-slate-900 border border-slate-800 rounded-xl p-8 text-center hover:border-brand-500/30 transition-all duration-300">
+                <div className="w-20 h-20 rounded-full bg-slate-800 flex items-center justify-center mx-auto mb-6 ring-1 ring-slate-700">
+                  <UsersRound className="h-10 w-10 text-slate-400" />
                 </div>
-                <h3 className="text-xl font-bold text-forest-600 mb-3 uppercase tracking-wide">
+                <Heading as="h3" size="h4" className="mb-4 text-slate-300 uppercase tracking-widest">
                   Belong
-                </h3>
-                <p className="text-white/50 leading-relaxed">
+                </Heading>
+                <Text>
                   Fully integrate into the spiritual family and build strong bonds with the community.
-                </p>
+                </Text>
               </div>
             </div>
-          </div>
-        </section>
+          </Container>
+        </Section>
 
         {/* Statistics Bar */}
-        <section className="py-12 bg-gradient-to-r from-forest-300 via-forest-400 to-forest-500">
-          <div className="container mx-auto px-6">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <section className="py-16 bg-brand-600 relative overflow-hidden">
+          <div className="absolute inset-0 bg-brand-500 mix-blend-multiply opacity-50" />
+          <div className="absolute inset-0 bg-[url('/images/pattern.png')] opacity-10" />
+          
+          <Container className="relative z-10">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-brand-800/20">
               {statistics.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-white mb-1">
+                <div key={index} className="text-center px-4">
+                  <div className="text-4xl md:text-5xl font-heading font-bold text-slate-950 mb-2">
                     {stat.value}
                   </div>
-                  <div className="text-white/80 text-sm uppercase tracking-wide">
+                  <div className="text-slate-900 font-medium text-sm uppercase tracking-widest">
                     {stat.label}
                   </div>
                 </div>
               ))}
             </div>
-          </div>
+          </Container>
         </section>
 
         {/* Graduation Showcase Section */}
-        <section className="py-20 bg-[#0a1419]">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 bg-forest-400/10 border border-forest-400/30 rounded-full px-4 py-2 mb-6">
-                <GraduationCap className="h-5 w-5 text-forest-400" />
-                <span className="text-forest-400 text-sm font-medium">Success Stories</span>
+        <Section>
+          <Container>
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900 border border-slate-800 mb-6">
+                <GraduationCap className="h-5 w-5 text-brand-500" />
+                <span className="text-sm font-medium text-slate-300">Success Stories</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
+              <Heading size="h2" className="mb-6">
                 Celebrating Our Graduates
-              </h2>
-              <p className="text-white/60 max-w-2xl mx-auto">
+              </Heading>
+              <Text size="lg" className="max-w-2xl mx-auto">
                 Witness the joy of completion as our members receive their certificates of achievement.
-              </p>
+              </Text>
             </div>
 
             {/* Graduation Grid */}
-            <div className="graduation-grid">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
               {graduationPhotos.slice(0, 8).map((photo, index) => (
-                <div key={index} className="graduation-item group">
+                <div key={index} className="relative aspect-[4/3] rounded-lg overflow-hidden group cursor-pointer border border-slate-800/50 hover:border-brand-500/50 transition-all duration-300">
                   <Image
                     src={photo}
                     alt={`Graduation moment ${index + 1}`}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a1419]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
                   <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                     <p className="text-white text-sm font-medium">Graduation Ceremony</p>
                   </div>
@@ -348,53 +359,57 @@ export default function Home() {
             </div>
 
             {/* View More Link */}
-            <div className="text-center mt-10">
-              <Link
-                href="/story"
-                className="inline-flex items-center gap-2 text-forest-400 hover:text-forest-500 transition-colors font-medium"
-              >
-                View More Moments
-                <ArrowRight className="h-4 w-4" />
+            <div className="text-center mt-12">
+              <Link href="/story">
+                <Button variant="outline">
+                  View More Moments
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                </Button>
               </Link>
             </div>
-          </div>
-        </section>
+          </Container>
+        </Section>
 
         {/* Testimonials Section */}
-        <section className="py-20 bg-[#0c1a24]">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
+        <Section variant="muted">
+          <Container>
+            <div className="text-center mb-16">
+              <Heading size="h2" className="mb-6">
                 What Our Members Say
-              </h2>
-              <p className="text-white/60 max-w-2xl mx-auto">
+              </Heading>
+              <Text size="lg" className="max-w-2xl mx-auto">
                 Hear from those who have completed the School of Members program.
-              </p>
+              </Text>
             </div>
             <TestimonialCarousel testimonials={testimonials} />
-          </div>
-        </section>
+          </Container>
+        </Section>
 
         {/* CTA Section */}
-        <section className="cta-forest">
-          <div className="container mx-auto px-6 text-center">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-6">
+        <section className="py-24 bg-gradient-to-br from-brand-600 to-brand-700 relative overflow-hidden">
+           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white/20 to-transparent" />
+          <Container className="relative z-10 text-center">
+            <Heading size="h2" className="mb-8 text-slate-950">
               Ready to Start Your Spiritual Journey?
-            </h2>
-            <p className="text-white/80 max-w-2xl mx-auto mb-8 text-lg">
+            </Heading>
+            <p className="text-slate-900/80 max-w-2xl mx-auto mb-10 text-xl font-medium">
               Join our learning community and take the first step towards achieving
               your spiritual goals. Registration is quick, easy, and free.
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link href="/student/register" className="btn-forest-white">
-                Register Now
-                <ArrowRight className="h-5 w-5" />
+            <div className="flex flex-wrap justify-center gap-6">
+              <Link href="/student/register">
+                <Button size="lg" className="bg-slate-950 text-white hover:bg-slate-900 border-none shadow-xl">
+                  Register Now
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                </Button>
               </Link>
-              <Link href="/story" className="btn-forest-secondary border-white/30 hover:bg-white/10">
-                Learn More
+              <Link href="/story">
+                <Button size="lg" variant="outline" className="bg-transparent border-slate-950 text-slate-950 hover:bg-slate-950/10 hover:text-slate-950 hover:border-slate-950">
+                  Learn More
+                </Button>
               </Link>
             </div>
-          </div>
+          </Container>
         </section>
       </main>
 

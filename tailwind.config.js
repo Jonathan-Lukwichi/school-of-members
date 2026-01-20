@@ -7,65 +7,40 @@ module.exports = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
       colors: {
-        // Dark Forest Blue Fluorescent Theme
-        'forest': {
-          DEFAULT: '#0ea5e9',
-          50: '#0a1419',       // Background primary (darkest)
-          100: '#0c1a24',      // Background secondary
-          200: '#0f2133',      // Cards background
-          300: '#0284c7',      // Tertiary accent
-          400: '#0ea5e9',      // Primary accent (fluorescent blue)
-          500: '#38bdf8',      // Secondary accent (lighter)
-          600: '#7dd3fc',      // Highlight
-        },
-        // Legacy church colors (keeping for compatibility)
-        'church-blue': {
-          DEFAULT: '#1e3a5f',
-          dark: '#152a45',
-        },
-        'church-red': {
-          DEFAULT: '#c41e3a',
-          dark: '#a01830',
-        },
-        'church-gold': '#d4a853',
-        navy: {
-          DEFAULT: "#003366",
-          50: "#e6eef5",
-          100: "#b3cce0",
-          200: "#80a9cc",
-          300: "#4d87b8",
-          400: "#2670a8",
-          500: "#003366",
-          600: "#002d5c",
-          700: "#002652",
-          800: "#001f47",
-          900: "#00173d",
-        },
-        gold: {
-          DEFAULT: "#b5985b",
-          50: "#faf7f1",
-          100: "#f0e8d4",
-          200: "#e5d8b7",
-          300: "#d5c28f",
-          400: "#c5ad70",
-          500: "#b5985b",
-          600: "#a18550",
-          700: "#8c7145",
-          800: "#775e3a",
-          900: "#624a2f",
-        },
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+        
+        // Institutional Theme Colors
+        brand: {
+          DEFAULT: "#D4AF37", // Metallic Gold
+          50: "#FCF9EE",
+          100: "#F8F3DC",
+          200: "#EFE0B9",
+          300: "#E6CD96",
+          400: "#DDB973",
+          500: "#D4AF37",
+          600: "#AA8C2C",
+          700: "#7F6921",
+          800: "#554616",
+          900: "#2A230B",
         },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+        slate: {
+          850: "#151E32", // Custom surface color
+          950: "#0B1120", // Custom deep background
         },
+        
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -73,6 +48,10 @@ module.exports = {
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
@@ -82,29 +61,13 @@ module.exports = {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
         },
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        chart: {
-          1: "hsl(var(--chart-1))",
-          2: "hsl(var(--chart-2))",
-          3: "hsl(var(--chart-3))",
-          4: "hsl(var(--chart-4))",
-          5: "hsl(var(--chart-5))",
-        },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
       },
       borderRadius: {
@@ -113,10 +76,8 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
-        mono: ["var(--font-geist-mono)", "monospace"],
-        heading: ["var(--font-plus-jakarta)", "Plus Jakarta Sans", "sans-serif"],
-        body: ["var(--font-body)", "DM Sans", "sans-serif"],
+        sans: ["var(--font-body)", "sans-serif"], // Default to DM Sans for readability
+        heading: ["var(--font-plus-jakarta)", "sans-serif"], // Headings
       },
       keyframes: {
         "accordion-down": {
@@ -134,5 +95,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 };

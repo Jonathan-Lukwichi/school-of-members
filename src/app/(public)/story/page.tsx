@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, BookOpen } from 'lucide-react'
 import {
   Timeline,
   PurposeGrid,
@@ -15,6 +15,10 @@ import {
   whatIsSchool,
 } from '@/data/content'
 import { timeline } from '@/data/timeline'
+import { Section } from '@/components/ui/section'
+import { Container } from '@/components/ui/container'
+import { Heading, Text } from '@/components/ui/typography'
+import { Button } from '@/components/ui/button'
 
 // Hero gallery images (patriarch + apostle narcisse)
 const heroGalleryImages = [
@@ -76,7 +80,7 @@ export const metadata: Metadata = {
 
 export default function StoryPage() {
   return (
-    <div className="bg-[#0a1419]">
+    <div className="bg-slate-950 min-h-screen">
       {/* Panoramic Gallery Hero */}
       <ImageGallery
         images={heroGalleryImages}
@@ -87,122 +91,123 @@ export default function StoryPage() {
         height="70vh"
       />
 
-      {/* Welcome Message - Dark Card */}
-      <section className="py-16 md:py-20 bg-[#0c1a24]">
-        <div className="container mx-auto px-6">
+      {/* Welcome Message */}
+      <Section variant="muted">
+        <Container>
           <div className="max-w-4xl mx-auto">
-            <div className="dark-card-story">
-              <h2 className="text-3xl font-bold text-white mb-6">
+            <div className="bg-gradient-to-br from-slate-900 to-slate-800 border border-slate-700 rounded-2xl p-8 md:p-12 relative overflow-hidden shadow-2xl">
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-500 via-brand-300 to-brand-500" />
+              <Heading size="h2" className="mb-6 text-white">
                 {welcomeMessage.title}
-              </h2>
-              <div className="text-white/70 leading-relaxed space-y-4">
+              </Heading>
+              <Text className="space-y-4 text-slate-300">
                 {welcomeMessage.content.split('\n\n').map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>
                 ))}
-              </div>
+              </Text>
             </div>
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
       {/* Our Spiritual Leaders - Panoramic Showcase */}
+      {/* Note: LeaderShowcase needs to be compatible with new styles or it might look odd. Assuming it is self-contained. */}
       <LeaderShowcase leaders={leaders} autoPlay={true} interval={8000} />
 
       {/* What is School of Members */}
-      <section className="py-16 bg-[#0c1a24]">
-        <div className="container mx-auto px-6">
+      <Section variant="default">
+        <Container>
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
+            <Heading size="h2" className="mb-6">
               {whatIsSchool.title}
-            </h2>
-            <div className="text-white/70 leading-relaxed space-y-4">
+            </Heading>
+            <Text className="space-y-4">
               {whatIsSchool.content.split('\n\n').map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
               ))}
-            </div>
+            </Text>
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
-      {/* Our Purpose - Dark Theme */}
-      <section className="py-16 md:py-20 bg-[#0c1a24]">
-        <div className="container mx-auto px-6">
+      {/* Our Purpose */}
+      <Section variant="highlight">
+        <Container>
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <Heading size="h2" className="mb-4">
               Our Purpose
-            </h2>
-            <p className="text-white/60 max-w-2xl mx-auto">
+            </Heading>
+            <Text className="max-w-2xl mx-auto">
               The School of Members exists to accomplish these six goals in your spiritual journey.
-            </p>
+            </Text>
           </div>
           <PurposeGrid />
-        </div>
-      </section>
+        </Container>
+      </Section>
 
-      {/* Who Should Join - Dark Theme */}
-      <section className="py-16 bg-[#0a1419]">
-        <div className="container mx-auto px-6">
+      {/* Who Should Join */}
+      <Section>
+        <Container>
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <Heading size="h2" className="mb-4">
               Who Should Join?
-            </h2>
-            <p className="text-white/60 max-w-2xl mx-auto">
+            </Heading>
+            <Text className="max-w-2xl mx-auto">
               The School of Members is designed for everyone seeking to grow in their faith.
-            </p>
+            </Text>
           </div>
           <AudienceCards />
-          <div className="mt-12 text-center">
-            <blockquote className="text-lg italic text-white/70 max-w-2xl mx-auto">
+          <div className="mt-16 text-center">
+            <blockquote className="text-xl italic text-slate-300 max-w-3xl mx-auto font-light leading-relaxed border-l-4 border-brand-500 pl-6 py-2">
               "Not neglecting to meet together, as is the habit of some, but encouraging one another, and all the more as you see the Day drawing near."
             </blockquote>
-            <p className="mt-3 text-forest-400 font-semibold">— Hebrews 10:25</p>
+            <p className="mt-4 text-brand-500 font-bold uppercase tracking-widest text-sm">— Hebrews 10:25</p>
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
-      {/* Church History Timeline - Dark Theme */}
-      <section className="py-16 bg-[#0c1a24]">
-        <div className="container mx-auto px-6">
+      {/* Church History Timeline */}
+      <Section variant="muted">
+        <Container>
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <Heading size="h2" className="mb-4">
               Our Journey
-            </h2>
-            <p className="text-white/60 max-w-2xl mx-auto">
+            </Heading>
+            <Text className="max-w-2xl mx-auto">
               A timeline of God&apos;s faithfulness through the years.
-            </p>
+            </Text>
           </div>
           <div className="max-w-4xl mx-auto">
             <Timeline events={timeline} />
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
-      {/* CTA Section - Fluorescent */}
-      <section className="cta-forest">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+      {/* CTA Section */}
+      <Section className="bg-brand-600 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-700 to-brand-500 opacity-90" />
+        <Container className="relative z-10 text-center">
+          <Heading size="h2" className="mb-6 text-slate-950">
             Ready to Begin Your Journey?
-          </h2>
-          <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
+          </Heading>
+          <p className="text-slate-900/80 text-lg mb-8 max-w-2xl mx-auto font-medium">
             Join our community of faithful members and start your spiritual growth today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/student/register"
-              className="btn-forest-white"
-            >
-              Register Now
-              <ArrowRight className="h-5 w-5" />
+            <Link href="/student/register">
+              <Button size="lg" className="bg-slate-950 text-white hover:bg-slate-900 border-none">
+                Register Now
+                <ArrowRight className="h-5 w-5 ml-2" />
+              </Button>
             </Link>
-            <Link
-              href="/vision"
-              className="btn-forest-secondary border-white/30 hover:bg-white/10"
-            >
-              View Our Vision
+            <Link href="/vision">
+              <Button size="lg" variant="outline" className="bg-transparent border-slate-900 text-slate-900 hover:bg-slate-900/10">
+                View Our Vision
+              </Button>
             </Link>
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
     </div>
   )
 }

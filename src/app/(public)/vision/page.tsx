@@ -12,6 +12,10 @@ import {
   visionStatement,
   missionStatement,
 } from '@/data/content'
+import { Section } from '@/components/ui/section'
+import { Container } from '@/components/ui/container'
+import { Heading, Text } from '@/components/ui/typography'
+import { Button } from '@/components/ui/button'
 
 // Hero gallery images (staff photos)
 const visionGalleryImages = [
@@ -70,72 +74,72 @@ export const metadata: Metadata = {
 
 export default function VisionPage() {
   return (
-    <div className="bg-[#0a1419]">
+    <div className="bg-slate-950 min-h-screen">
       {/* Panoramic Gallery Hero */}
       <ImageGallery
         images={visionGalleryImages}
         title="Our Vision & Mission"
-        subtitle={`"${visionStatement}"`}
+        subtitle={`"${visionStatement}""}`}
         autoPlay={true}
         interval={5000}
         height="70vh"
       />
 
-      {/* Mission Statement - Dark Theme */}
-      <section className="py-16 md:py-20 bg-[#0c1a24]">
-        <div className="container mx-auto px-6">
+      {/* Mission Statement */}
+      <Section variant="highlight">
+        <Container>
           <div className="max-w-4xl mx-auto">
             <div className="flex flex-col md:flex-row gap-8 items-start">
-              <div className="w-16 h-16 bg-forest-400/20 border border-forest-400/30 rounded-2xl flex items-center justify-center flex-shrink-0">
-                <Compass className="h-8 w-8 text-forest-400" />
+              <div className="w-20 h-20 bg-brand-500/10 border border-brand-500/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+                <Compass className="h-10 w-10 text-brand-500" />
               </div>
               <div>
-                <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                <Heading size="h2" className="mb-4">
                   Our Mission
-                </h2>
-                <p className="text-white/70 text-lg leading-relaxed">
+                </Heading>
+                <Text size="lg" className="text-slate-300">
                   {missionStatement}
-                </p>
+                </Text>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
       {/* Meet Our Staff - Panoramic Showcase */}
       <StaffShowcase staff={staffMembers} autoPlay={true} interval={6000} />
 
-      {/* Core Values / Purpose - Dark Theme */}
-      <section className="py-16 bg-[#0c1a24]">
-        <div className="container mx-auto px-6">
+      {/* Core Values / Purpose */}
+      <Section variant="default">
+        <Container>
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <Heading size="h2" className="mb-4">
               Our Core Values
-            </h2>
-            <p className="text-white/60 max-w-2xl mx-auto">
+            </Heading>
+            <Text className="max-w-2xl mx-auto">
               The foundational principles that guide our teaching and community.
-            </p>
+            </Text>
           </div>
           <PurposeGrid />
-        </div>
-      </section>
+        </Container>
+      </Section>
 
-      {/* What You'll Learn - Dark Theme */}
-      <section className="py-16 bg-[#0c1a24]">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-forest-400/10 border border-forest-400/30 rounded-full px-4 py-2 mb-6">
-              <GraduationCap className="h-5 w-5 text-forest-400" />
-              <span className="text-sm font-medium text-forest-400">Curriculum</span>
+      {/* What You'll Learn */}
+      <Section variant="muted">
+        <Container>
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/20 rounded-full px-4 py-2 mb-6">
+              <GraduationCap className="h-5 w-5 text-brand-500" />
+              <span className="text-sm font-medium text-brand-500 uppercase tracking-wide">Curriculum</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <Heading size="h2" className="mb-4">
               What You&apos;ll Learn
-            </h2>
-            <p className="text-white/60 max-w-2xl mx-auto">
+            </Heading>
+            <Text className="max-w-2xl mx-auto">
               A comprehensive foundation for your spiritual growth.
-            </p>
+            </Text>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {[
               {
                 title: 'Biblical Foundations',
@@ -164,45 +168,44 @@ export default function VisionPage() {
             ].map((item, index) => (
               <div
                 key={index}
-                className="dark-card group"
+                className="bg-slate-900 border border-slate-800 rounded-xl p-8 hover:border-brand-500/30 transition-all duration-300 group hover:-translate-y-1 hover:shadow-xl"
               >
-                <div className="w-12 h-12 bg-forest-400/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-forest-400/30 transition-colors">
-                  <span className="text-forest-400 font-bold text-lg">{index + 1}</span>
+                <div className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center mb-6 group-hover:bg-brand-500/20 transition-colors">
+                  <span className="text-brand-500 font-bold text-lg font-heading">{index + 1}</span>
                 </div>
-                <h3 className="font-bold text-white mb-2">{item.title}</h3>
-                <p className="text-white/60 text-sm">{item.description}</p>
+                <h3 className="font-heading font-bold text-slate-100 mb-3 text-xl">{item.title}</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">{item.description}</p>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
-      {/* CTA Section - Fluorescent */}
-      <section className="cta-forest">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+      {/* CTA Section */}
+      <Section className="bg-brand-600 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-700 to-brand-500 opacity-90" />
+        <Container className="relative z-10 text-center">
+          <Heading size="h2" className="mb-6 text-slate-950">
             Start Your Transformation Today
-          </h2>
-          <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
+          </Heading>
+          <p className="text-slate-900/80 text-lg mb-8 max-w-2xl mx-auto font-medium">
             Join hundreds of members who have completed the School of Members program.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/student/register"
-              className="btn-forest-white"
-            >
-              Register Now
-              <ArrowRight className="h-5 w-5" />
+            <Link href="/student/register">
+              <Button size="lg" className="bg-slate-950 text-white hover:bg-slate-900 border-none">
+                Register Now
+                <ArrowRight className="h-5 w-5 ml-2" />
+              </Button>
             </Link>
-            <Link
-              href="/faq"
-              className="btn-forest-secondary border-white/30 hover:bg-white/10"
-            >
-              View FAQ
+            <Link href="/faq">
+              <Button size="lg" variant="outline" className="bg-transparent border-slate-900 text-slate-900 hover:bg-slate-900/10">
+                View FAQ
+              </Button>
             </Link>
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
     </div>
   )
 }
