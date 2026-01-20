@@ -1,11 +1,12 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, Target, Compass, Users, GraduationCap } from 'lucide-react'
+import { ArrowRight, Compass, Users, GraduationCap } from 'lucide-react'
 import {
   SectionHeader,
   ChapterJourney,
   PurposeGrid,
   StaffGrid,
+  ImageGallery,
   type StaffMember,
 } from '@/components/public'
 import {
@@ -13,6 +14,16 @@ import {
   visionStatement,
   missionStatement,
 } from '@/data/content'
+
+// Hero gallery images (staff photos)
+const visionGalleryImages = [
+  '/images/hero/staff.jpg',
+  '/images/hero/staff (2).jpg',
+  '/images/hero/staff (3).jpg',
+  '/images/hero/staff (4).jpg',
+  '/images/hero/staff (5).jpg',
+  '/images/hero/staff (6).jpg',
+]
 
 // Staff members data
 const staffMembers: StaffMember[] = [
@@ -62,25 +73,15 @@ export const metadata: Metadata = {
 export default function VisionPage() {
   return (
     <div className="bg-[#0a1419]">
-      {/* Hero Section - Vision Statement */}
-      <section className="relative py-24 md:py-32 overflow-hidden">
-        {/* Background Glow Effects */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-forest-400/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-forest-500/10 rounded-full blur-3xl" />
-
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-forest-400/10 border border-forest-400/30 rounded-full px-4 py-2 mb-8">
-              <Target className="h-5 w-5 text-forest-400" />
-              <span className="text-sm font-medium text-forest-400">Our Vision</span>
-            </div>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-white mb-8">
-              &quot;{visionStatement}&quot;
-            </h1>
-            <div className="w-24 h-1 bg-gradient-to-r from-forest-400 to-forest-500 mx-auto rounded-full" />
-          </div>
-        </div>
-      </section>
+      {/* Panoramic Gallery Hero */}
+      <ImageGallery
+        images={visionGalleryImages}
+        title="Our Vision & Mission"
+        subtitle={`"${visionStatement}"`}
+        autoPlay={true}
+        interval={5000}
+        height="70vh"
+      />
 
       {/* Mission Statement - Dark Theme */}
       <section className="py-16 md:py-20 bg-[#0c1a24]">

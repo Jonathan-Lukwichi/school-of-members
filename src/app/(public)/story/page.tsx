@@ -9,6 +9,7 @@ import {
   PurposeGrid,
   AudienceCards,
   LeaderGallery,
+  ImageGallery,
 } from '@/components/public'
 import {
   seoContent,
@@ -17,6 +18,18 @@ import {
 } from '@/data/content'
 import { founders } from '@/data/founders'
 import { timeline } from '@/data/timeline'
+
+// Hero gallery images (patriarch + apostle narcisse)
+const heroGalleryImages = [
+  '/images/hero/patriach.jpg',
+  '/images/hero/ap narcisse.jpg',
+  '/images/hero/patriach (2).jpg',
+  '/images/hero/ap narcisse (2).jpg',
+  '/images/hero/patriach (3).jpg',
+  '/images/hero/ap narcisse (3).jpg',
+  '/images/hero/patriach (4).jpg',
+  '/images/hero/ap narcisse (4).jpg',
+]
 
 // Patriarch images
 const patriarchImages = [
@@ -45,27 +58,15 @@ export const metadata: Metadata = {
 export default function StoryPage() {
   return (
     <div className="bg-[#0a1419]">
-      {/* Hero Section - Dark Theme */}
-      <section className="relative py-20 md:py-28 overflow-hidden">
-        {/* Background Glow Effects */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-forest-400/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-forest-500/10 rounded-full blur-3xl" />
-
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-forest-400/10 border border-forest-400/30 rounded-full px-4 py-2 mb-6">
-              <BookOpen className="h-5 w-5 text-forest-400" />
-              <span className="text-sm font-medium text-forest-400">Our Story</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              About the <span className="text-forest-400">School of Members</span>
-            </h1>
-            <p className="text-xl text-white/70 leading-relaxed max-w-2xl mx-auto">
-              Discover the vision, history, and heart behind our spiritual training program.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* Panoramic Gallery Hero */}
+      <ImageGallery
+        images={heroGalleryImages}
+        title="About the School of Members"
+        subtitle="Discover the vision, history, and heart behind our spiritual training program"
+        autoPlay={true}
+        interval={5000}
+        height="70vh"
+      />
 
       {/* Welcome Message - Dark Card */}
       <section className="py-16 md:py-20 bg-[#0c1a24]">
