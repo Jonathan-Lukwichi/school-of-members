@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
@@ -15,7 +15,20 @@ const navLinks = [
 
 export function PublicHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [loginDropdownOpen, setLoginDropdownOpen] = useState(false)
+  const loginDropdownRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (loginDropdownRef.current && !loginDropdownRef.current.contains(event.target as Node)) {
+        setLoginDropdownOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/'
@@ -72,14 +85,22 @@ export function PublicHeader() {
             {/* Auth Section - Right (Desktop) */}
             <div className="hidden lg:flex items-center gap-4">
               {/* Login Dropdown */}
-              <div className="relative group">
-                <button className="flex items-center gap-1 text-white/90 hover:text-church-gold font-body font-medium transition-colors py-2">
+              <div className="relative" ref={loginDropdownRef}>
+                <button
+                  onClick={() => setLoginDropdownOpen(!loginDropdownOpen)}
+                  className="flex items-center gap-1 text-white/90 hover:text-church-gold font-body font-medium transition-colors py-2"
+                >
                   Login
-                  <ChevronDown className="h-4 w-4 transition-transform group-hover:rotate-180" />
+                  <ChevronDown className={cn("h-4 w-4 transition-transform", loginDropdownOpen && "rotate-180")} />
                 </button>
 
                 {/* Dropdown Menu */}
-                <div className="absolute right-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform -translate-y-2 group-hover:translate-y-0">
+                <div className={cn(
+                  "absolute right-0 top-full pt-2 transition-all duration-200",
+                  loginDropdownOpen
+                    ? "opacity-100 visible translate-y-0"
+                    : "opacity-0 invisible -translate-y-2"
+                )}>
                   <div className="bg-white rounded-xl shadow-2xl border border-gray-100 py-3 w-64 overflow-hidden">
                     {/* Header */}
                     <p className="px-4 pb-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
@@ -90,6 +111,7 @@ export function PublicHeader() {
                     <Link
                       href="/student/login"
                       className="flex items-center gap-3 px-4 py-3 hover:bg-blue-50 transition-colors"
+                      onClick={() => setLoginDropdownOpen(false)}
                     >
                       <div className="w-10 h-10 rounded-lg bg-church-blue/10 flex items-center justify-center flex-shrink-0">
                         <Book className="h-5 w-5 text-church-blue" />
@@ -104,6 +126,7 @@ export function PublicHeader() {
                     <Link
                       href="/login"
                       className="flex items-center gap-3 px-4 py-3 hover:bg-red-50 transition-colors"
+                      onClick={() => setLoginDropdownOpen(false)}
                     >
                       <div className="w-10 h-10 rounded-lg bg-church-red/10 flex items-center justify-center flex-shrink-0">
                         <Shield className="h-5 w-5 text-church-red" />
