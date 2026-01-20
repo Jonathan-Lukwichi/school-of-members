@@ -36,7 +36,6 @@ const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/story', label: 'Story' },
   { href: '/vision', label: 'Vision' },
-  { href: '/faq', label: 'FAQ' },
 ]
 
 // Hero slides data - Using uploaded church photos
@@ -218,23 +217,31 @@ export default function Home() {
       <header className="header-up">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between py-3 sm:py-4">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-3">
-              <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-[#003366]/20 shadow-md flex-shrink-0">
-                <Image
-                  src="/images/logo-fresco.png"
-                  alt="School of Members Logo"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div>
-                <span className="text-base sm:text-lg md:text-xl font-bold text-[#003366] block leading-tight">
-                  School of Members
-                </span>
-                <span className="hidden sm:block text-xs text-gray-500">Ramah Full Gospel Church Pretoria</span>
-              </div>
-            </Link>
+            {/* Logo and Admin Link */}
+            <div className="flex items-center gap-4 sm:gap-6">
+              <Link href="/" className="flex items-center gap-3">
+                <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-[#003366]/20 shadow-md flex-shrink-0">
+                  <Image
+                    src="/images/logo-fresco.png"
+                    alt="School of Members Logo"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <span className="text-base sm:text-lg md:text-xl font-bold text-[#003366] block leading-tight">
+                    School of Members
+                  </span>
+                  <span className="hidden sm:block text-xs text-gray-500">Ramah Full Gospel Church Pretoria</span>
+                </div>
+              </Link>
+              <Link
+                href="/login"
+                className="hidden sm:block text-sm text-[#64748b] hover:text-[#003366] font-medium transition-colors"
+              >
+                Admin
+              </Link>
+            </div>
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-6">
@@ -260,12 +267,6 @@ export default function Home() {
                   Login
                 </Link>
                 <Link
-                  href="/login"
-                  className="text-[#64748b] font-medium hover:text-[#003366] transition-colors text-sm"
-                >
-                  Admin
-                </Link>
-                <Link
                   href="/student/register"
                   className="btn-up-secondary text-sm px-4 py-2"
                 >
@@ -289,6 +290,14 @@ export default function Home() {
         {mobileMenuOpen && (
           <div className="lg:hidden border-t border-gray-200 bg-white">
             <nav className="container mx-auto px-6 py-4 space-y-4">
+              {/* Admin Link at top */}
+              <Link
+                href="/login"
+                className="block text-[#64748b] font-medium text-sm pb-2 border-b border-gray-100"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Admin
+              </Link>
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -311,13 +320,6 @@ export default function Home() {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Login
-                </Link>
-                <Link
-                  href="/login"
-                  className="block text-[#64748b] font-medium text-sm"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Admin Login
                 </Link>
                 <Link
                   href="/student/register"
@@ -385,7 +387,7 @@ export default function Home() {
               {programmes.map((programme) => {
                 const Icon = programme.icon
                 return (
-                  <Link key={programme.id} href="/student/courses" className="programme-card group">
+                  <div key={programme.id} className="programme-card">
                     <div
                       className="programme-card-image"
                       style={{
@@ -395,13 +397,13 @@ export default function Home() {
                       }}
                     >
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <Icon className="h-16 w-16 text-white/30 group-hover:text-white/50 transition-all duration-300" />
+                        <Icon className="h-16 w-16 text-white/30" />
                       </div>
                     </div>
                     <div className="programme-card-label">
                       {programme.title}
                     </div>
-                  </Link>
+                  </div>
                 )
               })}
             </div>
@@ -567,8 +569,8 @@ export default function Home() {
                       Register Now
                       <ArrowRight className="h-4 w-4 ml-2" />
                     </Link>
-                    <Link href="/faq" className="btn-up-outline">
-                      View FAQ
+                    <Link href="/story" className="btn-up-outline">
+                      Learn More
                     </Link>
                   </div>
                 </div>
