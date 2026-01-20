@@ -49,6 +49,9 @@ export function LoginForm() {
     try {
       const supabase = createClient()
 
+      // Sign out any existing session first to ensure clean login
+      await supabase.auth.signOut()
+
       const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
         email,
         password,

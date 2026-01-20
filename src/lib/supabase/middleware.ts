@@ -52,26 +52,9 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  // Redirect authenticated users away from auth pages
-  if (user && isAuthPage) {
-    const url = request.nextUrl.clone()
-    // Get user role from metadata first, then check profiles table
-    let role = user.user_metadata?.role
-
-    if (!role) {
-      // Query profiles table for role
-      const { data: profile } = await (supabase
-        .from('profiles') as any)
-        .select('role')
-        .eq('id', user.id)
-        .single()
-
-      role = (profile as any)?.role || 'student'
-    }
-
-    url.pathname = role === 'admin' ? '/admin' : (role === 'teacher' ? '/teacher' : '/student')
-    return NextResponse.redirect(url)
-  }
+  // Allow access to auth pages (login/register) even when logged in
+  // The login form will handle signing out and redirecting after new login
+  // This allows users to switch accounts
 
   // Check role-based access
   if (user && isAdminRoute) {
