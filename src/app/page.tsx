@@ -14,7 +14,6 @@ import {
   Heart,
   HandHelping,
   UsersRound,
-  Sparkles,
 } from 'lucide-react'
 import { PublicHeader } from '@/components/layout/public-header'
 import { TestimonialCarousel, type Testimonial } from '@/components/public/testimonial-carousel'
@@ -45,7 +44,7 @@ const benefits = [
     id: 3,
     title: 'Personal Growth',
     description: 'Develop your spiritual gifts and discover your purpose in Gods kingdom.',
-    icon: Sparkles,
+    icon: Award,
   },
   {
     id: 4,
@@ -158,12 +157,6 @@ export default function Home() {
             <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 items-center">
               {/* Left Column - Content (60%) */}
               <div className="lg:col-span-3 space-y-8">
-                {/* Badge */}
-                <div className="badge-forest inline-flex">
-                  <Sparkles className="h-4 w-4 mr-2" />
-                  12 Chapters of Spiritual Growth
-                </div>
-
                 {/* Headline */}
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white leading-tight">
                   Become a Committed Member in{' '}
@@ -185,24 +178,6 @@ export default function Home() {
                     Learn More
                   </Link>
                 </div>
-
-                {/* Stats Row */}
-                <div className="flex flex-wrap items-center gap-6 pt-4">
-                  <div className="stat-forest">
-                    <div className="stat-forest-value">200+</div>
-                    <div className="stat-forest-label">Students Enrolled</div>
-                  </div>
-                  <div className="stat-forest-divider hidden sm:block" />
-                  <div className="stat-forest">
-                    <div className="stat-forest-value">12</div>
-                    <div className="stat-forest-label">Complete Chapters</div>
-                  </div>
-                  <div className="stat-forest-divider hidden sm:block" />
-                  <div className="stat-forest">
-                    <div className="stat-forest-value">95%</div>
-                    <div className="stat-forest-label">Completion Rate</div>
-                  </div>
-                </div>
               </div>
 
               {/* Right Column - Image (40%) */}
@@ -222,19 +197,6 @@ export default function Home() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a1419] via-transparent to-transparent opacity-60" />
                     <div className="absolute inset-0 bg-forest-400/10" />
-                  </div>
-
-                  {/* Floating Badge */}
-                  <div className="absolute -bottom-4 -left-4 bg-[#0f2133] border border-forest-400/30 rounded-xl p-4 shadow-2xl">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-full bg-forest-400/20 flex items-center justify-center">
-                        <GraduationCap className="h-6 w-6 text-forest-400" />
-                      </div>
-                      <div>
-                        <p className="text-white font-semibold">Certificate</p>
-                        <p className="text-white/50 text-sm">Upon Completion</p>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
