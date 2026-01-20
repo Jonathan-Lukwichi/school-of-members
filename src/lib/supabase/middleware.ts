@@ -63,7 +63,20 @@ export async function updateSession(request: NextRequest) {
 
   // Check role-based access
   if (user && isAdminRoute) {
-    const role = user.user_metadata?.role
+    // First check user_metadata, then fallback to profiles table
+    let role = user.user_metadata?.role
+
+    if (!role || role !== 'admin') {
+      // Query profiles table for role
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single()
+
+      role = profile?.role || role
+    }
+
     if (role !== 'admin') {
       const url = request.nextUrl.clone()
       url.pathname = '/student'
