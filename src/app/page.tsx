@@ -20,7 +20,6 @@ import { TestimonialCarousel, type Testimonial } from '@/components/public/testi
 import { ImageGallery } from '@/components/public/image-gallery'
 import { PublicFooter } from '@/components/layout/public-footer'
 import {
-  heroContent,
   statistics,
   featureCards,
 } from '@/data/content'
@@ -147,64 +146,7 @@ export default function Home() {
       <PublicHeader />
 
       <main>
-        {/* Hero Section - Two Column */}
-        <section className="hero-forest relative min-h-[90vh] flex items-center">
-          {/* Background Glow Effects */}
-          <div className="hero-forest-glow hero-forest-glow-1" />
-          <div className="hero-forest-glow hero-forest-glow-2" />
-
-          <div className="container mx-auto px-6 py-16 lg:py-24 relative z-10">
-            <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 items-center">
-              {/* Left Column - Content (60%) */}
-              <div className="lg:col-span-3 space-y-8">
-                {/* Headline */}
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white leading-tight">
-                  Become a Committed Member in{' '}
-                  <span className="text-forest-400">12 Weeks</span> with Certificate
-                </h1>
-
-                {/* Subtitle */}
-                <p className="text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed">
-                  {heroContent.subheadline}
-                </p>
-
-                {/* CTA Button */}
-                <div className="flex flex-wrap gap-4">
-                  <Link href="/student/register" className="btn-forest-primary text-lg">
-                    Begin Your Journey
-                    <ArrowRight className="h-5 w-5" />
-                  </Link>
-                  <Link href="/story" className="btn-forest-secondary text-lg">
-                    Learn More
-                  </Link>
-                </div>
-              </div>
-
-              {/* Right Column - Image (40%) */}
-              <div className="lg:col-span-2 relative">
-                <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
-                  {/* Green Glow Behind Image */}
-                  <div className="absolute -inset-4 bg-forest-400/20 rounded-3xl blur-3xl" />
-
-                  {/* Church Image with Green Overlay */}
-                  <div className="relative h-full w-full rounded-2xl overflow-hidden border-2 border-forest-400/30">
-                    <Image
-                      src="/images/hero/service moments.jpg"
-                      alt="School of Members"
-                      fill
-                      className="object-cover"
-                      priority
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a1419] via-transparent to-transparent opacity-60" />
-                    <div className="absolute inset-0 bg-forest-400/10" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Panoramic Gallery Section */}
+        {/* Panoramic Gallery Section - Main Hero */}
         <ImageGallery
           images={galleryImages}
           title="Experience Our Community"
