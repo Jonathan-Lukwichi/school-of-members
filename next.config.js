@@ -8,6 +8,26 @@ const nextConfig = {
       skipDefaultConversion: true,
     },
   },
+
+  // Force cache revalidation for all pages
+  async headers() {
+    return [
+      {
+        // Apply to all routes
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-store, must-revalidate',
+          },
+          {
+            key: 'Pragma',
+            value: 'no-cache',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
