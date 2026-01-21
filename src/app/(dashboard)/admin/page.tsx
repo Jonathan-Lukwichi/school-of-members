@@ -1,92 +1,69 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Users, BookOpen, GraduationCap, Calendar, TrendingUp, Clock, ArrowUpRight } from 'lucide-react'
+import { PageHeader } from '@/components/dashboard/page-header'
+import { StatsCard } from '@/components/dashboard/stats-card'
+import { Users, BookOpen, GraduationCap, Calendar, TrendingUp, Clock, ArrowUpRight, Shield } from 'lucide-react'
 
 export default function AdminDashboard() {
   return (
     <div className="space-y-8">
-      {/* Header Section */}
-      <div className="relative">
-        <h1 className="text-4xl font-bold text-[#1e293b]">Dashboard</h1>
-        <p className="text-[#64748b] mt-2">
-          Welcome back! Here&apos;s an overview of your platform.
-        </p>
-      </div>
+      {/* Welcome Header Banner */}
+      <PageHeader
+        greeting="Admin Portal"
+        greetingName="Admin"
+        title="Welcome,"
+        subtitle="Here's an overview of your platform. Manage students, courses, and track performance."
+        accent="red"
+        icon={Shield}
+        showBanner={true}
+      />
 
       {/* Stats Grid */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {/* Total Students Card */}
-        <Card className="bg-white border border-[#e2e8f0] shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-[#64748b]">Total Students</CardTitle>
-            <div className="h-10 w-10 rounded-xl bg-[#003366] flex items-center justify-center">
-              <Users className="h-5 w-5 text-white" />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-[#1e293b]">0</div>
-            <div className="flex items-center gap-1 mt-1">
-              <TrendingUp className="h-3 w-3 text-[#22c55e]" />
-              <p className="text-xs text-[#64748b]">Registered students</p>
-            </div>
-          </CardContent>
-        </Card>
+        <StatsCard
+          title="Total Students"
+          value={0}
+          subtitle="Registered students"
+          icon={Users}
+          iconColor="navy"
+          subtitleIcon={TrendingUp}
+          subtitleIconColor="text-[#22c55e]"
+        />
 
-        {/* Active Courses Card */}
-        <Card className="bg-white border border-[#e2e8f0] shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-[#64748b]">Active Courses</CardTitle>
-            <div className="h-10 w-10 rounded-xl bg-[#b5985b] flex items-center justify-center">
-              <BookOpen className="h-5 w-5 text-white" />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-[#1e293b]">0</div>
-            <div className="flex items-center gap-1 mt-1">
-              <BookOpen className="h-3 w-3 text-[#b5985b]" />
-              <p className="text-xs text-[#64748b]">Available courses</p>
-            </div>
-          </CardContent>
-        </Card>
+        <StatsCard
+          title="Active Courses"
+          value={0}
+          subtitle="Available courses"
+          icon={BookOpen}
+          iconColor="gold"
+          subtitleIcon={BookOpen}
+          subtitleIconColor="text-[#b5985b]"
+        />
 
-        {/* Total Enrollments Card */}
-        <Card className="bg-white border border-[#e2e8f0] shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-[#64748b]">Total Enrollments</CardTitle>
-            <div className="h-10 w-10 rounded-xl bg-[#C8102E] flex items-center justify-center">
-              <GraduationCap className="h-5 w-5 text-white" />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-[#1e293b]">0</div>
-            <div className="flex items-center gap-1 mt-1">
-              <ArrowUpRight className="h-3 w-3 text-[#003366]" />
-              <p className="text-xs text-[#64748b]">Active enrollments</p>
-            </div>
-          </CardContent>
-        </Card>
+        <StatsCard
+          title="Total Enrollments"
+          value={0}
+          subtitle="Active enrollments"
+          icon={GraduationCap}
+          iconColor="red"
+          subtitleIcon={ArrowUpRight}
+          subtitleIconColor="text-[#003366]"
+        />
 
-        {/* Attendance Rate Card */}
-        <Card className="bg-white border border-[#e2e8f0] shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-[#64748b]">Attendance Rate</CardTitle>
-            <div className="h-10 w-10 rounded-xl bg-[#003366] flex items-center justify-center">
-              <Calendar className="h-5 w-5 text-white" />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-[#1e293b]">0%</div>
-            <div className="flex items-center gap-1 mt-1">
-              <Clock className="h-3 w-3 text-[#64748b]" />
-              <p className="text-xs text-[#64748b]">This week</p>
-            </div>
-          </CardContent>
-        </Card>
+        <StatsCard
+          title="Attendance Rate"
+          value="0%"
+          subtitle="This week"
+          icon={Calendar}
+          iconColor="navy"
+          subtitleIcon={Clock}
+          subtitleIconColor="text-[#64748b]"
+        />
       </div>
 
       {/* Recent Activity Section */}
       <div className="grid gap-6 md:grid-cols-2">
         {/* Recent Registrations */}
-        <Card className="bg-white border border-[#e2e8f0] shadow-sm overflow-hidden">
+        <Card className="bg-white border border-[#e2e8f0] shadow-sm overflow-hidden relative">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#003366] to-[#b5985b]" />
           <CardHeader>
             <CardTitle className="text-[#1e293b] flex items-center gap-2">
@@ -110,7 +87,7 @@ export default function AdminDashboard() {
         </Card>
 
         {/* Recent Enrollments */}
-        <Card className="bg-white border border-[#e2e8f0] shadow-sm overflow-hidden">
+        <Card className="bg-white border border-[#e2e8f0] shadow-sm overflow-hidden relative">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#b5985b] to-[#C8102E]" />
           <CardHeader>
             <CardTitle className="text-[#1e293b] flex items-center gap-2">
