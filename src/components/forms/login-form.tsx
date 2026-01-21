@@ -73,10 +73,9 @@ export function LoginForm() {
         const role = (profile as any)?.role || authData.user.user_metadata?.role || 'teacher'
 
         // Force full page reload to ensure session is properly established
-        if (role === 'admin') {
+        // Both admin and teacher roles go to admin dashboard
+        if (role === 'admin' || role === 'teacher') {
           window.location.href = '/admin'
-        } else if (role === 'teacher') {
-          window.location.href = '/teacher'
         } else {
           window.location.href = '/student'
         }

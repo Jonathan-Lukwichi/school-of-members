@@ -79,7 +79,8 @@ export async function updateSession(request: NextRequest) {
       role = (profile as any)?.role || role
     }
 
-    if (role !== 'admin') {
+    // Allow both admin and teacher roles to access admin routes
+    if (role !== 'admin' && role !== 'teacher') {
       const url = request.nextUrl.clone()
       url.pathname = '/student'
       return NextResponse.redirect(url)
