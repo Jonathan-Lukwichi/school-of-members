@@ -195,11 +195,13 @@ export default function StudentsPage() {
         throw new Error(data.error || 'Approval failed')
       }
 
-      if (data.whatsappSent) {
-        toast.success(`${studentName} approved! PIN sent via WhatsApp.`)
-      } else {
+      if (data.notificationSent) {
         toast.success(`${studentName} approved!`, {
-          description: data.whatsappError || 'WhatsApp message may not have been sent.',
+          description: `PIN sent via ${data.notificationMethod}`,
+        })
+      } else {
+        toast.warning(`${studentName} approved but notification failed!`, {
+          description: 'Please send the PIN to the student manually.',
         })
       }
 

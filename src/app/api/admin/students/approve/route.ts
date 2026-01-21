@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { generatePin, hashPin } from '@/lib/auth/pin'
 import { sendWhatsAppMessage } from '@/lib/whatsapp/twilio'
+import { sendWelcomeEmail, isResendConfigured } from '@/lib/email/resend'
 
 export async function POST(request: NextRequest) {
   try {
@@ -74,9 +75,9 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Send WhatsApp message with PIN
+    // Send notifications with PIN
     const whatsappNumber = student.whatsapp_number || student.phone
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://schoolofmembers.com'
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://school-of-members.vercel.app'
 
     const message = `🎉 Welcome to School of Members, ${student.full_name}!
 
@@ -90,9 +91,10 @@ Use your phone number and this PIN to access your courses.
 
 God bless you! 🙏`
 
+    // Try WhatsApp first
     const whatsappResult = await sendWhatsAppMessage(whatsappNumber, message)
 
-    // Log the message
+    // Log WhatsApp attempt
     try {
       await (supabaseAdmin
         .from('whatsapp_messages') as any)
@@ -110,11 +112,46 @@ God bless you! 🙏`
       console.warn('Failed to log WhatsApp message:', logError)
     }
 
+    // Send email as fallback OR additional notification
+    let emailSent = false
+    let emailError: string | null = null
+
+    if (student.email && isResendConfigured()) {
+      const emailResult = await sendWelcomeEmail(
+        student.email,
+        student.full_name,
+        pin
+      )
+      emailSent = emailResult.success
+      emailError = emailResult.error || null
+
+      if (!emailResult.success) {
+        console.warn('Email send failed:', emailResult.error)
+      }
+    }
+
+    // Determine overall notification status
+    const notificationSent = whatsappResult.success || emailSent
+    let notificationMethod = ''
+    if (whatsappResult.success && emailSent) {
+      notificationMethod = 'WhatsApp and Email'
+    } else if (whatsappResult.success) {
+      notificationMethod = 'WhatsApp'
+    } else if (emailSent) {
+      notificationMethod = 'Email'
+    } else {
+      notificationMethod = 'None (please provide PIN manually)'
+    }
+
     return NextResponse.json({
       success: true,
-      message: 'Student approved and PIN sent via WhatsApp',
+      message: `Student approved! PIN sent via ${notificationMethod}`,
       whatsappSent: whatsappResult.success,
       whatsappError: whatsappResult.error || null,
+      emailSent,
+      emailError,
+      notificationSent,
+      notificationMethod,
     })
   } catch (error) {
     console.error('Approval error:', error)
