@@ -1,3 +1,5 @@
+'use client'
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { PageHeader } from '@/components/dashboard/page-header'
 import { StatsCard } from '@/components/dashboard/stats-card'
