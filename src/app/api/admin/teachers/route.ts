@@ -93,12 +93,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: authError.message }, { status: 400 })
     }
 
-    // Update the profile to teacher role
+    // Create the profile record with teacher role
     if (authData.user) {
       await (supabaseAdmin
         .from('profiles') as any)
-        .update({ role: 'teacher' })
-        .eq('id', authData.user.id)
+        .upsert({
+          id: authData.user.id,
+          email: email,
+          full_name: fullName,
+          phone: phone || null,
+          role: 'teacher',
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        })
 
       // Create teacher record
       const { data: teacher, error: teacherError } = await (supabaseAdmin

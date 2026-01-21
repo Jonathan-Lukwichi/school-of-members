@@ -76,15 +76,22 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: authError.message }, { status: 400 })
     }
 
-    // The trigger should create the profile, but we'll update it to ensure admin role
+    // Create the profile record with admin role
     if (authData.user) {
-      const { error: updateError } = await (supabaseAdmin
+      const { error: profileError } = await (supabaseAdmin
         .from('profiles') as any)
-        .update({ role: 'admin' })
-        .eq('id', authData.user.id)
+        .upsert({
+          id: authData.user.id,
+          email: email,
+          full_name: fullName,
+          phone: phone || null,
+          role: 'admin',
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        })
 
-      if (updateError) {
-        console.error('Error updating profile role:', updateError)
+      if (profileError) {
+        console.error('Error creating profile:', profileError)
       }
     }
 
