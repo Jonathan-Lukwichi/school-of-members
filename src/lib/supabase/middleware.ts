@@ -43,7 +43,14 @@ export async function updateSession(request: NextRequest) {
                      request.nextUrl.pathname.startsWith('/register')
   const isAdminRoute = request.nextUrl.pathname.startsWith('/admin')
   const isStudentRoute = request.nextUrl.pathname.startsWith('/student')
-  const isProtectedRoute = isAdminRoute || isStudentRoute
+
+  // Public student pages that don't require authentication
+  // Handle both with and without trailing slashes
+  const pathname = request.nextUrl.pathname.replace(/\/$/, '') // Remove trailing slash
+  const isPublicStudentPage = pathname === '/student/register' ||
+                              pathname === '/student/login'
+
+  const isProtectedRoute = isAdminRoute || (isStudentRoute && !isPublicStudentPage)
 
   // Redirect unauthenticated users to login
   if (!user && isProtectedRoute) {
