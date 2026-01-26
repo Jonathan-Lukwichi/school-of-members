@@ -37,6 +37,7 @@ import {
 import { createBrowserClient } from '@/lib/supabase/client'
 import { FileUpload } from '@/components/shared/file-upload'
 import { ModuleCard } from '@/components/shared/module-card'
+import { PDFViewer } from '@/components/shared/pdf-viewer'
 
 interface Module {
   id: string
@@ -71,6 +72,10 @@ export default function CourseModulesPage({ params }: { params: Promise<{ id: st
     language: 'en' as 'en' | 'fr'
   })
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  const [pdfViewerOpen, setPdfViewerOpen] = useState(false)
+  const [currentPdfUrl, setCurrentPdfUrl] = useState<string | null>(null)
+  const [currentPdfTitle, setCurrentPdfTitle] = useState<string>('')
+  const [currentModuleForDownload, setCurrentModuleForDownload] = useState<Module | null>(null)
 
   const supabase = createBrowserClient()
 
@@ -200,6 +205,33 @@ export default function CourseModulesPage({ params }: { params: Promise<{ id: st
       window.open(data.downloadUrl, '_blank')
     } catch (error) {
       toast.error('Failed to download file')
+    }
+  }
+
+  const handlePreview = async (module: Module) => {
+    if (!module.file_url) return
+
+    try {
+      const response = await fetch(`/api/modules/preview/${module.id}`)
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error)
+      }
+
+      // Open in embedded PDF viewer
+      setCurrentPdfUrl(data.previewUrl)
+      setCurrentPdfTitle(module.title)
+      setCurrentModuleForDownload(module)
+      setPdfViewerOpen(true)
+    } catch (error) {
+      toast.error('Failed to preview file')
+    }
+  }
+
+  const handleDownloadFromViewer = async () => {
+    if (currentModuleForDownload) {
+      await handleDownload(currentModuleForDownload)
     }
   }
 
@@ -373,6 +405,7 @@ export default function CourseModulesPage({ params }: { params: Promise<{ id: st
                     <ModuleCard
                       module={module}
                       isAdmin={true}
+                      onPreview={() => handlePreview(module)}
                       onDownload={() => handleDownload(module)}
                       onEdit={() => toast.info('Edit functionality coming soon')}
                       onDelete={() => setDeleteModule(module)}
@@ -413,6 +446,20 @@ export default function CourseModulesPage({ params }: { params: Promise<{ id: st
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* PDF Viewer Modal */}
+      <PDFViewer
+        isOpen={pdfViewerOpen}
+        onClose={() => {
+          setPdfViewerOpen(false)
+          setCurrentPdfUrl(null)
+          setCurrentPdfTitle('')
+          setCurrentModuleForDownload(null)
+        }}
+        pdfUrl={currentPdfUrl}
+        title={currentPdfTitle}
+        onDownload={handleDownloadFromViewer}
+      />
     </div>
   )
 }

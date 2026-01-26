@@ -20,6 +20,7 @@ import {
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
+import { PDFViewer } from '@/components/shared/pdf-viewer'
 
 interface Module {
   id: string
@@ -56,6 +57,10 @@ export default function StudentCourseDetailPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [downloadingId, setDownloadingId] = useState<string | null>(null)
   const [previewingId, setPreviewingId] = useState<string | null>(null)
+  const [pdfViewerOpen, setPdfViewerOpen] = useState(false)
+  const [currentPdfUrl, setCurrentPdfUrl] = useState<string | null>(null)
+  const [currentPdfTitle, setCurrentPdfTitle] = useState<string>('')
+  const [currentModuleForDownload, setCurrentModuleForDownload] = useState<Module | null>(null)
   const supabase = createClient()
 
   useEffect(() => {
@@ -172,12 +177,21 @@ export default function StudentCourseDetailPage() {
         throw new Error(data.error)
       }
 
-      // Open preview URL in new tab
-      window.open(data.previewUrl, '_blank')
+      // Open in embedded PDF viewer
+      setCurrentPdfUrl(data.previewUrl)
+      setCurrentPdfTitle(module.title)
+      setCurrentModuleForDownload(module)
+      setPdfViewerOpen(true)
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'Failed to preview')
     } finally {
       setPreviewingId(null)
+    }
+  }
+
+  const handleDownloadFromViewer = async () => {
+    if (currentModuleForDownload) {
+      await handleDownload(currentModuleForDownload)
     }
   }
 
@@ -360,27 +374,30 @@ export default function StudentCourseDetailPage() {
                       <div className="flex items-center gap-2 flex-shrink-0">
                         {module.file_url && (
                           <>
+                            {/* Read Online Button for PDFs */}
+                            {module.file_name?.toLowerCase().endsWith('.pdf') && (
+                              <Button
+                                size="sm"
+                                onClick={() => handlePreview(module)}
+                                disabled={previewingId === module.id}
+                                className="bg-[#003366] hover:bg-[#002244] text-white"
+                              >
+                                {previewingId === module.id ? (
+                                  <Loader2 className="h-4 w-4 animate-spin" />
+                                ) : (
+                                  <>
+                                    <BookOpen className="h-4 w-4 mr-1" />
+                                    Read
+                                  </>
+                                )}
+                              </Button>
+                            )}
                             <Button
                               variant="outline"
                               size="sm"
-                              onClick={() => handlePreview(module)}
-                              disabled={previewingId === module.id}
-                              className="border-[#003366] text-[#003366] hover:bg-[#003366] hover:text-white"
-                            >
-                              {previewingId === module.id ? (
-                                <Loader2 className="h-4 w-4 animate-spin" />
-                              ) : (
-                                <>
-                                  <Eye className="h-4 w-4 mr-1" />
-                                  Preview
-                                </>
-                              )}
-                            </Button>
-                            <Button
-                              size="sm"
                               onClick={() => handleDownload(module)}
                               disabled={downloadingId === module.id}
-                              className="bg-[#003366] hover:bg-[#002244] text-white"
+                              className="border-[#003366] text-[#003366] hover:bg-[#003366] hover:text-white"
                             >
                               {downloadingId === module.id ? (
                                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -413,6 +430,20 @@ export default function StudentCourseDetailPage() {
           </div>
         )}
       </div>
+
+      {/* PDF Viewer Modal */}
+      <PDFViewer
+        isOpen={pdfViewerOpen}
+        onClose={() => {
+          setPdfViewerOpen(false)
+          setCurrentPdfUrl(null)
+          setCurrentPdfTitle('')
+          setCurrentModuleForDownload(null)
+        }}
+        pdfUrl={currentPdfUrl}
+        title={currentPdfTitle}
+        onDownload={handleDownloadFromViewer}
+      />
     </div>
   )
 }

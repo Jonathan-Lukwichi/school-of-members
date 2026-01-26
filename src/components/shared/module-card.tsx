@@ -15,7 +15,8 @@ import {
   Trash2,
   Edit,
   Loader2,
-  Eye
+  Eye,
+  BookOpen
 } from 'lucide-react'
 import {
   DropdownMenu,
@@ -161,10 +162,30 @@ export function ModuleCard({
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
+            {/* Read Online Button - for PDFs */}
+            {module.file_url && module.file_name?.toLowerCase().endsWith('.pdf') && onPreview && (
+              <Button
+                size="sm"
+                variant="default"
+                onClick={handlePreview}
+                disabled={isPreviewing}
+                className="bg-[#003366] hover:bg-[#002244]"
+              >
+                {isPreviewing ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <>
+                    <BookOpen className="h-4 w-4 mr-1" />
+                    Read
+                  </>
+                )}
+              </Button>
+            )}
+
             {module.file_url && (
               <Button
                 size="sm"
-                variant={isCompleted ? 'outline' : 'default'}
+                variant={isCompleted ? 'outline' : 'secondary'}
                 onClick={handleDownload}
                 disabled={isDownloading}
               >
