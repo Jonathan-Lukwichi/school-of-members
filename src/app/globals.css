@@ -80,6 +80,32 @@
   }
 }
 
+@layer components {
+  .panoramic-gallery {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .panoramic-image {
+    animation: kenBurns 20s ease-in-out infinite alternate;
+  }
+
+  @keyframes kenBurns {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+  }
+
+  .gallery-dots {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+    z-index: 30;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

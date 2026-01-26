@@ -87,16 +87,13 @@ const fallbackTestimonials: Testimonial[] = [
   },
 ]
 
-// Panoramic gallery images (service moments + teaching moments)
-const galleryImages = [
-  '/images/hero/service moments.jpg',
-  '/images/hero/service moments (2).jpg',
-  '/images/hero/service moments (3).jpg',
-  '/images/hero/service moments (4).jpg',
-  '/images/hero/service moments (5).jpg',
-  '/images/hero/service moments3.jpg',
-  '/images/hero/teaching moment.jpg',
-  '/images/hero/teaching moment2.jpg',
+// Hero images - graduation ensemble photos
+const heroImages = [
+  '/images/hero/graduation ensemble(3).jpg',
+  '/images/hero/graduation ensemble(5).jpg',
+  '/images/hero/graduation ensemble(6).jpg',
+  '/images/hero/graduationensemble.jpg',
+  '/images/hero/graduationensemble1.jpg',
 ]
 
 // Graduation photos
@@ -148,14 +145,15 @@ export default function Home() {
       <PublicHeader />
 
       <main>
-        {/* Panoramic Gallery Section - Main Hero */}
+        {/* Hero Section - Graduation Ensemble Photos */}
         <ImageGallery
-          images={galleryImages}
+          images={heroImages}
           title="Experience Our Community"
           subtitle="Moments of worship, teaching, and fellowship that transform lives"
           autoPlay={true}
           interval={4000}
           height="80vh"
+          textPosition="center"
         />
 
         {/* Benefits Section */}

@@ -13,6 +13,7 @@ interface ImageGalleryProps {
   showDots?: boolean
   height?: string
   overlay?: boolean
+  textPosition?: 'top' | 'center' | 'bottom'
 }
 
 export function ImageGallery({
@@ -24,6 +25,7 @@ export function ImageGallery({
   showDots = true,
   height = '60vh',
   overlay = true,
+  textPosition = 'center',
 }: ImageGalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
 
@@ -73,7 +75,12 @@ export function ImageGallery({
 
       {/* Content Overlay */}
       {(title || subtitle) && (
-        <div className="gallery-overlay z-20">
+        <div className={cn(
+          "absolute inset-0 flex justify-center z-20",
+          textPosition === 'top' && "items-start pt-20",
+          textPosition === 'bottom' && "items-end pb-20",
+          textPosition === 'center' && "items-center"
+        )}>
           <div className="text-center px-6">
             {title && (
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-slate-50 mb-4 drop-shadow-xl tracking-tight">
