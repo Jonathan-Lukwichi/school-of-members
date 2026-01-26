@@ -89,11 +89,9 @@ const fallbackTestimonials: Testimonial[] = [
 
 // Hero images - graduation ensemble photos
 const heroImages = [
-  '/images/hero/graduation ensemble(3).jpg',
-  '/images/hero/graduation ensemble(5).jpg',
-  '/images/hero/graduation ensemble(6).jpg',
   '/images/hero/graduationensemble.jpg',
   '/images/hero/graduationensemble1.jpg',
+  '/images/hero/graduationensemble2.jpg',
 ]
 
 // Graduation photos
@@ -103,15 +101,9 @@ const graduationPhotos = [
   '/images/hero/graduation3.jpg',
   '/images/hero/graduation4.jpg',
   '/images/hero/graduation5.jpg',
-  '/images/hero/graduation6.jpg',
   '/images/hero/graduation7.jpg',
-  '/images/hero/graduation8.jpg',
-  '/images/hero/graduation9.jpg',
   '/images/hero/graduation (2).jpg',
-  '/images/hero/graduation (3).jpg',
   '/images/hero/graduation (4).jpg',
-  '/images/hero/graduation (5).jpg',
-  '/images/hero/graduation (6).jpg',
 ]
 
 export default function Home() {
