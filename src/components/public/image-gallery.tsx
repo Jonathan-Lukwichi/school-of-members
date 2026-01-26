@@ -81,14 +81,14 @@ export function ImageGallery({
           textPosition === 'bottom' && "items-end pb-20",
           textPosition === 'center' && "items-center"
         )}>
-          <div className="text-center px-6">
+          <div className="text-center px-6 py-8 mx-4 rounded-2xl bg-slate-950/60 backdrop-blur-sm border border-white/10">
             {title && (
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-slate-50 mb-4 drop-shadow-xl tracking-tight">
+              <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold text-white mb-4 tracking-tight [text-shadow:_2px_2px_8px_rgb(0_0_0_/_80%),_0_0_30px_rgb(0_0_0_/_50%)]">
                 {title}
               </h2>
             )}
             {subtitle && (
-              <p className="text-lg md:text-xl text-slate-200/90 max-w-2xl mx-auto font-light leading-relaxed">
+              <p className="text-lg md:text-xl text-white/95 max-w-2xl mx-auto font-medium leading-relaxed [text-shadow:_1px_1px_4px_rgb(0_0_0_/_70%)]">
                 {subtitle}
               </p>
             )}
