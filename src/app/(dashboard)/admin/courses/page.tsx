@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import {
@@ -40,7 +39,6 @@ import {
   Loader2,
   Eye,
   GraduationCap,
-  Upload,
   ImageIcon,
   X
 } from 'lucide-react'
@@ -311,11 +309,10 @@ export default function CoursesPage() {
       {/* Thumbnail */}
       <div className="relative h-40 bg-gradient-to-br from-[#003366] to-[#001a33] overflow-hidden">
         {course.thumbnail_url ? (
-          <Image
+          <img
             src={course.thumbnail_url}
             alt={course.title}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
