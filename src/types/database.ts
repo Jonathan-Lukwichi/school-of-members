@@ -11,6 +11,7 @@ export type EnrollmentStatus = 'active' | 'completed' | 'dropped' | 'suspended'
 export type AttendanceStatus = 'present' | 'absent' | 'late' | 'excused'
 export type StudentStatus = 'pending' | 'active' | 'inactive'
 export type WhatsAppMessageStatus = 'sent' | 'failed' | 'pending'
+export type Language = 'en' | 'fr'
 
 export interface Database {
   public: {
@@ -89,6 +90,7 @@ export interface Database {
           file_name: string | null
           file_size: number | null
           order_index: number
+          language: Language
           created_at: string
         }
         Insert: {
@@ -100,6 +102,7 @@ export interface Database {
           file_name?: string | null
           file_size?: number | null
           order_index?: number
+          language?: Language
           created_at?: string
         }
         Update: {
@@ -111,6 +114,7 @@ export interface Database {
           file_name?: string | null
           file_size?: number | null
           order_index?: number
+          language?: Language
           created_at?: string
         }
       }

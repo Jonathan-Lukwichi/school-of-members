@@ -14,7 +14,8 @@ import {
   MoreVertical,
   Trash2,
   Edit,
-  Loader2
+  Loader2,
+  Eye
 } from 'lucide-react'
 import {
   DropdownMenu,
@@ -45,6 +46,7 @@ interface ModuleCardProps {
   module: Module
   progress?: ModuleProgress | null
   isAdmin?: boolean
+  onPreview?: () => Promise<void>
   onDownload?: () => Promise<void>
   onEdit?: () => void
   onDelete?: () => void
@@ -56,12 +58,14 @@ export function ModuleCard({
   module,
   progress,
   isAdmin = false,
+  onPreview,
   onDownload,
   onEdit,
   onDelete,
   onMarkComplete,
   className
 }: ModuleCardProps) {
+  const [isPreviewing, setIsPreviewing] = useState(false)
   const [isDownloading, setIsDownloading] = useState(false)
   const [isMarking, setIsMarking] = useState(false)
 
@@ -79,6 +83,16 @@ export function ModuleCard({
       return <FileText className="h-8 w-8 text-red-500" />
     }
     return <FileText className="h-8 w-8 text-gray-500" />
+  }
+
+  const handlePreview = async () => {
+    if (!onPreview) return
+    setIsPreviewing(true)
+    try {
+      await onPreview()
+    } finally {
+      setIsPreviewing(false)
+    }
   }
 
   const handleDownload = async () => {

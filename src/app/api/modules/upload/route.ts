@@ -29,6 +29,7 @@ export async function POST(request: NextRequest) {
     const title = formData.get('title') as string
     const description = formData.get('description') as string | null
     const orderIndex = parseInt(formData.get('orderIndex') as string) || 0
+    const language = (formData.get('language') as string) || 'en'
 
     if (!courseId || !title) {
       return NextResponse.json(
@@ -101,7 +102,8 @@ export async function POST(request: NextRequest) {
         file_url: publicUrl,
         file_name: originalFileName,
         file_size: fileSize,
-        order_index: orderIndex
+        order_index: orderIndex,
+        language
       })
       .select()
       .single()

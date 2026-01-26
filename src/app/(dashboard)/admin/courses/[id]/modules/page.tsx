@@ -26,7 +26,14 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { toast } from 'sonner'
-import { Plus, ArrowLeft, FileText, Upload, Loader2, Trash2, GripVertical } from 'lucide-react'
+import { Plus, ArrowLeft, FileText, Upload, Loader2, Trash2, GripVertical, Globe } from 'lucide-react'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { createBrowserClient } from '@/lib/supabase/client'
 import { FileUpload } from '@/components/shared/file-upload'
 import { ModuleCard } from '@/components/shared/module-card'
@@ -60,7 +67,8 @@ export default function CourseModulesPage({ params }: { params: Promise<{ id: st
   const [isDeleting, setIsDeleting] = useState(false)
   const [newModule, setNewModule] = useState({
     title: '',
-    description: ''
+    description: '',
+    language: 'en' as 'en' | 'fr'
   })
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
@@ -117,6 +125,7 @@ export default function CourseModulesPage({ params }: { params: Promise<{ id: st
       formData.append('title', newModule.title)
       formData.append('description', newModule.description)
       formData.append('orderIndex', String(modules.length))
+      formData.append('language', newModule.language)
 
       if (selectedFile) {
         formData.append('file', selectedFile)
@@ -143,7 +152,7 @@ export default function CourseModulesPage({ params }: { params: Promise<{ id: st
 
       toast.success('Module created successfully!')
       setIsDialogOpen(false)
-      setNewModule({ title: '', description: '' })
+      setNewModule({ title: '', description: '', language: 'en' })
       setSelectedFile(null)
       fetchCourseAndModules()
     } catch (error) {
@@ -262,6 +271,32 @@ export default function CourseModulesPage({ params }: { params: Promise<{ id: st
                   rows={2}
                   disabled={isUploading}
                 />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="moduleLanguage">Language</Label>
+                <Select
+                  value={newModule.language}
+                  onValueChange={(value: 'en' | 'fr') => setNewModule({ ...newModule, language: value })}
+                  disabled={isUploading}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select language" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="en">
+                      <div className="flex items-center gap-2">
+                        <Globe className="h-4 w-4" />
+                        English
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="fr">
+                      <div className="flex items-center gap-2">
+                        <Globe className="h-4 w-4" />
+                        Français
+                      </div>
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <div className="space-y-2">
                 <Label>Upload File (Optional)</Label>
