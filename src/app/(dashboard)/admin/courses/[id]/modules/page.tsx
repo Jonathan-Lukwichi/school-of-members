@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, use } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -56,8 +56,8 @@ interface Course {
   description: string | null
 }
 
-export default function CourseModulesPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id: courseId } = use(params)
+export default function CourseModulesPage({ params }: { params: { id: string } }) {
+  const courseId = params.id
   const [course, setCourse] = useState<Course | null>(null)
   const [modules, setModules] = useState<Module[]>([])
   const [isLoading, setIsLoading] = useState(true)
