@@ -39,14 +39,21 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser()
 
   // Protected routes
-  const isAuthPage = request.nextUrl.pathname.startsWith('/login') ||
-                     request.nextUrl.pathname.startsWith('/register')
-  const isAdminRoute = request.nextUrl.pathname.startsWith('/admin')
-  const isStudentRoute = request.nextUrl.pathname.startsWith('/student')
-
-  // Public student pages that don't require authentication
   // Handle both with and without trailing slashes
   const pathname = request.nextUrl.pathname.replace(/\/$/, '') // Remove trailing slash
+
+  // Auth pages (login/register) - these don't require authentication
+  const isAuthPage = pathname === '/login' ||
+                     pathname === '/register' ||
+                     pathname === '/admin/login' ||
+                     pathname === '/student/login' ||
+                     pathname === '/student/register'
+
+  // Route type detection
+  const isAdminRoute = pathname.startsWith('/admin') && pathname !== '/admin/login'
+  const isStudentRoute = pathname.startsWith('/student')
+
+  // Public student pages that don't require authentication
   const isPublicStudentPage = pathname === '/student/register' ||
                               pathname === '/student/login'
 

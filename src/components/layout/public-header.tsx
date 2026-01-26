@@ -123,7 +123,7 @@ export function PublicHeader() {
 
                     {/* Admin / Teacher Option */}
                     <Link
-                      href="/login"
+                      href="/admin/login"
                       className="flex items-center gap-4 px-3 py-3 rounded-lg hover:bg-slate-800 transition-colors group"
                       onClick={() => setLoginDropdownOpen(false)}
                     >
@@ -203,7 +203,7 @@ export function PublicHeader() {
               </Link>
 
               <Link
-                href="/login"
+                href="/admin/login"
                 className="flex items-center gap-3 p-3 bg-slate-900 rounded-lg hover:bg-slate-800 transition-colors border border-slate-800"
                 onClick={() => setMobileMenuOpen(false)}
               >
