@@ -101,7 +101,7 @@ export function PublicHeader() {
                 <div className="bg-slate-900 rounded-xl shadow-2xl shadow-black/50 border border-slate-800 p-2 w-72 overflow-hidden ring-1 ring-white/5">
                   <div className="px-3 py-2">
                     <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                      Select Portal
+                      Student Login
                     </p>
                   </div>
 
@@ -118,21 +118,6 @@ export function PublicHeader() {
                       <div>
                         <p className="text-sm font-semibold text-slate-200 group-hover:text-brand-400 transition-colors">Student Portal</p>
                         <p className="text-xs text-slate-500">Access your courses</p>
-                      </div>
-                    </Link>
-
-                    {/* Admin / Teacher Option */}
-                    <Link
-                      href="/admin/login"
-                      className="flex items-center gap-4 px-3 py-3 rounded-lg hover:bg-slate-800 transition-colors group"
-                      onClick={() => setLoginDropdownOpen(false)}
-                    >
-                      <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0 border border-slate-700 group-hover:border-slate-600 transition-colors">
-                        <Shield className="h-5 w-5 text-slate-400 group-hover:text-slate-300" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold text-slate-200 group-hover:text-white transition-colors">Admin Portal</p>
-                        <p className="text-xs text-slate-500">Staff access only</p>
                       </div>
                     </Link>
                   </div>
@@ -188,7 +173,7 @@ export function PublicHeader() {
 
           <div className="space-y-4">
             <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
-              Access Portals
+              Student Access
             </p>
             <div className="grid grid-cols-1 gap-3">
               <Link
@@ -200,17 +185,6 @@ export function PublicHeader() {
                   <Book className="h-4 w-4 text-brand-500" />
                 </div>
                 <span className="font-medium text-slate-300">Student Login</span>
-              </Link>
-
-              <Link
-                href="/admin/login"
-                className="flex items-center gap-3 p-3 bg-slate-900 rounded-lg hover:bg-slate-800 transition-colors border border-slate-800"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <div className="w-8 h-8 rounded bg-slate-800 flex items-center justify-center border border-slate-700">
-                  <Shield className="h-4 w-4 text-slate-400" />
-                </div>
-                <span className="font-medium text-slate-300">Admin Login</span>
               </Link>
             </div>
 
