@@ -2,16 +2,30 @@
  * Bulk Upload Course PDFs to Supabase
  *
  * Usage: node scripts/upload-courses.js
- *
- * Make sure your .env.local has:
- * - NEXT_PUBLIC_SUPABASE_URL
- * - SUPABASE_SERVICE_ROLE_KEY
  */
 
 const { createClient } = require('@supabase/supabase-js')
 const fs = require('fs')
 const path = require('path')
-require('dotenv').config({ path: '.env.local' })
+
+// Manual .env.local parser
+function loadEnv() {
+  const envPath = path.join(__dirname, '..', '.env.local')
+  if (fs.existsSync(envPath)) {
+    const content = fs.readFileSync(envPath, 'utf-8')
+    content.split('\n').forEach(line => {
+      const match = line.match(/^([^#=]+)=(.*)$/)
+      if (match) {
+        const key = match[1].trim()
+        const value = match[2].trim()
+        if (!process.env[key]) {
+          process.env[key] = value
+        }
+      }
+    })
+  }
+}
+loadEnv()
 
 // Supabase client with service role key
 const supabase = createClient(
@@ -19,12 +33,9 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 )
 
-// Course configuration
-const COURSE_TITLE = 'School of Members'
-const COURSE_DESCRIPTION = 'Complete course curriculum for the School of Members program. Available in English and French.'
-
-// Admin user ID (you need to provide this - the admin who created the course)
-const ADMIN_USER_ID = process.env.ADMIN_USER_ID || null
+// Course IDs (already exist in database)
+const ENGLISH_COURSE_ID = 'f7edbe98-40ab-46a5-b3a8-25a41517f099'
+const FRENCH_COURSE_ID = '50e0a83d-b080-453d-9172-4060a272a7b6'
 
 // Paths to course files
 const ENGLISH_PATH = 'C:\\Users\\BIBINBUSINESS\\OneDrive\\Desktop\\School of members docu\\course english version'
@@ -107,56 +118,11 @@ async function main() {
   // Check environment variables
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
     console.error('❌ Missing Supabase credentials in .env.local')
-    console.log('Required variables:')
-    console.log('  - NEXT_PUBLIC_SUPABASE_URL')
-    console.log('  - SUPABASE_SERVICE_ROLE_KEY')
     process.exit(1)
   }
 
-  // Check if course already exists
-  console.log('📚 Checking for existing course...')
-  const { data: existingCourse } = await supabase
-    .from('courses')
-    .select('id')
-    .eq('title', COURSE_TITLE)
-    .single()
-
-  let courseId
-
-  if (existingCourse) {
-    courseId = existingCourse.id
-    console.log(`✅ Found existing course: ${courseId}`)
-  } else {
-    // Need admin user ID to create course
-    if (!ADMIN_USER_ID) {
-      console.error('❌ ADMIN_USER_ID is required to create a new course')
-      console.log('Please set ADMIN_USER_ID in .env.local or create the course manually in admin panel')
-      process.exit(1)
-    }
-
-    console.log('📝 Creating new course...')
-    const { data: newCourse, error: courseError } = await supabase
-      .from('courses')
-      .insert({
-        title: COURSE_TITLE,
-        description: COURSE_DESCRIPTION,
-        is_active: true,
-        created_by: ADMIN_USER_ID
-      })
-      .select()
-      .single()
-
-    if (courseError) {
-      console.error('❌ Failed to create course:', courseError.message)
-      process.exit(1)
-    }
-
-    courseId = newCourse.id
-    console.log(`✅ Created new course: ${courseId}`)
-  }
-
   // Upload English modules
-  console.log('\n📖 Uploading English modules...')
+  console.log('📖 Uploading English modules to course:', ENGLISH_COURSE_ID)
   let englishCount = 0
 
   for (const module of englishModules) {
@@ -169,9 +135,9 @@ async function main() {
 
     try {
       console.log(`  📤 Uploading: ${module.file}`)
-      const { url, size } = await uploadFile(filePath, module.file, courseId, 'en')
+      const { url, size } = await uploadFile(filePath, module.file, ENGLISH_COURSE_ID, 'en')
       await createModule(
-        courseId,
+        ENGLISH_COURSE_ID,
         module.title,
         `English version - ${module.title}`,
         url,
@@ -188,7 +154,7 @@ async function main() {
   }
 
   // Upload French modules
-  console.log('\n📖 Uploading French modules...')
+  console.log('\n📖 Uploading French modules to course:', FRENCH_COURSE_ID)
   let frenchCount = 0
 
   for (const module of frenchModules) {
@@ -201,15 +167,15 @@ async function main() {
 
     try {
       console.log(`  📤 Uploading: ${module.file}`)
-      const { url, size } = await uploadFile(filePath, module.file, courseId, 'fr')
+      const { url, size } = await uploadFile(filePath, module.file, FRENCH_COURSE_ID, 'fr')
       await createModule(
-        courseId,
+        FRENCH_COURSE_ID,
         module.title,
         `Version française - ${module.title}`,
         url,
         module.file,
         size,
-        module.order + 100, // Offset French modules
+        module.order,
         'fr'
       )
       frenchCount++
@@ -222,7 +188,6 @@ async function main() {
   console.log('\n✨ Upload Complete!')
   console.log(`   English modules: ${englishCount}/${englishModules.length}`)
   console.log(`   French modules: ${frenchCount}/${frenchModules.length}`)
-  console.log(`\n📚 Course ID: ${courseId}`)
 }
 
 main().catch(console.error)
