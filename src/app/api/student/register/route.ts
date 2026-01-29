@@ -8,12 +8,41 @@ export async function POST(request: NextRequest) {
     const supabaseAdmin = getSupabaseAdmin()
 
     const body = await request.json()
-    const { phone, email, fullName } = body
+    const {
+      phone,
+      email,
+      fullName,
+      address,
+      churchOfProvenance,
+      baptizedByImmersion,
+      preferredLanguage
+    } = body
 
     // Validate required fields
     if (!phone || !fullName || !email) {
       return NextResponse.json(
         { error: 'Phone number, email, and full name are required' },
+        { status: 400 }
+      )
+    }
+
+    if (!address) {
+      return NextResponse.json(
+        { error: 'Address is required' },
+        { status: 400 }
+      )
+    }
+
+    if (typeof baptizedByImmersion !== 'boolean') {
+      return NextResponse.json(
+        { error: 'Please indicate if you have been baptized by immersion' },
+        { status: 400 }
+      )
+    }
+
+    if (!preferredLanguage || !['en', 'fr'].includes(preferredLanguage)) {
+      return NextResponse.json(
+        { error: 'Please select a valid preferred language (en or fr)' },
         { status: 400 }
       )
     }
@@ -83,7 +112,7 @@ export async function POST(request: NextRequest) {
       console.warn('Teacher assignment failed, continuing without:', teacherErr)
     }
 
-    // Create student record
+    // Create student record with all new fields
     const { data: student, error: studentError } = await (supabaseAdmin
       .from('students') as any)
       .insert({
@@ -93,6 +122,10 @@ export async function POST(request: NextRequest) {
         full_name: fullName,
         pin_hash: pinHash,
         status: 'pending',
+        address: address.trim(),
+        church_of_provenance: churchOfProvenance?.trim() || null,
+        baptized_by_immersion: baptizedByImmersion,
+        preferred_language: preferredLanguage,
         assigned_teacher_id: assignedTeacherId,
       })
       .select()

@@ -243,8 +243,13 @@ export interface Database {
           phone: string
           whatsapp_number: string
           full_name: string
+          email: string
           pin_hash: string
           status: StudentStatus
+          address: string | null
+          church_of_provenance: string | null
+          baptized_by_immersion: boolean | null
+          preferred_language: Language
           assigned_teacher_id: string | null
           last_login: string | null
           login_count: number
@@ -256,8 +261,13 @@ export interface Database {
           phone: string
           whatsapp_number: string
           full_name: string
+          email: string
           pin_hash: string
           status?: StudentStatus
+          address?: string | null
+          church_of_provenance?: string | null
+          baptized_by_immersion?: boolean | null
+          preferred_language?: Language
           assigned_teacher_id?: string | null
           last_login?: string | null
           login_count?: number
@@ -269,8 +279,13 @@ export interface Database {
           phone?: string
           whatsapp_number?: string
           full_name?: string
+          email?: string
           pin_hash?: string
           status?: StudentStatus
+          address?: string | null
+          church_of_provenance?: string | null
+          baptized_by_immersion?: boolean | null
+          preferred_language?: Language
           assigned_teacher_id?: string | null
           last_login?: string | null
           login_count?: number

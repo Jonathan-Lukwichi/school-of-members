@@ -9,8 +9,16 @@ import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { PhoneInput } from '@/components/ui/phone-input'
 import { Input } from '@/components/ui/input'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { toast } from 'sonner'
-import { Loader2, Phone, User, Sparkles, Mail, Clock, ArrowRight, MessageCircle } from 'lucide-react'
+import { Loader2, Phone, User, Sparkles, Mail, Clock, ArrowRight, MessageCircle, MapPin, Church, Droplets, Globe } from 'lucide-react'
 
 export default function StudentRegisterPage() {
   const router = useRouter()
@@ -21,6 +29,10 @@ export default function StudentRegisterPage() {
     fullName: '',
     email: '',
     phone: '',
+    address: '',
+    churchOfProvenance: '',
+    baptizedByImmersion: '',
+    preferredLanguage: '',
   })
   const [phoneValid, setPhoneValid] = useState(false)
 
@@ -54,6 +66,21 @@ export default function StudentRegisterPage() {
       return
     }
 
+    if (!formData.address.trim()) {
+      toast.error('Please enter your address')
+      return
+    }
+
+    if (!formData.baptizedByImmersion) {
+      toast.error('Please indicate if you have been baptized by immersion')
+      return
+    }
+
+    if (!formData.preferredLanguage) {
+      toast.error('Please select your preferred language')
+      return
+    }
+
     setIsLoading(true)
 
     try {
@@ -64,6 +91,10 @@ export default function StudentRegisterPage() {
           fullName: formData.fullName.trim(),
           email: formData.email.trim().toLowerCase(),
           phone: formData.phone,
+          address: formData.address.trim(),
+          churchOfProvenance: formData.churchOfProvenance.trim() || null,
+          baptizedByImmersion: formData.baptizedByImmersion === 'yes',
+          preferredLanguage: formData.preferredLanguage,
         }),
       })
 
@@ -162,7 +193,7 @@ export default function StudentRegisterPage() {
         </div>
         <CardTitle className="text-2xl font-bold text-[#003366]">Join School of Members</CardTitle>
         <CardDescription className="text-[#64748b]">
-          Register with your email to start learning
+          Register with your details to start learning
         </CardDescription>
       </CardHeader>
 
@@ -172,7 +203,7 @@ export default function StudentRegisterPage() {
           <div className="space-y-2">
             <Label htmlFor="fullName" className="flex items-center gap-2 text-[#1e293b]">
               <User className="h-4 w-4 text-[#003366]" />
-              Full Name
+              Full Name <span className="text-red-500">*</span>
             </Label>
             <Input
               id="fullName"
@@ -187,7 +218,7 @@ export default function StudentRegisterPage() {
           <div className="space-y-2">
             <Label htmlFor="email" className="flex items-center gap-2 text-[#1e293b]">
               <Mail className="h-4 w-4 text-[#003366]" />
-              Email Address
+              Email Address <span className="text-red-500">*</span>
             </Label>
             <Input
               id="email"
@@ -203,7 +234,7 @@ export default function StudentRegisterPage() {
           <div className="space-y-2">
             <Label className="flex items-center gap-2 text-[#1e293b]">
               <Phone className="h-4 w-4 text-[#003366]" />
-              Phone Number
+              Phone Number <span className="text-red-500">*</span>
             </Label>
             <PhoneInput
               value={formData.phone}
@@ -212,6 +243,80 @@ export default function StudentRegisterPage() {
               placeholder="Enter phone number"
               disabled={isLoading}
             />
+          </div>
+
+          {/* Address */}
+          <div className="space-y-2">
+            <Label htmlFor="address" className="flex items-center gap-2 text-[#1e293b]">
+              <MapPin className="h-4 w-4 text-[#003366]" />
+              Address <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              id="address"
+              placeholder="Enter your address"
+              value={formData.address}
+              onChange={(e) => setFormData(prev => ({ ...prev, address: e.target.value }))}
+              disabled={isLoading}
+            />
+          </div>
+
+          {/* Church of Provenance */}
+          <div className="space-y-2">
+            <Label htmlFor="churchOfProvenance" className="flex items-center gap-2 text-[#1e293b]">
+              <Church className="h-4 w-4 text-[#003366]" />
+              Church of Provenance <span className="text-[#64748b] text-xs">(optional)</span>
+            </Label>
+            <Input
+              id="churchOfProvenance"
+              placeholder="Enter your previous church (if any)"
+              value={formData.churchOfProvenance}
+              onChange={(e) => setFormData(prev => ({ ...prev, churchOfProvenance: e.target.value }))}
+              disabled={isLoading}
+            />
+          </div>
+
+          {/* Baptized by Immersion */}
+          <div className="space-y-3">
+            <Label className="flex items-center gap-2 text-[#1e293b]">
+              <Droplets className="h-4 w-4 text-[#003366]" />
+              Have you been baptized by immersion? <span className="text-red-500">*</span>
+            </Label>
+            <RadioGroup
+              value={formData.baptizedByImmersion}
+              onValueChange={(value) => setFormData(prev => ({ ...prev, baptizedByImmersion: value }))}
+              className="flex gap-6"
+              disabled={isLoading}
+            >
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="yes" id="baptized-yes" />
+                <Label htmlFor="baptized-yes" className="font-normal cursor-pointer">Yes</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="no" id="baptized-no" />
+                <Label htmlFor="baptized-no" className="font-normal cursor-pointer">No</Label>
+              </div>
+            </RadioGroup>
+          </div>
+
+          {/* Preferred Language */}
+          <div className="space-y-2">
+            <Label className="flex items-center gap-2 text-[#1e293b]">
+              <Globe className="h-4 w-4 text-[#003366]" />
+              Preferred Language <span className="text-red-500">*</span>
+            </Label>
+            <Select
+              value={formData.preferredLanguage}
+              onValueChange={(value) => setFormData(prev => ({ ...prev, preferredLanguage: value }))}
+              disabled={isLoading}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select your preferred language" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="en">English</SelectItem>
+                <SelectItem value="fr">Français (French)</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Info message */}
