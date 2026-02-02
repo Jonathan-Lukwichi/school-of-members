@@ -29,6 +29,12 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -37,7 +43,8 @@ import {
 } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
 import { toast } from 'sonner'
-import { Users, Loader2, Trash2, Phone, MessageCircle, RefreshCw, UserPlus, Clock, CheckCircle, XCircle, User } from 'lucide-react'
+import { Users, Loader2, Trash2, Phone, MessageCircle, RefreshCw, UserPlus, Clock, CheckCircle, XCircle, User, Download, FileSpreadsheet, FileText } from 'lucide-react'
+import { exportToExcel, exportToWord } from '@/lib/export-utils'
 
 interface Teacher {
   id: string
@@ -50,6 +57,11 @@ interface Student {
   phone: string
   whatsapp_number: string
   full_name: string
+  email?: string
+  address?: string | null
+  church_of_provenance?: string | null
+  baptized_by_immersion?: boolean | null
+  preferred_language?: string
   status: 'pending' | 'contacted' | 'active' | 'completed' | 'inactive'
   assigned_teacher_id: string | null
   assigned_teacher: Teacher | null
@@ -318,34 +330,68 @@ export default function StudentsPage() {
         </Card>
       </div>
 
-      {/* Filters */}
-      <div className="flex gap-4">
-        <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Filter by status" />
-          </SelectTrigger>
-          <SelectContent>
-            {STATUS_OPTIONS.map(option => (
-              <SelectItem key={option.value} value={option.value}>
-                {option.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+      {/* Filters and Export */}
+      <div className="flex gap-4 items-center justify-between flex-wrap">
+        <div className="flex gap-4">
+          <Select value={statusFilter} onValueChange={setStatusFilter}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Filter by status" />
+            </SelectTrigger>
+            <SelectContent>
+              {STATUS_OPTIONS.map(option => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
 
-        <Select value={teacherFilter} onValueChange={setTeacherFilter}>
-          <SelectTrigger className="w-[200px]">
-            <SelectValue placeholder="Filter by teacher" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Teachers</SelectItem>
-            {teachers.map(teacher => (
-              <SelectItem key={teacher.id} value={teacher.id}>
-                {teacher.full_name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          <Select value={teacherFilter} onValueChange={setTeacherFilter}>
+            <SelectTrigger className="w-[200px]">
+              <SelectValue placeholder="Filter by teacher" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Teachers</SelectItem>
+              {teachers.map(teacher => (
+                <SelectItem key={teacher.id} value={teacher.id}>
+                  {teacher.full_name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Export Dropdown */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="gap-2 border-[#003366] text-[#003366] hover:bg-[#003366] hover:text-white">
+              <Download className="h-4 w-4" />
+              Export
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem
+              onClick={() => {
+                exportToExcel(students, 'students')
+                toast.success('Excel file downloaded!')
+              }}
+              className="cursor-pointer"
+            >
+              <FileSpreadsheet className="h-4 w-4 mr-2 text-green-600" />
+              Export as Excel (.xlsx)
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={async () => {
+                await exportToWord(students, 'students')
+                toast.success('Word file downloaded!')
+              }}
+              className="cursor-pointer"
+            >
+              <FileText className="h-4 w-4 mr-2 text-blue-600" />
+              Export as Word (.docx)
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
 
       {/* Students Table */}
