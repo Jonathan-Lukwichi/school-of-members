@@ -50,12 +50,17 @@ export async function POST(request: NextRequest) {
       const moduleInfo = modulesData[i]
 
       try {
-        // Validate file type
-        if (file.type !== 'application/pdf') {
+        // Validate file type (PDF or Word)
+        const allowedBulkTypes = [
+          'application/pdf',
+          'application/msword',
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        ]
+        if (!allowedBulkTypes.includes(file.type)) {
           results.push({
             success: false,
             title: moduleInfo.title,
-            error: 'Only PDF files are allowed'
+            error: 'Only PDF and Word files are allowed'
           })
           continue
         }

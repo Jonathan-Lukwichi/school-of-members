@@ -192,7 +192,7 @@ export function FileUpload({
                 Drag and drop your file here, or click to browse
               </p>
               <p className="text-sm text-muted-foreground mt-1">
-                {bucket === 'modules' && 'PDF or Images (PNG, JPG) up to 10MB'}
+                {bucket === 'modules' && 'PDF, Word (DOC/DOCX), or Images (PNG, JPG) up to 10MB'}
                 {bucket === 'thumbnails' && 'Images (PNG, JPG, WebP) up to 10MB'}
                 {bucket === 'avatars' && 'Images (PNG, JPG, WebP) up to 10MB'}
               </p>

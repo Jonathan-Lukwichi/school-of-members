@@ -44,11 +44,18 @@ export async function POST(request: NextRequest) {
 
     // Handle file upload if file is provided
     if (file && file.size > 0) {
-      // Validate file type
-      const allowedTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg']
+      // Validate file type (PDF, Word, or images)
+      const allowedTypes = [
+        'application/pdf',
+        'application/msword', // .doc
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+      ]
       if (!allowedTypes.includes(file.type)) {
         return NextResponse.json(
-          { error: 'Invalid file type. Only PDF and images are allowed.' },
+          { error: 'Invalid file type. Only PDF, Word documents, and images are allowed.' },
           { status: 400 }
         )
       }

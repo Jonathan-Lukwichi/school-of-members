@@ -1,7 +1,14 @@
 import { createBrowserClient } from '@/lib/supabase/client'
 
 export const ALLOWED_FILE_TYPES = {
-  modules: ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg'],
+  modules: [
+    'application/pdf',
+    'application/msword', // .doc
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+    'image/png',
+    'image/jpeg',
+    'image/jpg',
+  ],
   thumbnails: ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'],
   avatars: ['image/png', 'image/jpeg', 'image/jpg', 'image/webp']
 }

@@ -192,7 +192,7 @@ export default function StudentCourseDetailPage() {
                   className="gap-1.5 bg-emerald-btn font-semibold text-ink shadow-emerald hover:brightness-105"
                 >
                   <Download className="h-4 w-4" />
-                  PDF
+                  Download
                 </Button>
               </div>
             </div>
