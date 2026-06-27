@@ -1,305 +1,82 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
-import { Card, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Badge } from '@/components/ui/badge'
-import { BookOpen, FileText, GraduationCap, ArrowRight, Loader2 } from 'lucide-react'
-import { createClient } from '@/lib/supabase/client'
-import { toast } from 'sonner'
+import { BookOpen, FileText, ArrowRight, Loader2, GraduationCap } from 'lucide-react'
 
 interface Course {
   id: string
   title: string
   description: string | null
-  thumbnail_url: string | null
-  is_active: boolean
-  created_at: string
-  module_count: number
-}
-
-interface Enrollment {
-  id: string
-  course_id: string
-  progress_percent: number
-  status: string
-  course: Course
+  moduleCount: number
 }
 
 export default function StudentCoursesPage() {
   const [courses, setCourses] = useState<Course[]>([])
-  const [enrollments, setEnrollments] = useState<Enrollment[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const supabase = createClient()
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetchData()
-  }, [])
-
-  const fetchData = async () => {
-    setIsLoading(true)
-    try {
-      // Get current user
-      const { data: { user } } = await supabase.auth.getUser()
-
-      // Fetch all active courses with module count
-      const { data: coursesData, error: coursesError } = await (supabase
-        .from('courses') as any)
-        .select(`
-          id,
-          title,
-          description,
-          thumbnail_url,
-          is_active,
-          created_at,
-          modules:modules(count)
-        `)
-        .eq('is_active', true)
-        .order('created_at', { ascending: false })
-
-      if (coursesError) throw coursesError
-
-      // Transform to include module count
-      const coursesWithCount = (coursesData || []).map((course: any) => ({
-        ...course,
-        module_count: course.modules?.[0]?.count || 0
-      }))
-
-      setCourses(coursesWithCount)
-
-      // Fetch user's enrollments if logged in
-      if (user) {
-        const { data: enrollmentsData, error: enrollmentsError } = await (supabase
-          .from('enrollments') as any)
-          .select(`
-            id,
-            course_id,
-            progress_percent,
-            status,
-            course:courses(
-              id,
-              title,
-              description,
-              thumbnail_url,
-              is_active,
-              created_at
-            )
-          `)
-          .eq('student_id', user.id)
-          .eq('status', 'active')
-
-        if (!enrollmentsError && enrollmentsData) {
-          // Get module counts for enrolled courses
-          const enrichedEnrollments = await Promise.all(
-            enrollmentsData.map(async (enrollment: any) => {
-              const { count } = await (supabase
-                .from('modules') as any)
-                .select('*', { count: 'exact', head: true })
-                .eq('course_id', enrollment.course_id)
-
-              return {
-                ...enrollment,
-                course: {
-                  ...enrollment.course,
-                  module_count: count || 0
-                }
-              }
-            })
-          )
-          setEnrollments(enrichedEnrollments)
+    ;(async () => {
+      try {
+        const res = await fetch('/api/student/courses')
+        if (res.ok) {
+          const data = await res.json()
+          setCourses(data.courses || [])
         }
+      } finally {
+        setLoading(false)
       }
-    } catch (error) {
-      console.error('Error fetching courses:', error)
-      toast.error('Failed to load courses')
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const enrolledCourseIds = enrollments.map(e => e.course_id)
-
-  const CourseCard = ({ course, enrollment }: { course: Course; enrollment?: Enrollment }) => (
-    <Card className="bg-card border border-border shadow-premium hover:shadow-emerald transition-shadow overflow-hidden group animate-reveal">
-      {/* Thumbnail */}
-      <div className="relative h-40 bg-gradient-to-br from-ink to-ink-deep overflow-hidden">
-        {course.thumbnail_url ? (
-          <Image
-            src={course.thumbnail_url}
-            alt={course.title}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
-          />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <GraduationCap className="h-16 w-16 text-emerald/40" />
-          </div>
-        )}
-        <div className="absolute top-3 right-3">
-          <Badge className="bg-emerald text-white border-0">
-            <FileText className="h-3 w-3 mr-1" />
-            {course.module_count} modules
-          </Badge>
-        </div>
-        {enrollment && (
-          <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
-            <div
-              className="h-full bg-emerald transition-all duration-700 ease-premium"
-              style={{ width: `${enrollment.progress_percent}%` }}
-            />
-          </div>
-        )}
-      </div>
-
-      <CardContent className="p-5">
-        <h3 className="font-display font-semibold text-lg text-foreground mb-2 line-clamp-1">
-          {course.title}
-        </h3>
-        <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-          {course.description || 'No description available'}
-        </p>
-
-        {enrollment && (
-          <div className="mb-4">
-            <div className="flex justify-between text-xs text-muted-foreground mb-1">
-              <span>Progress</span>
-              <span className="text-emerald font-medium">{enrollment.progress_percent}%</span>
-            </div>
-            <div className="h-2 bg-mint rounded-full overflow-hidden">
-              <div
-                className="h-full bg-emerald rounded-full transition-all duration-700 ease-premium"
-                style={{ width: `${enrollment.progress_percent}%` }}
-              />
-            </div>
-          </div>
-        )}
-
-        <Link href={`/student/courses/${course.id}`}>
-          <Button className="w-full bg-emerald-btn text-white focus-visible:ring-2 focus-visible:ring-emerald focus-visible:ring-offset-2">
-            {enrollment ? 'Continue Learning' : 'View Course'}
-            <ArrowRight className="h-4 w-4 ml-2" />
-          </Button>
-        </Link>
-      </CardContent>
-    </Card>
-  )
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <Loader2 className="h-8 w-8 animate-spin text-emerald" />
-      </div>
-    )
-  }
+    })()
+  }, [])
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="font-display text-3xl font-bold text-foreground">Courses</h1>
-        <p className="text-muted-foreground">
-          Browse and access your learning materials
-        </p>
+      <div className="flex items-start gap-3">
+        <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald/10 text-emerald">
+          <GraduationCap className="h-6 w-6" />
+        </span>
+        <div>
+          <h1 className="font-display text-2xl font-bold text-foreground">My Courses</h1>
+          <p className="text-sm text-muted-foreground">Open a course to read and download its chapters.</p>
+        </div>
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="bg-card border border-border shadow-premium">
-          <CardContent className="p-4 flex items-center gap-4">
-            <div className="p-3 bg-mint rounded-lg">
-              <BookOpen className="h-6 w-6 text-emerald" />
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-foreground">{courses.length}</p>
-              <p className="text-sm text-muted-foreground">Available Courses</p>
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="bg-card border border-border shadow-premium">
-          <CardContent className="p-4 flex items-center gap-4">
-            <div className="p-3 bg-mint rounded-lg">
-              <GraduationCap className="h-6 w-6 text-emerald" />
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-foreground">{enrollments.length}</p>
-              <p className="text-sm text-muted-foreground">Enrolled Courses</p>
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="bg-card border border-border shadow-premium">
-          <CardContent className="p-4 flex items-center gap-4">
-            <div className="p-3 bg-mint rounded-lg">
-              <FileText className="h-6 w-6 text-emerald" />
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-foreground">
-                {courses.reduce((acc, c) => acc + c.module_count, 0)}
-              </p>
-              <p className="text-sm text-muted-foreground">Total Modules</p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Tabs defaultValue="all-courses">
-        <TabsList className="bg-mint">
-          <TabsTrigger value="all-courses" className="data-[state=active]:bg-card data-[state=active]:text-emerald">
-            All Courses
-          </TabsTrigger>
-          <TabsTrigger value="my-courses" className="data-[state=active]:bg-card data-[state=active]:text-emerald">
-            My Courses ({enrollments.length})
-          </TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="all-courses" className="mt-6">
-          {courses.length === 0 ? (
-            <Card className="bg-card border border-border shadow-premium">
-              <CardContent className="p-8 text-center">
-                <BookOpen className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="font-display text-lg font-semibold text-foreground mb-2">No Courses Available</h3>
-                <p className="text-sm text-muted-foreground">
-                  Check back later for new courses!
-                </p>
-              </CardContent>
-            </Card>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {courses.map((course) => {
-                const enrollment = enrollments.find(e => e.course_id === course.id)
-                return (
-                  <CourseCard key={course.id} course={course} enrollment={enrollment} />
-                )
-              })}
-            </div>
-          )}
-        </TabsContent>
-
-        <TabsContent value="my-courses" className="mt-6">
-          {enrollments.length === 0 ? (
-            <Card className="bg-card border border-border shadow-premium">
-              <CardContent className="p-8 text-center">
-                <GraduationCap className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="font-display text-lg font-semibold text-foreground mb-2">No Enrolled Courses</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Start learning by viewing a course from the &quot;All Courses&quot; tab.
-                </p>
-              </CardContent>
-            </Card>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {enrollments.map((enrollment) => (
-                <CourseCard
-                  key={enrollment.id}
-                  course={enrollment.course as Course}
-                  enrollment={enrollment}
-                />
-              ))}
-            </div>
-          )}
-        </TabsContent>
-      </Tabs>
+      {loading ? (
+        <div className="flex items-center justify-center py-20 text-muted-foreground">
+          <Loader2 className="mr-2 h-6 w-6 animate-spin" /> Loading…
+        </div>
+      ) : courses.length === 0 ? (
+        <div className="rounded-2xl border border-border bg-card p-10 text-center text-muted-foreground shadow-premium">
+          <BookOpen className="mx-auto mb-3 h-8 w-8 text-emerald/50" />
+          <p>No courses available yet. Please check back soon.</p>
+        </div>
+      ) : (
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {courses.map((course) => (
+            <Link
+              key={course.id}
+              href={`/student/courses/${course.id}`}
+              className="group flex flex-col rounded-2xl border border-border bg-card p-5 shadow-premium transition-all hover:border-emerald/40 hover:shadow-emerald"
+            >
+              <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-emerald/10 text-emerald">
+                <BookOpen className="h-5 w-5" />
+              </div>
+              <h3 className="font-display text-lg font-semibold text-foreground group-hover:text-emerald">
+                {course.title}
+              </h3>
+              {course.description && (
+                <p className="mt-1 line-clamp-3 flex-1 text-sm text-muted-foreground">{course.description}</p>
+              )}
+              <div className="mt-4 flex items-center justify-between">
+                <span className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
+                  <FileText className="h-4 w-4 text-emerald" /> {course.moduleCount} chapters
+                </span>
+                <ArrowRight className="h-4 w-4 text-emerald opacity-0 transition-opacity group-hover:opacity-100" />
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

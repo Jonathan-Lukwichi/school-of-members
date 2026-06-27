@@ -1,6 +1,23 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import { jwtVerify } from 'jose'
 import type { Database } from '@/types/database'
+
+const STUDENT_JWT_SECRET = new TextEncoder().encode(
+  process.env.STUDENT_JWT_SECRET || 'your-student-jwt-secret-key-min-32-chars'
+)
+
+// Edge-safe check for a valid phone+PIN student session (som_student_session JWT)
+async function hasValidStudentSession(request: NextRequest): Promise<boolean> {
+  const token = request.cookies.get('som_student_session')?.value
+  if (!token) return false
+  try {
+    await jwtVerify(token, STUDENT_JWT_SECRET)
+    return true
+  } catch {
+    return false
+  }
+}
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -57,13 +74,21 @@ export async function updateSession(request: NextRequest) {
   const isPublicStudentPage = pathname === '/student/register' ||
                               pathname === '/student/login'
 
-  const isProtectedRoute = isAdminRoute || (isStudentRoute && !isPublicStudentPage)
-
-  // Redirect unauthenticated users to login
-  if (!user && isProtectedRoute) {
+  // Admin/teacher routes require a Supabase session; student routes accept the
+  // phone+PIN student JWT (som_student_session) OR a Supabase session.
+  if (isAdminRoute && !user) {
     const url = request.nextUrl.clone()
-    url.pathname = '/login'
+    url.pathname = '/admin/login'
     return NextResponse.redirect(url)
+  }
+
+  if (isStudentRoute && !isPublicStudentPage) {
+    const studentLoggedIn = await hasValidStudentSession(request)
+    if (!user && !studentLoggedIn) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/student/login'
+      return NextResponse.redirect(url)
+    }
   }
 
   // Allow access to auth pages (login/register) even when logged in

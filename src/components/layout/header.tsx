@@ -21,9 +21,17 @@ export function Header() {
   const isAdminPortal = pathname?.startsWith('/admin')
 
   const handleSignOut = async () => {
-    const supabase = createClient()
-    await supabase.auth.signOut()
-    // Redirect to the appropriate login page based on current portal
+    if (isAdminPortal) {
+      const supabase = createClient()
+      await supabase.auth.signOut()
+    } else {
+      // Phone+PIN students: clear the som_student_session cookie
+      try {
+        await fetch('/api/student/logout', { method: 'POST' })
+      } catch {
+        /* ignore */
+      }
+    }
     router.push(isAdminPortal ? '/admin/login' : '/student/login')
     router.refresh()
   }

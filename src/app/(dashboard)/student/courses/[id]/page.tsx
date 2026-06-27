@@ -1,449 +1,152 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { useParams } from 'next/navigation'
 import Link from 'next/link'
-import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Progress } from '@/components/ui/progress'
-import {
-  ArrowLeft,
-  BookOpen,
-  Download,
-  Eye,
-  FileText,
-  CheckCircle,
-  Loader2,
-  GraduationCap,
-  Clock
-} from 'lucide-react'
-import { createClient } from '@/lib/supabase/client'
+import { ArrowLeft, BookOpen, FileText, Eye, Download, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
-import { PDFViewer } from '@/components/shared/pdf-viewer'
 
 interface Module {
   id: string
   title: string
   description: string | null
-  file_url: string | null
-  file_name: string | null
-  file_size: number | null
   order_index: number
+  file_name: string | null
 }
-
-interface ModuleProgress {
-  module_id: string
-  is_completed: boolean
-  download_count: number
-}
-
 interface Course {
   id: string
   title: string
   description: string | null
-  thumbnail_url: string | null
-  is_active: boolean
+  modules: Module[]
 }
 
 export default function StudentCourseDetailPage() {
   const params = useParams()
-  const router = useRouter()
-  const courseId = params.id as string
-
+  const courseId = params?.id as string
   const [course, setCourse] = useState<Course | null>(null)
-  const [modules, setModules] = useState<Module[]>([])
-  const [progress, setProgress] = useState<ModuleProgress[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [downloadingId, setDownloadingId] = useState<string | null>(null)
-  const [previewingId, setPreviewingId] = useState<string | null>(null)
-  const [pdfViewerOpen, setPdfViewerOpen] = useState(false)
-  const [currentPdfUrl, setCurrentPdfUrl] = useState<string | null>(null)
-  const [currentPdfTitle, setCurrentPdfTitle] = useState<string>('')
-  const [currentModuleForDownload, setCurrentModuleForDownload] = useState<Module | null>(null)
-  const supabase = createClient()
+  const [loading, setLoading] = useState(true)
+  const [busyId, setBusyId] = useState<string | null>(null)
 
   useEffect(() => {
-    fetchCourseData()
+    ;(async () => {
+      try {
+        const res = await fetch('/api/student/courses')
+        if (res.ok) {
+          const data = await res.json()
+          const found = (data.courses || []).find((c: Course) => c.id === courseId) || null
+          setCourse(found)
+        }
+      } finally {
+        setLoading(false)
+      }
+    })()
   }, [courseId])
 
-  const fetchCourseData = async () => {
-    setIsLoading(true)
+  const openFile = async (moduleId: string, download: boolean) => {
+    setBusyId(moduleId)
     try {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) {
-        router.push('/student/login')
-        return
+      const res = await fetch(`/api/student/modules/${moduleId}/file`)
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Could not open file')
+      if (download) {
+        const a = document.createElement('a')
+        a.href = data.url
+        a.download = data.fileName || 'chapter.pdf'
+        document.body.appendChild(a)
+        a.click()
+        a.remove()
+      } else {
+        window.open(data.url, '_blank', 'noopener,noreferrer')
       }
-
-      // Fetch course
-      const { data: courseData, error: courseError } = await (supabase
-        .from('courses') as any)
-        .select('*')
-        .eq('id', courseId)
-        .single()
-
-      if (courseError) throw courseError
-      setCourse(courseData)
-
-      // Fetch modules
-      const { data: modulesData, error: modulesError } = await (supabase
-        .from('modules') as any)
-        .select('*')
-        .eq('course_id', courseId)
-        .order('order_index', { ascending: true })
-
-      if (modulesError) throw modulesError
-      setModules(modulesData || [])
-
-      // Check/create enrollment
-      const { data: enrollment } = await (supabase
-        .from('enrollments') as any)
-        .select('id')
-        .eq('student_id', user.id)
-        .eq('course_id', courseId)
-        .single()
-
-      if (!enrollment) {
-        // Auto-enroll the student
-        await (supabase
-          .from('enrollments') as any)
-          .insert({
-            student_id: user.id,
-            course_id: courseId,
-            status: 'active',
-            progress_percent: 0
-          })
-        toast.success('You have been enrolled in this course!')
-      }
-
-      // Fetch module progress
-      const { data: progressData } = await (supabase
-        .from('module_progress') as any)
-        .select('module_id, is_completed, download_count')
-        .eq('student_id', user.id)
-        .in('module_id', (modulesData || []).map((m: Module) => m.id))
-
-      setProgress(progressData || [])
-
-    } catch (error) {
-      console.error('Error fetching course:', error)
-      toast.error('Failed to load course')
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : 'Could not open file')
     } finally {
-      setIsLoading(false)
+      setBusyId(null)
     }
   }
 
-  const handleDownload = async (module: Module) => {
-    if (!module.file_url) {
-      toast.error('No file available for download')
-      return
-    }
-
-    setDownloadingId(module.id)
-    try {
-      const response = await fetch(`/api/modules/download/${module.id}`)
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.error)
-      }
-
-      // Open download URL
-      window.open(data.downloadUrl, '_blank')
-      toast.success('Download started!')
-
-      // Refresh progress
-      fetchCourseData()
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'Failed to download')
-    } finally {
-      setDownloadingId(null)
-    }
-  }
-
-  const handlePreview = async (module: Module) => {
-    if (!module.file_url) {
-      toast.error('No file available for preview')
-      return
-    }
-
-    setPreviewingId(module.id)
-    try {
-      const response = await fetch(`/api/modules/preview/${module.id}`)
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.error)
-      }
-
-      // Open in embedded PDF viewer
-      setCurrentPdfUrl(data.previewUrl)
-      setCurrentPdfTitle(module.title)
-      setCurrentModuleForDownload(module)
-      setPdfViewerOpen(true)
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'Failed to preview')
-    } finally {
-      setPreviewingId(null)
-    }
-  }
-
-  const handleDownloadFromViewer = async () => {
-    if (currentModuleForDownload) {
-      await handleDownload(currentModuleForDownload)
-    }
-  }
-
-  const handleMarkComplete = async (moduleId: string) => {
-    try {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) return
-
-      // Upsert module progress
-      const { error } = await (supabase
-        .from('module_progress') as any)
-        .upsert({
-          student_id: user.id,
-          module_id: moduleId,
-          is_completed: true,
-          completed_at: new Date().toISOString()
-        }, {
-          onConflict: 'student_id,module_id'
-        })
-
-      if (error) throw error
-
-      toast.success('Module marked as complete!')
-      fetchCourseData()
-    } catch (error) {
-      toast.error('Failed to mark module as complete')
-    }
-  }
-
-  const getModuleProgress = (moduleId: string) => {
-    return progress.find(p => p.module_id === moduleId)
-  }
-
-  const completedCount = progress.filter(p => p.is_completed).length
-  const progressPercent = modules.length > 0 ? Math.round((completedCount / modules.length) * 100) : 0
-
-  const formatFileSize = (bytes: number | null) => {
-    if (!bytes) return 'Unknown size'
-    if (bytes < 1024) return `${bytes} B`
-    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
-    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
-  }
-
-  if (isLoading) {
+  if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <Loader2 className="h-8 w-8 animate-spin text-emerald" />
+      <div className="flex items-center justify-center py-24 text-muted-foreground">
+        <Loader2 className="mr-2 h-6 w-6 animate-spin" /> Loading course…
       </div>
     )
   }
 
   if (!course) {
     return (
-      <div className="text-center py-12">
-        <h2 className="font-display text-xl font-semibold text-foreground">Course not found</h2>
-        <Link href="/student/courses">
-          <Button className="mt-4 bg-emerald-btn text-white">Back to Courses</Button>
+      <div className="space-y-4">
+        <Link href="/student/courses" className="inline-flex items-center gap-1 text-sm text-emerald hover:underline">
+          <ArrowLeft className="h-4 w-4" /> Back to courses
         </Link>
+        <div className="rounded-2xl border border-border bg-card p-10 text-center text-muted-foreground shadow-premium">
+          Course not found or not available.
+        </div>
       </div>
     )
   }
 
+  const modules = [...(course.modules || [])].sort((a, b) => a.order_index - b.order_index)
+
   return (
     <div className="space-y-6">
-      {/* Back Button */}
-      <Link href="/student/courses" className="inline-flex items-center text-muted-foreground hover:text-emerald transition-colors rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald focus-visible:ring-offset-2">
-        <ArrowLeft className="h-4 w-4 mr-2" />
-        Back to Courses
+      <Link href="/student/courses" className="inline-flex items-center gap-1 text-sm text-emerald hover:underline">
+        <ArrowLeft className="h-4 w-4" /> Back to courses
       </Link>
 
-      {/* Course Header */}
-      <div className="bg-gradient-to-r from-ink to-ink-deep rounded-xl p-6 text-white shadow-premium">
-        <div className="flex items-start gap-4">
-          <div className="p-3 bg-emerald/15 rounded-lg">
-            <GraduationCap className="h-8 w-8 text-emerald-light" />
-          </div>
-          <div className="flex-1">
-            <h1 className="font-display text-2xl font-bold mb-2">{course.title}</h1>
-            <p className="text-white/80 text-sm mb-4">
-              {course.description || 'No description available'}
-            </p>
-            <div className="flex items-center gap-4 text-sm">
-              <Badge className="bg-white/15 text-white border-0">
-                <FileText className="h-3 w-3 mr-1" />
-                {modules.length} Modules
-              </Badge>
-              <Badge className="bg-emerald text-white border-0">
-                <CheckCircle className="h-3 w-3 mr-1" />
-                {completedCount} Completed
-              </Badge>
-            </div>
-          </div>
+      <div className="rounded-2xl bg-ink p-6 text-white shadow-premium sm:p-8">
+        <div className="mb-2 flex h-11 w-11 items-center justify-center rounded-xl bg-emerald/20 text-emerald">
+          <BookOpen className="h-5 w-5" />
         </div>
-
-        {/* Progress Bar */}
-        <div className="mt-6">
-          <div className="flex justify-between text-sm mb-2">
-            <span>Course Progress</span>
-            <span className="text-emerald-light font-medium">{progressPercent}%</span>
-          </div>
-          <Progress value={progressPercent} className="h-2 bg-white/20 [&>div]:bg-emerald" />
-        </div>
+        <h1 className="font-display text-2xl font-bold">{course.title}</h1>
+        {course.description && <p className="mt-1 text-white/70">{course.description}</p>}
+        <p className="mt-3 text-sm text-white/60">{modules.length} chapters</p>
       </div>
 
-      {/* Modules List */}
-      <div>
-        <h2 className="font-display text-xl font-semibold text-foreground mb-4">Course Modules</h2>
-
+      <div className="space-y-3">
         {modules.length === 0 ? (
-          <Card className="bg-card border border-border">
-            <CardContent className="p-8 text-center">
-              <BookOpen className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-              <h3 className="font-display text-lg font-semibold text-foreground mb-2">No Modules Yet</h3>
-              <p className="text-sm text-muted-foreground">
-                This course doesn&apos;t have any modules yet. Check back later!
-              </p>
-            </CardContent>
-          </Card>
-        ) : (
-          <div className="space-y-4">
-            {modules.map((module, index) => {
-              const moduleProgress = getModuleProgress(module.id)
-              const isCompleted = moduleProgress?.is_completed || false
-
-              return (
-                <Card
-                  key={module.id}
-                  className={`bg-card border shadow-premium transition-all ${
-                    isCompleted ? 'border-emerald/40 bg-mint-soft' : 'border-border'
-                  }`}
-                >
-                  <CardContent className="p-5">
-                    <div className="flex items-start gap-4">
-                      {/* Module Number */}
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
-                        isCompleted ? 'bg-emerald text-white' : 'border-2 border-emerald/40 text-emerald'
-                      }`}>
-                        {isCompleted ? (
-                          <CheckCircle className="h-5 w-5" />
-                        ) : (
-                          <span className="font-semibold">{index + 1}</span>
-                        )}
-                      </div>
-
-                      {/* Module Info */}
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <h3 className="font-display font-semibold text-foreground">{module.title}</h3>
-                          {isCompleted && (
-                            <Badge className="bg-mint text-emerald-deep border-0 text-xs">
-                              Completed
-                            </Badge>
-                          )}
-                        </div>
-                        {module.description && (
-                          <p className="text-sm text-muted-foreground mb-2 line-clamp-2">
-                            {module.description}
-                          </p>
-                        )}
-                        <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                          {module.file_name && (
-                            <span className="flex items-center gap-1">
-                              <FileText className="h-3 w-3" />
-                              {module.file_name}
-                            </span>
-                          )}
-                          {module.file_size && (
-                            <span>{formatFileSize(module.file_size)}</span>
-                          )}
-                          {moduleProgress?.download_count && moduleProgress.download_count > 0 && (
-                            <span className="flex items-center gap-1">
-                              <Download className="h-3 w-3" />
-                              {moduleProgress.download_count} downloads
-                            </span>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Actions */}
-                      <div className="flex items-center gap-2 flex-shrink-0">
-                        {module.file_url && (
-                          <>
-                            {/* Read Online Button for PDFs */}
-                            {module.file_name?.toLowerCase().endsWith('.pdf') && (
-                              <Button
-                                size="sm"
-                                onClick={() => handlePreview(module)}
-                                disabled={previewingId === module.id}
-                                className="bg-emerald-btn text-white focus-visible:ring-2 focus-visible:ring-emerald focus-visible:ring-offset-2"
-                              >
-                                {previewingId === module.id ? (
-                                  <Loader2 className="h-4 w-4 animate-spin" />
-                                ) : (
-                                  <>
-                                    <BookOpen className="h-4 w-4 mr-1" />
-                                    Read
-                                  </>
-                                )}
-                              </Button>
-                            )}
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => handleDownload(module)}
-                              disabled={downloadingId === module.id}
-                              className="border-emerald text-emerald hover:bg-emerald hover:text-white focus-visible:ring-2 focus-visible:ring-emerald focus-visible:ring-offset-2"
-                            >
-                              {downloadingId === module.id ? (
-                                <Loader2 className="h-4 w-4 animate-spin" />
-                              ) : (
-                                <>
-                                  <Download className="h-4 w-4 mr-1" />
-                                  Download
-                                </>
-                              )}
-                            </Button>
-                          </>
-                        )}
-                        {!isCompleted && (
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => handleMarkComplete(module.id)}
-                            className="text-emerald hover:text-emerald-deep hover:bg-mint focus-visible:ring-2 focus-visible:ring-emerald focus-visible:ring-offset-2"
-                          >
-                            <CheckCircle className="h-4 w-4 mr-1" />
-                            Mark Done
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              )
-            })}
+          <div className="rounded-2xl border border-border bg-card p-10 text-center text-muted-foreground shadow-premium">
+            No chapters have been added to this course yet.
           </div>
+        ) : (
+          modules.map((m, i) => (
+            <div
+              key={m.id}
+              className="flex flex-wrap items-center gap-4 rounded-2xl border border-border bg-card p-4 shadow-premium"
+            >
+              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-emerald/10 font-semibold text-emerald">
+                {i + 1}
+              </span>
+              <div className="min-w-0 flex-1">
+                <h3 className="font-medium text-foreground">{m.title}</h3>
+                {m.description && <p className="truncate text-sm text-muted-foreground">{m.description}</p>}
+              </div>
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={!m.file_name || busyId === m.id}
+                  onClick={() => openFile(m.id, false)}
+                  className="gap-1.5 border-emerald/30 text-foreground hover:bg-emerald/5"
+                >
+                  {busyId === m.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <Eye className="h-4 w-4 text-emerald" />}
+                  Read
+                </Button>
+                <Button
+                  size="sm"
+                  disabled={!m.file_name || busyId === m.id}
+                  onClick={() => openFile(m.id, true)}
+                  className="gap-1.5 bg-emerald-btn font-semibold text-ink shadow-emerald hover:brightness-105"
+                >
+                  <Download className="h-4 w-4" />
+                  PDF
+                </Button>
+              </div>
+            </div>
+          ))
         )}
       </div>
-
-      {/* PDF Viewer Modal */}
-      <PDFViewer
-        isOpen={pdfViewerOpen}
-        onClose={() => {
-          setPdfViewerOpen(false)
-          setCurrentPdfUrl(null)
-          setCurrentPdfTitle('')
-          setCurrentModuleForDownload(null)
-        }}
-        pdfUrl={currentPdfUrl}
-        title={currentPdfTitle}
-        onDownload={handleDownloadFromViewer}
-      />
     </div>
   )
 }
