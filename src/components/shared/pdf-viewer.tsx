@@ -115,7 +115,7 @@ export function PDFViewer({ isOpen, onClose, pdfUrl, title, onDownload }: PDFVie
           {isLoading && (
             <div className="absolute inset-0 flex items-center justify-center bg-slate-800 z-10">
               <div className="flex flex-col items-center gap-2">
-                <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+                <Loader2 className="h-8 w-8 animate-spin text-emerald" />
                 <span className="text-slate-400 text-sm">Loading PDF...</span>
               </div>
             </div>

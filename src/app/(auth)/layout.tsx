@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { ArrowLeft } from 'lucide-react'
 
 export default function AuthLayout({
   children,
@@ -7,75 +8,52 @@ export default function AuthLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#f8fafc] via-[#f1f5f9] to-[#e2e8f0] relative overflow-hidden">
-      {/* Background Decorative Elements */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        {/* Top gradient with brand colors */}
-        <div className="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-b from-[#003366]/8 via-[#b5985b]/5 to-transparent" />
-
-        {/* Decorative circles */}
-        <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-[#003366]/5 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-[#C8102E]/5 blur-3xl" />
-        <div className="absolute top-1/3 right-1/4 w-64 h-64 rounded-full bg-[#b5985b]/5 blur-3xl" />
-
-        {/* Grid pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.15]"
-          style={{
-            backgroundImage: 'linear-gradient(#003366 1px, transparent 1px), linear-gradient(90deg, #003366 1px, transparent 1px)',
-            backgroundSize: '60px 60px'
-          }}
-        />
-
-        {/* Subtle gold accent lines */}
-        <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-[#b5985b]/20 via-transparent to-[#b5985b]/20" />
-        <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-[#b5985b]/20 to-transparent" />
+    // `dark` so tokens + glass resolve to the dark surface; auth-gradient is the emerald→ink backdrop
+    <div className="dark auth-gradient min-h-screen flex items-center justify-center relative overflow-hidden text-white">
+      {/* Soft emerald orbs (decorative, behind content) */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-32 -right-24 h-96 w-96 rounded-full bg-emerald/20 blur-3xl" />
+        <div className="absolute -bottom-40 -left-24 h-96 w-96 rounded-full bg-emerald-tint/20 blur-3xl" />
       </div>
 
-      <div className="relative w-full max-w-md p-4 z-10">
-        {/* Logo Section */}
-        <Link href="/" className="flex items-center justify-center gap-3 mb-8 group">
-          <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-[#003366]/20 shadow-lg flex-shrink-0 ring-2 ring-[#b5985b]/20 group-hover:ring-[#b5985b]/40 transition-all duration-300">
+      <div className="relative z-10 w-full max-w-md p-4 animate-reveal">
+        {/* Logo */}
+        <Link href="/" className="group mb-8 flex items-center justify-center gap-3">
+          <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-full ring-2 ring-emerald/40 transition-all duration-300 group-hover:ring-emerald/70">
             <Image
               src="/images/logo-fresco.png"
               alt="School of Members Logo"
               fill
               className="object-cover"
+              priority
             />
           </div>
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-[#003366] group-hover:text-[#002244] transition-colors">
+            <h1 className="font-display text-2xl font-bold text-white">
               School of Members
             </h1>
-            <p className="text-[#64748b] text-xs mt-0.5">Ramah Full Gospel Church Pretoria</p>
+            <p className="mt-0.5 text-xs text-white/60">Ramah Full Gospel Church Pretoria</p>
           </div>
         </Link>
 
-        {/* Card Container */}
-        <div className="bg-white rounded-2xl shadow-2xl border border-[#e2e8f0] overflow-hidden backdrop-blur-sm">
+        {/* Glass card */}
+        <div className="glass overflow-hidden rounded-2xl shadow-premium-xl">
           {children}
         </div>
 
-        {/* Bottom Link */}
-        <p className="text-center text-[#64748b] text-sm mt-6">
-          <Link href="/" className="hover:text-[#003366] transition-colors inline-flex items-center gap-2 group">
-            <svg
-              className="w-4 h-4 transform group-hover:-translate-x-1 transition-transform"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
+        {/* Back link */}
+        <p className="mt-6 text-center text-sm text-white/60">
+          <Link href="/" className="group inline-flex items-center gap-2 transition-colors hover:text-emerald">
+            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
             Back to Home
           </Link>
         </p>
 
-        {/* Footer branding */}
+        {/* Secure-connection pill */}
         <div className="mt-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 border border-[#e2e8f0] shadow-sm">
-            <div className="w-2 h-2 rounded-full bg-[#22c55e] animate-pulse" />
-            <span className="text-xs text-[#64748b]">Secure Connection</span>
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-emerald" />
+            <span className="text-xs text-white/70">Secure Connection</span>
           </div>
         </div>
       </div>

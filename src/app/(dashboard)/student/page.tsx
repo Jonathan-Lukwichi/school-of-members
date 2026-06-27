@@ -122,8 +122,8 @@ export default function StudentDashboard() {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="flex flex-col items-center gap-4">
-          <Loader2 className="h-10 w-10 animate-spin text-[#003366]" />
-          <p className="text-[#64748b] text-sm">Loading your dashboard...</p>
+          <Loader2 className="h-10 w-10 animate-spin text-emerald" />
+          <p className="text-muted-foreground text-sm">Loading your dashboard...</p>
         </div>
       </div>
     )
@@ -153,7 +153,7 @@ export default function StudentDashboard() {
           icon={BookOpen}
           iconColor="navy"
           subtitleIcon={TrendingUp}
-          subtitleIconColor="text-[#003366]"
+          subtitleIconColor="text-emerald"
         />
 
         <StatsCard
@@ -163,7 +163,7 @@ export default function StudentDashboard() {
           icon={CheckCircle}
           iconColor="gold"
           subtitleIcon={BookOpen}
-          subtitleIconColor="text-[#b5985b]"
+          subtitleIconColor="text-emerald"
         />
 
         <StatsCard
@@ -173,31 +173,31 @@ export default function StudentDashboard() {
           icon={Calendar}
           iconColor="red"
           subtitleIcon={Calendar}
-          subtitleIconColor="text-[#22c55e]"
+          subtitleIconColor="text-emerald"
         />
       </div>
 
       {/* Continue Learning */}
-      <Card className="bg-white border border-[#e2e8f0] shadow-sm overflow-hidden relative">
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#003366] to-[#C8102E]" />
+      <Card className="bg-card border border-border shadow-premium overflow-hidden relative animate-reveal">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald to-emerald-light" />
         <CardHeader>
-          <CardTitle className="text-[#1e293b] flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-[#003366] animate-pulse" />
+          <CardTitle className="font-display text-foreground flex items-center gap-2">
+            <div className="h-2 w-2 rounded-full bg-emerald animate-pulse" />
             Continue Learning
           </CardTitle>
         </CardHeader>
         <CardContent>
           {enrollments.length === 0 ? (
             <div className="text-center py-12">
-              <div className="h-20 w-20 rounded-2xl bg-[#003366]/10 flex items-center justify-center mx-auto mb-6">
-                <BookOpen className="h-10 w-10 text-[#003366]" />
+              <div className="h-20 w-20 rounded-2xl bg-mint flex items-center justify-center mx-auto mb-6">
+                <BookOpen className="h-10 w-10 text-emerald" />
               </div>
-              <h3 className="text-lg font-medium text-[#1e293b] mb-2">No courses yet</h3>
-              <p className="text-[#64748b] mb-6 max-w-sm mx-auto">
+              <h3 className="text-lg font-medium text-foreground mb-2">No courses yet</h3>
+              <p className="text-muted-foreground mb-6 max-w-sm mx-auto">
                 You haven&apos;t enrolled in any courses yet. Start your learning journey today!
               </p>
               <Link href="/student/courses">
-                <Button className="bg-[#003366] hover:bg-[#002244] text-white px-8">
+                <Button className="bg-emerald-btn text-white px-8 focus-visible:ring-2 focus-visible:ring-emerald focus-visible:ring-offset-2">
                   Browse Courses
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -209,37 +209,37 @@ export default function StudentDashboard() {
                 <Link
                   key={enrollment.id}
                   href={`/student/courses/${enrollment.course?.id}`}
-                  className="block group"
+                  className="block group focus-visible:outline-none"
                 >
-                  <div className="flex items-center gap-4 p-4 rounded-xl border border-[#e2e8f0] bg-[#f8fafc] hover:bg-white hover:shadow-md hover:border-[#003366]/30 transition-all">
-                    <div className="h-14 w-14 rounded-xl bg-[#003366] flex items-center justify-center">
+                  <div className="flex items-center gap-4 p-4 rounded-xl border border-border bg-mint-soft hover:bg-card hover:shadow-emerald hover:border-emerald/40 transition-all group-focus-visible:ring-2 group-focus-visible:ring-emerald group-focus-visible:ring-offset-2">
+                    <div className="h-14 w-14 rounded-xl bg-emerald flex items-center justify-center">
                       <BookOpen className="h-7 w-7 text-white" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-medium text-[#1e293b] truncate group-hover:text-[#003366] transition-colors">
+                      <h3 className="font-medium text-foreground truncate group-hover:text-emerald transition-colors">
                         {enrollment.course?.title}
                       </h3>
                       <div className="flex items-center gap-3 mt-2">
-                        <div className="flex-1 h-2 bg-[#e2e8f0] rounded-full overflow-hidden">
+                        <div className="flex-1 h-2 bg-mint rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-gradient-to-r from-[#003366] to-[#b5985b] rounded-full transition-all duration-500"
+                            className="h-full bg-emerald rounded-full transition-all duration-700 ease-premium"
                             style={{ width: `${enrollment.progress_percent}%` }}
                           />
                         </div>
-                        <span className="text-sm font-medium text-[#003366] min-w-[3rem] text-right">
+                        <span className="text-sm font-medium text-emerald min-w-[3rem] text-right">
                           {enrollment.progress_percent}%
                         </span>
                       </div>
                     </div>
-                    <div className="h-10 w-10 rounded-xl bg-[#003366]/10 flex items-center justify-center group-hover:bg-[#003366]/20 transition-colors">
-                      <Play className="h-5 w-5 text-[#003366]" />
+                    <div className="h-10 w-10 rounded-xl bg-mint flex items-center justify-center group-hover:bg-emerald/20 transition-colors">
+                      <Play className="h-5 w-5 text-emerald" />
                     </div>
                   </div>
                 </Link>
               ))}
               {enrollments.length > 3 && (
                 <Link href="/student/courses" className="block">
-                  <Button variant="outline" className="w-full border-[#003366]/30 text-[#003366] hover:bg-[#003366]/5 hover:border-[#003366]/50">
+                  <Button variant="outline" className="w-full border-emerald/40 text-emerald hover:bg-mint hover:border-emerald/60 focus-visible:ring-2 focus-visible:ring-emerald focus-visible:ring-offset-2">
                     View All Courses
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>

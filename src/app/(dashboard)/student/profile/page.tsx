@@ -6,31 +6,31 @@ export default function ProfilePage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-[#1e293b]">Profile</h1>
-        <p className="text-[#64748b]">
+        <h1 className="font-display text-3xl font-bold text-foreground">Profile</h1>
+        <p className="text-muted-foreground">
           Manage your account settings.
         </p>
       </div>
 
-      <Card className="bg-white border border-[#e2e8f0] shadow-sm">
+      <Card className="bg-card border border-border shadow-premium">
         <CardHeader>
-          <CardTitle className="text-[#1e293b]">Profile Information</CardTitle>
+          <CardTitle className="font-display text-foreground">Profile Information</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="flex items-center gap-4">
-            <Avatar className="h-20 w-20 border-2 border-[#003366]">
+            <Avatar className="h-20 w-20 border-2 border-emerald">
               <AvatarImage src="" alt="Profile" />
-              <AvatarFallback className="bg-[#003366]/10">
-                <User className="h-10 w-10 text-[#003366]" />
+              <AvatarFallback className="bg-mint">
+                <User className="h-10 w-10 text-emerald" />
               </AvatarFallback>
             </Avatar>
             <div>
-              <h3 className="text-lg font-medium text-[#1e293b]">Your Name</h3>
-              <p className="text-sm text-[#64748b]">your.email@example.com</p>
+              <h3 className="text-lg font-medium text-foreground">Your Name</h3>
+              <p className="text-sm text-muted-foreground">your.email@example.com</p>
             </div>
           </div>
 
-          <p className="text-sm text-[#64748b]">
+          <p className="text-sm text-muted-foreground">
             Profile editing will be available after you sign in.
           </p>
         </CardContent>

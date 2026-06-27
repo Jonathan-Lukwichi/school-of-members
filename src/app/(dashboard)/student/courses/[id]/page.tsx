@@ -238,7 +238,7 @@ export default function StudentCourseDetailPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <Loader2 className="h-8 w-8 animate-spin text-[#003366]" />
+        <Loader2 className="h-8 w-8 animate-spin text-emerald" />
       </div>
     )
   }
@@ -246,9 +246,9 @@ export default function StudentCourseDetailPage() {
   if (!course) {
     return (
       <div className="text-center py-12">
-        <h2 className="text-xl font-semibold text-[#1e293b]">Course not found</h2>
+        <h2 className="font-display text-xl font-semibold text-foreground">Course not found</h2>
         <Link href="/student/courses">
-          <Button className="mt-4">Back to Courses</Button>
+          <Button className="mt-4 bg-emerald-btn text-white">Back to Courses</Button>
         </Link>
       </div>
     )
@@ -257,28 +257,28 @@ export default function StudentCourseDetailPage() {
   return (
     <div className="space-y-6">
       {/* Back Button */}
-      <Link href="/student/courses" className="inline-flex items-center text-[#64748b] hover:text-[#003366] transition-colors">
+      <Link href="/student/courses" className="inline-flex items-center text-muted-foreground hover:text-emerald transition-colors rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald focus-visible:ring-offset-2">
         <ArrowLeft className="h-4 w-4 mr-2" />
         Back to Courses
       </Link>
 
       {/* Course Header */}
-      <div className="bg-gradient-to-r from-[#003366] to-[#001a33] rounded-xl p-6 text-white">
+      <div className="bg-gradient-to-r from-ink to-ink-deep rounded-xl p-6 text-white shadow-premium">
         <div className="flex items-start gap-4">
-          <div className="p-3 bg-white/10 rounded-lg">
-            <GraduationCap className="h-8 w-8" />
+          <div className="p-3 bg-emerald/15 rounded-lg">
+            <GraduationCap className="h-8 w-8 text-emerald-light" />
           </div>
           <div className="flex-1">
-            <h1 className="text-2xl font-bold mb-2">{course.title}</h1>
+            <h1 className="font-display text-2xl font-bold mb-2">{course.title}</h1>
             <p className="text-white/80 text-sm mb-4">
               {course.description || 'No description available'}
             </p>
             <div className="flex items-center gap-4 text-sm">
-              <Badge className="bg-white/20 text-white border-0">
+              <Badge className="bg-white/15 text-white border-0">
                 <FileText className="h-3 w-3 mr-1" />
                 {modules.length} Modules
               </Badge>
-              <Badge className="bg-[#b5985b] text-white border-0">
+              <Badge className="bg-emerald text-white border-0">
                 <CheckCircle className="h-3 w-3 mr-1" />
                 {completedCount} Completed
               </Badge>
@@ -290,22 +290,22 @@ export default function StudentCourseDetailPage() {
         <div className="mt-6">
           <div className="flex justify-between text-sm mb-2">
             <span>Course Progress</span>
-            <span>{progressPercent}%</span>
+            <span className="text-emerald-light font-medium">{progressPercent}%</span>
           </div>
-          <Progress value={progressPercent} className="h-2 bg-white/20" />
+          <Progress value={progressPercent} className="h-2 bg-white/20 [&>div]:bg-emerald" />
         </div>
       </div>
 
       {/* Modules List */}
       <div>
-        <h2 className="text-xl font-semibold text-[#1e293b] mb-4">Course Modules</h2>
+        <h2 className="font-display text-xl font-semibold text-foreground mb-4">Course Modules</h2>
 
         {modules.length === 0 ? (
-          <Card className="bg-white border border-[#e2e8f0]">
+          <Card className="bg-card border border-border">
             <CardContent className="p-8 text-center">
-              <BookOpen className="h-12 w-12 text-[#94a3b8] mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-[#1e293b] mb-2">No Modules Yet</h3>
-              <p className="text-sm text-[#64748b]">
+              <BookOpen className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+              <h3 className="font-display text-lg font-semibold text-foreground mb-2">No Modules Yet</h3>
+              <p className="text-sm text-muted-foreground">
                 This course doesn&apos;t have any modules yet. Check back later!
               </p>
             </CardContent>
@@ -319,15 +319,15 @@ export default function StudentCourseDetailPage() {
               return (
                 <Card
                   key={module.id}
-                  className={`bg-white border shadow-sm transition-all ${
-                    isCompleted ? 'border-green-200 bg-green-50/30' : 'border-[#e2e8f0]'
+                  className={`bg-card border shadow-premium transition-all ${
+                    isCompleted ? 'border-emerald/40 bg-mint-soft' : 'border-border'
                   }`}
                 >
                   <CardContent className="p-5">
                     <div className="flex items-start gap-4">
                       {/* Module Number */}
                       <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
-                        isCompleted ? 'bg-green-100 text-green-600' : 'bg-[#003366]/10 text-[#003366]'
+                        isCompleted ? 'bg-emerald text-white' : 'border-2 border-emerald/40 text-emerald'
                       }`}>
                         {isCompleted ? (
                           <CheckCircle className="h-5 w-5" />
@@ -339,19 +339,19 @@ export default function StudentCourseDetailPage() {
                       {/* Module Info */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
-                          <h3 className="font-semibold text-[#1e293b]">{module.title}</h3>
+                          <h3 className="font-display font-semibold text-foreground">{module.title}</h3>
                           {isCompleted && (
-                            <Badge className="bg-green-100 text-green-700 border-0 text-xs">
+                            <Badge className="bg-mint text-emerald-deep border-0 text-xs">
                               Completed
                             </Badge>
                           )}
                         </div>
                         {module.description && (
-                          <p className="text-sm text-[#64748b] mb-2 line-clamp-2">
+                          <p className="text-sm text-muted-foreground mb-2 line-clamp-2">
                             {module.description}
                           </p>
                         )}
-                        <div className="flex items-center gap-4 text-xs text-[#94a3b8]">
+                        <div className="flex items-center gap-4 text-xs text-muted-foreground">
                           {module.file_name && (
                             <span className="flex items-center gap-1">
                               <FileText className="h-3 w-3" />
@@ -380,7 +380,7 @@ export default function StudentCourseDetailPage() {
                                 size="sm"
                                 onClick={() => handlePreview(module)}
                                 disabled={previewingId === module.id}
-                                className="bg-[#003366] hover:bg-[#002244] text-white"
+                                className="bg-emerald-btn text-white focus-visible:ring-2 focus-visible:ring-emerald focus-visible:ring-offset-2"
                               >
                                 {previewingId === module.id ? (
                                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -397,7 +397,7 @@ export default function StudentCourseDetailPage() {
                               size="sm"
                               onClick={() => handleDownload(module)}
                               disabled={downloadingId === module.id}
-                              className="border-[#003366] text-[#003366] hover:bg-[#003366] hover:text-white"
+                              className="border-emerald text-emerald hover:bg-emerald hover:text-white focus-visible:ring-2 focus-visible:ring-emerald focus-visible:ring-offset-2"
                             >
                               {downloadingId === module.id ? (
                                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -415,7 +415,7 @@ export default function StudentCourseDetailPage() {
                             variant="ghost"
                             size="sm"
                             onClick={() => handleMarkComplete(module.id)}
-                            className="text-green-600 hover:text-green-700 hover:bg-green-50"
+                            className="text-emerald hover:text-emerald-deep hover:bg-mint focus-visible:ring-2 focus-visible:ring-emerald focus-visible:ring-offset-2"
                           >
                             <CheckCircle className="h-4 w-4 mr-1" />
                             Mark Done

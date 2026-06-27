@@ -33,25 +33,26 @@ export function LeaderShowcase({
   const currentLeader = leaders[currentLeaderIndex]
   const BadgeIcon = currentLeader.badgeIcon === 'crown' ? Crown : Star
 
-  // Get color classes based on leader color
+  // Get emerald-tinted accent classes. The two legacy tones (amber/forest)
+  // map to a lighter vs. core emerald so the two leaders stay distinguishable.
   const getColorClasses = (color: string = 'forest') => {
     if (color === 'amber') {
       return {
-        badge: 'bg-amber-500/10 border-amber-500/30 text-amber-400',
-        glow: 'shadow-amber-500/30',
-        border: 'border-amber-500/40',
-        text: 'text-amber-400',
-        progressBar: 'bg-gradient-to-r from-amber-400 to-amber-500',
-        progressGlow: 'shadow-[0_0_10px_rgba(245,158,11,0.5)]',
+        badge: 'bg-emerald-light/10 border-emerald-light/30 text-emerald-light',
+        glow: 'shadow-emerald',
+        border: 'border-emerald-light/50',
+        text: 'text-emerald-light',
+        progressBar: 'bg-gradient-to-r from-emerald-top to-emerald-light',
+        progressGlow: 'shadow-[0_0_10px_rgba(95,227,188,0.5)]',
       }
     }
     return {
-      badge: 'bg-forest-400/10 border-forest-400/30 text-forest-400',
-      glow: 'shadow-forest-400/30',
-      border: 'border-forest-400/40',
-      text: 'text-forest-400',
-      progressBar: 'bg-gradient-to-r from-forest-400 to-forest-500',
-      progressGlow: 'shadow-[0_0_10px_rgba(14,165,233,0.5)]',
+      badge: 'bg-emerald/10 border-emerald/30 text-emerald',
+      glow: 'shadow-emerald',
+      border: 'border-emerald/50',
+      text: 'text-emerald',
+      progressBar: 'bg-gradient-to-r from-emerald to-emerald-dark',
+      progressGlow: 'shadow-[0_0_10px_rgba(20,206,150,0.5)]',
     }
   }
 
@@ -114,13 +115,13 @@ export function LeaderShowcase({
   }, [currentLeader.images.length, currentLeaderIndex])
 
   return (
-    <section className="leader-showcase relative overflow-hidden bg-gradient-to-br from-[#0a1419] to-[#0c1a24]">
+    <section className="leader-showcase relative overflow-hidden bg-gradient-to-br from-ink-green to-ink-deep">
       {/* Main Content */}
       <div className="leader-slide grid grid-cols-1 lg:grid-cols-2 min-h-[60vh]">
         {/* Image Side */}
         <div className="relative h-[40vh] lg:h-auto overflow-hidden">
           {/* Background glow */}
-          <div className={`absolute inset-0 ${currentLeader.color === 'amber' ? 'bg-amber-500/5' : 'bg-forest-400/5'}`} />
+          <div className={`absolute inset-0 ${currentLeader.color === 'amber' ? 'bg-emerald-light/5' : 'bg-emerald/5'}`} />
 
           {/* Images with Ken Burns effect */}
           {currentLeader.images.map((image, index) => (
@@ -141,8 +142,8 @@ export function LeaderShowcase({
           ))}
 
           {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#0a1419]/90 lg:block hidden" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a1419] via-transparent to-transparent lg:hidden" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-ink-green/90 lg:block hidden" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink-green via-transparent to-transparent lg:hidden" />
 
           {/* Image indicators (mobile) */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 lg:hidden">
@@ -150,11 +151,12 @@ export function LeaderShowcase({
               <button
                 key={index}
                 onClick={() => setCurrentImageIndex(index)}
-                className={`w-2 h-2 rounded-full transition-all ${
+                className={`w-2 h-2 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald ${
                   index === currentImageIndex
-                    ? `${currentLeader.color === 'amber' ? 'bg-amber-400' : 'bg-forest-400'} scale-125`
+                    ? `${currentLeader.color === 'amber' ? 'bg-emerald-light' : 'bg-emerald'} scale-125`
                     : 'bg-white/40'
                 }`}
+                aria-label={`Go to image ${index + 1}`}
               />
             ))}
           </div>
@@ -178,7 +180,7 @@ export function LeaderShowcase({
               <p className={`text-sm font-semibold uppercase tracking-widest ${colors.text} mb-2`}>
                 {currentLeader.title}
               </p>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
+              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
                 {currentLeader.name}
               </h2>
             </div>
@@ -206,11 +208,12 @@ export function LeaderShowcase({
                 <button
                   key={index}
                   onClick={() => setCurrentImageIndex(index)}
-                  className={`relative w-14 h-14 rounded-lg overflow-hidden border-2 transition-all duration-300 ${
+                  className={`relative w-14 h-14 rounded-lg overflow-hidden border-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald ${
                     index === currentImageIndex
                       ? `${colors.border} scale-110 ${colors.glow} shadow-lg`
                       : 'border-white/20 opacity-60 hover:opacity-100'
                   }`}
+                  aria-label={`View image ${index + 1}`}
                 >
                   <Image
                     src={image}
@@ -228,14 +231,14 @@ export function LeaderShowcase({
             <div className="absolute right-6 top-1/2 -translate-y-1/2 hidden lg:flex flex-col gap-3">
               <button
                 onClick={goToPrevious}
-                className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 hover:text-white transition-all"
+                className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 hover:text-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald"
                 aria-label="Previous leader"
               >
                 <ChevronLeft className="h-6 w-6" />
               </button>
               <button
                 onClick={goToNext}
-                className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 hover:text-white transition-all"
+                className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 hover:text-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald"
                 aria-label="Next leader"
               >
                 <ChevronRight className="h-6 w-6" />
@@ -246,7 +249,7 @@ export function LeaderShowcase({
       </div>
 
       {/* Bottom navigation bar */}
-      <div className="absolute bottom-0 left-0 right-0 bg-[#0a1419]/80 backdrop-blur-sm">
+      <div className="absolute bottom-0 left-0 right-0 bg-ink-green/80 backdrop-blur-sm">
         {/* Progress bar */}
         <div className="showcase-progress h-1 bg-white/10">
           <div
@@ -271,11 +274,12 @@ export function LeaderShowcase({
                     setIsAnimating(true)
                   }, 100)
                 }}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-all ${
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald ${
                   index === currentLeaderIndex
                     ? `${getColorClasses(leader.color).badge} border`
                     : 'text-white/40 hover:text-white/60'
                 }`}
+                aria-label={`View ${leader.title}`}
               >
                 {leader.badgeIcon === 'crown' ? (
                   <Crown className="h-4 w-4" />
@@ -301,13 +305,15 @@ export function LeaderShowcase({
         <div className="absolute bottom-20 left-0 right-0 flex justify-center gap-4 lg:hidden">
           <button
             onClick={goToPrevious}
-            className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white"
+            className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald"
+            aria-label="Previous leader"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
           <button
             onClick={goToNext}
-            className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white"
+            className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald"
+            aria-label="Next leader"
           >
             <ChevronRight className="h-5 w-5" />
           </button>

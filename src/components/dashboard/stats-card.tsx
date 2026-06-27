@@ -14,9 +14,9 @@ interface StatsCardProps {
 }
 
 const iconColors = {
-  navy: 'bg-[#003366]',
-  gold: 'bg-[#b5985b]',
-  red: 'bg-[#C8102E]',
+  navy: 'bg-emerald',
+  gold: 'bg-emerald-deep',
+  red: 'bg-ink',
 }
 
 export function StatsCard({
@@ -26,22 +26,22 @@ export function StatsCard({
   icon: Icon,
   iconColor = 'navy',
   subtitleIcon: SubtitleIcon,
-  subtitleIconColor = 'text-[#64748b]',
+  subtitleIconColor = 'text-muted-foreground',
 }: StatsCardProps) {
   return (
-    <Card className="bg-white border border-[#e2e8f0] shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+    <Card className="bg-card border border-border shadow-premium hover:shadow-premium-lg transition-shadow overflow-hidden animate-reveal">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium text-[#64748b]">{title}</CardTitle>
+        <CardTitle className="text-sm font-medium text-muted-foreground">{title}</CardTitle>
         <div className={`h-10 w-10 rounded-xl ${iconColors[iconColor]} flex items-center justify-center`}>
           <Icon className="h-5 w-5 text-white" />
         </div>
       </CardHeader>
       <CardContent>
-        <div className="text-3xl font-bold text-[#1e293b]">{value}</div>
+        <div className="text-3xl font-bold text-foreground">{value}</div>
         {subtitle && (
           <div className="flex items-center gap-1 mt-1">
             {SubtitleIcon && <SubtitleIcon className={`h-3 w-3 ${subtitleIconColor}`} />}
-            <p className="text-xs text-[#64748b]">{subtitle}</p>
+            <p className="text-xs text-muted-foreground">{subtitle}</p>
           </div>
         )}
       </CardContent>

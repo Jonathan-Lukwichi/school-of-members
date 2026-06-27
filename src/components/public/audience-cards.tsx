@@ -24,15 +24,15 @@ export function AudienceCards() {
         return (
           <div
             key={audience.id}
-            className="bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-all border border-gray-100 text-center group hover:border-[#003366]"
+            className="bg-white rounded-xl p-5 shadow-premium hover:shadow-premium-lg transition-all duration-300 border border-mint text-center group hover:border-emerald hover:-translate-y-1"
           >
-            <div className="w-12 h-12 rounded-full bg-[#003366]/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-[#003366] transition-colors">
-              <Icon className="h-6 w-6 text-[#003366] group-hover:text-white transition-colors" />
+            <div className="w-12 h-12 rounded-full bg-emerald/10 flex items-center justify-center mx-auto mb-4 transition-colors group-hover:bg-emerald">
+              <Icon className="h-6 w-6 text-emerald transition-colors group-hover:text-ink" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-1">
+            <h3 className="font-display font-bold text-ink mb-1">
               {audience.title}
             </h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-ink-muted">
               {audience.description}
             </p>
           </div>

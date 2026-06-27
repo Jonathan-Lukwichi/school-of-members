@@ -74,16 +74,16 @@ export function ModuleCard({
   const downloadCount = progress?.download_count || 0
 
   const getFileIcon = () => {
-    if (!module.file_name) return <FileText className="h-8 w-8 text-gray-400" />
+    if (!module.file_name) return <FileText className="h-8 w-8 text-muted-foreground" />
 
     const ext = module.file_name.split('.').pop()?.toLowerCase()
     if (['png', 'jpg', 'jpeg', 'gif', 'webp'].includes(ext || '')) {
-      return <ImageIcon className="h-8 w-8 text-blue-500" />
+      return <ImageIcon className="h-8 w-8 text-emerald" />
     }
     if (ext === 'pdf') {
-      return <FileText className="h-8 w-8 text-red-500" />
+      return <FileText className="h-8 w-8 text-emerald-deep" />
     }
-    return <FileText className="h-8 w-8 text-gray-500" />
+    return <FileText className="h-8 w-8 text-muted-foreground" />
   }
 
   const handlePreview = async () => {
@@ -118,21 +118,21 @@ export function ModuleCard({
 
   return (
     <Card className={cn(
-      'transition-all hover:shadow-md',
-      isCompleted && 'border-green-200 bg-green-50/50',
+      'transition-all hover:shadow-emerald',
+      isCompleted && 'border-emerald/40 bg-mint-soft',
       className
     )}>
       <CardContent className="p-4">
         <div className="flex items-start gap-4">
-          <div className="h-12 w-12 bg-gray-100 rounded-lg flex items-center justify-center shrink-0">
+          <div className="h-12 w-12 bg-mint rounded-lg flex items-center justify-center shrink-0">
             {getFileIcon()}
           </div>
 
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
-              <h3 className="font-semibold truncate">{module.title}</h3>
+              <h3 className="font-display font-semibold truncate text-foreground">{module.title}</h3>
               {isCompleted && (
-                <Badge variant="outline" className="text-green-600 border-green-300 bg-green-50">
+                <Badge variant="outline" className="text-emerald-deep border-emerald/40 bg-mint">
                   <CheckCircle className="h-3 w-3 mr-1" />
                   Completed
                 </Badge>
@@ -169,7 +169,7 @@ export function ModuleCard({
                 variant="default"
                 onClick={handlePreview}
                 disabled={isPreviewing}
-                className="bg-[#003366] hover:bg-[#002244]"
+                className="bg-emerald-btn text-white focus-visible:ring-2 focus-visible:ring-emerald focus-visible:ring-offset-2"
               >
                 {isPreviewing ? (
                   <Loader2 className="h-4 w-4 animate-spin" />

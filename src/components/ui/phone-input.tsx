@@ -99,7 +99,7 @@ export function PhoneInput({
               variant="outline"
               role="combobox"
               aria-expanded={open}
-              className="w-[120px] justify-between"
+              className="w-[120px] justify-between border-white/15 bg-white/5 text-white hover:border-white/25 hover:bg-white/10 hover:text-white focus:border-emerald/60 focus:ring-2 focus:ring-emerald/30"
               disabled={disabled}
             >
               {selectedCountry ? (
@@ -153,11 +153,11 @@ export function PhoneInput({
           value={localValue}
           onChange={handlePhoneChange}
           disabled={disabled}
-          className={cn('flex-1', error && 'border-red-500')}
+          className={cn('flex-1', error && 'border-red-400/60')}
         />
       </div>
 
-      {error && <p className="text-sm text-red-500">{error}</p>}
+      {error && <p className="text-sm text-red-300">{error}</p>}
     </div>
   )
 }

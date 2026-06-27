@@ -132,8 +132,8 @@ export default function AdminUsersPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-[#1e293b]">Admin Users</h1>
-          <p className="text-[#64748b]">
+          <h1 className="font-display text-3xl font-bold text-foreground">Admin Users</h1>
+          <p className="text-muted-foreground">
             Manage administrator accounts for the platform
           </p>
         </div>
@@ -161,62 +161,62 @@ export default function AdminUsersPage() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">
-        <Card className="bg-white border border-[#e2e8f0] shadow-sm">
+        <Card className="bg-card border border-border shadow-premium">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-[#64748b]">Total Admins</CardTitle>
-            <div className="h-8 w-8 rounded-lg bg-[#003366] flex items-center justify-center">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Total Admins</CardTitle>
+            <div className="h-8 w-8 rounded-lg bg-emerald flex items-center justify-center">
               <Users className="h-4 w-4 text-white" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-[#1e293b]">{admins.length}</div>
+            <div className="text-2xl font-bold text-foreground">{admins.length}</div>
           </CardContent>
         </Card>
-        <Card className="bg-white border border-[#e2e8f0] shadow-sm">
+        <Card className="bg-card border border-border shadow-premium">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-[#64748b]">Platform Status</CardTitle>
-            <div className="h-8 w-8 rounded-lg bg-emerald-100 flex items-center justify-center">
-              <Shield className="h-4 w-4 text-emerald-600" />
+            <CardTitle className="text-sm font-medium text-muted-foreground">Platform Status</CardTitle>
+            <div className="h-8 w-8 rounded-lg bg-mint flex items-center justify-center">
+              <Shield className="h-4 w-4 text-emerald" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-emerald-600">Active</div>
+            <div className="text-2xl font-bold text-emerald">Active</div>
           </CardContent>
         </Card>
-        <Card className="bg-white border border-[#e2e8f0] shadow-sm">
+        <Card className="bg-card border border-border shadow-premium">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-[#64748b]">Recommended</CardTitle>
-            <div className="h-8 w-8 rounded-lg bg-[#b5985b]/20 flex items-center justify-center">
-              <Users className="h-4 w-4 text-[#b5985b]" />
+            <CardTitle className="text-sm font-medium text-muted-foreground">Recommended</CardTitle>
+            <div className="h-8 w-8 rounded-lg bg-emerald-deep/15 flex items-center justify-center">
+              <Users className="h-4 w-4 text-emerald-deep" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-[#1e293b]">3-5</div>
-            <p className="text-xs text-[#64748b]">Admin accounts</p>
+            <div className="text-2xl font-bold text-foreground">3-5</div>
+            <p className="text-xs text-muted-foreground">Admin accounts</p>
           </CardContent>
         </Card>
       </div>
 
-      <Card className="bg-white border border-[#e2e8f0] shadow-sm">
+      <Card className="bg-card border border-border shadow-premium">
         <CardHeader>
-          <CardTitle className="text-[#1e293b]">Administrator Accounts</CardTitle>
-          <CardDescription className="text-[#64748b]">
+          <CardTitle className="text-foreground">Administrator Accounts</CardTitle>
+          <CardDescription className="text-muted-foreground">
             All users with administrative privileges
           </CardDescription>
         </CardHeader>
         <CardContent>
           {isLoading ? (
             <div className="flex items-center justify-center py-8">
-              <Loader2 className="h-8 w-8 animate-spin text-[#003366]" />
+              <Loader2 className="h-8 w-8 animate-spin text-emerald" />
             </div>
           ) : admins.length === 0 ? (
             <div className="text-center py-8">
-              <div className="h-16 w-16 rounded-2xl bg-[#003366]/10 flex items-center justify-center mx-auto mb-4">
-                <Shield className="h-8 w-8 text-[#003366]" />
+              <div className="h-16 w-16 rounded-2xl bg-mint flex items-center justify-center mx-auto mb-4">
+                <Shield className="h-8 w-8 text-emerald" />
               </div>
-              <h3 className="text-lg font-medium text-[#1e293b]">No Admins Found</h3>
-              <p className="text-[#64748b]">
-                Click "Add Admin" to create the first administrator account.
+              <h3 className="text-lg font-medium text-foreground">No Admins Found</h3>
+              <p className="text-muted-foreground">
+                Click &quot;Add Admin&quot; to create the first administrator account.
               </p>
             </div>
           ) : (
@@ -232,34 +232,34 @@ export default function AdminUsersPage() {
               </TableHeader>
               <TableBody>
                 {admins.map((admin) => (
-                  <TableRow key={admin.id} className="hover:bg-[#f8fafc]">
+                  <TableRow key={admin.id} className="hover:bg-mint-soft">
                     <TableCell className="font-medium">
                       <div className="flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-full bg-[#003366]/10 flex items-center justify-center">
-                          <span className="text-[#003366] font-semibold text-sm">
+                        <div className="h-8 w-8 rounded-full bg-mint flex items-center justify-center">
+                          <span className="text-emerald font-semibold text-sm">
                             {admin.full_name?.charAt(0) || 'A'}
                           </span>
                         </div>
-                        <span className="text-[#1e293b]">{admin.full_name || 'Unknown'}</span>
+                        <span className="text-foreground">{admin.full_name || 'Unknown'}</span>
                       </div>
                     </TableCell>
                     <TableCell>
-                      <div className="flex items-center gap-2 text-[#64748b]">
-                        <Mail className="h-4 w-4 text-[#003366]" />
+                      <div className="flex items-center gap-2 text-muted-foreground">
+                        <Mail className="h-4 w-4 text-emerald" />
                         {admin.email}
                       </div>
                     </TableCell>
                     <TableCell>
                       {admin.phone ? (
-                        <div className="flex items-center gap-2 text-[#64748b]">
-                          <Phone className="h-4 w-4 text-[#003366]" />
+                        <div className="flex items-center gap-2 text-muted-foreground">
+                          <Phone className="h-4 w-4 text-emerald" />
                           {admin.phone}
                         </div>
                       ) : (
-                        <span className="text-[#94a3b8]">-</span>
+                        <span className="text-muted-foreground">-</span>
                       )}
                     </TableCell>
-                    <TableCell className="text-[#64748b]">{formatDate(admin.created_at)}</TableCell>
+                    <TableCell className="text-muted-foreground">{formatDate(admin.created_at)}</TableCell>
                     <TableCell className="text-right">
                       <Button
                         variant="ghost"

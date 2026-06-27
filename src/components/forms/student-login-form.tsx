@@ -85,7 +85,7 @@ export function StudentLoginForm() {
   return (
     <div className="space-y-6">
       {error && (
-        <div className="p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2">
+        <div className="flex items-center gap-2 rounded-lg border border-red-400/30 bg-red-500/10 p-3 text-sm text-red-300">
           <Info className="h-4 w-4 flex-shrink-0" />
           {error}
         </div>
@@ -95,30 +95,30 @@ export function StudentLoginForm() {
       <div className="flex items-center justify-center gap-2">
         <div className="flex items-center gap-2">
           <div
-            className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${
+            className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium transition-colors ${
               step === 'phone'
-                ? 'bg-[#003366] text-white'
-                : 'bg-[#003366]/10 text-[#003366]'
+                ? 'bg-emerald text-ink'
+                : 'bg-emerald/15 text-emerald'
             }`}
           >
             1
           </div>
-          <span className={`text-sm ${step === 'phone' ? 'text-[#003366] font-medium' : 'text-[#94a3b8]'}`}>
+          <span className={`text-sm ${step === 'phone' ? 'font-medium text-white' : 'text-white/40'}`}>
             Phone
           </span>
         </div>
-        <div className="w-8 h-[2px] bg-[#e2e8f0]" />
+        <div className="h-[2px] w-8 bg-white/15" />
         <div className="flex items-center gap-2">
           <div
-            className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${
+            className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium transition-colors ${
               step === 'pin'
-                ? 'bg-[#003366] text-white'
-                : 'bg-[#e2e8f0] text-[#94a3b8]'
+                ? 'bg-emerald text-ink'
+                : 'bg-white/10 text-white/40'
             }`}
           >
             2
           </div>
-          <span className={`text-sm ${step === 'pin' ? 'text-[#003366] font-medium' : 'text-[#94a3b8]'}`}>
+          <span className={`text-sm ${step === 'pin' ? 'font-medium text-white' : 'text-white/40'}`}>
             PIN
           </span>
         </div>
@@ -128,8 +128,8 @@ export function StudentLoginForm() {
       {step === 'phone' && (
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label className="flex items-center gap-2 text-[#64748b] text-sm">
-              <Phone className="h-4 w-4 text-[#003366]" />
+            <Label className="flex items-center gap-2 text-sm text-white/70">
+              <Phone className="h-4 w-4 text-emerald" />
               Phone Number
             </Label>
             <PhoneInput
@@ -144,7 +144,7 @@ export function StudentLoginForm() {
 
           <Button
             onClick={handlePhoneSubmit}
-            className="w-full h-12 bg-[#003366] hover:bg-[#002244] text-white font-medium text-base shadow-lg shadow-[#003366]/30 transition-all duration-200"
+            className="h-12 w-full bg-emerald-btn text-base font-semibold text-ink shadow-emerald transition-all duration-200 hover:brightness-105"
             disabled={isLoading || !phoneValid}
           >
             Continue
@@ -157,8 +157,8 @@ export function StudentLoginForm() {
       {step === 'pin' && (
         <div className="space-y-4">
           <div className="space-y-4">
-            <Label className="flex items-center justify-center gap-2 text-[#64748b] text-sm">
-              <Lock className="h-4 w-4 text-[#003366]" />
+            <Label className="flex items-center justify-center gap-2 text-sm text-white/70">
+              <Lock className="h-4 w-4 text-emerald" />
               Enter your 6-digit PIN
             </Label>
             <PinInput
@@ -180,14 +180,14 @@ export function StudentLoginForm() {
                 setError('')
               }}
               disabled={isLoading}
-              className="flex-1 h-12 border-[#003366]/30 text-[#003366] hover:bg-[#003366]/5"
+              className="h-12 flex-1 border-white/20 bg-transparent text-white hover:bg-white/5 hover:text-white"
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back
             </Button>
             <Button
               onClick={() => handleLogin()}
-              className="flex-1 h-12 bg-[#003366] hover:bg-[#002244] text-white font-medium shadow-lg shadow-[#003366]/30"
+              className="h-12 flex-1 bg-emerald-btn font-semibold text-ink shadow-emerald hover:brightness-105"
               disabled={isLoading || pin.length !== 6}
             >
               {isLoading ? (
@@ -205,7 +205,7 @@ export function StudentLoginForm() {
           <div className="text-center">
             <Link
               href="/student/forgot-pin"
-              className="text-sm text-[#003366] hover:text-[#C8102E] hover:underline transition-colors"
+              className="text-sm text-white/60 transition-colors hover:text-emerald hover:underline"
             >
               Forgot PIN?
             </Link>
@@ -214,9 +214,9 @@ export function StudentLoginForm() {
       )}
 
       {/* Register link */}
-      <div className="pt-4 border-t border-[#e2e8f0] text-center text-sm text-[#64748b]">
+      <div className="border-t border-white/10 pt-4 text-center text-sm text-white/60">
         Don&apos;t have an account?{' '}
-        <Link href="/student/register" className="text-[#003366] hover:text-[#C8102E] font-medium transition-colors">
+        <Link href="/student/register" className="font-medium text-emerald transition-colors hover:underline">
           Register
         </Link>
       </div>

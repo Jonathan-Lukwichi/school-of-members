@@ -9,7 +9,7 @@ export function Timeline({ events }: TimelineProps) {
   return (
     <div className="relative">
       {/* Vertical line */}
-      <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 transform md:-translate-x-1/2" />
+      <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-mint transform md:-translate-x-1/2" />
 
       <div className="space-y-8">
         {events.map((event, index) => (
@@ -26,10 +26,10 @@ export function Timeline({ events }: TimelineProps) {
               className={cn(
                 'absolute left-0 md:left-1/2 transform md:-translate-x-1/2',
                 'w-8 h-8 rounded-full flex items-center justify-center',
-                'text-xs font-bold z-10',
+                'text-xs font-bold z-10 ring-4 ring-white',
                 event.isHighlight
-                  ? 'bg-[#C8102E] text-white'
-                  : 'bg-[#003366] text-white'
+                  ? 'bg-emerald text-ink shadow-emerald'
+                  : 'bg-ink text-white'
               )}
             >
               <span className="sr-only">{event.year}</span>
@@ -44,23 +44,23 @@ export function Timeline({ events }: TimelineProps) {
             >
               <div
                 className={cn(
-                  'bg-white rounded-lg shadow-md p-5 border-l-4 transition-all hover:shadow-lg',
-                  event.isHighlight ? 'border-[#C8102E]' : 'border-[#003366]'
+                  'bg-white rounded-xl shadow-premium p-5 border-l-4 transition-all hover:shadow-premium-lg',
+                  event.isHighlight ? 'border-emerald' : 'border-ink'
                 )}
               >
                 <span
                   className={cn(
                     'inline-block text-sm font-bold mb-1',
-                    event.isHighlight ? 'text-[#C8102E]' : 'text-[#003366]'
+                    event.isHighlight ? 'text-emerald-dark' : 'text-ink'
                   )}
                 >
                   {event.year}
                 </span>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">
+                <h3 className="font-display text-lg font-bold text-ink mb-2">
                   {event.title}
                 </h3>
                 {event.description && (
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-ink-muted text-sm">
                     {event.description}
                   </p>
                 )}

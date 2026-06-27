@@ -28,7 +28,7 @@ export default function AdminDashboard() {
           icon={Users}
           iconColor="navy"
           subtitleIcon={TrendingUp}
-          subtitleIconColor="text-[#22c55e]"
+          subtitleIconColor="text-emerald"
         />
 
         <StatsCard
@@ -38,7 +38,7 @@ export default function AdminDashboard() {
           icon={BookOpen}
           iconColor="gold"
           subtitleIcon={BookOpen}
-          subtitleIconColor="text-[#b5985b]"
+          subtitleIconColor="text-emerald"
         />
 
         <StatsCard
@@ -48,7 +48,7 @@ export default function AdminDashboard() {
           icon={GraduationCap}
           iconColor="red"
           subtitleIcon={ArrowUpRight}
-          subtitleIconColor="text-[#003366]"
+          subtitleIconColor="text-emerald"
         />
 
         <StatsCard
@@ -58,30 +58,30 @@ export default function AdminDashboard() {
           icon={Calendar}
           iconColor="navy"
           subtitleIcon={Clock}
-          subtitleIconColor="text-[#64748b]"
+          subtitleIconColor="text-muted-foreground"
         />
       </div>
 
       {/* Recent Activity Section */}
       <div className="grid gap-6 md:grid-cols-2">
         {/* Recent Registrations */}
-        <Card className="bg-white border border-[#e2e8f0] shadow-sm overflow-hidden relative">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#003366] to-[#b5985b]" />
+        <Card className="bg-card border border-border shadow-premium overflow-hidden relative">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald to-emerald-deep" />
           <CardHeader>
-            <CardTitle className="text-[#1e293b] flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-[#003366] animate-pulse" />
+            <CardTitle className="text-foreground flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-emerald animate-pulse" />
               Recent Registrations
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex flex-col items-center justify-center py-8 text-center">
-              <div className="h-16 w-16 rounded-2xl bg-[#003366]/10 flex items-center justify-center mb-4">
-                <Users className="h-8 w-8 text-[#003366]" />
+              <div className="h-16 w-16 rounded-2xl bg-mint flex items-center justify-center mb-4">
+                <Users className="h-8 w-8 text-emerald" />
               </div>
-              <p className="text-sm text-[#64748b]">
+              <p className="text-sm text-muted-foreground">
                 No recent registrations yet.
               </p>
-              <p className="text-xs text-[#94a3b8] mt-1">
+              <p className="text-xs text-muted-foreground mt-1">
                 New students will appear here
               </p>
             </div>
@@ -89,23 +89,23 @@ export default function AdminDashboard() {
         </Card>
 
         {/* Recent Enrollments */}
-        <Card className="bg-white border border-[#e2e8f0] shadow-sm overflow-hidden relative">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#b5985b] to-[#C8102E]" />
+        <Card className="bg-card border border-border shadow-premium overflow-hidden relative">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-deep to-emerald" />
           <CardHeader>
-            <CardTitle className="text-[#1e293b] flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-[#b5985b] animate-pulse" />
+            <CardTitle className="text-foreground flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-emerald-deep animate-pulse" />
               Recent Enrollments
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex flex-col items-center justify-center py-8 text-center">
-              <div className="h-16 w-16 rounded-2xl bg-[#b5985b]/10 flex items-center justify-center mb-4">
-                <GraduationCap className="h-8 w-8 text-[#b5985b]" />
+              <div className="h-16 w-16 rounded-2xl bg-mint flex items-center justify-center mb-4">
+                <GraduationCap className="h-8 w-8 text-emerald-deep" />
               </div>
-              <p className="text-sm text-[#64748b]">
+              <p className="text-sm text-muted-foreground">
                 No recent enrollments yet.
               </p>
-              <p className="text-xs text-[#94a3b8] mt-1">
+              <p className="text-xs text-muted-foreground mt-1">
                 Course enrollments will appear here
               </p>
             </div>
@@ -114,24 +114,24 @@ export default function AdminDashboard() {
       </div>
 
       {/* Quick Stats Bar */}
-      <Card className="bg-white border border-[#e2e8f0] shadow-sm overflow-hidden">
+      <Card className="bg-card border border-border shadow-premium overflow-hidden">
         <CardContent className="py-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="text-2xl font-bold text-[#003366]">0</div>
-              <p className="text-xs text-[#64748b] mt-1">Teachers</p>
+              <div className="text-2xl font-bold text-emerald">0</div>
+              <p className="text-xs text-muted-foreground mt-1">Teachers</p>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-[#003366]">0</div>
-              <p className="text-xs text-[#64748b] mt-1">Modules</p>
+              <div className="text-2xl font-bold text-emerald">0</div>
+              <p className="text-xs text-muted-foreground mt-1">Modules</p>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-[#003366]">0</div>
-              <p className="text-xs text-[#64748b] mt-1">Sessions</p>
+              <div className="text-2xl font-bold text-emerald">0</div>
+              <p className="text-xs text-muted-foreground mt-1">Sessions</p>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-[#003366]">0%</div>
-              <p className="text-xs text-[#64748b] mt-1">Completion Rate</p>
+              <div className="text-2xl font-bold text-emerald">0%</div>
+              <p className="text-xs text-muted-foreground mt-1">Completion Rate</p>
             </div>
           </div>
         </CardContent>

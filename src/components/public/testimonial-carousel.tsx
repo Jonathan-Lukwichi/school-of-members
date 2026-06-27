@@ -50,18 +50,18 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) 
   return (
     <div className="relative max-w-4xl mx-auto">
       {/* Main testimonial card */}
-      <div className="dark-card p-8 md:p-12 relative overflow-hidden">
+      <div className="bg-white border border-mint rounded-2xl shadow-premium-lg p-8 md:p-12 relative overflow-hidden">
         {/* Background decoration */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-forest-400/10 rounded-full -translate-y-1/2 translate-x-1/2" />
-        <div className="absolute bottom-0 left-0 w-24 h-24 bg-forest-500/10 rounded-full translate-y-1/2 -translate-x-1/2" />
+        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald/10 rounded-full -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-emerald-dark/10 rounded-full translate-y-1/2 -translate-x-1/2" />
 
         {/* Quote icon */}
         <div className="relative z-10">
-          <Quote className="h-12 w-12 text-forest-400 mb-6" />
+          <Quote className="h-12 w-12 text-emerald mb-6" />
 
           {/* Content */}
-          <blockquote className="text-xl md:text-2xl text-white/80 leading-relaxed mb-8 italic">
-            "{currentTestimonial.content}"
+          <blockquote className="text-xl md:text-2xl text-ink leading-relaxed mb-8 italic">
+            &ldquo;{currentTestimonial.content}&rdquo;
           </blockquote>
 
           {/* Author */}
@@ -70,18 +70,18 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) 
               <img
                 src={currentTestimonial.photo_url}
                 alt={currentTestimonial.name}
-                className="w-14 h-14 rounded-full object-cover border-2 border-forest-400/30"
+                className="w-14 h-14 rounded-full object-cover border-2 border-emerald/40"
               />
             ) : (
-              <div className="w-14 h-14 rounded-full bg-forest-400/20 flex items-center justify-center text-forest-400 font-bold text-lg">
+              <div className="w-14 h-14 rounded-full bg-emerald/15 flex items-center justify-center text-emerald-dark font-bold text-lg">
                 {currentTestimonial.name.charAt(0)}
               </div>
             )}
             <div>
-              <p className="font-bold text-white text-lg">
+              <p className="font-bold text-ink text-lg">
                 {currentTestimonial.name}
               </p>
-              <p className="text-white/50">{currentTestimonial.role}</p>
+              <p className="text-ink-muted">{currentTestimonial.role}</p>
             </div>
           </div>
         </div>
@@ -93,14 +93,14 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) 
           {/* Arrows */}
           <button
             onClick={goToPrevious}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-6 w-12 h-12 bg-[#0f2133] border border-forest-400/30 rounded-full shadow-lg flex items-center justify-center text-forest-400 hover:bg-forest-400 hover:text-white transition-colors"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-6 w-12 h-12 bg-white border border-emerald/30 rounded-full shadow-premium flex items-center justify-center text-emerald-dark hover:bg-emerald hover:text-ink transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald"
             aria-label="Previous testimonial"
           >
             <ChevronLeft className="h-6 w-6" />
           </button>
           <button
             onClick={goToNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-6 w-12 h-12 bg-[#0f2133] border border-forest-400/30 rounded-full shadow-lg flex items-center justify-center text-forest-400 hover:bg-forest-400 hover:text-white transition-colors"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-6 w-12 h-12 bg-white border border-emerald/30 rounded-full shadow-premium flex items-center justify-center text-emerald-dark hover:bg-emerald hover:text-ink transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald"
             aria-label="Next testimonial"
           >
             <ChevronRight className="h-6 w-6" />
@@ -116,10 +116,10 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) 
                   setCurrentIndex(index)
                 }}
                 className={cn(
-                  'w-3 h-3 rounded-full transition-all',
+                  'w-3 h-3 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald',
                   index === currentIndex
-                    ? 'bg-forest-400 w-8'
-                    : 'bg-white/20 hover:bg-white/30'
+                    ? 'bg-emerald w-8'
+                    : 'bg-ink/20 hover:bg-ink/30'
                 )}
                 aria-label={`Go to testimonial ${index + 1}`}
               />

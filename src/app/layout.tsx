@@ -1,21 +1,17 @@
 import type { Metadata } from "next";
-import { Inter, Plus_Jakarta_Sans, DM_Sans } from "next/font/google";
+import { Sora, Manrope } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
-const inter = Inter({
+// v2.1 "Premium Elevation" type system: Sora (display) + Manrope (body)
+const sora = Sora({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-display",
+  weight: ["400", "500", "600", "700", "800"],
 });
 
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-plus-jakarta",
-  weight: ["400", "500", "600", "700"],
-});
-
-const dmSans = DM_Sans({
+const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-body",
   weight: ["400", "500", "600", "700"],
@@ -36,10 +32,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${plusJakarta.variable} ${dmSans.variable} font-sans antialiased`}>
+      <body className={`${sora.variable} ${manrope.variable} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem={false}
           disableTransitionOnChange
         >

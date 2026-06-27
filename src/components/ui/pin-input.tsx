@@ -131,25 +131,25 @@ export function PinInput({
             disabled={disabled}
             autoComplete="one-time-code"
             className={cn(
-              'w-10 h-12 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-bold',
-              'border-2 rounded-lg outline-none transition-all duration-200',
-              'focus:border-purple-500 focus:ring-2 focus:ring-purple-200',
-              disabled && 'bg-gray-100 cursor-not-allowed',
-              error && 'border-red-500',
+              'w-10 h-12 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-bold text-white',
+              'border-2 rounded-lg outline-none transition-all duration-200 bg-white/5',
+              'focus:border-emerald/60 focus:ring-2 focus:ring-emerald/30',
+              disabled && 'opacity-50 cursor-not-allowed',
+              error && 'border-red-400/60',
               focusedIndex === index
-                ? 'border-purple-500 ring-2 ring-purple-200'
-                : 'border-gray-300 hover:border-gray-400',
-              digit && 'bg-purple-50'
+                ? 'border-emerald/60 ring-2 ring-emerald/30'
+                : 'border-white/15 hover:border-white/25',
+              digit && 'bg-emerald/10'
             )}
           />
         ))}
       </div>
 
       {error && (
-        <p className="text-sm text-red-500 text-center">{error}</p>
+        <p className="text-sm text-red-300 text-center">{error}</p>
       )}
 
-      <p className="text-xs text-muted-foreground text-center">
+      <p className="text-xs text-white/50 text-center">
         Enter your 6-digit PIN
       </p>
     </div>

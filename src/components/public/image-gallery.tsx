@@ -67,11 +67,11 @@ export function ImageGallery({
 
       {/* Gradient Overlay */}
       {overlay && (
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/30 via-transparent to-slate-950/90 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink-deep/30 via-transparent to-ink-deep/90 z-10" />
       )}
 
-      {/* Brand Glow Effect */}
-      <div className="absolute inset-0 bg-brand-500/5 z-10 mix-blend-overlay" />
+      {/* Emerald Glow Effect */}
+      <div className="absolute inset-0 bg-emerald/5 z-10 mix-blend-overlay" />
 
       {/* Content Overlay */}
       {(title || subtitle) && (
@@ -81,9 +81,9 @@ export function ImageGallery({
           textPosition === 'bottom' && "items-end pb-20",
           textPosition === 'center' && "items-center"
         )}>
-          <div className="text-center px-6 py-8 mx-4 rounded-2xl bg-slate-950/60 backdrop-blur-sm border border-white/10">
+          <div className="text-center px-6 py-8 mx-4 rounded-2xl glass">
             {title && (
-              <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold text-white mb-4 tracking-tight [text-shadow:_2px_2px_8px_rgb(0_0_0_/_80%),_0_0_30px_rgb(0_0_0_/_50%)]">
+              <h2 className="text-3xl md:text-4xl lg:text-6xl font-display font-bold text-white mb-4 tracking-tight [text-shadow:_2px_2px_8px_rgb(0_0_0_/_80%),_0_0_30px_rgb(0_0_0_/_50%)]">
                 {title}
               </h2>
             )}
@@ -104,9 +104,9 @@ export function ImageGallery({
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={cn(
-                'gallery-dot h-2 w-2 rounded-full transition-all duration-300',
-                index === currentIndex 
-                  ? 'bg-brand-500 w-8' 
+                'gallery-dot h-2 w-2 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald',
+                index === currentIndex
+                  ? 'bg-emerald w-8'
                   : 'bg-white/40 hover:bg-white/60'
               )}
               aria-label={`Go to image ${index + 1}`}
@@ -133,19 +133,19 @@ export function LeaderGallery({ images, name, title }: LeaderGalleryProps) {
   return (
     <div className="relative max-w-lg mx-auto">
       {/* Main Image */}
-      <div className="relative aspect-[3/4] rounded-2xl overflow-hidden border border-slate-700 shadow-2xl shadow-black/50">
+      <div className="relative aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 shadow-premium-xl">
         <Image
           src={images[currentIndex]}
           alt={name}
           fill
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink-deep/90 via-transparent to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-8 z-10">
-          <p className="text-brand-500 text-sm font-bold uppercase tracking-widest mb-2">
+          <p className="text-emerald text-sm font-bold uppercase tracking-widest mb-2">
             {title}
           </p>
-          <h3 className="text-3xl font-heading font-bold text-white tracking-tight">{name}</h3>
+          <h3 className="text-3xl font-display font-bold text-white tracking-tight">{name}</h3>
         </div>
       </div>
 
@@ -157,9 +157,9 @@ export function LeaderGallery({ images, name, title }: LeaderGalleryProps) {
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={cn(
-                'relative w-16 h-16 rounded-lg overflow-hidden border-2 transition-all duration-300',
-                index === currentIndex 
-                  ? 'border-brand-500 opacity-100 ring-2 ring-brand-500/30' 
+                'relative w-16 h-16 rounded-lg overflow-hidden border-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald',
+                index === currentIndex
+                  ? 'border-emerald opacity-100 ring-2 ring-emerald/30'
                   : 'border-transparent opacity-50 hover:opacity-80'
               )}
             >

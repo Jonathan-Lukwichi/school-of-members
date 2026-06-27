@@ -24,7 +24,7 @@ export function ChapterJourney() {
       <div className="hidden lg:block">
         <div className="relative">
           {/* Path line */}
-          <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-[#003366] via-[#C8102E] to-[#b5985b] rounded-full transform -translate-y-1/2" />
+          <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-ink via-emerald to-emerald-top rounded-full transform -translate-y-1/2" />
 
           {/* Chapters */}
           <div className="grid grid-cols-6 gap-4">
@@ -52,7 +52,7 @@ export function ChapterJourney() {
       <div className="lg:hidden">
         <div className="relative">
           {/* Vertical line */}
-          <div className="absolute left-6 top-0 bottom-0 w-1 bg-gradient-to-b from-[#003366] via-[#C8102E] to-[#b5985b] rounded-full" />
+          <div className="absolute left-6 top-0 bottom-0 w-1 bg-gradient-to-b from-ink via-emerald to-emerald-top rounded-full" />
 
           {/* Chapters */}
           <div className="space-y-6">
@@ -61,27 +61,27 @@ export function ChapterJourney() {
                 {/* Node */}
                 <div
                   className={cn(
-                    'w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg z-10 shadow-md',
+                    'w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg z-10 shadow-premium',
                     getColorClass(index)
                   )}
                 >
                   {chapter.number}
                 </div>
                 {/* Content */}
-                <div className="bg-white rounded-lg shadow-md p-4 flex-1 border border-gray-100">
-                  <p className="text-sm text-gray-500 mb-1">Chapter {chapter.number}</p>
-                  <h4 className="font-bold text-gray-900">{chapter.title}</h4>
+                <div className="bg-white rounded-lg shadow-premium p-4 flex-1 border border-mint">
+                  <p className="text-sm text-ink-muted mb-1">Chapter {chapter.number}</p>
+                  <h4 className="font-display font-bold text-ink">{chapter.title}</h4>
                 </div>
               </div>
             ))}
 
             {/* Graduation node */}
             <div className="relative flex items-center gap-4 pl-4">
-              <div className="w-12 h-12 rounded-full bg-[#22c55e] flex items-center justify-center z-10 shadow-md">
-                <CheckCircle2 className="h-6 w-6 text-white" />
+              <div className="w-12 h-12 rounded-full bg-emerald flex items-center justify-center z-10 shadow-emerald">
+                <CheckCircle2 className="h-6 w-6 text-ink" />
               </div>
-              <div className="bg-[#22c55e]/10 rounded-lg p-4 flex-1 border border-[#22c55e]/30">
-                <p className="text-[#22c55e] font-bold">Certification Complete!</p>
+              <div className="bg-mint rounded-lg p-4 flex-1 border border-emerald/30">
+                <p className="text-emerald-dark font-bold">Certification Complete!</p>
               </div>
             </div>
           </div>
@@ -103,7 +103,7 @@ function ChapterNode({
       {/* Circle node */}
       <div
         className={cn(
-          'w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg z-10 shadow-lg transition-transform hover:scale-110',
+          'w-14 h-14 rounded-full flex items-center justify-center font-bold text-lg z-10 shadow-premium transition-transform hover:scale-110',
           getColorClass(colorIndex)
         )}
       >
@@ -111,8 +111,8 @@ function ChapterNode({
       </div>
       {/* Label */}
       <div className="mt-4 text-center">
-        <p className="text-xs text-gray-500 mb-1">Chapter {chapter.number}</p>
-        <h4 className="text-sm font-semibold text-gray-800 leading-tight">
+        <p className="text-xs text-ink-muted mb-1">Chapter {chapter.number}</p>
+        <h4 className="text-sm font-semibold text-ink leading-tight">
           {chapter.title}
         </h4>
       </div>
@@ -121,19 +121,20 @@ function ChapterNode({
 }
 
 function getColorClass(index: number): string {
+  // Emerald/ink gradient progression along the journey (light surface)
   const colors = [
-    'bg-[#003366]',
-    'bg-[#004080]',
-    'bg-[#8B5CF6]',
-    'bg-[#C8102E]',
-    'bg-[#e01b3d]',
-    'bg-[#b5985b]',
-    'bg-[#0ea5e9]',
-    'bg-[#06b6d4]',
-    'bg-[#22c55e]',
-    'bg-[#16a34a]',
-    'bg-[#f59e0b]',
-    'bg-[#003366]',
+    'bg-ink text-white',
+    'bg-ink-soft text-white',
+    'bg-emerald-deep text-white',
+    'bg-emerald-tint text-white',
+    'bg-emerald-dark text-ink',
+    'bg-emerald text-ink',
+    'bg-emerald text-ink',
+    'bg-emerald-light text-ink',
+    'bg-emerald-top text-ink',
+    'bg-emerald text-ink',
+    'bg-emerald-dark text-ink',
+    'bg-ink text-white',
   ]
   return colors[index % colors.length]
 }

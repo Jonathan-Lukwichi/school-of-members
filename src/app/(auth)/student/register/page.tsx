@@ -3,8 +3,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { PhoneInput } from '@/components/ui/phone-input'
@@ -118,92 +116,87 @@ export default function StudentRegisterPage() {
   // Success screen after registration (awaiting approval)
   if (registrationSuccess) {
     return (
-      <Card className="border-0 shadow-none">
-        <div className="h-1 bg-gradient-to-r from-[#003366] via-[#b5985b] to-[#C8102E]" />
-        <CardHeader className="space-y-2 text-center pb-6 pt-8">
-          {/* Pending Icon */}
-          <div className="flex justify-center mb-4">
-            <div className="w-20 h-20 rounded-full bg-amber-100 flex items-center justify-center">
-              <Clock className="h-12 w-12 text-amber-600" />
+      <div className="overflow-hidden">
+        {/* Emerald accent bar */}
+        <div className="h-1.5 bg-emerald-btn" />
+
+        <div className="px-6 pb-8 pt-8 sm:px-8">
+          <div className="mb-6 space-y-2 text-center">
+            {/* Pending Icon */}
+            <div className="mb-4 flex justify-center">
+              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-emerald/15 text-emerald">
+                <Clock className="h-12 w-12" />
+              </div>
             </div>
-          </div>
-          <CardTitle className="text-2xl font-bold text-[#003366]">
-            Registration Submitted!
-          </CardTitle>
-          <CardDescription className="text-[#64748b]">
-            Thank you, {studentName}! Your application is being reviewed.
-          </CardDescription>
-        </CardHeader>
-
-        <CardContent className="space-y-4">
-          {/* What happens next */}
-          <div className="bg-[#003366]/5 border border-[#003366]/20 rounded-xl p-4">
-            <h4 className="font-medium text-[#003366] mb-3 flex items-center gap-2">
-              <Sparkles className="h-4 w-4" />
-              What happens next?
-            </h4>
-            <ol className="text-sm text-[#64748b] space-y-2 list-decimal list-inside">
-              <li>Our team will review your registration</li>
-              <li>Once approved, you&apos;ll receive your PIN via WhatsApp</li>
-              <li>Use your phone number and PIN to login</li>
-            </ol>
-          </div>
-
-          {/* WhatsApp Note */}
-          <div className="bg-green-50 border border-green-200 rounded-xl p-4">
-            <p className="text-sm text-green-700 flex items-center gap-2">
-              <MessageCircle className="h-4 w-4" />
-              Keep your WhatsApp notifications on to receive your login PIN.
+            <h1 className="font-display text-2xl font-bold text-white">
+              Registration Submitted!
+            </h1>
+            <p className="text-sm text-white/60">
+              Thank you, {studentName}! Your application is being reviewed.
             </p>
           </div>
-        </CardContent>
 
-        <CardFooter className="flex flex-col gap-4 pb-8">
-          <Button
-            onClick={() => router.push('/')}
-            className="w-full bg-[#003366] hover:bg-[#002244] text-white"
-          >
-            Return to Home
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        </CardFooter>
-      </Card>
+          <div className="space-y-4">
+            {/* What happens next */}
+            <div className="rounded-xl border border-emerald/20 bg-emerald/5 p-4">
+              <h4 className="mb-3 flex items-center gap-2 font-medium text-white">
+                <Sparkles className="h-4 w-4 text-emerald" />
+                What happens next?
+              </h4>
+              <ol className="list-inside list-decimal space-y-2 text-sm text-white/60">
+                <li>Our team will review your registration</li>
+                <li>Once approved, you&apos;ll receive your PIN via WhatsApp</li>
+                <li>Use your phone number and PIN to login</li>
+              </ol>
+            </div>
+
+            {/* WhatsApp Note */}
+            <div className="rounded-xl border border-emerald/20 bg-emerald/5 p-4">
+              <p className="flex items-center gap-2 text-sm text-white/70">
+                <MessageCircle className="h-4 w-4 text-emerald" />
+                Keep your WhatsApp notifications on to receive your login PIN.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6 flex flex-col gap-4">
+            <Button
+              onClick={() => router.push('/')}
+              className="h-12 w-full bg-emerald-btn text-base font-semibold text-ink shadow-emerald transition-all duration-200 hover:brightness-105"
+            >
+              Return to Home
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      </div>
     )
   }
 
   return (
-    <Card className="border-0 shadow-none">
-      <div className="h-1 bg-gradient-to-r from-[#003366] via-[#b5985b] to-[#C8102E]" />
-      <CardHeader className="space-y-2 text-center pb-6 pt-8">
-        {/* Circular Logo */}
-        <div className="flex justify-center mb-6">
-          <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-[#003366]/20 shadow-xl">
-            <Image
-              src="/images/logo-fresco.png"
-              alt="School of Members Logo"
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
-        </div>
-        <div className="flex items-center justify-center gap-2 text-[#C8102E] text-sm font-medium">
-          <Sparkles className="h-4 w-4" />
-          Start your journey
-        </div>
-        <CardTitle className="text-2xl font-bold text-[#003366]">Join School of Members</CardTitle>
-        <CardDescription className="text-[#64748b]">
-          Register with your details to start learning
-        </CardDescription>
-      </CardHeader>
+    <div className="overflow-hidden">
+      {/* Emerald accent bar */}
+      <div className="h-1.5 bg-emerald-btn" />
 
-      <form onSubmit={handleSubmit}>
-        <CardContent className="space-y-4">
+      <div className="px-6 pb-8 pt-8 sm:px-8">
+        <div className="mb-6 space-y-2 text-center">
+          <div className="flex items-center justify-center gap-2 text-sm font-medium text-emerald">
+            <Sparkles className="h-4 w-4" />
+            Start your journey
+          </div>
+          <h1 className="font-display text-2xl font-bold text-white">Join School of Members</h1>
+          <p className="text-sm text-white/60">
+            Register with your details to start learning
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit}>
+          <div className="space-y-4">
           {/* Full Name */}
           <div className="space-y-2">
-            <Label htmlFor="fullName" className="flex items-center gap-2 text-[#1e293b]">
-              <User className="h-4 w-4 text-[#003366]" />
-              Full Name <span className="text-red-500">*</span>
+            <Label htmlFor="fullName" className="flex items-center gap-2 text-sm text-white/70">
+              <User className="h-4 w-4 text-emerald" />
+              Full Name <span className="text-emerald">*</span>
             </Label>
             <Input
               id="fullName"
@@ -216,9 +209,9 @@ export default function StudentRegisterPage() {
 
           {/* Email */}
           <div className="space-y-2">
-            <Label htmlFor="email" className="flex items-center gap-2 text-[#1e293b]">
-              <Mail className="h-4 w-4 text-[#003366]" />
-              Email Address <span className="text-red-500">*</span>
+            <Label htmlFor="email" className="flex items-center gap-2 text-sm text-white/70">
+              <Mail className="h-4 w-4 text-emerald" />
+              Email Address <span className="text-emerald">*</span>
             </Label>
             <Input
               id="email"
@@ -232,9 +225,9 @@ export default function StudentRegisterPage() {
 
           {/* Phone Number */}
           <div className="space-y-2">
-            <Label className="flex items-center gap-2 text-[#1e293b]">
-              <Phone className="h-4 w-4 text-[#003366]" />
-              Phone Number <span className="text-red-500">*</span>
+            <Label className="flex items-center gap-2 text-sm text-white/70">
+              <Phone className="h-4 w-4 text-emerald" />
+              Phone Number <span className="text-emerald">*</span>
             </Label>
             <PhoneInput
               value={formData.phone}
@@ -247,9 +240,9 @@ export default function StudentRegisterPage() {
 
           {/* Address */}
           <div className="space-y-2">
-            <Label htmlFor="address" className="flex items-center gap-2 text-[#1e293b]">
-              <MapPin className="h-4 w-4 text-[#003366]" />
-              Address <span className="text-red-500">*</span>
+            <Label htmlFor="address" className="flex items-center gap-2 text-sm text-white/70">
+              <MapPin className="h-4 w-4 text-emerald" />
+              Address <span className="text-emerald">*</span>
             </Label>
             <Input
               id="address"
@@ -262,9 +255,9 @@ export default function StudentRegisterPage() {
 
           {/* Church of Provenance */}
           <div className="space-y-2">
-            <Label htmlFor="churchOfProvenance" className="flex items-center gap-2 text-[#1e293b]">
-              <Church className="h-4 w-4 text-[#003366]" />
-              Church of Provenance <span className="text-[#64748b] text-xs">(optional)</span>
+            <Label htmlFor="churchOfProvenance" className="flex items-center gap-2 text-sm text-white/70">
+              <Church className="h-4 w-4 text-emerald" />
+              Church of Provenance <span className="text-xs text-white/40">(optional)</span>
             </Label>
             <Input
               id="churchOfProvenance"
@@ -277,9 +270,9 @@ export default function StudentRegisterPage() {
 
           {/* Baptized by Immersion */}
           <div className="space-y-3">
-            <Label className="flex items-center gap-2 text-[#1e293b]">
-              <Droplets className="h-4 w-4 text-[#003366]" />
-              Have you been baptized by immersion? <span className="text-red-500">*</span>
+            <Label className="flex items-center gap-2 text-sm text-white/70">
+              <Droplets className="h-4 w-4 text-emerald" />
+              Have you been baptized by immersion? <span className="text-emerald">*</span>
             </Label>
             <RadioGroup
               value={formData.baptizedByImmersion}
@@ -289,27 +282,27 @@ export default function StudentRegisterPage() {
             >
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="yes" id="baptized-yes" />
-                <Label htmlFor="baptized-yes" className="font-normal cursor-pointer">Yes</Label>
+                <Label htmlFor="baptized-yes" className="cursor-pointer font-normal text-white/80">Yes</Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="no" id="baptized-no" />
-                <Label htmlFor="baptized-no" className="font-normal cursor-pointer">No</Label>
+                <Label htmlFor="baptized-no" className="cursor-pointer font-normal text-white/80">No</Label>
               </div>
             </RadioGroup>
           </div>
 
           {/* Preferred Language */}
           <div className="space-y-2">
-            <Label className="flex items-center gap-2 text-[#1e293b]">
-              <Globe className="h-4 w-4 text-[#003366]" />
-              Preferred Language <span className="text-red-500">*</span>
+            <Label className="flex items-center gap-2 text-sm text-white/70">
+              <Globe className="h-4 w-4 text-emerald" />
+              Preferred Language <span className="text-emerald">*</span>
             </Label>
             <Select
               value={formData.preferredLanguage}
               onValueChange={(value) => setFormData(prev => ({ ...prev, preferredLanguage: value }))}
               disabled={isLoading}
             >
-              <SelectTrigger>
+              <SelectTrigger className="h-11 border-white/15 bg-white/5 text-white data-[placeholder]:text-white/40 hover:border-white/25 focus:border-emerald/60 focus:ring-2 focus:ring-emerald/30">
                 <SelectValue placeholder="Select your preferred language" />
               </SelectTrigger>
               <SelectContent>
@@ -319,39 +312,40 @@ export default function StudentRegisterPage() {
             </Select>
           </div>
 
-          {/* Info message */}
-          <div className="bg-[#003366]/5 border border-[#003366]/20 rounded-xl p-4">
-            <p className="text-sm text-[#64748b] flex items-center gap-2">
-              <MessageCircle className="h-4 w-4 text-[#b5985b]" />
-              After approval, your login PIN will be sent via WhatsApp.
-            </p>
+            {/* Info message */}
+            <div className="rounded-xl border border-emerald/20 bg-emerald/5 p-4">
+              <p className="flex items-center gap-2 text-sm text-white/60">
+                <MessageCircle className="h-4 w-4 text-emerald" />
+                After approval, your login PIN will be sent via WhatsApp.
+              </p>
+            </div>
           </div>
-        </CardContent>
 
-        <CardFooter className="flex flex-col gap-4 pb-8">
-          <Button
-            type="submit"
-            className="w-full bg-[#003366] hover:bg-[#002244] text-white"
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Registering...
-              </>
-            ) : (
-              'Register'
-            )}
-          </Button>
+          <div className="mt-6 flex flex-col gap-4">
+            <Button
+              type="submit"
+              className="h-12 w-full bg-emerald-btn text-base font-semibold text-ink shadow-emerald transition-all duration-200 hover:brightness-105"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Registering...
+                </>
+              ) : (
+                'Register'
+              )}
+            </Button>
 
-          <div className="text-center text-sm text-[#64748b]">
-            Already have an account?{' '}
-            <Link href="/student/login" className="text-[#003366] hover:text-[#C8102E] transition-colors font-medium">
-              Login
-            </Link>
+            <div className="text-center text-sm text-white/60">
+              Already have an account?{' '}
+              <Link href="/student/login" className="font-medium text-emerald transition-colors hover:underline">
+                Login
+              </Link>
+            </div>
           </div>
-        </CardFooter>
-      </form>
-    </Card>
+        </form>
+      </div>
+    </div>
   )
 }

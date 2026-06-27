@@ -263,7 +263,7 @@ export default function CourseModulesPage({ params }: { params: { id: string } }
           </Button>
         </Link>
         <div className="flex-1">
-          <h1 className="text-3xl font-bold">{course.title}</h1>
+          <h1 className="font-display text-3xl font-bold text-foreground">{course.title}</h1>
           <p className="text-muted-foreground">
             Manage course modules and materials
           </p>

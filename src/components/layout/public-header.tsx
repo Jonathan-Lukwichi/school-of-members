@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { Menu, X, ChevronDown, Book, Shield, ArrowRight } from 'lucide-react'
+import { Menu, X, ChevronDown, Book, ArrowRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
@@ -38,12 +38,12 @@ export function PublicHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-800 bg-slate-950/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-mint bg-white/80 backdrop-blur-md">
       <Container>
         <div className="flex h-20 items-center justify-between">
           {/* Logo Section */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-slate-900 border-2 border-brand-500/20 group-hover:border-brand-500 transition-all duration-300 flex-shrink-0">
+          <Link href="/" className="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald rounded-lg">
+            <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-mint border-2 border-emerald/20 group-hover:border-emerald transition-all duration-300 flex-shrink-0">
               <Image
                 src="/images/logo-fresco.png"
                 alt="School of Members Logo"
@@ -52,10 +52,10 @@ export function PublicHeader() {
               />
             </div>
             <div className="flex flex-col">
-              <span className="text-lg sm:text-xl font-heading font-bold text-slate-50 leading-tight tracking-tight">
+              <span className="text-lg sm:text-xl font-display font-bold text-ink leading-tight tracking-tight">
                 School of Members
               </span>
-              <span className="hidden sm:block text-xs font-medium text-brand-500 tracking-wide uppercase">
+              <span className="hidden sm:block text-xs font-medium text-emerald-dark tracking-wide uppercase">
                 Ramah Full Gospel Church
               </span>
             </div>
@@ -68,10 +68,10 @@ export function PublicHeader() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  'text-sm font-medium transition-colors hover:text-brand-400',
+                  'text-sm font-medium transition-colors hover:text-emerald rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald',
                   isActive(link.href)
-                    ? 'text-brand-500'
-                    : 'text-slate-400'
+                    ? 'text-emerald-dark'
+                    : 'text-ink-muted'
                 )}
               >
                 {link.label}
@@ -85,10 +85,10 @@ export function PublicHeader() {
             <div className="relative" ref={loginDropdownRef}>
               <button
                 onClick={() => setLoginDropdownOpen(!loginDropdownOpen)}
-                className="flex items-center gap-1.5 text-sm font-medium text-slate-300 hover:text-white transition-colors py-2"
+                className="flex items-center gap-1.5 text-sm font-medium text-ink hover:text-emerald transition-colors py-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald"
               >
                 Login
-                <ChevronDown className={cn("h-4 w-4 text-slate-500 transition-transform duration-200", loginDropdownOpen && "rotate-180")} />
+                <ChevronDown className={cn("h-4 w-4 text-ink-muted transition-transform duration-200", loginDropdownOpen && "rotate-180")} />
               </button>
 
               {/* Dropdown Menu */}
@@ -98,9 +98,9 @@ export function PublicHeader() {
                   ? "opacity-100 visible translate-y-0"
                   : "opacity-0 invisible -translate-y-2"
               )}>
-                <div className="bg-slate-900 rounded-xl shadow-2xl shadow-black/50 border border-slate-800 p-2 w-72 overflow-hidden ring-1 ring-white/5">
+                <div className="bg-white rounded-xl shadow-premium-lg border border-mint p-2 w-72 overflow-hidden">
                   <div className="px-3 py-2">
-                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                    <p className="text-xs font-semibold text-ink-muted uppercase tracking-wider">
                       Student Login
                     </p>
                   </div>
@@ -109,15 +109,15 @@ export function PublicHeader() {
                     {/* Student Portal Option */}
                     <Link
                       href="/student/login"
-                      className="flex items-center gap-4 px-3 py-3 rounded-lg hover:bg-slate-800 transition-colors group"
+                      className="flex items-center gap-4 px-3 py-3 rounded-lg hover:bg-mint transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald"
                       onClick={() => setLoginDropdownOpen(false)}
                     >
-                      <div className="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-500/20 transition-colors">
-                        <Book className="h-5 w-5 text-brand-500" />
+                      <div className="w-10 h-10 rounded-lg bg-emerald/10 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald/20 transition-colors">
+                        <Book className="h-5 w-5 text-emerald" />
                       </div>
                       <div>
-                        <p className="text-sm font-semibold text-slate-200 group-hover:text-brand-400 transition-colors">Student Portal</p>
-                        <p className="text-xs text-slate-500">Access your courses</p>
+                        <p className="text-sm font-semibold text-ink group-hover:text-emerald-dark transition-colors">Student Portal</p>
+                        <p className="text-xs text-ink-muted">Access your courses</p>
                       </div>
                     </Link>
                   </div>
@@ -127,7 +127,7 @@ export function PublicHeader() {
 
             {/* Join Now CTA */}
             <Link href="/student/register">
-              <Button className="font-semibold shadow-lg shadow-brand-500/10">
+              <Button className="font-semibold shadow-emerald">
                 Join Now
                 <ArrowRight className="h-4 w-4 ml-1" />
               </Button>
@@ -136,7 +136,7 @@ export function PublicHeader() {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+            className="lg:hidden p-2 text-ink-muted hover:text-emerald hover:bg-mint rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
@@ -148,7 +148,7 @@ export function PublicHeader() {
       {/* Mobile Menu */}
       <div
         className={cn(
-          'lg:hidden bg-slate-950 border-t border-slate-800 overflow-hidden transition-all duration-300',
+          'lg:hidden bg-white border-t border-mint overflow-hidden transition-all duration-300',
           mobileMenuOpen ? 'max-h-[500px]' : 'max-h-0'
         )}
       >
@@ -159,10 +159,10 @@ export function PublicHeader() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  'block py-3 text-lg font-medium transition-colors border-b border-slate-800/50',
+                  'block py-3 text-lg font-medium transition-colors border-b border-mint',
                   isActive(link.href)
-                    ? 'text-brand-500'
-                    : 'text-slate-400 hover:text-brand-400'
+                    ? 'text-emerald-dark'
+                    : 'text-ink hover:text-emerald'
                 )}
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -172,19 +172,19 @@ export function PublicHeader() {
           </nav>
 
           <div className="space-y-4">
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <p className="text-xs font-semibold text-ink-muted uppercase tracking-wider">
               Student Access
             </p>
             <div className="grid grid-cols-1 gap-3">
               <Link
                 href="/student/login"
-                className="flex items-center gap-3 p-3 bg-slate-900 rounded-lg hover:bg-slate-800 transition-colors border border-slate-800"
+                className="flex items-center gap-3 p-3 bg-mint rounded-lg hover:bg-mint-soft transition-colors border border-mint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <div className="w-8 h-8 rounded bg-brand-500/10 flex items-center justify-center">
-                  <Book className="h-4 w-4 text-brand-500" />
+                <div className="w-8 h-8 rounded bg-emerald/10 flex items-center justify-center">
+                  <Book className="h-4 w-4 text-emerald" />
                 </div>
-                <span className="font-medium text-slate-300">Student Login</span>
+                <span className="font-medium text-ink">Student Login</span>
               </Link>
             </div>
 

@@ -83,14 +83,14 @@ export function StaffShowcase({
   }, [autoPlay, interval, goToNext])
 
   return (
-    <section className="staff-showcase relative bg-[#0c1a24] overflow-hidden">
+    <section className="staff-showcase relative bg-ink-green overflow-hidden">
       {/* Header */}
       <div className="text-center pt-12 pb-6 px-6">
-        <div className="inline-flex items-center gap-2 bg-forest-400/10 border border-forest-400/30 rounded-full px-4 py-2 mb-6">
-          <Users className="h-5 w-5 text-forest-400" />
-          <span className="text-sm font-medium text-forest-400">Our Team</span>
+        <div className="inline-flex items-center gap-2 bg-emerald/10 border border-emerald/30 rounded-full px-4 py-2 mb-6">
+          <Users className="h-5 w-5 text-emerald" />
+          <span className="text-sm font-medium text-emerald">Our Team</span>
         </div>
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
+        <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-2">
           Meet Our Staff
         </h2>
         <p className="text-white/60 max-w-xl mx-auto">
@@ -103,10 +103,10 @@ export function StaffShowcase({
         {/* Photo */}
         <div className={`relative ${isAnimating ? 'animate-scale-in' : 'opacity-0'}`}>
           {/* Glow effect */}
-          <div className="absolute -inset-4 bg-forest-400/20 rounded-3xl blur-2xl" />
+          <div className="absolute -inset-4 bg-emerald/20 rounded-3xl blur-2xl" />
 
           {/* Photo container */}
-          <div className="staff-photo-large relative w-64 h-80 md:w-72 md:h-96 rounded-2xl overflow-hidden border-4 border-forest-400/40 shadow-[0_0_40px_rgba(14,165,233,0.3),0_25px_50px_rgba(0,0,0,0.5)]">
+          <div className="staff-photo-large relative w-64 h-80 md:w-72 md:h-96 rounded-2xl overflow-hidden border-4 border-emerald/40 shadow-[0_0_40px_rgba(20,206,150,0.3),0_25px_50px_rgba(0,0,0,0.5)]">
             <Image
               src={currentStaff.image}
               alt={currentStaff.name}
@@ -115,7 +115,7 @@ export function StaffShowcase({
               priority
             />
             {/* Overlay gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0c1a24]/60 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink-green/60 via-transparent to-transparent" />
           </div>
         </div>
 
@@ -123,17 +123,17 @@ export function StaffShowcase({
         <div className={`text-center md:text-left max-w-md ${isAnimating ? 'animate-content-reveal' : 'opacity-0'}`}>
           {/* Role badge */}
           <div
-            className="inline-block bg-forest-400/10 border border-forest-400/30 rounded-full px-4 py-1.5 mb-4 animate-slide-in-top"
+            className="inline-block bg-emerald/10 border border-emerald/30 rounded-full px-4 py-1.5 mb-4 animate-slide-in-top"
             style={{ animationDelay: '0.2s' }}
           >
-            <span className="text-forest-400 text-sm font-semibold uppercase tracking-wider">
+            <span className="text-emerald text-sm font-semibold uppercase tracking-wider">
               {currentStaff.role}
             </span>
           </div>
 
           {/* Name */}
           <h3
-            className="text-3xl md:text-4xl font-bold text-white mb-4 animate-slide-in-left"
+            className="font-display text-3xl md:text-4xl font-bold text-white mb-4 animate-slide-in-left"
             style={{ animationDelay: '0.4s' }}
           >
             {currentStaff.name}
@@ -141,7 +141,7 @@ export function StaffShowcase({
 
           {/* Decorative line */}
           <div
-            className="w-16 h-1 bg-gradient-to-r from-forest-400 to-forest-500 rounded-full mb-6 mx-auto md:mx-0 animate-fade-in-up"
+            className="w-16 h-1 bg-gradient-to-r from-emerald to-emerald-dark rounded-full mb-6 mx-auto md:mx-0 animate-fade-in-up"
             style={{ animationDelay: '0.5s' }}
           />
 
@@ -157,13 +157,13 @@ export function StaffShowcase({
           <div className="flex justify-center gap-4 mt-8 md:hidden">
             <button
               onClick={goToPrevious}
-              className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 hover:text-white transition-all"
+              className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 hover:text-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald"
             >
               <ChevronLeft className="h-6 w-6" />
             </button>
             <button
               onClick={goToNext}
-              className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 hover:text-white transition-all"
+              className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 hover:text-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald"
             >
               <ChevronRight className="h-6 w-6" />
             </button>
@@ -174,14 +174,14 @@ export function StaffShowcase({
         <div className="hidden md:flex flex-col gap-3">
           <button
             onClick={goToPrevious}
-            className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 hover:text-white transition-all"
+            className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 hover:text-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald"
             aria-label="Previous staff"
           >
             <ChevronLeft className="h-6 w-6" />
           </button>
           <button
             onClick={goToNext}
-            className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 hover:text-white transition-all"
+            className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 hover:text-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald"
             aria-label="Next staff"
           >
             <ChevronRight className="h-6 w-6" />
@@ -195,7 +195,8 @@ export function StaffShowcase({
           <button
             key={index}
             onClick={() => goToStaff(index)}
-            className={`group relative transition-all duration-300 ${
+            aria-label={`View ${member.name}`}
+            className={`group relative transition-all duration-300 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald ${
               index === currentIndex
                 ? 'scale-110'
                 : 'opacity-60 hover:opacity-100'
@@ -205,7 +206,7 @@ export function StaffShowcase({
             <div
               className={`relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-3 transition-all duration-300 ${
                 index === currentIndex
-                  ? 'border-forest-400 shadow-[0_0_20px_rgba(14,165,233,0.5)]'
+                  ? 'border-emerald shadow-[0_0_20px_rgba(20,206,150,0.5)]'
                   : 'border-white/20 group-hover:border-white/40'
               }`}
             >
@@ -220,7 +221,7 @@ export function StaffShowcase({
             {/* Name tooltip */}
             <div
               className={`absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs font-medium transition-opacity ${
-                index === currentIndex ? 'text-forest-400 opacity-100' : 'text-white/50 opacity-0 group-hover:opacity-100'
+                index === currentIndex ? 'text-emerald opacity-100' : 'text-white/50 opacity-0 group-hover:opacity-100'
               }`}
             >
               {member.name.split(' ')[0]}
@@ -232,7 +233,7 @@ export function StaffShowcase({
       {/* Progress bar */}
       <div className="showcase-progress h-1 bg-white/10 mt-4">
         <div
-          className="showcase-progress-bar h-full bg-gradient-to-r from-forest-400 to-forest-500 shadow-[0_0_10px_rgba(14,165,233,0.5)]"
+          className="showcase-progress-bar h-full bg-gradient-to-r from-emerald to-emerald-dark shadow-[0_0_10px_rgba(20,206,150,0.5)]"
           style={{ width: `${progress}%`, transition: 'width 50ms linear' }}
         />
       </div>
@@ -240,7 +241,7 @@ export function StaffShowcase({
       {/* Slide counter */}
       <div className="text-center py-4">
         <span className="text-white/40 text-sm">
-          <span className="text-forest-400 font-semibold">{currentIndex + 1}</span>
+          <span className="text-emerald font-semibold">{currentIndex + 1}</span>
           <span className="mx-2">/</span>
           <span>{staff.length}</span>
         </span>

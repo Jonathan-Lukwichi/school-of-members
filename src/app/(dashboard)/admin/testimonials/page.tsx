@@ -201,7 +201,7 @@ export default function TestimonialsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#003366]" />
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald" />
       </div>
     )
   }
@@ -211,12 +211,12 @@ export default function TestimonialsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-[#003366]">Testimonials</h1>
-          <p className="text-gray-500 mt-1">
+          <h1 className="font-display text-2xl font-bold text-foreground">Testimonials</h1>
+          <p className="text-muted-foreground mt-1">
             Manage testimonials displayed on the homepage
           </p>
         </div>
-        <Button onClick={openCreateDialog} className="bg-[#003366] hover:bg-[#002244]">
+        <Button onClick={openCreateDialog} className="bg-emerald-btn text-white">
           <Plus className="h-4 w-4 mr-2" />
           Add Testimonial
         </Button>
@@ -224,30 +224,30 @@ export default function TestimonialsPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-white rounded-lg border p-4">
-          <p className="text-2xl font-bold text-[#003366]">{testimonials.length}</p>
-          <p className="text-sm text-gray-500">Total Testimonials</p>
+        <div className="bg-card rounded-lg border border-border shadow-premium p-4">
+          <p className="text-2xl font-bold text-emerald">{testimonials.length}</p>
+          <p className="text-sm text-muted-foreground">Total Testimonials</p>
         </div>
-        <div className="bg-white rounded-lg border p-4">
-          <p className="text-2xl font-bold text-green-600">
+        <div className="bg-card rounded-lg border border-border shadow-premium p-4">
+          <p className="text-2xl font-bold text-emerald-deep">
             {testimonials.filter(t => t.is_active).length}
           </p>
-          <p className="text-sm text-gray-500">Active</p>
+          <p className="text-sm text-muted-foreground">Active</p>
         </div>
-        <div className="bg-white rounded-lg border p-4">
-          <p className="text-2xl font-bold text-gray-400">
+        <div className="bg-card rounded-lg border border-border shadow-premium p-4">
+          <p className="text-2xl font-bold text-muted-foreground">
             {testimonials.filter(t => !t.is_active).length}
           </p>
-          <p className="text-sm text-gray-500">Hidden</p>
+          <p className="text-sm text-muted-foreground">Hidden</p>
         </div>
       </div>
 
       {/* Testimonials List */}
-      <div className="bg-white rounded-lg border">
+      <div className="bg-card rounded-lg border border-border shadow-premium">
         {testimonials.length === 0 ? (
           <div className="text-center py-12">
-            <Quote className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500">No testimonials yet</p>
+            <Quote className="h-12 w-12 text-emerald/40 mx-auto mb-4" />
+            <p className="text-muted-foreground">No testimonials yet</p>
             <Button
               onClick={openCreateDialog}
               variant="outline"
@@ -257,14 +257,14 @@ export default function TestimonialsPage() {
             </Button>
           </div>
         ) : (
-          <div className="divide-y">
+          <div className="divide-y divide-border">
             {testimonials.map((testimonial) => (
               <div
                 key={testimonial.id}
-                className="p-4 flex items-start gap-4 hover:bg-gray-50 transition-colors"
+                className="p-4 flex items-start gap-4 hover:bg-mint-soft transition-colors"
               >
                 {/* Order indicator */}
-                <div className="flex items-center gap-2 text-gray-400">
+                <div className="flex items-center gap-2 text-muted-foreground">
                   <GripVertical className="h-5 w-5 cursor-move" />
                   <span className="text-sm font-medium w-6 text-center">
                     {testimonial.display_order}
@@ -274,21 +274,21 @@ export default function TestimonialsPage() {
                 {/* Content */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-semibold text-gray-900">
+                    <span className="font-semibold text-foreground">
                       {testimonial.name}
                     </span>
-                    <span className="text-sm text-gray-500">•</span>
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-muted-foreground">•</span>
+                    <span className="text-sm text-muted-foreground">
                       {testimonial.role}
                     </span>
                     {!testimonial.is_active && (
-                      <span className="text-xs bg-gray-200 text-gray-600 px-2 py-0.5 rounded">
+                      <span className="text-xs bg-mint-soft text-muted-foreground px-2 py-0.5 rounded">
                         Hidden
                       </span>
                     )}
                   </div>
-                  <p className="text-gray-600 text-sm line-clamp-2">
-                    "{testimonial.content}"
+                  <p className="text-muted-foreground text-sm line-clamp-2">
+                    &quot;{testimonial.content}&quot;
                   </p>
                 </div>
 
@@ -301,9 +301,9 @@ export default function TestimonialsPage() {
                     title={testimonial.is_active ? 'Hide' : 'Show'}
                   >
                     {testimonial.is_active ? (
-                      <Eye className="h-4 w-4 text-green-600" />
+                      <Eye className="h-4 w-4 text-emerald-deep" />
                     ) : (
-                      <EyeOff className="h-4 w-4 text-gray-400" />
+                      <EyeOff className="h-4 w-4 text-muted-foreground" />
                     )}
                   </Button>
                   <Button
@@ -412,7 +412,7 @@ export default function TestimonialsPage() {
             <Button
               onClick={handleSave}
               disabled={saving}
-              className="bg-[#003366] hover:bg-[#002244]"
+              className="bg-emerald-btn text-white"
             >
               {saving ? 'Saving...' : 'Save'}
             </Button>

@@ -42,7 +42,7 @@ export function Sidebar() {
   const links = isAdmin ? adminLinks : studentLinks
 
   return (
-    <aside className="fixed left-0 top-0 z-40 h-screen w-64 bg-[#003366] hidden lg:flex lg:flex-col">
+    <aside className="fixed left-0 top-0 z-40 h-screen w-64 bg-ink-deep hidden lg:flex lg:flex-col">
       {/* Logo Section */}
       <div className="flex h-20 items-center border-b border-white/10 px-4">
         <Link href="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity group">
@@ -68,7 +68,7 @@ export function Sidebar() {
         <div className={cn(
           "px-3 py-2 rounded text-xs font-medium uppercase tracking-wider text-center",
           isAdmin
-            ? "bg-[#C8102E]/20 text-white border border-[#C8102E]/30"
+            ? "bg-emerald/20 text-emerald-light border border-emerald/30"
             : "bg-white/10 text-white border border-white/20"
         )}>
           {isAdmin ? 'Admin Portal' : 'Student Portal'}
@@ -91,21 +91,21 @@ export function Sidebar() {
               className={cn(
                 'flex items-center gap-3 px-3 py-2.5 rounded text-sm font-medium transition-all duration-200 group',
                 isActive
-                  ? 'bg-white/15 text-white border-l-3 border-[#C8102E]'
+                  ? 'bg-emerald/15 text-white border-l-3 border-emerald'
                   : 'text-white/70 hover:text-white hover:bg-white/10'
               )}
             >
               <div className={cn(
                 'w-8 h-8 rounded flex items-center justify-center transition-colors',
                 isActive
-                  ? 'bg-white/20 text-white'
+                  ? 'bg-emerald text-ink-deep'
                   : 'bg-white/5 text-white/60 group-hover:text-white'
               )}>
                 <Icon className="h-4 w-4" />
               </div>
               <span className="flex-1">{link.label}</span>
               {isActive && (
-                <ChevronRight className="h-4 w-4 text-white/60" />
+                <ChevronRight className="h-4 w-4 text-emerald" />
               )}
             </Link>
           )

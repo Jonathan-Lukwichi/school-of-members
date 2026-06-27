@@ -15,19 +15,19 @@ interface PageHeaderProps {
 
 const accentColors = {
   navy: {
-    text: 'text-[#003366]',
-    gradient: 'from-[#003366] to-[#b5985b]',
-    badge: 'text-[#003366]',
+    text: 'text-emerald',
+    gradient: 'from-emerald to-emerald-deep',
+    badge: 'text-emerald',
   },
   gold: {
-    text: 'text-[#b5985b]',
-    gradient: 'from-[#b5985b] to-[#C8102E]',
-    badge: 'text-[#b5985b]',
+    text: 'text-emerald',
+    gradient: 'from-emerald-light to-emerald',
+    badge: 'text-emerald',
   },
   red: {
-    text: 'text-[#C8102E]',
-    gradient: 'from-[#C8102E] to-[#003366]',
-    badge: 'text-[#C8102E]',
+    text: 'text-emerald',
+    gradient: 'from-emerald to-emerald-dark',
+    badge: 'text-emerald',
   },
 }
 
@@ -45,16 +45,16 @@ export function PageHeader({
   if (!showBanner) {
     return (
       <div className="relative">
-        <h1 className="text-4xl font-bold text-[#1e293b]">{title}</h1>
+        <h1 className="font-display text-4xl font-bold text-foreground">{title}</h1>
         {subtitle && (
-          <p className="text-[#64748b] mt-2">{subtitle}</p>
+          <p className="text-muted-foreground mt-2">{subtitle}</p>
         )}
       </div>
     )
   }
 
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-white border border-[#e2e8f0] shadow-sm p-8">
+    <div className="relative overflow-hidden rounded-2xl bg-card border border-border shadow-premium p-8 animate-reveal">
       <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${colors.gradient}`} />
       <div className="relative">
         {greeting && (
@@ -63,7 +63,7 @@ export function PageHeader({
             {greeting}
           </div>
         )}
-        <h1 className="text-4xl font-bold text-[#1e293b] mb-2">
+        <h1 className="font-display text-4xl font-bold text-foreground mb-2">
           {greetingName ? (
             <>
               {title} <span className={colors.text}>{greetingName}!</span>
@@ -73,7 +73,7 @@ export function PageHeader({
           )}
         </h1>
         {subtitle && (
-          <p className="text-[#64748b] max-w-md">{subtitle}</p>
+          <p className="text-muted-foreground max-w-md">{subtitle}</p>
         )}
       </div>
     </div>

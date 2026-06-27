@@ -74,7 +74,7 @@ export const metadata: Metadata = {
 
 export default function VisionPage() {
   return (
-    <div className="bg-slate-950 min-h-screen">
+    <div className="bg-white min-h-screen">
       {/* Panoramic Gallery Hero */}
       <ImageGallery
         images={visionGalleryImages}
@@ -86,18 +86,18 @@ export default function VisionPage() {
       />
 
       {/* Mission Statement */}
-      <Section variant="highlight">
+      <Section variant="default" className="bg-mint-soft">
         <Container>
           <div className="max-w-4xl mx-auto">
             <div className="flex flex-col md:flex-row gap-8 items-start">
-              <div className="w-20 h-20 bg-brand-500/10 border border-brand-500/20 rounded-2xl flex items-center justify-center flex-shrink-0">
-                <Compass className="h-10 w-10 text-brand-500" />
+              <div className="w-20 h-20 bg-emerald-btn shadow-emerald rounded-2xl flex items-center justify-center flex-shrink-0 animate-float">
+                <Compass className="h-10 w-10 text-ink" />
               </div>
               <div>
-                <Heading size="h2" className="mb-4">
+                <Heading size="h2" className="mb-4 text-ink">
                   Our Mission
                 </Heading>
-                <Text size="lg" className="text-slate-300">
+                <Text size="lg" className="text-ink-muted">
                   {missionStatement}
                 </Text>
               </div>
@@ -110,13 +110,13 @@ export default function VisionPage() {
       <StaffShowcase staff={staffMembers} autoPlay={true} interval={6000} />
 
       {/* Core Values / Purpose */}
-      <Section variant="default">
+      <Section variant="default" className="bg-white">
         <Container>
           <div className="text-center mb-12">
-            <Heading size="h2" className="mb-4">
+            <Heading size="h2" className="mb-4 text-ink">
               Our Core Values
             </Heading>
-            <Text className="max-w-2xl mx-auto">
+            <Text className="max-w-2xl mx-auto text-ink-muted">
               The foundational principles that guide our teaching and community.
             </Text>
           </div>
@@ -125,17 +125,17 @@ export default function VisionPage() {
       </Section>
 
       {/* What You'll Learn */}
-      <Section variant="muted">
+      <Section variant="default" className="bg-mint-soft">
         <Container>
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/20 rounded-full px-4 py-2 mb-6">
-              <GraduationCap className="h-5 w-5 text-brand-500" />
-              <span className="text-sm font-medium text-brand-500 uppercase tracking-wide">Curriculum</span>
+            <div className="inline-flex items-center gap-2 bg-emerald/10 border border-emerald/20 rounded-full px-4 py-2 mb-6">
+              <GraduationCap className="h-5 w-5 text-emerald" />
+              <span className="text-sm font-medium text-emerald-dark uppercase tracking-wide">Curriculum</span>
             </div>
-            <Heading size="h2" className="mb-4">
+            <Heading size="h2" className="mb-4 text-ink">
               What You&apos;ll Learn
             </Heading>
-            <Text className="max-w-2xl mx-auto">
+            <Text className="max-w-2xl mx-auto text-ink-muted">
               A comprehensive foundation for your spiritual growth.
             </Text>
           </div>
@@ -168,38 +168,41 @@ export default function VisionPage() {
             ].map((item, index) => (
               <div
                 key={index}
-                className="bg-slate-900 border border-slate-800 rounded-xl p-8 hover:border-brand-500/30 transition-all duration-300 group hover:-translate-y-1 hover:shadow-xl"
+                className="bg-white border border-mint rounded-xl p-8 hover:border-emerald transition-all duration-300 group hover:-translate-y-1 shadow-premium hover:shadow-premium-lg"
               >
-                <div className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center mb-6 group-hover:bg-brand-500/20 transition-colors">
-                  <span className="text-brand-500 font-bold text-lg font-heading">{index + 1}</span>
+                <div className="w-12 h-12 bg-mint rounded-lg flex items-center justify-center mb-6 group-hover:bg-emerald/20 transition-colors">
+                  <span className="text-emerald-dark font-bold text-lg font-display">{index + 1}</span>
                 </div>
-                <h3 className="font-heading font-bold text-slate-100 mb-3 text-xl">{item.title}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{item.description}</p>
+                <h3 className="font-display font-bold text-ink mb-3 text-xl">{item.title}</h3>
+                <p className="text-ink-muted text-sm leading-relaxed">{item.description}</p>
               </div>
             ))}
           </div>
         </Container>
       </Section>
 
-      {/* CTA Section */}
-      <Section className="bg-brand-600 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-700 to-brand-500 opacity-90" />
+      {/* CTA Section - dark emerald/ink backdrop */}
+      <Section variant="default" className="auth-gradient relative overflow-hidden text-white">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute -top-32 -right-24 h-96 w-96 rounded-full bg-emerald/20 blur-3xl" />
+          <div className="absolute -bottom-40 -left-24 h-96 w-96 rounded-full bg-emerald-tint/20 blur-3xl" />
+        </div>
         <Container className="relative z-10 text-center">
-          <Heading size="h2" className="mb-6 text-slate-950">
+          <Heading size="h2" className="mb-6 text-white">
             Start Your Transformation Today
           </Heading>
-          <p className="text-slate-900/80 text-lg mb-8 max-w-2xl mx-auto font-medium">
+          <p className="text-white/70 text-lg mb-8 max-w-2xl mx-auto font-medium">
             Join hundreds of members who have completed the School of Members program.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/student/register">
-              <Button size="lg" className="bg-slate-950 text-white hover:bg-slate-900 border-none">
+              <Button size="lg" className="shadow-emerald">
                 Register Now
                 <ArrowRight className="h-5 w-5 ml-2" />
               </Button>
             </Link>
             <Link href="/faq">
-              <Button size="lg" variant="outline" className="bg-transparent border-slate-900 text-slate-900 hover:bg-slate-900/10">
+              <Button size="lg" variant="outline" className="bg-transparent border-white/30 text-white hover:bg-white/10 hover:text-white hover:border-white/50">
                 View FAQ
               </Button>
             </Link>

@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, BookOpen } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import {
   Timeline,
   PurposeGrid,
@@ -80,7 +80,7 @@ export const metadata: Metadata = {
 
 export default function StoryPage() {
   return (
-    <div className="bg-slate-950 min-h-screen">
+    <div className="bg-white min-h-screen">
       {/* Panoramic Gallery Hero */}
       <ImageGallery
         images={heroGalleryImages}
@@ -92,15 +92,15 @@ export default function StoryPage() {
       />
 
       {/* Welcome Message */}
-      <Section variant="muted">
+      <Section variant="default" className="bg-mint-soft">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-br from-slate-900 to-slate-800 border border-slate-700 rounded-2xl p-8 md:p-12 relative overflow-hidden shadow-2xl">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-500 via-brand-300 to-brand-500" />
+            <div className="auth-gradient text-white border border-white/10 rounded-2xl p-8 md:p-12 relative overflow-hidden shadow-premium-xl animate-reveal">
+              <div className="absolute top-0 left-0 w-full h-1 bg-emerald-btn" />
               <Heading size="h2" className="mb-6 text-white">
                 {welcomeMessage.title}
               </Heading>
-              <Text className="space-y-4 text-slate-300">
+              <Text className="space-y-4 text-white/70">
                 {welcomeMessage.content.split('\n\n').map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>
                 ))}
@@ -111,17 +111,16 @@ export default function StoryPage() {
       </Section>
 
       {/* Our Spiritual Leaders - Panoramic Showcase */}
-      {/* Note: LeaderShowcase needs to be compatible with new styles or it might look odd. Assuming it is self-contained. */}
       <LeaderShowcase leaders={leaders} autoPlay={true} interval={8000} />
 
       {/* What is School of Members */}
-      <Section variant="default">
+      <Section variant="default" className="bg-white">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <Heading size="h2" className="mb-6">
+            <Heading size="h2" className="mb-6 text-ink">
               {whatIsSchool.title}
             </Heading>
-            <Text className="space-y-4">
+            <Text className="space-y-4 text-ink-muted">
               {whatIsSchool.content.split('\n\n').map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
               ))}
@@ -131,13 +130,13 @@ export default function StoryPage() {
       </Section>
 
       {/* Our Purpose */}
-      <Section variant="highlight">
+      <Section variant="default" className="bg-mint-soft">
         <Container>
           <div className="text-center mb-12">
-            <Heading size="h2" className="mb-4">
+            <Heading size="h2" className="mb-4 text-ink">
               Our Purpose
             </Heading>
-            <Text className="max-w-2xl mx-auto">
+            <Text className="max-w-2xl mx-auto text-ink-muted">
               The School of Members exists to accomplish these six goals in your spiritual journey.
             </Text>
           </div>
@@ -146,34 +145,34 @@ export default function StoryPage() {
       </Section>
 
       {/* Who Should Join */}
-      <Section>
+      <Section variant="default" className="bg-white">
         <Container>
           <div className="text-center mb-12">
-            <Heading size="h2" className="mb-4">
+            <Heading size="h2" className="mb-4 text-ink">
               Who Should Join?
             </Heading>
-            <Text className="max-w-2xl mx-auto">
+            <Text className="max-w-2xl mx-auto text-ink-muted">
               The School of Members is designed for everyone seeking to grow in their faith.
             </Text>
           </div>
           <AudienceCards />
           <div className="mt-16 text-center">
-            <blockquote className="text-xl italic text-slate-300 max-w-3xl mx-auto font-light leading-relaxed border-l-4 border-brand-500 pl-6 py-2">
-              "Not neglecting to meet together, as is the habit of some, but encouraging one another, and all the more as you see the Day drawing near."
+            <blockquote className="text-xl italic text-ink max-w-3xl mx-auto font-light leading-relaxed border-l-4 border-emerald pl-6 py-2">
+              &ldquo;Not neglecting to meet together, as is the habit of some, but encouraging one another, and all the more as you see the Day drawing near.&rdquo;
             </blockquote>
-            <p className="mt-4 text-brand-500 font-bold uppercase tracking-widest text-sm">— Hebrews 10:25</p>
+            <p className="mt-4 text-emerald-dark font-bold uppercase tracking-widest text-sm">— Hebrews 10:25</p>
           </div>
         </Container>
       </Section>
 
       {/* Church History Timeline */}
-      <Section variant="muted">
+      <Section variant="default" className="bg-mint-soft">
         <Container>
           <div className="text-center mb-12">
-            <Heading size="h2" className="mb-4">
+            <Heading size="h2" className="mb-4 text-ink">
               Our Journey
             </Heading>
-            <Text className="max-w-2xl mx-auto">
+            <Text className="max-w-2xl mx-auto text-ink-muted">
               A timeline of God&apos;s faithfulness through the years.
             </Text>
           </div>
@@ -183,25 +182,28 @@ export default function StoryPage() {
         </Container>
       </Section>
 
-      {/* CTA Section */}
-      <Section className="bg-brand-600 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-700 to-brand-500 opacity-90" />
+      {/* CTA Section - dark emerald/ink backdrop */}
+      <Section variant="default" className="auth-gradient relative overflow-hidden text-white">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute -top-32 -right-24 h-96 w-96 rounded-full bg-emerald/20 blur-3xl" />
+          <div className="absolute -bottom-40 -left-24 h-96 w-96 rounded-full bg-emerald-tint/20 blur-3xl" />
+        </div>
         <Container className="relative z-10 text-center">
-          <Heading size="h2" className="mb-6 text-slate-950">
+          <Heading size="h2" className="mb-6 text-white">
             Ready to Begin Your Journey?
           </Heading>
-          <p className="text-slate-900/80 text-lg mb-8 max-w-2xl mx-auto font-medium">
+          <p className="text-white/70 text-lg mb-8 max-w-2xl mx-auto font-medium">
             Join our community of faithful members and start your spiritual growth today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/student/register">
-              <Button size="lg" className="bg-slate-950 text-white hover:bg-slate-900 border-none">
+              <Button size="lg" className="shadow-emerald">
                 Register Now
                 <ArrowRight className="h-5 w-5 ml-2" />
               </Button>
             </Link>
             <Link href="/vision">
-              <Button size="lg" variant="outline" className="bg-transparent border-slate-900 text-slate-900 hover:bg-slate-900/10">
+              <Button size="lg" variant="outline" className="bg-transparent border-white/30 text-white hover:bg-white/10 hover:text-white hover:border-white/50">
                 View Our Vision
               </Button>
             </Link>

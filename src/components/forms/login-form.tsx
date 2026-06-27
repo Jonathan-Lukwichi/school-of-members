@@ -90,7 +90,7 @@ export function LoginForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {error && (
-        <div className="p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2">
+        <div className="flex items-center gap-2 rounded-lg border border-red-400/30 bg-red-500/10 p-3 text-sm text-red-300">
           <Info className="h-4 w-4 flex-shrink-0" />
           {error}
         </div>
@@ -98,8 +98,8 @@ export function LoginForm() {
 
       {/* Email Field */}
       <div className="space-y-2">
-        <Label htmlFor="email" className="flex items-center gap-2 text-[#64748b] text-sm">
-          <Mail className="h-4 w-4 text-[#003366]" />
+        <Label htmlFor="email" className="flex items-center gap-2 text-sm text-white/70">
+          <Mail className="h-4 w-4 text-emerald" />
           Email Address
         </Label>
         <input
@@ -108,7 +108,7 @@ export function LoginForm() {
           placeholder="name@example.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="flex h-11 w-full rounded-lg border border-[#e2e8f0] bg-white px-4 py-2 text-base text-[#1e293b] shadow-sm transition-all duration-200 outline-none placeholder:text-[#9ca3af] hover:border-[#cbd5e1] focus:border-[#003366]/50 focus:ring-2 focus:ring-[#003366]/20 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+          className="flex h-11 w-full rounded-lg border border-white/15 bg-white/5 px-4 py-2 text-base text-white shadow-sm outline-none transition-all duration-200 placeholder:text-white/40 hover:border-white/25 focus:border-emerald/60 focus:ring-2 focus:ring-emerald/30 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
           disabled={isLoading}
         />
         {errors.email && (
@@ -118,8 +118,8 @@ export function LoginForm() {
 
       {/* Password Field */}
       <div className="space-y-2">
-        <Label htmlFor="password" className="flex items-center gap-2 text-[#64748b] text-sm">
-          <Lock className="h-4 w-4 text-[#003366]" />
+        <Label htmlFor="password" className="flex items-center gap-2 text-sm text-white/70">
+          <Lock className="h-4 w-4 text-emerald" />
           Password
         </Label>
         <input
@@ -128,7 +128,7 @@ export function LoginForm() {
           placeholder="Enter your password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="flex h-11 w-full rounded-lg border border-[#e2e8f0] bg-white px-4 py-2 text-base text-[#1e293b] shadow-sm transition-all duration-200 outline-none placeholder:text-[#9ca3af] hover:border-[#cbd5e1] focus:border-[#003366]/50 focus:ring-2 focus:ring-[#003366]/20 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+          className="flex h-11 w-full rounded-lg border border-white/15 bg-white/5 px-4 py-2 text-base text-white shadow-sm outline-none transition-all duration-200 placeholder:text-white/40 hover:border-white/25 focus:border-emerald/60 focus:ring-2 focus:ring-emerald/30 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
           disabled={isLoading}
         />
         {errors.password && (
@@ -140,19 +140,19 @@ export function LoginForm() {
       <div className="flex items-center space-x-3 py-2">
         <Checkbox
           id="remember"
-          className="border-[#003366] data-[state=checked]:bg-[#003366] data-[state=checked]:border-[#003366]"
+          className="border-white/30 data-[state=checked]:border-emerald data-[state=checked]:bg-emerald data-[state=checked]:text-ink"
         />
-        <Label htmlFor="remember" className="text-sm font-normal text-[#64748b]">
+        <Label htmlFor="remember" className="text-sm font-normal text-white/70">
           Remember me
         </Label>
       </div>
 
       {/* Info Box */}
-      <div className="bg-gradient-to-r from-[#003366]/5 to-[#C8102E]/5 border border-[#003366]/20 rounded-lg p-4 flex items-start gap-3">
-        <div className="w-5 h-5 rounded-full border-2 border-[#003366] flex items-center justify-center flex-shrink-0 mt-0.5">
-          <div className="w-2 h-2 rounded-full bg-[#003366]" />
+      <div className="flex items-start gap-3 rounded-lg border border-emerald/20 bg-emerald/5 p-4">
+        <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border-2 border-emerald">
+          <div className="h-2 w-2 rounded-full bg-emerald" />
         </div>
-        <p className="text-sm text-[#64748b]">
+        <p className="text-sm text-white/60">
           Your account gives you access to all School of Members courses and materials.
         </p>
       </div>
@@ -160,7 +160,7 @@ export function LoginForm() {
       {/* Submit Button */}
       <Button
         type="submit"
-        className="w-full h-12 bg-[#003366] hover:bg-[#002244] text-white font-medium text-base shadow-lg shadow-[#003366]/30 transition-all duration-200"
+        className="h-12 w-full bg-emerald-btn text-base font-semibold text-ink shadow-emerald transition-all duration-200 hover:brightness-105"
         disabled={isLoading}
       >
         {isLoading ? (

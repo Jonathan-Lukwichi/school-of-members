@@ -176,8 +176,8 @@ export default function TeachersPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-[#1e293b]">Teachers</h1>
-          <p className="text-[#64748b]">
+          <h1 className="font-display text-3xl font-bold text-foreground">Teachers</h1>
+          <p className="text-muted-foreground">
             Manage teacher accounts and student assignments
           </p>
         </div>
@@ -277,39 +277,39 @@ export default function TeachersPage() {
 
       {/* Stats Cards */}
       <div className="grid gap-4 md:grid-cols-3">
-        <Card className="bg-white border border-[#e2e8f0] shadow-sm">
+        <Card className="bg-card border border-border shadow-premium">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-[#64748b]">Total Teachers</CardTitle>
-            <div className="h-8 w-8 rounded-lg bg-[#003366] flex items-center justify-center">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Total Teachers</CardTitle>
+            <div className="h-8 w-8 rounded-lg bg-emerald flex items-center justify-center">
               <GraduationCap className="h-4 w-4 text-white" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-[#1e293b]">{teachers.length}</div>
+            <div className="text-2xl font-bold text-foreground">{teachers.length}</div>
           </CardContent>
         </Card>
-        <Card className="bg-white border border-[#e2e8f0] shadow-sm">
+        <Card className="bg-card border border-border shadow-premium">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-[#64748b]">Active Teachers</CardTitle>
-            <div className="h-8 w-8 rounded-lg bg-emerald-100 flex items-center justify-center">
-              <GraduationCap className="h-4 w-4 text-emerald-600" />
+            <CardTitle className="text-sm font-medium text-muted-foreground">Active Teachers</CardTitle>
+            <div className="h-8 w-8 rounded-lg bg-mint flex items-center justify-center">
+              <GraduationCap className="h-4 w-4 text-emerald" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-emerald-600">
+            <div className="text-2xl font-bold text-emerald">
               {teachers.filter(t => t.is_active).length}
             </div>
           </CardContent>
         </Card>
-        <Card className="bg-white border border-[#e2e8f0] shadow-sm">
+        <Card className="bg-card border border-border shadow-premium">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-[#64748b]">Total Assigned Students</CardTitle>
-            <div className="h-8 w-8 rounded-lg bg-[#b5985b]/20 flex items-center justify-center">
-              <Users className="h-4 w-4 text-[#b5985b]" />
+            <CardTitle className="text-sm font-medium text-muted-foreground">Total Assigned Students</CardTitle>
+            <div className="h-8 w-8 rounded-lg bg-emerald-deep/15 flex items-center justify-center">
+              <Users className="h-4 w-4 text-emerald-deep" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-[#1e293b]">
+            <div className="text-2xl font-bold text-foreground">
               {teachers.reduce((sum, t) => sum + (t.current_student_count || 0), 0)}
             </div>
           </CardContent>
@@ -317,25 +317,25 @@ export default function TeachersPage() {
       </div>
 
       {/* Teachers Table */}
-      <Card className="bg-white border border-[#e2e8f0] shadow-sm">
+      <Card className="bg-card border border-border shadow-premium">
         <CardHeader>
-          <CardTitle className="text-[#1e293b]">All Teachers</CardTitle>
-          <CardDescription className="text-[#64748b]">
+          <CardTitle className="text-foreground">All Teachers</CardTitle>
+          <CardDescription className="text-muted-foreground">
             Teachers are automatically assigned students using round-robin
           </CardDescription>
         </CardHeader>
         <CardContent>
           {isLoading ? (
             <div className="flex items-center justify-center py-8">
-              <Loader2 className="h-8 w-8 animate-spin text-[#003366]" />
+              <Loader2 className="h-8 w-8 animate-spin text-emerald" />
             </div>
           ) : teachers.length === 0 ? (
             <div className="text-center py-8">
-              <div className="h-16 w-16 rounded-2xl bg-[#003366]/10 flex items-center justify-center mx-auto mb-4">
-                <GraduationCap className="h-8 w-8 text-[#003366]" />
+              <div className="h-16 w-16 rounded-2xl bg-mint flex items-center justify-center mx-auto mb-4">
+                <GraduationCap className="h-8 w-8 text-emerald" />
               </div>
-              <h3 className="text-lg font-medium text-[#1e293b]">No Teachers Yet</h3>
-              <p className="text-[#64748b]">
+              <h3 className="text-lg font-medium text-foreground">No Teachers Yet</h3>
+              <p className="text-muted-foreground">
                 Add your first teacher to start assigning students.
               </p>
             </div>
@@ -389,7 +389,7 @@ export default function TeachersPage() {
                     <TableCell>
                       <Badge
                         variant={teacher.is_active ? 'default' : 'secondary'}
-                        className={teacher.is_active ? 'bg-green-100 text-green-700' : ''}
+                        className={teacher.is_active ? 'bg-emerald/15 text-emerald-deep' : ''}
                       >
                         {teacher.is_active ? 'Active' : 'Inactive'}
                       </Badge>

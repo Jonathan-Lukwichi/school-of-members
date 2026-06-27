@@ -305,9 +305,9 @@ export default function CoursesPage() {
 
   // Course Card Component
   const CourseCard = ({ course }: { course: Course }) => (
-    <Card className="bg-white border border-[#e2e8f0] shadow-sm hover:shadow-md transition-shadow overflow-hidden group">
+    <Card className="bg-card border border-border shadow-premium hover:shadow-premium-lg transition-shadow overflow-hidden group">
       {/* Thumbnail */}
-      <div className="relative h-40 bg-gradient-to-br from-[#003366] to-[#001a33] overflow-hidden">
+      <div className="relative h-40 bg-gradient-to-br from-ink to-ink-deep overflow-hidden">
         {course.thumbnail_url ? (
           <img
             src={course.thumbnail_url}
@@ -321,7 +321,7 @@ export default function CoursesPage() {
         )}
         {/* Module badge */}
         <div className="absolute top-3 right-3">
-          <Badge className="bg-[#b5985b] text-white border-0">
+          <Badge className="bg-emerald text-ink-deep border-0">
             <FileText className="h-3 w-3 mr-1" />
             {course.modules?.[0]?.count || 0} modules
           </Badge>
@@ -330,7 +330,7 @@ export default function CoursesPage() {
         <div className="absolute top-3 left-3">
           <Badge
             className={course.is_active
-              ? 'bg-emerald-500 text-white border-0'
+              ? 'bg-emerald text-ink-deep border-0'
               : 'bg-slate-500 text-white border-0'}
           >
             {course.is_active ? 'Active' : 'Inactive'}
@@ -339,15 +339,15 @@ export default function CoursesPage() {
       </div>
 
       <CardContent className="p-5">
-        <h3 className="font-semibold text-lg text-[#1e293b] mb-2 line-clamp-1">
+        <h3 className="font-semibold text-lg text-foreground mb-2 line-clamp-1">
           {course.title}
         </h3>
-        <p className="text-sm text-[#64748b] mb-4 line-clamp-2 min-h-[40px]">
+        <p className="text-sm text-muted-foreground mb-4 line-clamp-2 min-h-[40px]">
           {course.description || 'No description available'}
         </p>
 
         {/* Stats row */}
-        <div className="flex items-center gap-4 mb-4 text-sm text-[#64748b]">
+        <div className="flex items-center gap-4 mb-4 text-sm text-muted-foreground">
           <div className="flex items-center gap-1">
             <Users className="h-4 w-4" />
             <span>{course.enrollments?.[0]?.count || 0} enrolled</span>
@@ -360,7 +360,7 @@ export default function CoursesPage() {
         {/* Action buttons */}
         <div className="flex gap-2">
           <Link href={`/admin/courses/${course.id}/modules`} className="flex-1">
-            <Button className="w-full bg-[#003366] hover:bg-[#002244] text-white">
+            <Button className="w-full bg-emerald-btn text-white">
               <Eye className="h-4 w-4 mr-2" />
               Modules
             </Button>
@@ -369,7 +369,7 @@ export default function CoursesPage() {
             variant="outline"
             size="icon"
             onClick={() => openEditDialog(course)}
-            className="border-[#003366] text-[#003366] hover:bg-[#003366] hover:text-white"
+            className="border-emerald text-emerald hover:bg-emerald hover:text-ink-deep"
           >
             <Edit className="h-4 w-4" />
           </Button>
@@ -391,31 +391,31 @@ export default function CoursesPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-4xl font-bold text-[#1e293b]">Courses</h1>
-          <p className="text-[#64748b] mt-2">
+          <h1 className="font-display text-4xl font-bold text-foreground">Courses</h1>
+          <p className="text-muted-foreground mt-2">
             Manage your courses and modules
           </p>
         </div>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="bg-[#003366] hover:bg-[#002244] text-white">
+            <Button className="bg-emerald-btn text-white">
               <Plus className="mr-2 h-4 w-4" />
               New Course
             </Button>
           </DialogTrigger>
-          <DialogContent className="bg-white border border-[#e2e8f0] max-w-lg">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#003366] to-[#b5985b]" />
+          <DialogContent className="bg-card border border-border max-w-lg">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald to-emerald-deep" />
             <DialogHeader>
-              <DialogTitle className="text-[#1e293b]">Create New Course</DialogTitle>
-              <DialogDescription className="text-[#64748b]">
+              <DialogTitle className="text-foreground">Create New Course</DialogTitle>
+              <DialogDescription className="text-muted-foreground">
                 Add a new course to your learning platform.
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4 py-4">
               {/* Thumbnail Upload */}
               <div className="space-y-2">
-                <Label className="text-[#64748b]">Course Thumbnail</Label>
-                <div className="border-2 border-dashed border-[#e2e8f0] rounded-lg p-4 text-center hover:border-[#003366] transition-colors">
+                <Label className="text-muted-foreground">Course Thumbnail</Label>
+                <div className="border-2 border-dashed border-border rounded-lg p-4 text-center hover:border-emerald transition-colors">
                   {thumbnailPreview ? (
                     <div className="relative">
                       <img
@@ -445,13 +445,13 @@ export default function CoursesPage() {
                         onChange={(e) => handleThumbnailSelect(e, false)}
                       />
                       <div className="flex flex-col items-center gap-2 py-4">
-                        <div className="h-12 w-12 rounded-full bg-[#003366]/10 flex items-center justify-center">
-                          <ImageIcon className="h-6 w-6 text-[#003366]" />
+                        <div className="h-12 w-12 rounded-full bg-mint flex items-center justify-center">
+                          <ImageIcon className="h-6 w-6 text-emerald" />
                         </div>
-                        <p className="text-sm text-[#64748b]">
+                        <p className="text-sm text-muted-foreground">
                           Click to upload thumbnail
                         </p>
-                        <p className="text-xs text-[#94a3b8]">
+                        <p className="text-xs text-muted-foreground">
                           PNG, JPG up to 5MB
                         </p>
                       </div>
@@ -461,7 +461,7 @@ export default function CoursesPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="title" className="text-[#64748b]">Course Title *</Label>
+                <Label htmlFor="title" className="text-muted-foreground">Course Title *</Label>
                 <Input
                   id="title"
                   placeholder="Enter course title"
@@ -470,18 +470,18 @@ export default function CoursesPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="description" className="text-[#64748b]">Description</Label>
+                <Label htmlFor="description" className="text-muted-foreground">Description</Label>
                 <Textarea
                   id="description"
                   placeholder="Enter course description"
                   value={newCourse.description}
                   onChange={(e) => setNewCourse({ ...newCourse, description: e.target.value })}
                   rows={3}
-                  className="border-[#e2e8f0]"
+                  className="border-border"
                 />
               </div>
               <div className="flex items-center justify-between">
-                <Label htmlFor="is_active" className="text-[#64748b]">Active</Label>
+                <Label htmlFor="is_active" className="text-muted-foreground">Active</Label>
                 <Switch
                   id="is_active"
                   checked={newCourse.is_active}
@@ -493,7 +493,7 @@ export default function CoursesPage() {
               <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
                 Cancel
               </Button>
-              <Button onClick={handleCreateCourse} disabled={isCreating} className="bg-[#003366] hover:bg-[#002244] text-white">
+              <Button onClick={handleCreateCourse} disabled={isCreating} className="bg-emerald-btn text-white">
                 {isCreating ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -510,41 +510,41 @@ export default function CoursesPage() {
 
       {/* Stats Cards */}
       <div className="grid gap-6 md:grid-cols-3">
-        <Card className="bg-white border border-[#e2e8f0] shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+        <Card className="bg-card border border-border shadow-premium hover:shadow-premium-lg transition-shadow overflow-hidden">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-[#64748b]">Total Courses</CardTitle>
-            <div className="h-10 w-10 rounded-xl bg-[#003366] flex items-center justify-center">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Total Courses</CardTitle>
+            <div className="h-10 w-10 rounded-xl bg-emerald flex items-center justify-center">
               <BookOpen className="h-5 w-5 text-white" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-[#1e293b]">{courses.length}</div>
+            <div className="text-3xl font-bold text-foreground">{courses.length}</div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white border border-[#e2e8f0] shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+        <Card className="bg-card border border-border shadow-premium hover:shadow-premium-lg transition-shadow overflow-hidden">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-[#64748b]">Active Courses</CardTitle>
-            <div className="h-10 w-10 rounded-xl bg-emerald-100 flex items-center justify-center">
-              <BookOpen className="h-5 w-5 text-emerald-600" />
+            <CardTitle className="text-sm font-medium text-muted-foreground">Active Courses</CardTitle>
+            <div className="h-10 w-10 rounded-xl bg-mint flex items-center justify-center">
+              <BookOpen className="h-5 w-5 text-emerald" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-emerald-600">
+            <div className="text-3xl font-bold text-emerald">
               {courses.filter(c => c.is_active).length}
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white border border-[#e2e8f0] shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+        <Card className="bg-card border border-border shadow-premium hover:shadow-premium-lg transition-shadow overflow-hidden">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-[#64748b]">Total Modules</CardTitle>
-            <div className="h-10 w-10 rounded-xl bg-[#b5985b]/20 flex items-center justify-center">
-              <FileText className="h-5 w-5 text-[#b5985b]" />
+            <CardTitle className="text-sm font-medium text-muted-foreground">Total Modules</CardTitle>
+            <div className="h-10 w-10 rounded-xl bg-emerald-deep/15 flex items-center justify-center">
+              <FileText className="h-5 w-5 text-emerald-deep" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-[#1e293b]">
+            <div className="text-3xl font-bold text-foreground">
               {courses.reduce((sum, c) => sum + (c.modules?.[0]?.count || 0), 0)}
             </div>
           </CardContent>
@@ -553,14 +553,14 @@ export default function CoursesPage() {
 
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as TabValue)}>
-        <TabsList className="bg-[#f1f5f9]">
-          <TabsTrigger value="all" className="data-[state=active]:bg-white">
+        <TabsList className="bg-mint-soft">
+          <TabsTrigger value="all" className="data-[state=active]:bg-card data-[state=active]:text-emerald">
             All Courses ({courses.length})
           </TabsTrigger>
-          <TabsTrigger value="active" className="data-[state=active]:bg-white">
+          <TabsTrigger value="active" className="data-[state=active]:bg-card data-[state=active]:text-emerald">
             Active ({courses.filter(c => c.is_active).length})
           </TabsTrigger>
-          <TabsTrigger value="inactive" className="data-[state=active]:bg-white">
+          <TabsTrigger value="inactive" className="data-[state=active]:bg-card data-[state=active]:text-emerald">
             Inactive ({courses.filter(c => !c.is_active).length})
           </TabsTrigger>
         </TabsList>
@@ -570,20 +570,20 @@ export default function CoursesPage() {
       {isLoading ? (
         <div className="flex items-center justify-center py-12">
           <div className="flex flex-col items-center gap-4">
-            <Loader2 className="h-10 w-10 animate-spin text-[#003366]" />
-            <p className="text-[#64748b] text-sm">Loading courses...</p>
+            <Loader2 className="h-10 w-10 animate-spin text-emerald" />
+            <p className="text-muted-foreground text-sm">Loading courses...</p>
           </div>
         </div>
       ) : filteredCourses.length === 0 ? (
-        <Card className="bg-white border border-[#e2e8f0] shadow-sm">
+        <Card className="bg-card border border-border shadow-premium">
           <CardContent className="py-12 text-center">
-            <div className="h-20 w-20 rounded-2xl bg-[#003366]/10 flex items-center justify-center mx-auto mb-6">
-              <BookOpen className="h-10 w-10 text-[#003366]" />
+            <div className="h-20 w-20 rounded-2xl bg-mint flex items-center justify-center mx-auto mb-6">
+              <BookOpen className="h-10 w-10 text-emerald" />
             </div>
-            <h3 className="text-lg font-medium text-[#1e293b] mb-2">
+            <h3 className="text-lg font-medium text-foreground mb-2">
               {activeTab === 'all' ? 'No Courses Yet' : `No ${activeTab} Courses`}
             </h3>
-            <p className="text-[#64748b] mb-6">
+            <p className="text-muted-foreground mb-6">
               {activeTab === 'all'
                 ? 'Click "New Course" to create your first course.'
                 : `No courses are currently ${activeTab}.`}
@@ -600,19 +600,19 @@ export default function CoursesPage() {
 
       {/* Edit Course Dialog */}
       <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
-        <DialogContent className="bg-white border border-[#e2e8f0] max-w-lg">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#003366] to-[#b5985b]" />
+        <DialogContent className="bg-card border border-border max-w-lg">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald to-emerald-deep" />
           <DialogHeader>
-            <DialogTitle className="text-[#1e293b]">Edit Course</DialogTitle>
-            <DialogDescription className="text-[#64748b]">
+            <DialogTitle className="text-foreground">Edit Course</DialogTitle>
+            <DialogDescription className="text-muted-foreground">
               Update course details.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
             {/* Thumbnail Upload */}
             <div className="space-y-2">
-              <Label className="text-[#64748b]">Course Thumbnail</Label>
-              <div className="border-2 border-dashed border-[#e2e8f0] rounded-lg p-4 text-center hover:border-[#003366] transition-colors">
+              <Label className="text-muted-foreground">Course Thumbnail</Label>
+              <div className="border-2 border-dashed border-border rounded-lg p-4 text-center hover:border-emerald transition-colors">
                 {editThumbnailPreview ? (
                   <div className="relative">
                     <img
@@ -642,13 +642,13 @@ export default function CoursesPage() {
                       onChange={(e) => handleThumbnailSelect(e, true)}
                     />
                     <div className="flex flex-col items-center gap-2 py-4">
-                      <div className="h-12 w-12 rounded-full bg-[#003366]/10 flex items-center justify-center">
-                        <ImageIcon className="h-6 w-6 text-[#003366]" />
+                      <div className="h-12 w-12 rounded-full bg-mint flex items-center justify-center">
+                        <ImageIcon className="h-6 w-6 text-emerald" />
                       </div>
-                      <p className="text-sm text-[#64748b]">
+                      <p className="text-sm text-muted-foreground">
                         Click to upload thumbnail
                       </p>
-                      <p className="text-xs text-[#94a3b8]">
+                      <p className="text-xs text-muted-foreground">
                         PNG, JPG up to 5MB
                       </p>
                     </div>
@@ -658,7 +658,7 @@ export default function CoursesPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="edit-title" className="text-[#64748b]">Course Title *</Label>
+              <Label htmlFor="edit-title" className="text-muted-foreground">Course Title *</Label>
               <Input
                 id="edit-title"
                 placeholder="Enter course title"
@@ -667,18 +667,18 @@ export default function CoursesPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="edit-description" className="text-[#64748b]">Description</Label>
+              <Label htmlFor="edit-description" className="text-muted-foreground">Description</Label>
               <Textarea
                 id="edit-description"
                 placeholder="Enter course description"
                 value={editForm.description}
                 onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
                 rows={3}
-                className="border-[#e2e8f0]"
+                className="border-border"
               />
             </div>
             <div className="flex items-center justify-between">
-              <Label htmlFor="edit-is_active" className="text-[#64748b]">Active</Label>
+              <Label htmlFor="edit-is_active" className="text-muted-foreground">Active</Label>
               <Switch
                 id="edit-is_active"
                 checked={editForm.is_active}
@@ -690,7 +690,7 @@ export default function CoursesPage() {
             <Button variant="outline" onClick={() => setEditDialogOpen(false)}>
               Cancel
             </Button>
-            <Button onClick={handleUpdateCourse} disabled={isUpdating} className="bg-[#003366] hover:bg-[#002244] text-white">
+            <Button onClick={handleUpdateCourse} disabled={isUpdating} className="bg-emerald-btn text-white">
               {isUpdating ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

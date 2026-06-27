@@ -47,24 +47,24 @@ export function WelcomeOverlay({
       )}
     >
       {/* Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900">
+      <div className="absolute inset-0 bg-gradient-to-br from-ink-deep via-ink to-ink-soft">
         {/* Animated circles */}
-        <div className="absolute top-20 left-20 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-400/10 rounded-full blur-3xl animate-pulse delay-500" />
+        <div className="absolute top-20 left-20 w-64 h-64 bg-emerald/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-emerald-deep/20 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-emerald/10 rounded-full blur-3xl animate-pulse delay-500" />
 
         {/* Sparkle decorations */}
         <div className="absolute top-[10%] left-[15%] animate-bounce delay-100">
-          <Sparkles className="h-8 w-8 text-yellow-400/60" />
+          <Sparkles className="h-8 w-8 text-emerald-light/60" />
         </div>
         <div className="absolute top-[20%] right-[20%] animate-bounce delay-300">
-          <Sparkles className="h-6 w-6 text-yellow-400/40" />
+          <Sparkles className="h-6 w-6 text-emerald-light/40" />
         </div>
         <div className="absolute bottom-[30%] left-[10%] animate-bounce delay-500">
-          <Sparkles className="h-10 w-10 text-yellow-400/50" />
+          <Sparkles className="h-10 w-10 text-emerald-light/50" />
         </div>
         <div className="absolute bottom-[15%] right-[15%] animate-bounce delay-700">
-          <Sparkles className="h-7 w-7 text-yellow-400/60" />
+          <Sparkles className="h-7 w-7 text-emerald-light/60" />
         </div>
       </div>
 
@@ -78,38 +78,38 @@ export function WelcomeOverlay({
         {/* Logo */}
         <div className="mb-8 inline-flex items-center justify-center">
           <div className="p-6 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
-            <GraduationCap className="h-16 w-16 text-yellow-400" />
+            <GraduationCap className="h-16 w-16 text-emerald-light" />
           </div>
         </div>
 
         {/* Welcome Text */}
-        <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 leading-tight">
+        <h1 className="font-display text-4xl md:text-6xl font-bold text-white mb-4 leading-tight">
           Welcome to{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-light to-emerald">
             School of Members
           </span>
         </h1>
 
-        <p className="text-xl md:text-2xl text-purple-200 mb-2">
+        <p className="text-xl md:text-2xl text-mint mb-2">
           Hello, <span className="text-white font-semibold">{userName}</span>!
         </p>
 
-        <p className="text-lg text-purple-300 mb-12 max-w-md mx-auto">
+        <p className="text-lg text-mint/80 mb-12 max-w-md mx-auto">
           Your journey to knowledge and growth starts here. We&apos;re excited to have you!
         </p>
 
         {/* Feature highlights */}
         <div className="grid grid-cols-3 gap-4 mb-12 max-w-lg mx-auto">
           <div className="p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10">
-            <BookOpen className="h-8 w-8 text-yellow-400 mx-auto mb-2" />
+            <BookOpen className="h-8 w-8 text-emerald-light mx-auto mb-2" />
             <p className="text-sm text-white">Learn</p>
           </div>
           <div className="p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10">
-            <Trophy className="h-8 w-8 text-yellow-400 mx-auto mb-2" />
+            <Trophy className="h-8 w-8 text-emerald-light mx-auto mb-2" />
             <p className="text-sm text-white">Achieve</p>
           </div>
           <div className="p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10">
-            <Sparkles className="h-8 w-8 text-yellow-400 mx-auto mb-2" />
+            <Sparkles className="h-8 w-8 text-emerald-light mx-auto mb-2" />
             <p className="text-sm text-white">Grow</p>
           </div>
         </div>
@@ -118,13 +118,13 @@ export function WelcomeOverlay({
         <Button
           size="lg"
           onClick={handleDismiss}
-          className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold px-8 py-6 text-lg rounded-full shadow-2xl shadow-yellow-500/25 transition-all hover:scale-105"
+          className="bg-emerald-btn text-white font-semibold px-8 py-6 text-lg rounded-full shadow-emerald transition-all hover:scale-105 focus-visible:ring-2 focus-visible:ring-emerald-light focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
         >
           Start Learning
           <ArrowRight className="ml-2 h-5 w-5" />
         </Button>
 
-        <p className="text-purple-400 text-sm mt-6">
+        <p className="text-mint/60 text-sm mt-6">
           Press anywhere or click the button to continue
         </p>
       </div>

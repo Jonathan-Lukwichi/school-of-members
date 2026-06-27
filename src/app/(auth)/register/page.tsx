@@ -1,47 +1,38 @@
 import Link from 'next/link'
-import Image from 'next/image'
-import { Card, CardContent } from '@/components/ui/card'
 import { RegisterForm } from '@/components/forms/register-form'
-import { Sparkles } from 'lucide-react'
+import { Sparkles, Shield } from 'lucide-react'
 
 export default function RegisterPage() {
   return (
-    <Card className="border-0 shadow-none">
-      <div className="h-1 bg-gradient-to-r from-[#003366] via-[#b5985b] to-[#C8102E]" />
-      <CardContent className="pt-8 pb-8">
-        {/* Circular Logo */}
-        <div className="flex justify-center mb-6">
-          <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-[#003366]/20 shadow-xl">
-            <Image
-              src="/images/logo-fresco.png"
-              alt="School of Members Logo"
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
-        </div>
+    <div className="overflow-hidden">
+      {/* Emerald accent bar */}
+      <div className="h-1.5 bg-emerald-btn" />
 
+      <div className="px-6 pb-8 pt-8 sm:px-8">
         {/* Title */}
-        <div className="text-center mb-6">
-          <div className="flex items-center justify-center gap-2 text-[#C8102E] text-sm font-medium mb-2">
-            <Sparkles className="h-4 w-4" />
+        <div className="mb-6 text-center">
+          <div className="mb-2 flex items-center justify-center gap-2 text-sm font-medium text-emerald">
+            <Shield className="h-4 w-4" />
             Admin Registration
           </div>
-          <p className="text-[#64748b] text-sm">
-            Create an admin account
+          <h1 className="mb-1 font-display text-2xl font-bold text-white">Create an Admin Account</h1>
+          <p className="text-sm text-white/60">
+            <span className="inline-flex items-center gap-1.5">
+              <Sparkles className="h-3.5 w-3.5 text-emerald" />
+              Set up your administrator access
+            </span>
           </p>
         </div>
 
         <RegisterForm />
 
-        <div className="mt-6 text-center text-sm text-[#64748b]">
+        <div className="mt-6 text-center text-sm text-white/60">
           Already have an account?{' '}
-          <Link href="/login" className="text-[#003366] hover:text-[#C8102E] transition-colors font-medium">
+          <Link href="/login" className="font-medium text-emerald transition-colors hover:underline">
             Login
           </Link>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   )
 }

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Loader2, User, Mail, Phone, Lock, Info } from 'lucide-react'
+import { Loader2, User, Mail, Phone, Lock, Info, CheckCircle2 } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -87,16 +87,14 @@ export function RegisterForm() {
 
   if (success) {
     return (
-      <div className="p-6 text-center bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg border border-green-200">
-        <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-green-100 flex items-center justify-center">
-          <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
+      <div className="p-6 text-center bg-emerald/5 rounded-lg border border-emerald/20">
+        <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-emerald/15 flex items-center justify-center">
+          <CheckCircle2 className="w-6 h-6 text-emerald" />
         </div>
-        <div className="text-green-700 font-semibold mb-2">
+        <div className="text-white font-semibold mb-2">
           Registration successful!
         </div>
-        <p className="text-sm text-green-600">
+        <p className="text-sm text-white/60">
           Please check your email to verify your account. Redirecting to login...
         </p>
       </div>
@@ -106,7 +104,7 @@ export function RegisterForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       {error && (
-        <div className="p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2">
+        <div className="flex items-center gap-2 rounded-lg border border-red-400/30 bg-red-500/10 p-3 text-sm text-red-300">
           <Info className="h-4 w-4 flex-shrink-0" />
           {error}
         </div>
@@ -114,49 +112,49 @@ export function RegisterForm() {
 
       {/* Full Name Field */}
       <div className="space-y-2">
-        <Label htmlFor="full_name" className="flex items-center gap-2 text-[#64748b] text-sm">
-          <User className="h-4 w-4 text-[#8B5CF6]" />
+        <Label htmlFor="full_name" className="flex items-center gap-2 text-sm text-white/70">
+          <User className="h-4 w-4 text-emerald" />
           Full Name
         </Label>
         <Input
           id="full_name"
           placeholder="Enter your full name"
-          className="border-[#e2e8f0] focus:border-[#8B5CF6] focus:ring-[#8B5CF6]/20 h-11"
+          className="h-11 border-white/15 bg-white/5 text-white placeholder:text-white/40 hover:border-white/25 focus:border-emerald/60 focus:ring-emerald/30"
           {...register('full_name')}
           disabled={isLoading}
         />
         {errors.full_name && (
-          <p className="text-xs text-red-500">{errors.full_name.message}</p>
+          <p className="text-xs text-red-300">{errors.full_name.message}</p>
         )}
       </div>
 
       {/* Email Field */}
       <div className="space-y-2">
-        <Label htmlFor="email" className="flex items-center gap-2 text-[#64748b] text-sm">
-          <Mail className="h-4 w-4 text-[#8B5CF6]" />
+        <Label htmlFor="email" className="flex items-center gap-2 text-sm text-white/70">
+          <Mail className="h-4 w-4 text-emerald" />
           Email Address
         </Label>
         <Input
           id="email"
           type="email"
           placeholder="name@example.com"
-          className="border-[#e2e8f0] focus:border-[#8B5CF6] focus:ring-[#8B5CF6]/20 h-11"
+          className="h-11 border-white/15 bg-white/5 text-white placeholder:text-white/40 hover:border-white/25 focus:border-emerald/60 focus:ring-emerald/30"
           {...register('email')}
           disabled={isLoading}
         />
         {errors.email && (
-          <p className="text-xs text-red-500">{errors.email.message}</p>
+          <p className="text-xs text-red-300">{errors.email.message}</p>
         )}
       </div>
 
       {/* Phone Field */}
       <div className="space-y-2">
-        <Label htmlFor="phone" className="flex items-center gap-2 text-[#64748b] text-sm">
-          <Phone className="h-4 w-4 text-[#8B5CF6]" />
+        <Label htmlFor="phone" className="flex items-center gap-2 text-sm text-white/70">
+          <Phone className="h-4 w-4 text-emerald" />
           Phone Number
         </Label>
         <div className="flex gap-2">
-          <div className="flex items-center gap-1 px-3 border border-[#e2e8f0] rounded-md bg-[#f8fafc] text-sm text-[#64748b] h-11">
+          <div className="flex items-center gap-1 px-3 border border-white/15 rounded-md bg-white/5 text-sm text-white/70 h-11">
             <span className="font-medium">ZA</span>
             <span>+27</span>
           </div>
@@ -164,7 +162,7 @@ export function RegisterForm() {
             id="phone"
             type="tel"
             placeholder="Enter phone number"
-            className="border-[#e2e8f0] focus:border-[#8B5CF6] focus:ring-[#8B5CF6]/20 h-11 flex-1"
+            className="h-11 flex-1 border-white/15 bg-white/5 text-white placeholder:text-white/40 hover:border-white/25 focus:border-emerald/60 focus:ring-emerald/30"
             {...register('phone')}
             disabled={isLoading}
           />
@@ -173,39 +171,39 @@ export function RegisterForm() {
 
       {/* Password Field */}
       <div className="space-y-2">
-        <Label htmlFor="password" className="flex items-center gap-2 text-[#64748b] text-sm">
-          <Lock className="h-4 w-4 text-[#8B5CF6]" />
+        <Label htmlFor="password" className="flex items-center gap-2 text-sm text-white/70">
+          <Lock className="h-4 w-4 text-emerald" />
           Password
         </Label>
         <Input
           id="password"
           type="password"
           placeholder="Create a password"
-          className="border-[#e2e8f0] focus:border-[#8B5CF6] focus:ring-[#8B5CF6]/20 h-11"
+          className="h-11 border-white/15 bg-white/5 text-white placeholder:text-white/40 hover:border-white/25 focus:border-emerald/60 focus:ring-emerald/30"
           {...register('password')}
           disabled={isLoading}
         />
         {errors.password && (
-          <p className="text-xs text-red-500">{errors.password.message}</p>
+          <p className="text-xs text-red-300">{errors.password.message}</p>
         )}
       </div>
 
       {/* Confirm Password Field */}
       <div className="space-y-2">
-        <Label htmlFor="confirmPassword" className="flex items-center gap-2 text-[#64748b] text-sm">
-          <Lock className="h-4 w-4 text-[#8B5CF6]" />
+        <Label htmlFor="confirmPassword" className="flex items-center gap-2 text-sm text-white/70">
+          <Lock className="h-4 w-4 text-emerald" />
           Confirm Password
         </Label>
         <Input
           id="confirmPassword"
           type="password"
           placeholder="Confirm your password"
-          className="border-[#e2e8f0] focus:border-[#8B5CF6] focus:ring-[#8B5CF6]/20 h-11"
+          className="h-11 border-white/15 bg-white/5 text-white placeholder:text-white/40 hover:border-white/25 focus:border-emerald/60 focus:ring-emerald/30"
           {...register('confirmPassword')}
           disabled={isLoading}
         />
         {errors.confirmPassword && (
-          <p className="text-xs text-red-500">{errors.confirmPassword.message}</p>
+          <p className="text-xs text-red-300">{errors.confirmPassword.message}</p>
         )}
       </div>
 
@@ -215,22 +213,22 @@ export function RegisterForm() {
           id="acceptTerms"
           checked={acceptTerms}
           onCheckedChange={(checked) => setValue('acceptTerms', checked as boolean)}
-          className="mt-0.5 border-[#8B5CF6] data-[state=checked]:bg-[#8B5CF6] data-[state=checked]:border-[#8B5CF6]"
+          className="mt-0.5 border-white/30 data-[state=checked]:border-emerald data-[state=checked]:bg-emerald data-[state=checked]:text-ink"
         />
-        <Label htmlFor="acceptTerms" className="text-sm font-normal text-[#64748b] leading-relaxed">
+        <Label htmlFor="acceptTerms" className="text-sm font-normal text-white/70 leading-relaxed">
           I accept the terms and conditions of the School of Members
         </Label>
       </div>
       {errors.acceptTerms && (
-        <p className="text-xs text-red-500">{errors.acceptTerms.message}</p>
+        <p className="text-xs text-red-300">{errors.acceptTerms.message}</p>
       )}
 
       {/* Info Box */}
-      <div className="bg-gradient-to-r from-[#8B5CF6]/5 to-[#06B6D4]/5 border border-[#8B5CF6]/20 rounded-lg p-4 flex items-start gap-3">
-        <div className="w-5 h-5 rounded-full border-2 border-[#8B5CF6] flex items-center justify-center flex-shrink-0 mt-0.5">
-          <div className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
+      <div className="flex items-start gap-3 rounded-lg border border-emerald/20 bg-emerald/5 p-4">
+        <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border-2 border-emerald">
+          <div className="h-2 w-2 rounded-full bg-emerald" />
         </div>
-        <p className="text-sm text-[#64748b]">
+        <p className="text-sm text-white/60">
           Your login credentials will be sent to your email address after verification.
         </p>
       </div>
@@ -238,7 +236,7 @@ export function RegisterForm() {
       {/* Submit Button */}
       <Button
         type="submit"
-        className="w-full h-12 bg-[#003366] hover:bg-[#002244] text-white font-medium text-base shadow-lg shadow-[#003366]/30 transition-all duration-200"
+        className="h-12 w-full bg-emerald-btn text-base font-semibold text-ink shadow-emerald transition-all duration-200 hover:brightness-105"
         disabled={isLoading}
       >
         {isLoading ? (

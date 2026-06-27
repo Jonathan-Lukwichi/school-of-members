@@ -119,12 +119,12 @@ export function FileUpload({
 
   const getFileIcon = (file: File) => {
     if (file.type.startsWith('image/')) {
-      return <ImageIcon className="h-8 w-8 text-blue-500" />
+      return <ImageIcon className="h-8 w-8 text-emerald" />
     }
     if (file.type === 'application/pdf') {
-      return <FileText className="h-8 w-8 text-red-500" />
+      return <FileText className="h-8 w-8 text-emerald-deep" />
     }
-    return <FileText className="h-8 w-8 text-gray-500" />
+    return <FileText className="h-8 w-8 text-muted-foreground" />
   }
 
   return (
@@ -132,9 +132,9 @@ export function FileUpload({
       <div
         className={cn(
           'relative border-2 border-dashed rounded-lg p-6 transition-colors',
-          isDragging && 'border-purple-500 bg-purple-50',
+          isDragging && 'border-emerald bg-mint',
           error && 'border-red-300 bg-red-50',
-          !isDragging && !error && 'border-gray-300 hover:border-gray-400',
+          !isDragging && !error && 'border-border hover:border-emerald/50',
           disabled && 'opacity-50 cursor-not-allowed'
         )}
         onDragOver={handleDragOver}
@@ -159,7 +159,7 @@ export function FileUpload({
                 className="h-16 w-16 object-cover rounded-lg"
               />
             ) : (
-              <div className="h-16 w-16 bg-gray-100 rounded-lg flex items-center justify-center">
+              <div className="h-16 w-16 bg-mint rounded-lg flex items-center justify-center">
                 {getFileIcon(selectedFile)}
               </div>
             )}
@@ -186,7 +186,7 @@ export function FileUpload({
           </div>
         ) : (
           <div className="text-center">
-            <Upload className="mx-auto h-12 w-12 text-gray-400" />
+            <Upload className="mx-auto h-12 w-12 text-emerald/60" />
             <div className="mt-4">
               <p className="font-medium">
                 Drag and drop your file here, or click to browse
