@@ -18,6 +18,7 @@ import {
   Quote,
   QrCode,
   ClipboardCheck,
+  Eye,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -32,6 +33,7 @@ const adminLinks = [
   { href: '/admin/testimonials', label: 'Testimonials', icon: Quote },
   { href: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
   { href: '/admin/users', label: 'Admin Users', icon: Shield },
+  { href: '/student', label: 'View as Student', icon: Eye },
 ]
 
 const studentLinks = [

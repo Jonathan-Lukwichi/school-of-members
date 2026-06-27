@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { BookOpen, FileText, ArrowRight, Loader2, Sparkles, GraduationCap, ClipboardCheck } from 'lucide-react'
+import { BookOpen, FileText, ArrowRight, Loader2, Sparkles, GraduationCap, ClipboardCheck, Eye } from 'lucide-react'
 
 interface Module { id: string; title: string }
 interface Course {
@@ -18,6 +18,7 @@ export default function StudentDashboard() {
   const [name, setName] = useState('')
   const [courses, setCourses] = useState<Course[]>([])
   const [loading, setLoading] = useState(true)
+  const [isPreview, setIsPreview] = useState(false)
 
   useEffect(() => {
     ;(async () => {
@@ -29,6 +30,7 @@ export default function StudentDashboard() {
         if (meRes.ok) {
           const me = await meRes.json()
           setName(me.student?.full_name || '')
+          setIsPreview(!!me.isAdminPreview)
         }
         if (coursesRes.ok) {
           const data = await coursesRes.json()
@@ -53,6 +55,18 @@ export default function StudentDashboard() {
 
   return (
     <div className="space-y-8">
+      {/* Admin preview banner */}
+      {isPreview && (
+        <div className="flex flex-wrap items-center gap-3 rounded-xl border border-emerald/30 bg-mint px-4 py-3 text-sm">
+          <span className="inline-flex items-center gap-2 font-medium text-emerald-deep">
+            <Eye className="h-4 w-4" /> Admin preview — this is exactly what a student sees.
+          </span>
+          <Link href="/admin" className="ml-auto inline-flex items-center gap-1 font-medium text-emerald hover:underline">
+            Exit to admin <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      )}
+
       {/* Greeting */}
       <div className="overflow-hidden rounded-2xl bg-emerald-btn p-6 text-ink shadow-emerald sm:p-8">
         <div className="flex items-center gap-2 text-sm font-medium text-ink/80">

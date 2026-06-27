@@ -1,27 +1,29 @@
 import { NextResponse } from 'next/server'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
-import { getStudentSessionFromCookie } from '@/lib/auth/session'
+import { getPortalViewer } from '@/lib/auth/portal-access'
 
 /**
- * Active courses + their modules for the logged-in student.
+ * Active courses + their modules for the logged-in student (or an admin previewing).
  * Every active student has access to the active courses (one membership program).
  */
 export async function GET() {
   try {
-    const session = await getStudentSessionFromCookie()
-    if (!session?.studentId) {
+    const viewer = await getPortalViewer()
+    if (viewer.kind === 'none') {
       return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
     }
 
     const supabaseAdmin = getSupabaseAdmin()
 
-    // Guard: only active students may access course content
-    const { data: student } = await (supabaseAdmin.from('students') as any)
-      .select('status')
-      .eq('id', session.studentId)
-      .single()
-    if (!student || student.status === 'pending' || student.status === 'inactive') {
-      return NextResponse.json({ error: 'Account not active' }, { status: 403 })
+    // Students must be active; admins preview freely
+    if (viewer.kind === 'student') {
+      const { data: student } = await (supabaseAdmin.from('students') as any)
+        .select('status')
+        .eq('id', viewer.studentId)
+        .single()
+      if (!student || student.status === 'pending' || student.status === 'inactive') {
+        return NextResponse.json({ error: 'Account not active' }, { status: 403 })
+      }
     }
 
     const { data: courses } = await (supabaseAdmin.from('courses') as any)

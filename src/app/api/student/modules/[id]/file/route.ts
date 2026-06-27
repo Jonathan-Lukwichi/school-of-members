@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
-import { getStudentSessionFromCookie } from '@/lib/auth/session'
+import { getPortalViewer } from '@/lib/auth/portal-access'
 
 /**
  * Returns a short-lived signed URL for a module's file, for the logged-in
@@ -13,19 +13,21 @@ export async function GET(
   try {
     const { id: moduleId } = await params
 
-    const session = await getStudentSessionFromCookie()
-    if (!session?.studentId) {
+    const viewer = await getPortalViewer()
+    if (viewer.kind === 'none') {
       return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
     }
 
     const supabaseAdmin = getSupabaseAdmin()
 
-    const { data: student } = await (supabaseAdmin.from('students') as any)
-      .select('status')
-      .eq('id', session.studentId)
-      .single()
-    if (!student || student.status === 'pending' || student.status === 'inactive') {
-      return NextResponse.json({ error: 'Account not active' }, { status: 403 })
+    if (viewer.kind === 'student') {
+      const { data: student } = await (supabaseAdmin.from('students') as any)
+        .select('status')
+        .eq('id', viewer.studentId)
+        .single()
+      if (!student || student.status === 'pending' || student.status === 'inactive') {
+        return NextResponse.json({ error: 'Account not active' }, { status: 403 })
+      }
     }
 
     const { data: module } = await (supabaseAdmin.from('modules') as any)
