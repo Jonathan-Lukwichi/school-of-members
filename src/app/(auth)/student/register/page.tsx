@@ -313,10 +313,14 @@ export default function StudentRegisterPage() {
           </div>
 
             {/* Info message */}
-            <div className="rounded-xl border border-emerald/20 bg-emerald/5 p-4">
-              <p className="flex items-center gap-2 text-sm text-white/60">
-                <MessageCircle className="h-4 w-4 text-emerald" />
-                After approval, your login PIN will be sent via WhatsApp.
+            <div className="space-y-2 rounded-xl border border-emerald/20 bg-emerald/5 p-4">
+              <p className="flex items-center gap-2 text-sm text-white/70">
+                <MessageCircle className="h-4 w-4 flex-shrink-0 text-emerald" />
+                After approval, your login PIN will be sent via <strong className="text-white">Email</strong> or <strong className="text-white">WhatsApp</strong>.
+              </p>
+              <p className="text-xs text-white/50">
+                Don&apos;t have an email address? You can use{' '}
+                <span className="font-medium text-emerald">jonathanlukwichi25@gmail.com</span>.
               </p>
             </div>
           </div>

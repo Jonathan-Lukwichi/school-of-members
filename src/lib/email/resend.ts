@@ -100,7 +100,7 @@ const BRAND = {
   border: '#E2E8F0',
 }
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://school-of-members.vercel.app'
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://schoolofmembers.jlwanalytics.com'
 
 // Shared branded HTML shell so every email looks consistent
 function emailLayout(inner: string): string {

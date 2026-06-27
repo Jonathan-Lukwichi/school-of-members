@@ -77,7 +77,7 @@ export async function POST(request: NextRequest) {
 
     // Send notifications with PIN
     const whatsappNumber = student.whatsapp_number || student.phone
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://school-of-members.vercel.app'
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://schoolofmembers.jlwanalytics.com'
 
     const message = `🎉 Welcome to School of Members, ${student.full_name}!
 

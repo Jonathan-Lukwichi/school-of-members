@@ -29,7 +29,7 @@ export function DownloadableQR({ path, title, subtitle, posterHeading, fileBase 
     const origin =
       typeof window !== 'undefined'
         ? window.location.origin
-        : process.env.NEXT_PUBLIC_APP_URL || 'https://school-of-members.vercel.app'
+        : process.env.NEXT_PUBLIC_APP_URL || 'https://schoolofmembers.jlwanalytics.com'
     setUrl(`${origin}${path}`)
   }, [path])
 
@@ -117,8 +117,19 @@ export function DownloadableQR({ path, title, subtitle, posterHeading, fileBase 
         </div>
       </div>
 
-      <div className="mt-5 flex items-center gap-2 rounded-lg border border-border bg-muted/40 px-3 py-2">
-        <span className="truncate text-sm text-muted-foreground">{url || '…'}</span>
+      {/* Can't scan? Use the link directly */}
+      <p className="mt-5 text-center text-xs font-medium uppercase tracking-wide text-muted-foreground">
+        Can&apos;t scan? Use this link
+      </p>
+      <div className="mt-1 flex items-center gap-2 rounded-lg border border-border bg-muted/40 px-3 py-2">
+        <a
+          href={url || '#'}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="truncate text-sm font-medium text-emerald hover:underline"
+        >
+          {url || '…'}
+        </a>
         <button
           onClick={copyLink}
           className="ml-auto inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium text-emerald transition-colors hover:bg-emerald/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald"

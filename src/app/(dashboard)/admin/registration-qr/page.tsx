@@ -2,10 +2,10 @@ import { DownloadableQR } from '@/components/admin/downloadable-qr'
 import { QrCode } from 'lucide-react'
 
 export const metadata = {
-  title: 'Registration QR',
+  title: 'Links & QR Codes',
 }
 
-export default function RegistrationQRPage() {
+export default function LinksAndQRPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-start gap-3">
@@ -13,21 +13,30 @@ export default function RegistrationQRPage() {
           <QrCode className="h-6 w-6" />
         </span>
         <div>
-          <h1 className="font-display text-2xl font-bold text-foreground">Registration QR</h1>
+          <h1 className="font-display text-2xl font-bold text-foreground">Links &amp; QR Codes</h1>
           <p className="text-sm text-muted-foreground">
-            Share this code so new members can register themselves. Download it as an image or a
-            ready-to-print poster.
+            Share these to register members or reach the portals. Each can be downloaded as an image
+            or a print-ready poster, and includes the link for anyone who can&apos;t scan.
           </p>
         </div>
       </div>
 
-      <DownloadableQR
-        path="/student/register"
-        title="Registration QR Code"
-        subtitle="Print or share — it opens the student registration form."
-        posterHeading="SCAN TO REGISTER"
-        fileBase="registration-qr"
-      />
+      <div className="grid gap-6 lg:grid-cols-2">
+        <DownloadableQR
+          path="/student/register"
+          title="Student Registration"
+          subtitle="New members scan or click to register."
+          posterHeading="SCAN TO REGISTER"
+          fileBase="registration-qr"
+        />
+        <DownloadableQR
+          path="/admin/login"
+          title="Admin / Staff Login"
+          subtitle="Share with admins and teachers to reach the staff portal."
+          posterHeading="ADMIN / STAFF LOGIN"
+          fileBase="admin-login-qr"
+        />
+      </div>
     </div>
   )
 }

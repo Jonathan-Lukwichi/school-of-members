@@ -24,7 +24,7 @@ import { cn } from '@/lib/utils'
 const adminLinks = [
   { href: '/admin', label: 'Dashboard', icon: Home },
   { href: '/admin/students', label: 'Students', icon: Users },
-  { href: '/admin/registration-qr', label: 'Registration QR', icon: QrCode },
+  { href: '/admin/registration-qr', label: 'Links & QR Codes', icon: QrCode },
   { href: '/admin/teachers', label: 'Teachers', icon: UserCheck },
   { href: '/admin/courses', label: 'Courses', icon: BookOpen },
   { href: '/admin/attendance', label: 'Attendance', icon: Calendar },
