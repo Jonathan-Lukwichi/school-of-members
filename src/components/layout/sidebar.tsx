@@ -17,6 +17,7 @@ import {
   ChevronRight,
   Quote,
   QrCode,
+  ClipboardCheck,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -27,6 +28,7 @@ const adminLinks = [
   { href: '/admin/teachers', label: 'Teachers', icon: UserCheck },
   { href: '/admin/courses', label: 'Courses', icon: BookOpen },
   { href: '/admin/attendance', label: 'Attendance', icon: Calendar },
+  { href: '/admin/attendance-records', label: 'Attendance Records', icon: ClipboardCheck },
   { href: '/admin/testimonials', label: 'Testimonials', icon: Quote },
   { href: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
   { href: '/admin/users', label: 'Admin Users', icon: Shield },

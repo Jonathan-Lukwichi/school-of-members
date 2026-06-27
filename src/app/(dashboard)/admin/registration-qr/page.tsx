@@ -1,4 +1,4 @@
-import { RegistrationQR } from '@/components/admin/registration-qr'
+import { DownloadableQR } from '@/components/admin/downloadable-qr'
 import { QrCode } from 'lucide-react'
 
 export const metadata = {
@@ -21,7 +21,13 @@ export default function RegistrationQRPage() {
         </div>
       </div>
 
-      <RegistrationQR />
+      <DownloadableQR
+        path="/student/register"
+        title="Registration QR Code"
+        subtitle="Print or share — it opens the student registration form."
+        posterHeading="SCAN TO REGISTER"
+        fileBase="registration-qr"
+      />
     </div>
   )
 }

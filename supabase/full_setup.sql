@@ -525,6 +525,29 @@ DROP POLICY IF EXISTS "Authenticated users can download modules" ON storage.obje
 CREATE POLICY "Authenticated users can download modules" ON storage.objects FOR SELECT TO authenticated
   USING (bucket_id = 'modules');
 
+-- ============== 13. ATTENDANCE RECORDS (session reflection submissions) ==============
+CREATE TABLE IF NOT EXISTS attendance_records (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  student_id UUID REFERENCES students(id) ON DELETE SET NULL,
+  full_name TEXT NOT NULL,
+  session_date DATE NOT NULL,
+  chapters_done TEXT NOT NULL,
+  takeaway_1 TEXT NOT NULL,
+  takeaway_2 TEXT,
+  takeaway_3 TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+CREATE INDEX IF NOT EXISTS idx_attendance_records_date ON attendance_records(session_date);
+CREATE INDEX IF NOT EXISTS idx_attendance_records_student ON attendance_records(student_id);
+ALTER TABLE attendance_records ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Admins can view attendance records" ON attendance_records;
+CREATE POLICY "Admins can view attendance records" ON attendance_records
+  FOR SELECT USING (EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role = 'admin'));
+DROP POLICY IF EXISTS "Admins can manage attendance records" ON attendance_records;
+CREATE POLICY "Admins can manage attendance records" ON attendance_records
+  FOR ALL USING (EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role = 'admin'));
+
 -- =====================================================================
 -- SETUP COMPLETE — full schema, RLS, functions, and storage are ready.
 -- =====================================================================

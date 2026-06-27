@@ -124,6 +124,51 @@ export const exportToExcel = (students: StudentExport[], filename: string = 'stu
   saveAs(blob, `${filename}_${date}.xlsx`)
 }
 
+// Attendance record shape for export
+export interface AttendanceExport {
+  full_name: string
+  session_date: string
+  chapters_done: string
+  takeaway_1: string
+  takeaway_2?: string | null
+  takeaway_3?: string | null
+  created_at: string
+}
+
+/**
+ * Export attendance records to Excel (.xlsx)
+ */
+export const exportAttendanceToExcel = (
+  records: AttendanceExport[],
+  filename: string = 'attendance'
+) => {
+  const data = records.map((r, index) => ({
+    'No.': index + 1,
+    'Full Name': r.full_name,
+    'Session Date': r.session_date,
+    'Chapters Covered': r.chapters_done,
+    'Key Takeaway 1': r.takeaway_1 || '',
+    'Key Takeaway 2': r.takeaway_2 || '',
+    'Key Takeaway 3': r.takeaway_3 || '',
+    'Submitted At': formatDate(r.created_at),
+  }))
+
+  const workbook = XLSX.utils.book_new()
+  const worksheet = XLSX.utils.json_to_sheet(data)
+  worksheet['!cols'] = [
+    { wch: 5 }, { wch: 25 }, { wch: 14 }, { wch: 28 },
+    { wch: 35 }, { wch: 35 }, { wch: 35 }, { wch: 20 },
+  ]
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Attendance')
+
+  const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' })
+  const blob = new Blob([excelBuffer], {
+    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  })
+  const date = new Date().toISOString().split('T')[0]
+  saveAs(blob, `${filename}_${date}.xlsx`)
+}
+
 /**
  * Export students to Word (.docx) file
  */
