@@ -36,6 +36,13 @@ export default function LinksAndQRPage() {
           posterHeading="ADMIN / STAFF LOGIN"
           fileBase="admin-login-qr"
         />
+        <DownloadableQR
+          path="/attendance"
+          title="Session Attendance"
+          subtitle="Students scan or click at a session to submit attendance."
+          posterHeading="SCAN FOR ATTENDANCE"
+          fileBase="attendance-qr"
+        />
       </div>
     </div>
   )
