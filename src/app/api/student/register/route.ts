@@ -2,6 +2,11 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { generatePin, hashPin } from '@/lib/auth/pin'
 import { formatPhoneNumber, validatePhoneNumber } from '@/lib/auth/phone'
+import {
+  sendRegistrationReceivedEmail,
+  sendAdminNewRegistrationEmail,
+  isResendConfigured,
+} from '@/lib/email/resend'
 
 export async function POST(request: NextRequest) {
   try {
@@ -162,11 +167,50 @@ export async function POST(request: NextRequest) {
       console.warn('Failed to log registration:', logError)
     }
 
+    // Notifications (all fail-soft — must never block a successful registration)
+    let studentEmailSent = false
+    let adminAlert = { success: false, sent: 0, total: 0 }
+
+    if (isResendConfigured()) {
+      // 1. Confirmation email to the student ("received, pending approval")
+      try {
+        const res = await sendRegistrationReceivedEmail(normalizedEmail, fullName)
+        studentEmailSent = res.success
+        if (!res.success) console.warn('Student confirmation email failed:', res.error)
+      } catch (err) {
+        console.warn('Student confirmation email threw:', err)
+      }
+
+      // 2. Alert all admins that a new student registered
+      try {
+        const { data: admins } = await (supabaseAdmin
+          .from('profiles') as any)
+          .select('email')
+          .eq('role', 'admin')
+        const adminEmails: string[] = (admins || [])
+          .map((a: { email?: string }) => a.email)
+          .filter(Boolean)
+        adminAlert = await sendAdminNewRegistrationEmail(adminEmails, {
+          full_name: fullName,
+          email: normalizedEmail,
+          phone: formattedPhone,
+          address: address?.trim() || null,
+          church_of_provenance: churchOfProvenance?.trim() || null,
+          preferred_language: preferredLanguage,
+        })
+        if (!adminAlert.success) console.warn('Admin alert email not sent (no admins or send failed)')
+      } catch (err) {
+        console.warn('Admin alert email threw:', err)
+      }
+    }
+
     // Return success - NO PIN, NO session (requires admin approval)
     return NextResponse.json({
       success: true,
       message: 'Registration submitted! Awaiting admin approval.',
       requiresApproval: true,
+      studentEmailSent,
+      adminAlertSent: adminAlert.success,
       student: {
         id: student.id,
         fullName: student.full_name,
