@@ -410,11 +410,18 @@ export default function CoursesPage() {
               <DialogDescription className="text-muted-foreground">
                 Add a new course to your learning platform.
               </DialogDescription>
+              <div className="mt-2 flex items-start gap-2 rounded-lg border border-emerald/20 bg-mint px-3 py-2 text-xs text-emerald-deep">
+                <FileText className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald" />
+                <span>
+                  Step 1: create the course. Then open it and click <strong>Add Module</strong> to
+                  upload your <strong>PDF or Word</strong> lessons, chapter by chapter (English or French).
+                </span>
+              </div>
             </DialogHeader>
             <div className="space-y-4 py-4">
               {/* Thumbnail Upload */}
               <div className="space-y-2">
-                <Label className="text-muted-foreground">Course Thumbnail</Label>
+                <Label className="text-muted-foreground">Course Cover Image (optional)</Label>
                 <div className="border-2 border-dashed border-border rounded-lg p-4 text-center hover:border-emerald transition-colors">
                   {thumbnailPreview ? (
                     <div className="relative">
@@ -449,10 +456,10 @@ export default function CoursesPage() {
                           <ImageIcon className="h-6 w-6 text-emerald" />
                         </div>
                         <p className="text-sm text-muted-foreground">
-                          Click to upload thumbnail
+                          Click to upload a cover image
                         </p>
                         <p className="text-xs text-muted-foreground">
-                          PNG, JPG up to 5MB
+                          PNG, JPG up to 5MB · just the course picture
                         </p>
                       </div>
                     </label>

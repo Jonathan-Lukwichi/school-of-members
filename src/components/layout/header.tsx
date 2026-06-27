@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter, usePathname } from 'next/navigation'
-import { LogOut, Menu, User, Settings, Bell, Search, HelpCircle } from 'lucide-react'
+import { LogOut, Menu, User, Settings, Bell, Search, HelpCircle, Eye } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
@@ -24,15 +24,16 @@ export function Header() {
     if (isAdminPortal) {
       const supabase = createClient()
       await supabase.auth.signOut()
+      router.push('/admin/login')
     } else {
-      // Phone+PIN students: clear the som_student_session cookie
+      // Phone+PIN students: clear the som_student_session cookie, then go to the website
       try {
         await fetch('/api/student/logout', { method: 'POST' })
       } catch {
         /* ignore */
       }
+      router.push('/') // back to the public website
     }
-    router.push(isAdminPortal ? '/admin/login' : '/student/login')
     router.refresh()
   }
 
@@ -67,8 +68,21 @@ export function Header() {
       </div>
 
       <div className="flex items-center gap-2">
+        {/* Student Portal preview (admins only) */}
+        {isAdminPortal && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => router.push('/student')}
+            className="gap-2 border-emerald/30 text-foreground hover:bg-emerald/5"
+          >
+            <Eye className="h-4 w-4 text-emerald" />
+            <span className="hidden sm:inline">Student Portal</span>
+          </Button>
+        )}
+
         {/* Help */}
-        <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-emerald hover:bg-mint">
+        <Button variant="ghost" size="icon" className="hidden md:inline-flex text-muted-foreground hover:text-emerald hover:bg-mint">
           <HelpCircle className="h-5 w-5" />
         </Button>
 
@@ -76,6 +90,17 @@ export function Header() {
         <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-emerald hover:bg-mint relative">
           <Bell className="h-5 w-5" />
           <span className="absolute top-2 right-2 w-2 h-2 bg-emerald rounded-full" />
+        </Button>
+
+        {/* Logout (always visible) */}
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleSignOut}
+          className="gap-2 text-red-600 hover:bg-red-50 hover:text-red-700"
+        >
+          <LogOut className="h-4 w-4" />
+          <span className="hidden sm:inline">Logout</span>
         </Button>
 
         {/* Divider */}
