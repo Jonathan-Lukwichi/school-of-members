@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { ArrowLeft, BookOpen, FileText, Eye, Download, Loader2 } from 'lucide-react'
+import { ArrowLeft, BookOpen, Eye, Download, Loader2, Languages } from 'lucide-react'
 import { toast } from 'sonner'
 
 interface Module {
@@ -12,6 +12,7 @@ interface Module {
   title: string
   description: string | null
   order_index: number
+  language: 'en' | 'fr'
   file_name: string | null
 }
 interface Course {
@@ -25,15 +26,23 @@ export default function StudentCourseDetailPage() {
   const params = useParams()
   const courseId = params?.id as string
   const [course, setCourse] = useState<Course | null>(null)
+  const [lang, setLang] = useState<'en' | 'fr'>('en')
   const [loading, setLoading] = useState(true)
   const [busyId, setBusyId] = useState<string | null>(null)
 
   useEffect(() => {
     ;(async () => {
       try {
-        const res = await fetch('/api/student/courses')
-        if (res.ok) {
-          const data = await res.json()
+        const [meRes, coursesRes] = await Promise.all([
+          fetch('/api/student/me'),
+          fetch('/api/student/courses'),
+        ])
+        if (meRes.ok) {
+          const me = await meRes.json()
+          if (me.student?.preferred_language === 'fr') setLang('fr')
+        }
+        if (coursesRes.ok) {
+          const data = await coursesRes.json()
           const found = (data.courses || []).find((c: Course) => c.id === courseId) || null
           setCourse(found)
         }
@@ -42,6 +51,27 @@ export default function StudentCourseDetailPage() {
       }
     })()
   }, [courseId])
+
+  // Which languages actually have chapters in this course
+  const available = useMemo(() => {
+    const set = new Set((course?.modules || []).map((m) => m.language))
+    return { en: set.has('en'), fr: set.has('fr') }
+  }, [course])
+
+  // If the preferred language has no chapters, fall back to the one that does
+  useEffect(() => {
+    if (!course) return
+    if (lang === 'en' && !available.en && available.fr) setLang('fr')
+    if (lang === 'fr' && !available.fr && available.en) setLang('en')
+  }, [course, available, lang])
+
+  const modules = useMemo(
+    () =>
+      [...(course?.modules || [])]
+        .filter((m) => m.language === lang)
+        .sort((a, b) => a.order_index - b.order_index),
+    [course, lang]
+  )
 
   const openFile = async (moduleId: string, download: boolean) => {
     setBusyId(moduleId)
@@ -87,7 +117,7 @@ export default function StudentCourseDetailPage() {
     )
   }
 
-  const modules = [...(course.modules || [])].sort((a, b) => a.order_index - b.order_index)
+  const bothLanguages = available.en && available.fr
 
   return (
     <div className="space-y-6">
@@ -104,10 +134,32 @@ export default function StudentCourseDetailPage() {
         <p className="mt-3 text-sm text-white/60">{modules.length} chapters</p>
       </div>
 
+      {/* Language switch (only when both versions exist) */}
+      {bothLanguages && (
+        <div className="flex items-center gap-2">
+          <span className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
+            <Languages className="h-4 w-4 text-emerald" /> Version:
+          </span>
+          <div className="inline-flex rounded-lg border border-border bg-card p-1">
+            {(['en', 'fr'] as const).map((l) => (
+              <button
+                key={l}
+                onClick={() => setLang(l)}
+                className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+                  lang === l ? 'bg-emerald text-ink' : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                {l === 'en' ? 'English' : 'Français'}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="space-y-3">
         {modules.length === 0 ? (
           <div className="rounded-2xl border border-border bg-card p-10 text-center text-muted-foreground shadow-premium">
-            No chapters have been added to this course yet.
+            No chapters in this version yet.
           </div>
         ) : (
           modules.map((m, i) => (

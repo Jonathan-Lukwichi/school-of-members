@@ -35,6 +35,7 @@ interface Module {
   file_name: string | null
   file_size: number | null
   order_index: number
+  language?: 'en' | 'fr'
   created_at: string
 }
 
@@ -131,6 +132,11 @@ export function ModuleCard({
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
               <h3 className="font-display font-semibold truncate text-foreground">{module.title}</h3>
+              {module.language && (
+                <Badge variant="outline" className="border-emerald/40 bg-mint text-emerald-deep">
+                  {module.language === 'fr' ? 'Français' : 'English'}
+                </Badge>
+              )}
               {isCompleted && (
                 <Badge variant="outline" className="text-emerald-deep border-emerald/40 bg-mint">
                   <CheckCircle className="h-3 w-3 mr-1" />
