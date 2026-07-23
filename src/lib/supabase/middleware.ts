@@ -7,7 +7,8 @@ const STUDENT_JWT_SECRET = new TextEncoder().encode(
   process.env.STUDENT_JWT_SECRET || 'your-student-jwt-secret-key-min-32-chars'
 )
 
-// Edge-safe check for a valid phone+PIN student session (som_student_session JWT)
+// Edge-safe check for a valid phone+PIN student session (som_student_session JWT).
+// Purely local (no network) — just verifies the JWT signature.
 async function hasValidStudentSession(request: NextRequest): Promise<boolean> {
   const token = request.cookies.get('som_student_session')?.value
   if (!token) return false
@@ -19,10 +20,38 @@ async function hasValidStudentSession(request: NextRequest): Promise<boolean> {
   }
 }
 
+// Never let a slow Supabase call hang the Edge middleware (avoids 504
+// MIDDLEWARE_INVOCATION_TIMEOUT). Resolves to null if it takes too long.
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T | null> {
+  return Promise.race([
+    promise,
+    new Promise<null>((resolve) => setTimeout(() => resolve(null), ms)),
+  ])
+}
+
 export async function updateSession(request: NextRequest) {
-  let supabaseResponse = NextResponse.next({
-    request,
-  })
+  const pathname = request.nextUrl.pathname.replace(/\/$/, '') // strip trailing slash
+
+  const isAdminRoute = pathname.startsWith('/admin') && pathname !== '/admin/login'
+  const isStudentRoute = pathname.startsWith('/student')
+  const isPublicStudentPage = pathname === '/student/register' || pathname === '/student/login'
+  const isStudentProtected = isStudentRoute && !isPublicStudentPage
+
+  // Fast path: a valid student JWT gets straight into student pages — no network.
+  if (isStudentProtected && (await hasValidStudentSession(request))) {
+    return NextResponse.next({ request })
+  }
+
+  // Everything else that doesn't need the Supabase (admin) session — the public
+  // site, /login, /student/login, /student/register, all /api/* — passes through
+  // untouched. This keeps the Supabase auth call off the hot path.
+  if (!isAdminRoute && !isStudentProtected) {
+    return NextResponse.next({ request })
+  }
+
+  // --- Only admin routes (and student-protected routes being previewed by an
+  // admin) reach here and validate the Supabase session. ---
+  let supabaseResponse = NextResponse.next({ request })
 
   const supabase = createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -33,12 +62,8 @@ export async function updateSession(request: NextRequest) {
           return request.cookies.getAll()
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value)
-          )
-          supabaseResponse = NextResponse.next({
-            request,
-          })
+          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
+          supabaseResponse = NextResponse.next({ request })
           cookiesToSet.forEach(({ name, value, options }) =>
             supabaseResponse.cookies.set(name, value, options)
           )
@@ -47,71 +72,32 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  // IMPORTANT: Avoid writing any logic between createServerClient and
-  // supabase.auth.getUser(). A simple mistake could make it very hard to debug
-  // issues with users being randomly logged out.
+  const result = await withTimeout(supabase.auth.getUser(), 8000)
+  const user = result?.data?.user ?? null
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  // Protected routes
-  // Handle both with and without trailing slashes
-  const pathname = request.nextUrl.pathname.replace(/\/$/, '') // Remove trailing slash
-
-  // Auth pages (login/register) - these don't require authentication
-  const isAuthPage = pathname === '/login' ||
-                     pathname === '/register' ||
-                     pathname === '/admin/login' ||
-                     pathname === '/student/login' ||
-                     pathname === '/student/register'
-
-  // Route type detection
-  const isAdminRoute = pathname.startsWith('/admin') && pathname !== '/admin/login'
-  const isStudentRoute = pathname.startsWith('/student')
-
-  // Public student pages that don't require authentication
-  const isPublicStudentPage = pathname === '/student/register' ||
-                              pathname === '/student/login'
-
-  // Admin/teacher routes require a Supabase session; student routes accept the
-  // phone+PIN student JWT (som_student_session) OR a Supabase session.
   if (isAdminRoute && !user) {
     const url = request.nextUrl.clone()
     url.pathname = '/admin/login'
     return NextResponse.redirect(url)
   }
 
-  if (isStudentRoute && !isPublicStudentPage) {
-    const studentLoggedIn = await hasValidStudentSession(request)
-    if (!user && !studentLoggedIn) {
-      const url = request.nextUrl.clone()
-      url.pathname = '/student/login'
-      return NextResponse.redirect(url)
-    }
+  if (isStudentProtected && !user) {
+    // No student JWT and no admin session → send to student login
+    const url = request.nextUrl.clone()
+    url.pathname = '/student/login'
+    return NextResponse.redirect(url)
   }
 
-  // Allow access to auth pages (login/register) even when logged in
-  // The login form will handle signing out and redirecting after new login
-  // This allows users to switch accounts
-
-  // Check role-based access
+  // Role gate for admin routes (admins + teachers allowed)
   if (user && isAdminRoute) {
-    // First check user_metadata, then fallback to profiles table
     let role = user.user_metadata?.role
-
     if (!role || role !== 'admin') {
-      // Query profiles table for role
-      const { data: profile } = await (supabase
-        .from('profiles') as any)
+      const { data: profile } = await (supabase.from('profiles') as any)
         .select('role')
         .eq('id', user.id)
         .single()
-
       role = (profile as any)?.role || role
     }
-
-    // Allow both admin and teacher roles to access admin routes
     if (role !== 'admin' && role !== 'teacher') {
       const url = request.nextUrl.clone()
       url.pathname = '/student'
